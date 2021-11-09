@@ -31,9 +31,11 @@ ALLOWED_HOSTS = ['*',]
 # Application definition
 
 INSTALLED_APPS = [
-    'material',
-    'material.admin',
-
+ #   'material',
+ #   'material.admin',
+ #  'bootstrap_admin',
+    'grappelli',
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -44,6 +46,8 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'rest_framework',
     'rest_framework.authtoken',
+    'import_export',
+    
     #Buitin apps
     'accounts',
     'candidate',
@@ -65,7 +69,7 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -129,10 +133,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 
 
 AUTH_USER_MODEL = 'accounts.User'
@@ -160,3 +168,6 @@ MATERIAL_ADMIN_SITE = {
     }
 }
 
+GRAPPELLI_ADMIN_TITLE = 'Erecruit system'
+#GRAPPELLI_SWITCH_USER = True
+GRAPPELLI_SWITCH_USER_ORIGINAL = True

@@ -8,6 +8,17 @@ from accounts.models import User
 
 User = settings.AUTH_USER_MODEL
 
+class subscription_plan(models.Model):
+    id = models.AutoField(primary_key=True)
+    plan = models.CharField(max_length=200)
+    number_of_records = models.IntegerField()
+
+    def __str__(self):
+        return self.plan
+
+    def __unicode__(self):
+        return self.plan
+
 class vendor(models.Model):
     id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -16,6 +27,11 @@ class vendor(models.Model):
     address = models.CharField(max_length=500)
     city = models.CharField(max_length=500)
     country = CountryField(blank_label='(select country)')
+    is_subscribed = models.BooleanField(default=False)
+    plan = models.ForeignKey('subscription_plan',on_delete=models.CASCADE,blank=True, null=True)
+    subscription_from = models.DateField()
+    subscription_to = models.DateField()
+    remaining_records = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(User, related_name='%(class)s_createdby', on_delete=models.CASCADE,blank=True, null=True)

@@ -1,0 +1,75 @@
+{% include "header.html" %}
+{% block content %}
+{% load static %}
+
+  <div class="header">
+  <div class="filtered">
+    <div class="content">
+        <br>
+        <br>
+        {% if remcand > 0 %}
+        <div class="row justify-content-md-center">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <strong>Candidate information</strong>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <p class="info-content">Photo:</p>
+                                <p class="info-content">Full Name:</p>
+                                <p class="info-content">Birth Of Date:</p>
+                                <p class="info-content">Phone Number:</p>
+                                <p class="info-content">Address:</p>
+                                <p class="info-content">City:</p>
+                                <p class="info-content">Country:</p>
+                                <p class="info-content">Position:</p>
+                                <p class="info-content">Salary Desired:</p>
+                                <p class="info-content">have he worked before:</p>
+                                <p class="info-content">University:</p>
+                                <p class="info-content">Specility:</p>
+                                <p class="info-content">Graduation Year:</p>
+                                <p class="info-content">Skills:</p>
+                                <p class="info-content">Qualifications:</p>
+                                <p class="info-content">CV:</p>
+                            </div>
+                            <div class="col-6">
+                                <p ><img src={{ object.photo }}/></p>
+                                <p >{{ object.firtname }} {{ object.secondname }} {{ object.lastname }}</p>
+                                <p >{{ object.birthofdate }}</p>
+                                <p >{{ object.phone_number }}</p>
+                                <p >{{ object.address }}</p>
+                                <p >{{ object.city }}</p>
+                                <p >{{ object.country }}</p>
+                                <p >{{ object.position }}</p>
+                                <p >{{ object.salary_desired }}</p>
+                                <p >{{ object.have_you_worked_here_before }}</p>
+                                <p >{{ object.university }}</p>
+                                <p >{{ object.specility }}</p>
+                                <p >{{ object.graduation_year }}</p>
+                                <p >{{ object.skills }}</p>
+                                <p >{{ object.qualifications }}</p>
+                                <p ><a href="{{ object.cv }}">CV url</a></p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% else %}
+<h3 class="text-white text-center"> You don't have remaining views </h3>
+{% endif %}
+    </div>
+    </div>
+
+    <script type="text/javascript">
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+</script>
+{% endblock %}
+
+{% include "footer.html" %}
