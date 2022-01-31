@@ -1,15 +1,20 @@
+{% load countries %}
 {% include "header.html" %}
 {% block content %}
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/dataTables.bootstrap5.min.css' %}" />
-<link rel="stylesheet" type="text/css" href="{% static 'css/datatables.min.css' %}" />
-<link rel="stylesheet" type="text/css" href="{% static 'css/responsive.dataTables.min.css' %}" />
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css" />
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.1.1/css/buttons.bootstrap5.min.css" />
+<link rel="stylesheet" type="text/css"
+  href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap5.min.css" />
 <!-- filter options -->
-  <div class="header">
+<div class="header">
   <div class="filtered">
-  <div class="row justify-content-center">
-  <h3 class="{% if remcand >= 1 %} text-white {% else %} text-danger {% endif %}">Your remaining Views "{{remcand}}"</h3>
-  </div>
+    <div class="row justify-content-center">
+      <h3 class="{% if remcand >= 1 %} text-white {% else %} text-danger {% endif %} text-center">Your remaining
+        candidate details
+        views "{{remcand}}"
+      </h3>
+    </div>
     <form method="GET">
       <div class="row m-3">
         <div class="col-md">
@@ -25,36 +30,19 @@
         </div>
         <div class="col-md">
           <div class="form-floating">
-            <input class="form-control" placeholder="id" type="number" min=0 max=10000000 id="salary_desired" name="salary_desired" aria-label="cmid">
-            <label for="id" class="form-label">Salary Desired</label>
-          </div>
-        </div>
-        <div class="col-md">
-          <div class="form-floating">
-            <select class="form-control" placeholder="university" id="university" name="university" aria-label="university">
-              <option value='0'>All</option>
-              {% for universities in university %}
-              <option value={{universities}}>{{universities}}</option>
+            {% get_countries as countries %}
+            <select class="form-control" placeholder="select country" id="country" name="country">
+              {% for country in countries %}
+              <option value="{{ country.code }}">{{ country.name }}</option>
               {% endfor %}
             </select>
-            <label for="university" class="form-label">university</label>
+            <label for="id" class="form-label">Country</label>
           </div>
         </div>
         <div class="col-md">
           <div class="form-floating">
-            <input class="form-control" placeholder="skills" type="text"  id="skills" name="skills" aria-label="skills">
+            <input class="form-control" placeholder="skills" type="text" id="skills" name="skills" aria-label="skills">
             <label for="skills" class="form-label">skills</label>
-          </div>
-        </div>
-        <div class="col-md">
-          <div class="form-floating">
-            <select class="form-control" placeholder="graduation_year" id="graduation_year" name="graduation_year" aria-label="graduation_year">
-              <option value='0'>All</option>
-              {% for graduation_years in graduation_year %}
-              <option value={{graduation_years}}>{{graduation_years}}</option>
-              {% endfor %}
-            </select>
-            <label for="graduation_year" class="form-label ">graduation year</label>
           </div>
         </div>
       </div>
@@ -68,99 +56,103 @@
       </div>
     </form>
   </div>
-<div class="table-responsive" style="padding: 20px;">
-  <table id="cand_list" class="table table-bordered table-hover cell-border collapsed responsive nowrap">
-    <thead class="bg-dark text-white">
-      <tr>
-        <th>Full name</th>
-        <th>Salary Desired</th>
-        <th>University</th>
-        <th>Graduation Year</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for cands in page_obj %}
-      {% if user.is_superuser %}
-      <tr class="bg-white">
-        <td>{{ cands.firstname }} {{ cands.secondname }} {{ cands.lastname }}</td>
-        <td>{{ cands.salary_desired }}</td>
-        <td>{{ cands.university }}</td>
-        <td>{{ cands.graduation_year }}</td>
-        <td><a class="btn btn-primary" target="_blank" href="{% if remcand >= 1 %}{% url 'candetials' cands.id %}{% endif %}">View Full Details</a> </td>
-      </tr>
-      {% else %}
-      {% if cm.requester == user %}
-      <tr class="bg-white">
-        <td>{{ cands.firstname }} {{ cands.secondname }} {{ cands.lastname }}</td>
-        <td>{{ cands.salary_desired }}</td>
-        <td>{{ cands.university }}</td>
-        <td>{{ cands.graduation_year }}</td>
-        <td><a class="btn btn-primary" target="_blank" href="{% if remcand >= 1 %}{% url 'candetials' cands.id %}{% endif %}">View Full Details</a></td>
-      </tr>
-      {% endif %}
-      {% endif %}
-      {% endfor %}
-    </tbody>
-  </table>
-  <nav aria-label="Page navigation">
-    <ul class="pagination">
-      <li class="page-item {% if not page_obj.has_previous %}disabled{%endif%}">
-        <a class="page-link" {% if page_obj.has_previous %} href="?page={{ page_obj.previous_page_number }}" {% endif %}
-          aria-label="Previous">
-          Previous
-        </a>
-      </li>
-      {% for page in page_obj.paginator.page_range %} {% if page == page_obj.number %}
-      <li class="page-item active"><a class="page-link" href="#">{{ page }}</a></li>
-      {% else %}
-      <li class="page-item"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
-      {% endif %} {% endfor %}
-      <li class="page-item {% if not page_obj.has_next %}disabled{%endif%}">
-        <a class="page-link" {% if page_obj.has_next %}href="?page={{ page_obj.next_page_number }}" {% endif %}
-          aria-label="Next">
-          Next
-        </a>
-      </li>
-    </ul>
-  </nav>
+  <div class="table-responsive" style="padding: 20px;">
+    <table id="cand_list" class="table table-bordered table-hover cell-border collapsed responsive nowrap">
+      <thead class="bg-dark text-white">
+        <tr>
+          <th>Full name</th>
+          <th>Birth of date</th>
+          <th>Highest level of education</th>
+          <th>country</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for cands in page_obj %}
+        {% if user.is_superuser %}
+        <tr class="bg-white">
+          <td>{{ cands.get_title_display }} {{ cands.firstname }} {{ cands.secondname }} {{ cands.lastname }}</td>
+          <td>{{ cands.birthofdate|date:"d/m/Y" }}</td>
+          <td>{{cands.get_highest_level_of_education_display}}</td>
+          <td>{{cands.get_country_display}}</td>
+          <td><a class="btn btn-primary" target="_blank"
+              href="{% if remcand >= 1 %}{% url 'candetials' cands.id %}{% endif %}">View Full Details</a> </td>
+        </tr>
+        {% else %}
+        {% if cm.requester == user %}
+        <tr class="bg-white">
+          <td>{{ cands.title }} {{ cands.firstname }} {{ cands.secondname }} {{ cands.lastname }}</td>
+          <td>{{ cands.birthofdate }}</td>
+          <td><a class="btn btn-primary" target="_blank"
+              href="{% if remcand >= 1 %}{% url 'candetials' cands.id %}{% endif %}">View Full Details</a></td>
+        </tr>
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+    <nav aria-label="Page navigation">
+      <ul class="pagination">
+        <li class="page-item {% if not page_obj.has_previous %}disabled{%endif%}">
+          <a class="page-link" {% if page_obj.has_previous %} href="?page={{ page_obj.previous_page_number }}"
+            {% endif %} aria-label="Previous">
+            Previous
+          </a>
+        </li>
+        {% for page in page_obj.paginator.page_range %} {% if page == page_obj.number %}
+        <li class="page-item active"><a class="page-link" href="#">{{ page }}</a></li>
+        {% else %}
+        <li class="page-item"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
+        {% endif %} {% endfor %}
+        <li class="page-item {% if not page_obj.has_next %}disabled{%endif%}">
+          <a class="page-link" {% if page_obj.has_next %}href="?page={{ page_obj.next_page_number }}" {% endif %}
+            aria-label="Next">
+            Next
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
 </div>
-</div>
-<script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/datatables.min.js' %}"></script>
-<script src="{% static 'js/dataTables.bootstrap5.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/buttons.bootstrap4.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/dataTables.responsive.min.js' %}">
-</script>
+{{session}}
+
+
+
+
+
 <script type="text/javascript">
-  
-  $(document).ready(function () {
-      const table = $('#cand_list').DataTable({
-          dom: 'Brti',
-          buttons: ['copy', 'excel', 'csv', 'print'],
-          responsive: !0,
-          fixedHeader: !0,
-          stateSave: !0,
-          colReorder: !0,
-          scrollY: 600,
-          deferRender: !0,
-          scroller: !0,
-          scrollCollapse: !0,
-          paging: false,
-      });
-  });
-</script>
-<script>
-  $(document).ready(function () {
-    document.getElementById('cm').classList.add('active');
-      srchval = {{session}};
-    $("#salary_desired").val(srchval[0]).change();
-    $("#university").val(srchval[1]).change();
-    $("#skills").val(srchval[2]).change();
-    $("#graduation_year").val(srchval[3]).change();
-    $("#number_of_records").val(srchval[4]).change();
-  });
+  var srchval = JSON.parse('{{ session | escapejs }}');
+  window.addEventListener('load', function () {
+    // document.getElementById('cm').classList.add('active');
+    document.getElementById('country').value = srchval[0];
+    document.getElementById('number_of_records').value = srchval[2];
+  })
 </script>
 {% endblock %}
 
 {% include "footer.html" %}
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.1.1/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.1.1/js/buttons.bootstrap5.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js">
+</script>
+<script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap5.js"></script>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    const table = $('#cand_list').DataTable({
+      dom: 'Brti',
+      buttons: ['copy', 'excel', 'csv', 'print'],
+      responsive: !0,
+      fixedHeader: !0,
+      stateSave: !0,
+      colReorder: !0,
+      scrollY: 600,
+      deferRender: !0,
+      scroller: !0,
+      scrollCollapse: !0,
+      paging: false,
+    });
+  });
+</script>

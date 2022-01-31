@@ -1,17 +1,34 @@
 from django.contrib import admin
-from django.contrib.admin import ModelAdmin,register
+from django.contrib.admin import ModelAdmin, register
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
-from .models import candidate
+from .models import candidate, education, employment
 # Register your models here.
+
 
 class VendorResource(resources.ModelResource):
     class Meta:
-        model : candidate
-        fields  = ('firtname','secondname','lastname','photo','cv','birthofdate','phone_number','address','city','country','position','salary_desired','have_you_worked_here_before','have_you_applied_here_before','university','specility','skills','qualifications')
+        model: candidate
+        fields = ('firstname', 'secondname', 'lastname', 'email', 'cv',
+                  'birthofdate', 'phone_number', 'address1', 'city', 'country')
 
 
 @register(candidate)
 class CandidateAdmin(ImportExportModelAdmin):
-    list_display = ('firtname','secondname','lastname','photo','cv','birthofdate','phone_number','address','city','country','position','salary_desired','have_you_worked_here_before','have_you_applied_here_before','university','specility','skills','qualifications')
+    list_display = ('firstname', 'secondname', 'lastname', 'email', 'user', 'photo', 'cv',
+                    'birthofdate', 'phone_number', 'address1', 'city', 'country', 'bio')
+    icon_name = 'assignment_ind'
+
+
+@register(education)
+class EducationAdmin(ImportExportModelAdmin):
+    list_display = ('id', 'education_level', 'country', 'city', 'institution',
+                    'original_title_of_the_qualification', 'main_subject', 'start_date', 'graduation_date')
+    icon_name = 'assignment_ind'
+
+
+@register(employment)
+class EmploymentAdmin(ImportExportModelAdmin):
+    list_display = ('id', 'employer', 'country', 'city', 'current_job',
+                    'start_date', 'end_date', 'job_title', 'reason_for_leaving')
     icon_name = 'assignment_ind'

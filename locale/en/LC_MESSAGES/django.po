@@ -1,0 +1,429 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-01-31 01:19+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\core\settings.py:139
+msgid "English"
+msgstr ""
+
+#: .\core\settings.py:140
+msgid "Arabic"
+msgstr ""
+
+#: .\templates\about.html:19 .\templates\base.html:81
+msgid "About"
+msgstr ""
+
+#: .\templates\about.html:35
+msgid "How we can help you"
+msgstr ""
+
+#: .\templates\about.html:36
+msgid ""
+"We understand that it can be time consuming and expensive to find highly "
+"skilled staff in Iraq. Learn how we can assist you with your employment "
+"requirements."
+msgstr ""
+
+#: .\templates\about.html:38
+msgid "Who we are"
+msgstr ""
+
+#: .\templates\about.html:39
+msgid ""
+"EmployIQ is a professional Human Resources recruiter in Iraq that have come "
+"together to assist YOU with a simplified and cost-effective recruitment "
+"process.  We connect numerous number of people to new opportunities every "
+"single day, through our job portal by putting job seekers first and offering "
+"free resume building and company research."
+msgstr ""
+
+#: .\templates\about.html:41
+msgid ""
+"Since our early beginnings as a local start-up, our main purpose has been to "
+"give back to our community by helping bridge the unemployment gap. Through "
+"our extensive database that includes various sectors of education, talents, "
+"and backgrounds – we connect top candidates to companies seeking exceptional "
+"talent to join their team. At the same time, we offer excellent services to "
+"those looking to develop their resumes, and give them the best opportunity "
+"at securing their dream job."
+msgstr ""
+
+#: .\templates\about.html:43
+msgid "What we do"
+msgstr ""
+
+#: .\templates\about.html:44
+msgid ""
+"We at EmployIQ, a fully integrated recruitment website with jobs and well-"
+"known local affiliates, recognize how difficult the job search may be. As a "
+"result, we provide job seekers with a free service to help them build "
+"exceptional CVs to make the application process seamless and easy. Once a "
+"resume building is finalized, it will immediately be sent to our database, "
+"which presents businesses with an automated pool of candidates best suited "
+"for their needs. Employers can benefit from our services because it expands "
+"their scope of experienced candidates, who might not have been discovered "
+"otherwise!"
+msgstr ""
+
+#: .\templates\about.html:46
+msgid ""
+"Employers can advertise the position they’re looking to fill for up to 30 "
+"days, bringing in a wide pool of candidates to choose from. Our intuitive "
+"Advanced Search option also helps you shorten the selection process, by "
+"narrowing your search to our top tier applicants in Iraq who meet your exact "
+"requirements. EmployIQ gives you access to an endless number of job "
+"opportunities, and our database serves as an outstanding resource for all "
+"Iraqi HR professionals. It is our personal mission to make finding a new job "
+"a simple, efficient experience, for both the company and the individual "
+"alike. "
+msgstr ""
+
+#: .\templates\account\login.html:15
+msgid "Login to Employiq system"
+msgstr ""
+
+#: .\templates\account\login.html:22
+#: .\templates\candidate\my_candidate_details.html:139
+msgid "Email"
+msgstr ""
+
+#: .\templates\account\login.html:28
+msgid "Password"
+msgstr ""
+
+#: .\templates\account\login.html:43 .\templates\base.html:120
+msgid "Login"
+msgstr ""
+
+#: .\templates\account\login.html:44
+msgid "Change Password"
+msgstr ""
+
+#: .\templates\admin\base_site.html:7 .\templates\admin\login.html:7
+msgid "Django administration"
+msgstr ""
+
+#: .\templates\base.html:77
+msgid "Home"
+msgstr ""
+
+#: .\templates\base.html:88
+msgid "For Candidates"
+msgstr ""
+
+#: .\templates\base.html:92 .\templates\base.html:102
+msgid "Profile"
+msgstr ""
+
+#: .\templates\base.html:99
+msgid "for employers"
+msgstr ""
+
+#: .\templates\base.html:103
+msgid "Find a candidate"
+msgstr ""
+
+#: .\templates\base.html:116 .\templates\header.html:103
+msgid "LOGOUT"
+msgstr ""
+
+#: .\templates\base.html:1199
+msgid "Copyright &copy; Employiq. All Rights Reserved"
+msgstr ""
+
+#: .\templates\candidate\my_candidate_details.html:91
+msgid "Candidate information"
+msgstr ""
+
+#: .\templates\candidate\my_candidate_details.html:103
+msgid "Personal information"
+msgstr ""
+
+#: .\templates\candidate\my_candidate_details.html:113
+msgid "Title"
+msgstr ""
+
+#: .\templates\candidate\my_candidate_details.html:121
+msgid "First Name"
+msgstr ""
+
+#: .\templates\candidate\my_candidate_details.html:129
+msgid "Second Name"
+msgstr ""
+
+#: .\templates\candidate\my_candidate_details.html:147
+msgid "Phone"
+msgstr ""
+
+#: .\templates\candidate\my_candidate_details.html:155
+msgid "Gender"
+msgstr ""
+
+#: .\templates\candidate\my_candidate_details.html:166
+msgid "Date of birth"
+msgstr ""
+
+#: .\templates\candidate\my_candidate_details.html:176
+msgid "Country of birth"
+msgstr ""
+
+#: .\templates\candidate\my_candidate_details.html:185
+msgid "Place of birth"
+msgstr ""
+
+#: .\templates\candidate\my_candidate_details.html:196
+msgid "Primary nationality"
+msgstr ""
+
+#: .\templates\candidate\my_candidate_details.html:206
+msgid "Secondary nationality"
+msgstr ""
+
+#: .\templates\candidate\my_candidate_details.html:216
+msgid "Highest level of education"
+msgstr ""
+
+#: .\templates\candidate\my_candidate_details.html:234
+msgid "Contact information"
+msgstr ""
+
+#: .\templates\candidate\my_candidate_details.html:242
+msgid "Contact phone"
+msgstr ""
+
+#: .\templates\candidate\my_candidate_details.html:250
+msgid "Type"
+msgstr ""
+
+#: .\templates\candidate\my_candidate_details.html:259
+msgid "Alternate email address"
+msgstr ""
+
+#: .\templates\candidate\my_candidate_details.html:275
+msgid "Permanent Address"
+msgstr ""
+
+#: .\templates\candidate\my_candidate_details.html:283
+msgid "Address (line 1)"
+msgstr ""
+
+#: .\templates\candidate\my_candidate_details.html:291
+msgid "Address (line 2)"
+msgstr ""
+
+#: .\templates\candidate\my_candidate_details.html:299
+#: .\templates\candidate\my_candidate_details.html:366
+#: .\templates\candidate\my_candidate_details.html:484
+msgid "City"
+msgstr ""
+
+#: .\templates\candidate\my_candidate_details.html:309
+msgid "Postal Code"
+msgstr ""
+
+#: .\templates\candidate\my_candidate_details.html:317
+#: .\templates\candidate\my_candidate_details.html:358
+#: .\templates\candidate\my_candidate_details.html:476
+msgid "Country"
+msgstr ""
+
+#: .\templates\candidate\my_candidate_details.html:333
+#: .\templates\index.html:28 .\templates\index.html:30
+msgid "Education"
+msgstr ""
+
+#: .\templates\candidate\my_candidate_details.html:344
+msgid "The candidate not added educations records"
+msgstr ""
+
+#: .\templates\candidate\my_candidate_details.html:350
+msgid "Education level"
+msgstr ""
+
+#: .\templates\candidate\my_candidate_details.html:376
+msgid "Institution"
+msgstr ""
+
+#: .\templates\candidate\my_candidate_details.html:385
+msgid "Original Title of the Qualification"
+msgstr ""
+
+#: .\templates\candidate\my_candidate_details.html:394
+msgid "Main subject"
+msgstr ""
+
+#: .\templates\candidate\my_candidate_details.html:404
+msgid "Start Date"
+msgstr ""
+
+#: .\templates\candidate\my_candidate_details.html:412
+msgid "Graduation Date"
+msgstr ""
+
+#: .\templates\candidate\my_candidate_details.html:423
+#: .\templates\candidate\my_candidate_details.html:539
+msgid "Edit"
+msgstr ""
+
+#: .\templates\candidate\my_candidate_details.html:427
+#: .\templates\candidate\my_candidate_details.html:543
+msgid "Delete"
+msgstr ""
+
+#: .\templates\candidate\my_candidate_details.html:437
+msgid "Add New Education"
+msgstr ""
+
+#: .\templates\candidate\my_candidate_details.html:450
+msgid "Employments"
+msgstr ""
+
+#: .\templates\candidate\my_candidate_details.html:462
+msgid "The candidate not added employments records"
+msgstr ""
+
+#: .\templates\candidate\my_candidate_details.html:468
+msgid "Employer"
+msgstr ""
+
+#: .\templates\candidate\my_candidate_details.html:494
+msgid "Current job"
+msgstr ""
+
+#: .\templates\candidate\my_candidate_details.html:502
+msgid "Start date"
+msgstr ""
+
+#: .\templates\candidate\my_candidate_details.html:510
+msgid "End date"
+msgstr ""
+
+#: .\templates\candidate\my_candidate_details.html:520
+msgid "Job title"
+msgstr ""
+
+#: .\templates\candidate\my_candidate_details.html:528
+msgid "Reason for leaving"
+msgstr ""
+
+#: .\templates\candidate\my_candidate_details.html:554
+msgid "Add New Employment"
+msgstr ""
+
+#: .\templates\header.html:29
+msgid "Emplyiq - HR Recruiting"
+msgstr ""
+
+#: .\templates\header.html:76
+msgid "HOME"
+msgstr ""
+
+#: .\templates\header.html:87
+msgid "PRICING"
+msgstr ""
+
+#: .\templates\header.html:92
+msgid "CANDIDATES"
+msgstr ""
+
+#: .\templates\header.html:96
+msgid "CANDIDATES LIST"
+msgstr ""
+
+#: .\templates\header.html:100
+msgid "MY PROFILE"
+msgstr ""
+
+#: .\templates\header.html:106
+msgid "LOGIN"
+msgstr ""
+
+#: .\templates\header.html:130
+msgid "CONTACT"
+msgstr ""
+
+#: .\templates\header.html:136
+msgid "Language"
+msgstr ""
+
+#: .\templates\index.html:15
+msgid "search for candidates now"
+msgstr ""
+
+#: .\templates\index.html:22 .\templates\index.html:23
+msgid "Keywords"
+msgstr ""
+
+#: .\templates\index.html:31
+msgid "Non-Degree Programme"
+msgstr ""
+
+#: .\templates\index.html:32
+msgid "High School diploma"
+msgstr ""
+
+#: .\templates\index.html:33
+msgid "Technical Diploma"
+msgstr ""
+
+#: .\templates\index.html:34
+msgid "Bachelors Degree"
+msgstr ""
+
+#: .\templates\index.html:35
+msgid "Master Degree"
+msgstr ""
+
+#: .\templates\index.html:36
+msgid "PhD Doctorate Degree"
+msgstr ""
+
+#: .\templates\index.html:48
+msgid "Location"
+msgstr ""
+
+#: .\templates\index.html:55
+msgid "Search"
+msgstr ""
+
+#: .\templates\index.html:76
+msgid "pricing table"
+msgstr ""
+
+#: .\templates\index.html:96 .\templates\index.html:132
+#: .\templates\index.html:168
+msgid "month"
+msgstr ""
+
+#: .\templates\index.html:205
+msgid "members"
+msgstr ""
+
+#: .\templates\index.html:211
+msgid "jobs"
+msgstr ""
+
+#: .\templates\index.html:217
+msgid "resumes"
+msgstr ""
+
+#: .\templates\index.html:223
+msgid "companies"
+msgstr ""

@@ -36,10 +36,10 @@ Colors:
 - Backgrounds - light gray: #f8f9fc
 - Backgrounds - dark gray: #2f3b4d
 - Backgrounds, header text, filter buttons, accordion circles, tabs links - gray: #3b485a
-- Buttons - green: #91d343
-- Navbar - dark purple: #914ada
-- Buttons, headings, social icons, tabs links - purple: #b15bfd;
-- Buttons, headings, bullets, small icons - light purple: #c788ff
+- Buttons - green: #737373
+- Navbar - dark purple: #273577
+- Buttons, headings, social icons, tabs links - purple: #273577;
+- Buttons, headings, bullets, small icons - light purple: #273577
 ******************************************/
 
 
@@ -141,19 +141,19 @@ a:hover {
 }
 
 .purple {
-    color: #b15bfd;
+    color: #273577;
 }
 
 .purple-light {
-    color: #c788ff;
+    color: #737373;
 }
 
 .btn-solid-reg {
     display: inline-block;
     padding: 1.25rem 2.25rem 1.25rem 2.25rem;
-    border: 1px solid #91d343;
+    border: 1px solid #737373;
     border-radius: 2rem;
-    background-color: #91d343;
+    background-color: #737373;
     color: #fff;
     font: 700 0.875rem/0 "Montserrat", sans-serif;
     transition: all 0.2s;
@@ -161,15 +161,15 @@ a:hover {
 
 .btn-solid-reg:hover {
     background-color: transparent;
-    color: #91d343;
+    color: #737373;
 }
 
 .btn-solid-lg {
     display: inline-block;
     padding: 1.5rem 2.625rem 1.5rem 2.625rem;
-    border: 1px solid #91d343;
+    border: 1px solid #737373;
     border-radius: 2rem;
-    background-color: #91d343;
+    background-color: #737373;
     color: #fff;
     font: 700 0.875rem/0 "Montserrat", sans-serif;
     transition: all 0.2s;
@@ -177,22 +177,22 @@ a:hover {
 
 .btn-solid-lg:hover {
     background-color: transparent;
-    color: #91d343;
+    color: #737373;
 }
 
 .btn-outline-reg {
     display: inline-block;
     padding: 1.25rem 2.25rem 1.25rem 2.25rem;
-    border: 1px solid #b15bfd;
+    border: 1px solid #273577;
     border-radius: 2rem;
     background-color: transparent;
-    color: #b15bfd;
+    color: #273577;
     font: 700 0.875rem/0 "Montserrat", sans-serif;
     transition: all 0.2s;
 }
 
 .btn-outline-reg:hover {
-    background-color: #b15bfd;
+    background-color: #273577;
     color: #fff;
 }
 
@@ -214,7 +214,7 @@ a:hover {
 
 .btn-read-more {
     display: inline-block;
-    color: #91d343;
+    color: #737373;
     font: 600 0.875rem/1.5rem "Montserrat", sans-serif;
     transition: all 0.2s;
 }
@@ -391,9 +391,9 @@ screen and (-ms-high-contrast: none) {
     display: inline-block;
     width: 100%;
     height: 3rem;
-    border: 1px solid #91d343;
+    border: 1px solid #737373;
     border-radius: 1.5rem;
-    background-color: #91d343;
+    background-color: #737373;
     color: #fff;
     font: 700 0.875rem/1.75rem "Montserrat", sans-serif;
     cursor: pointer;
@@ -402,7 +402,7 @@ screen and (-ms-high-contrast: none) {
 
 .form-control-submit-button:hover {
     background-color: transparent;
-    color: #91d343;
+    color: #737373;
 }
 
 
@@ -718,7 +718,7 @@ screen and (-ms-high-contrast: none) {
 /**************************/
 
 .navbar-custom {
-    background-color: #914ada;
+    background-color: #273577;
     font: 600 0.75rem/2rem "Montserrat", sans-serif;
     transition: all 0.2s;
 }
@@ -848,7 +848,7 @@ screen and (-ms-high-contrast: none) {
 /*********************/
 
 .header {
-    background: linear-gradient(rgba(145, 74, 218, 0), rgba(145, 74, 218, 0)), url('../images/header-background.jpg') center center no-repeat;
+    background: #273577;
     background-size: cover;
 }
 
@@ -878,7 +878,7 @@ screen and (-ms-high-contrast: none) {
 }
 
 .header #js-rotating {
-    color: #a0e94d;
+    color: #737373;
 }
 
 
@@ -898,11 +898,11 @@ screen and (-ms-high-contrast: none) {
 }
 
 .basic-1 .area-1 {
-    background-color: #2f3b4d;
+    background-color: #737373;
 }
 
 .basic-1 .area-2 {
-    background-color: #3b485a;
+    background-color: #737373;
 }
 
 .basic-1 .area-1 .text-container {
@@ -921,7 +921,7 @@ screen and (-ms-high-contrast: none) {
 }
 
 .basic-1 .area-1 .fa-stack-2x {
-    color: #b15bfd;
+    color: #273577;
 }
 
 .basic-1 .area-1 .fa-stack-1x {
@@ -929,7 +929,7 @@ screen and (-ms-high-contrast: none) {
 }
 
 .basic-1 .area-2 .fa-stack-2x {
-    color: #b15bfd;
+    color: #273577;
 }
 
 .basic-1 .area-2 .fa-stack-1x {
@@ -993,7 +993,7 @@ screen and (-ms-high-contrast: none) {
     margin-left: 3px;
     padding: 0.25rem 1.25rem 0.25rem 1.25rem;
     border-radius: 0.125rem;
-    background-color: #b15bfd;
+    background-color: #273577;
     color: #fff;
     font: 600 0.875rem/1.375rem "Montserrat", sans-serif;
     cursor: pointer;
@@ -1001,12 +1001,12 @@ screen and (-ms-high-contrast: none) {
 }
 
 .filter .button-group .button:hover {
-    background-color: #91d343;
+    background-color: #737373;
     color: #fff;
 }
 
 .filter .button-group .button.is-checked {
-    background-color: #91d343;
+    background-color: #737373;
     color: #fff;
 }
 
@@ -1043,7 +1043,7 @@ screen and (-ms-high-contrast: none) {
 
 .filter .element-item .p-small .fa-calendar-alt {
     margin-right: 0.375rem;
-    color: #c788ff;
+    color: #273577;
     vertical-align: 7%;
 }
 
@@ -1086,7 +1086,7 @@ screen and (-ms-high-contrast: none) {
 
 .basic-2 .p-small .fa-calendar-alt {
     margin-right: 0.375rem;
-    color: #c788ff;
+    color: #273577;
     vertical-align: 7%;
 }
 
@@ -1127,7 +1127,7 @@ screen and (-ms-high-contrast: none) {
 }
 
 .form-1 .list-unstyled .fas {
-    color: #c788ff;
+    color: #273577;
     font-size: 0.875rem;
     line-height: 1.5rem;
 }
@@ -1341,9 +1341,9 @@ screen and (-ms-high-contrast: none) {
     width: 2.5rem;
     height: 2.5rem;
     margin-right: 0.875rem;
-    border: 1px solid #b15bfd;
+    border: 1px solid #273577;
     border-radius: 50%;
-    background-color: #b15bfd;
+    background-color: #273577;
     color: #fff;
     font: 600 1rem/2.375rem "Open Sans", sans-serif;
     text-align: center;
@@ -1368,16 +1368,16 @@ screen and (-ms-high-contrast: none) {
 }
 
 .accordion span[aria-expanded="true"] .accordion-title {
-    color: #b15bfd;
+    color: #273577;
 }
 
 .accordion h4:hover .circle-numbering {
-    border: 1px solid #b15bfd;
-    background-color: #b15bfd;
+    border: 1px solid #273577;
+    background-color: #273577;
 }
 
 .accordion h4:hover .accordion-title {
-    color: #b15bfd;
+    color: #273577;
 }
 
 .accordion .accordion-body {
@@ -1409,13 +1409,13 @@ screen and (-ms-high-contrast: none) {
     margin-right: 0.5rem;
     margin-bottom: 0.625rem;
     padding: 0.625rem 1.75rem;
-    background-color: #b15bfd;
+    background-color: #273577;
     color: #fff;
     font: 600 0.875rem/1.375rem "Montserrat", sans-serif;
 }
 
 .tabs .nav-link.active {
-    background-color: #91d343;
+    background-color: #737373;
 }
 
 .tabs #tab-1 .progress-container {
@@ -1433,7 +1433,7 @@ screen and (-ms-high-contrast: none) {
     display: block;
     padding-left: 1.5rem;
     border-radius: 0.125rem;
-    background-color: #b15bfd;
+    background-color: #273577;
     font: 400 0.75rem/1.625rem "Open Sans", sans-serif;
     text-align: left;
 }
@@ -1473,7 +1473,7 @@ screen and (-ms-high-contrast: none) {
 }
 
 .tabs #tab-3 .list-unstyled .fas {
-    color: #c788ff;
+    color: #273577;
     font-size: 0.875rem;
     line-height: 1.5rem;
 }
@@ -1570,7 +1570,7 @@ screen and (-ms-high-contrast: none) {
 
 .cards-2 .card .fa-check {
     margin-right: 0.5rem;
-    color: #c788ff;
+    color: #273577;
     transition: all 0.2s;
 }
 
@@ -1583,18 +1583,18 @@ screen and (-ms-high-contrast: none) {
 
 .cards-2 .card .btn-solid-reg:hover {
     border: 1px solid #fff;
-    background-color: #c788ff;
+    background-color: #273577;
     color: #fff;
 }
 
 .cards-2 .card:hover .btn-solid-reg {
     border: 1px solid #fff;
-    background-color: #c788ff;
+    background-color: #273577;
     color: #fff;
 }
 
 .cards-2 .card:hover {
-    background-color: #c788ff;
+    background-color: #273577;
     color: #fff;
 }
 
@@ -1622,7 +1622,7 @@ screen and (-ms-high-contrast: none) {
 .counter {
     padding-top: 7.5rem;
     padding-bottom: 5.25rem;
-    background: linear-gradient(rgba(78, 3, 139, 0), rgba(78, 3, 139, 0)), url('../images/about-background.jpg') center center no-repeat;
+    background: #273577;
     background-size: cover;
     color: #fff;
 }
@@ -1717,7 +1717,7 @@ screen and (-ms-high-contrast: none) {
 .form-2 .list-unstyled .fab {
     margin-right: 0.375rem;
     font-size: 0.875rem;
-    color: #c788ff;
+    color: #737373;
 }
 
 .form-2 .list-unstyled .fa-phone {
@@ -1741,7 +1741,7 @@ screen and (-ms-high-contrast: none) {
 
 .footer {
     padding-top: 4rem;
-    background-color: #2f3b4d;
+    background-color: #737373;
 }
 
 .footer .footer-col {
@@ -1760,7 +1760,7 @@ screen and (-ms-high-contrast: none) {
 }
 
 .footer .list-unstyled .fas {
-    color: #c788ff;
+    color: #273577;
     font-size: 0.875rem;
     line-height: 1.5rem;
 }
@@ -1785,7 +1785,7 @@ screen and (-ms-high-contrast: none) {
 }
 
 .footer .fa-stack a .fa-stack-2x {
-    color: #b15bfd;
+    color: #273577;
     transition: all 0.2s;
 }
 
@@ -1794,7 +1794,7 @@ screen and (-ms-high-contrast: none) {
 }
 
 .footer .fa-stack a:hover .fa-stack-2x {
-    color: #91d343;
+    color: #737373;
 }
 
 
@@ -1802,7 +1802,6 @@ screen and (-ms-high-contrast: none) {
 
 .footer .copyright {
     padding-bottom: 0.5rem;
-    background-color: #2f3b4d;
     text-align: center;
 }
 
@@ -1824,13 +1823,13 @@ a.back-to-top {
     width: 2.625rem;
     height: 2.625rem;
     border-radius: 1.875rem;
-    background: #b15bfd url("../images/up-arrow.png") no-repeat center 47%;
+    background: #273577 url("../images/up-arrow.png") no-repeat center 47%;
     background-size: 1.125rem 1.125rem;
     text-indent: -9999px;
 }
 
 a:hover.back-to-top {
-    background-color: #91d343;
+    background-color: #737373;
 }
 
 
@@ -1845,7 +1844,7 @@ a:hover.back-to-top {
 .ex-header {
     padding-top: 7rem;
     padding-bottom: 5rem;
-    background-color: #914ada;
+    background-color: #273577;
     color: #fff;
     text-align: center;
 }
@@ -1959,11 +1958,11 @@ a:hover.back-to-top {
     /* Navigation */
     .navbar-custom {
         padding: 2.125rem 1.5rem 2.125rem 1.5rem;
-        background: transparent;
+        background: #A8ADC8;
     }
     .navbar-custom.top-nav-collapse {
         padding: 0.5rem 1.5rem 0.5rem 1.5rem;
-        background-color: #914ada;
+        background-color: #A8ADC8;
     }
     .navbar-custom .navbar-brand.logo-image img {
         width: 5rem;

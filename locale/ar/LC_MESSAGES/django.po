@@ -1,0 +1,487 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-01-31 01:19+0300\n"
+"PO-Revision-Date: 2022-01-31 01:20+0258\n"
+"Last-Translator: Anonymous User <saif7800@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"X-Translated-Using: django-rosetta 0.9.8\n"
+
+#: .\core\settings.py:139
+msgid "English"
+msgstr "الانكليزية"
+
+#: .\core\settings.py:140
+msgid "Arabic"
+msgstr "العربية"
+
+#: .\templates\about.html:19 .\templates\base.html:81
+msgid "About"
+msgstr "عنا"
+
+#: .\templates\about.html:35
+msgid "How we can help you"
+msgstr "كيف يمكننا مساعدتك"
+
+#: .\templates\about.html:36
+msgid ""
+"We understand that it can be time consuming and expensive to find highly "
+"skilled staff in Iraq. Learn how we can assist you with your employment "
+"requirements."
+msgstr ""
+"نحن ندرك أن العثور على موظفين ذوي مهارات عالية في العراق قد يستغرق وقتًا "
+"طويلاً ومكلفًا. تعلم كيف يمكننا مساعدتك في متطلبات التوظيف الخاصة بك."
+
+#: .\templates\about.html:38
+msgid "Who we are"
+msgstr "من نحن"
+
+#: .\templates\about.html:39
+msgid ""
+"EmployIQ is a professional Human Resources recruiter in Iraq that have come "
+"together to assist YOU with a simplified and cost-effective recruitment "
+"process.  We connect numerous number of people to new opportunities every "
+"single day, through our job portal by putting job seekers first and offering"
+" free resume building and company research."
+msgstr ""
+"EmployIQ هو نظام التوظيف المحترف للموارد البشرية في العراق وقد اجتمع معًا "
+"لمساعدتك في عملية توظيف مبسطة وفعالة من حيث التكلفة. نحن نربط عددًا كبيرًا "
+"من الأشخاص بفرص جديدة كل يوم ، من خلال بوابة الوظائف الخاصة بنا من خلال وضع "
+"الباحثين عن عمل في المرتبة الأولى وتقديم بناء السيرة الذاتية وأبحاث الشركة "
+"مجانًا."
+
+#: .\templates\about.html:41
+msgid ""
+"Since our early beginnings as a local start-up, our main purpose has been to"
+" give back to our community by helping bridge the unemployment gap. Through "
+"our extensive database that includes various sectors of education, talents, "
+"and backgrounds – we connect top candidates to companies seeking exceptional"
+" talent to join their team. At the same time, we offer excellent services to"
+" those looking to develop their resumes, and give them the best opportunity "
+"at securing their dream job."
+msgstr ""
+"منذ بداياتنا المبكرة كشركة محلية ناشئة ، كان هدفنا الرئيسي هو رد الجميل "
+"لمجتمعنا من خلال المساعدة في سد فجوة البطالة. من خلال قاعدة بياناتنا الواسعة"
+" التي تشمل قطاعات مختلفة من التعليم والمواهب والخلفيات - نربط أفضل المرشحين "
+"بالشركات التي تبحث عن مواهب استثنائية للانضمام إلى فريقهم. في الوقت نفسه ، "
+"نقدم خدمات ممتازة لأولئك الذين يتطلعون إلى تطوير سيرهم الذاتية ، ومنحهم أفضل"
+" فرصة لتأمين وظيفة أحلامهم."
+
+#: .\templates\about.html:43
+msgid "What we do"
+msgstr "ما الذي نفعله"
+
+#: .\templates\about.html:44
+msgid ""
+"We at EmployIQ, a fully integrated recruitment website with jobs and well-"
+"known local affiliates, recognize how difficult the job search may be. As a "
+"result, we provide job seekers with a free service to help them build "
+"exceptional CVs to make the application process seamless and easy. Once a "
+"resume building is finalized, it will immediately be sent to our database, "
+"which presents businesses with an automated pool of candidates best suited "
+"for their needs. Employers can benefit from our services because it expands "
+"their scope of experienced candidates, who might not have been discovered "
+"otherwise!"
+msgstr ""
+"نحن في EmployIQ ، وهو موقع توظيف متكامل تمامًا به وظائف وشركات تابعة محلية "
+"معروفة ، ندرك مدى صعوبة البحث عن وظيفة. نتيجة لذلك ، نقدم للباحثين عن عمل "
+"خدمة مجانية لمساعدتهم على بناء سير ذاتية استثنائية لجعل عملية التقديم سلسة "
+"وسهلة. بمجرد الانتهاء من بناء السيرة الذاتية ، سيتم إرساله على الفور إلى "
+"قاعدة البيانات الخاصة بنا ، والتي تقدم للشركات مجموعة مؤتمتة من المرشحين "
+"الأكثر ملاءمة لاحتياجاتهم. يمكن لأصحاب العمل الاستفادة من خدماتنا لأنها توسع"
+" نطاق المرشحين ذوي الخبرة ، الذين ربما لم يتم اكتشافهم بطريقة أخرى!"
+
+#: .\templates\about.html:46
+msgid ""
+"Employers can advertise the position they’re looking to fill for up to 30 "
+"days, bringing in a wide pool of candidates to choose from. Our intuitive "
+"Advanced Search option also helps you shorten the selection process, by "
+"narrowing your search to our top tier applicants in Iraq who meet your exact"
+" requirements. EmployIQ gives you access to an endless number of job "
+"opportunities, and our database serves as an outstanding resource for all "
+"Iraqi HR professionals. It is our personal mission to make finding a new job"
+" a simple, efficient experience, for both the company and the individual "
+"alike. "
+msgstr ""
+"يمكن لأصحاب العمل الإعلان عن الوظيفة التي يتطلعون لشغلها لمدة تصل إلى 30 "
+"يومًا ، وجلب مجموعة واسعة من المرشحين للاختيار من بينها. يساعدك خيار البحث "
+"المتقدم البديهي لدينا أيضًا على تقصير عملية الاختيار ، من خلال تضييق نطاق "
+"البحث ليشمل المتقدمين من الدرجة الأولى لدينا في العراق الذين يستوفون "
+"متطلباتك الدقيقة. يتيح لك برنامج EmployIQ الوصول إلى عدد لا نهائي من فرص "
+"العمل ، وتعمل قاعدة البيانات الخاصة بنا كمورد بارز لجميع المتخصصين في "
+"الموارد البشرية العراقيين. مهمتنا الشخصية هي جعل العثور على وظيفة جديدة "
+"تجربة بسيطة وفعالة لكل من الشركة والفرد على حد سواء."
+
+#: .\templates\account\login.html:15
+msgid "Login to Employiq system"
+msgstr "تسجيل الدخول الى نظام Employiq"
+
+#: .\templates\account\login.html:22
+#: .\templates\candidate\my_candidate_details.html:139
+msgid "Email"
+msgstr "البريد الالكتروني"
+
+#: .\templates\account\login.html:28
+msgid "Password"
+msgstr "كلمة المرور"
+
+#: .\templates\account\login.html:43 .\templates\base.html:120
+msgid "Login"
+msgstr "تسجيل الدخول"
+
+#: .\templates\account\login.html:44
+msgid "Change Password"
+msgstr "تغير كلمة المرور"
+
+#: .\templates\admin\base_site.html:7 .\templates\admin\login.html:7
+msgid "Django administration"
+msgstr "ادارة النظام"
+
+#: .\templates\base.html:77
+msgid "Home"
+msgstr "الصفحة الرئيسية"
+
+#: .\templates\base.html:88
+msgid "For Candidates"
+msgstr "للمرشحين"
+
+#: .\templates\base.html:92 .\templates\base.html:102
+msgid "Profile"
+msgstr "الملف الشخصي"
+
+#: .\templates\base.html:99
+msgid "for employers"
+msgstr "لأصحاب العمل"
+
+#: .\templates\base.html:103
+msgid "Find a candidate"
+msgstr "ايجاد مقدم"
+
+#: .\templates\base.html:116 .\templates\header.html:103
+msgid "LOGOUT"
+msgstr "تسجيل الخروج"
+
+#: .\templates\base.html:1199
+msgid "Copyright &copy; Employiq. All Rights Reserved"
+msgstr "جميع الحقوق محفوظة Employiq"
+
+#: .\templates\candidate\my_candidate_details.html:91
+#| msgid "Contact information"
+msgid "Candidate information"
+msgstr "معلومات المرشح"
+
+#: .\templates\candidate\my_candidate_details.html:103
+msgid "Personal information"
+msgstr "المعلومات الشخصية"
+
+#: .\templates\candidate\my_candidate_details.html:113
+msgid "Title"
+msgstr "اللقب"
+
+#: .\templates\candidate\my_candidate_details.html:121
+msgid "First Name"
+msgstr "الاسم الاول"
+
+#: .\templates\candidate\my_candidate_details.html:129
+msgid "Second Name"
+msgstr "الاسم الثاني"
+
+#: .\templates\candidate\my_candidate_details.html:147
+msgid "Phone"
+msgstr "رقم الهاتف"
+
+#: .\templates\candidate\my_candidate_details.html:155
+msgid "Gender"
+msgstr "الجنس"
+
+#: .\templates\candidate\my_candidate_details.html:166
+msgid "Date of birth"
+msgstr "تاريخ الميلاد"
+
+#: .\templates\candidate\my_candidate_details.html:176
+msgid "Country of birth"
+msgstr "بلد الولادة"
+
+#: .\templates\candidate\my_candidate_details.html:185
+msgid "Place of birth"
+msgstr "مكان الولادة"
+
+#: .\templates\candidate\my_candidate_details.html:196
+msgid "Primary nationality"
+msgstr "الجنسبة الاصلية"
+
+#: .\templates\candidate\my_candidate_details.html:206
+msgid "Secondary nationality"
+msgstr "الجنسية الثانية"
+
+#: .\templates\candidate\my_candidate_details.html:216
+msgid "Highest level of education"
+msgstr "أعلى مستوى تعليمي"
+
+#: .\templates\candidate\my_candidate_details.html:234
+msgid "Contact information"
+msgstr "معلومات الاتصال"
+
+#: .\templates\candidate\my_candidate_details.html:242
+msgid "Contact phone"
+msgstr "رقم الهاتف"
+
+#: .\templates\candidate\my_candidate_details.html:250
+msgid "Type"
+msgstr "النوع"
+
+#: .\templates\candidate\my_candidate_details.html:259
+msgid "Alternate email address"
+msgstr "العنوان البريد الثانوي"
+
+#: .\templates\candidate\my_candidate_details.html:275
+msgid "Permanent Address"
+msgstr "العنوان الرئيسي"
+
+#: .\templates\candidate\my_candidate_details.html:283
+msgid "Address (line 1)"
+msgstr "العنوان"
+
+#: .\templates\candidate\my_candidate_details.html:291
+msgid "Address (line 2)"
+msgstr "العنوان"
+
+#: .\templates\candidate\my_candidate_details.html:299
+#: .\templates\candidate\my_candidate_details.html:366
+#: .\templates\candidate\my_candidate_details.html:484
+msgid "City"
+msgstr "المدينة"
+
+#: .\templates\candidate\my_candidate_details.html:309
+msgid "Postal Code"
+msgstr "الرمز البريدي"
+
+#: .\templates\candidate\my_candidate_details.html:317
+#: .\templates\candidate\my_candidate_details.html:358
+#: .\templates\candidate\my_candidate_details.html:476
+msgid "Country"
+msgstr "البلد"
+
+#: .\templates\candidate\my_candidate_details.html:333
+#: .\templates\index.html:28 .\templates\index.html:30
+msgid "Education"
+msgstr "الدراسة"
+
+#: .\templates\candidate\my_candidate_details.html:344
+msgid "The candidate not added educations records"
+msgstr "لم يتم اضافة دراسة"
+
+#: .\templates\candidate\my_candidate_details.html:350
+msgid "Education level"
+msgstr "المستوى الدراسي"
+
+#: .\templates\candidate\my_candidate_details.html:376
+msgid "Institution"
+msgstr "الجامعة|المعهد"
+
+#: .\templates\candidate\my_candidate_details.html:385
+msgid "Original Title of the Qualification"
+msgstr "العنوان الأصلي للمؤهلات"
+
+#: .\templates\candidate\my_candidate_details.html:394
+msgid "Main subject"
+msgstr "العنوان الرئيسي"
+
+#: .\templates\candidate\my_candidate_details.html:404
+msgid "Start Date"
+msgstr "تاريخ البدأ"
+
+#: .\templates\candidate\my_candidate_details.html:412
+msgid "Graduation Date"
+msgstr "تاريخ التخرج"
+
+#: .\templates\candidate\my_candidate_details.html:423
+#: .\templates\candidate\my_candidate_details.html:539
+msgid "Edit"
+msgstr "تعديل"
+
+#: .\templates\candidate\my_candidate_details.html:427
+#: .\templates\candidate\my_candidate_details.html:543
+msgid "Delete"
+msgstr "حذف"
+
+#: .\templates\candidate\my_candidate_details.html:437
+msgid "Add New Education"
+msgstr "اضافة دراسة جديدة"
+
+#: .\templates\candidate\my_candidate_details.html:450
+msgid "Employments"
+msgstr "التوظيف"
+
+#: .\templates\candidate\my_candidate_details.html:462
+msgid "The candidate not added employments records"
+msgstr "لم يتم اضافة معلومات توظيف"
+
+#: .\templates\candidate\my_candidate_details.html:468
+msgid "Employer"
+msgstr "صاحب العمل"
+
+#: .\templates\candidate\my_candidate_details.html:494
+msgid "Current job"
+msgstr "وظيفة حالية"
+
+#: .\templates\candidate\my_candidate_details.html:502
+msgid "Start date"
+msgstr "تاريخ البدأ"
+
+#: .\templates\candidate\my_candidate_details.html:510
+msgid "End date"
+msgstr "تاريخ الانتهاء"
+
+#: .\templates\candidate\my_candidate_details.html:520
+msgid "Job title"
+msgstr "العنوان الوظيفي"
+
+#: .\templates\candidate\my_candidate_details.html:528
+msgid "Reason for leaving"
+msgstr "سبب ترك العمل"
+
+#: .\templates\candidate\my_candidate_details.html:554
+msgid "Add New Employment"
+msgstr "اضافة توظيف جديد"
+
+#: .\templates\header.html:29
+msgid "Emplyiq - HR Recruiting"
+msgstr "موقع Employiq"
+
+#: .\templates\header.html:76
+msgid "HOME"
+msgstr "الصفحة الرئيسية"
+
+#: .\templates\header.html:87
+msgid "PRICING"
+msgstr "الاسعار"
+
+#: .\templates\header.html:92
+msgid "CANDIDATES"
+msgstr "مرشحين"
+
+#: .\templates\header.html:96
+msgid "CANDIDATES LIST"
+msgstr "قائمة المرشحين"
+
+#: .\templates\header.html:100
+msgid "MY PROFILE"
+msgstr "الملف الشخصي"
+
+#: .\templates\header.html:106
+msgid "LOGIN"
+msgstr "تسجيل الدخول"
+
+#: .\templates\header.html:130
+msgid "CONTACT"
+msgstr "اتصل بنا"
+
+#: .\templates\header.html:136
+msgid "Language"
+msgstr "اللغة"
+
+#: .\templates\index.html:15
+msgid "search for candidates now"
+msgstr "ابحث عن المرشحين الان"
+
+#: .\templates\index.html:22 .\templates\index.html:23
+msgid "Keywords"
+msgstr "الكلمات الدالة"
+
+#: .\templates\index.html:31
+msgid "Non-Degree Programme"
+msgstr "برنامج بدون درجة"
+
+#: .\templates\index.html:32
+msgid "High School diploma"
+msgstr "شهادة الدراسة الثانوية"
+
+#: .\templates\index.html:33
+msgid "Technical Diploma"
+msgstr "دبلوم فني"
+
+#: .\templates\index.html:34
+msgid "Bachelors Degree"
+msgstr "درجة باكلريوس"
+
+#: .\templates\index.html:35
+msgid "Master Degree"
+msgstr "درجة الماجستير"
+
+#: .\templates\index.html:36
+msgid "PhD Doctorate Degree"
+msgstr "درجة الدكتوراه"
+
+#: .\templates\index.html:48
+msgid "Location"
+msgstr "الموقع"
+
+#: .\templates\index.html:55
+msgid "Search"
+msgstr "بحث"
+
+#: .\templates\index.html:76
+msgid "pricing table"
+msgstr "جدول الاسعار"
+
+#: .\templates\index.html:96 .\templates\index.html:132
+#: .\templates\index.html:168
+msgid "month"
+msgstr "للشهر"
+
+#: .\templates\index.html:205
+msgid "members"
+msgstr "مشترك"
+
+#: .\templates\index.html:211
+msgid "jobs"
+msgstr "وظيفة"
+
+#: .\templates\index.html:217
+msgid "resumes"
+msgstr "سيرة ذاتية"
+
+#: .\templates\index.html:223
+msgid "companies"
+msgstr "شركة"
+
+#~ msgid "main menu"
+#~ msgstr "القائمة الرئيسية"
+
+#~ msgid "Category"
+#~ msgstr "التصنيف"
+
+#, fuzzy
+#~ msgid "login"
+#~ msgstr "تسجيل الدخول"
+
+#~ msgid "JOBS"
+#~ msgstr "الوظائف"
+
+#~ msgid "SERVICES"
+#~ msgstr "الخدمات"
+
+#~ msgid "ABOUT"
+#~ msgstr "عنا"
+
+#~ msgid "JOB DETAILS"
+#~ msgstr "تفاصيل الوظيفة"
+
+#~ msgid "TERMS CONDITIONS"
+#~ msgstr "الشروط والاحكام"
+
+#~ msgid "PRIVACY POLICY"
+#~ msgstr "السياسة الخاصة"

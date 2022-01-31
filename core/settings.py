@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,15 +26,15 @@ SECRET_KEY = '*1o#2%44j&&vdn)uzr2*tt*@c^@c1w1xbx!-e)_v7%yiu9d#gu'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*',]
+ALLOWED_HOSTS = ['*', ]
 
 
 # Application definition
 
 INSTALLED_APPS = [
- #   'material',
- #   'material.admin',
- #  'bootstrap_admin',
+    #   'material',
+    #   'material.admin',
+    #  'bootstrap_admin',
     'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -41,14 +42,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #3d party packages
+    # 3d party packages
     'django_countries',
     'phonenumber_field',
     'rest_framework',
     'rest_framework.authtoken',
     'import_export',
-    
-    #Buitin apps
+    'crispy_forms',
+    'crispy_bootstrap5',
+    'widget_tweaks',
+    'easy_thumbnails',
+    'rosetta',
+    # Buitin apps
     'accounts',
     'candidate',
     'vendor'
@@ -57,6 +62,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -118,9 +124,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Baghdad'
 
 USE_I18N = True
 
@@ -128,6 +134,15 @@ USE_L10N = True
 
 USE_TZ = True
 
+
+LANGUAGES = (
+    ('en', _('English')),
+    ('ar', _('Arabic')),
+)
+
+LOCALE_PATHS = [
+    BASE_DIR + '/locale/',
+]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
@@ -145,21 +160,24 @@ STATICFILES_DIRS = [
 
 AUTH_USER_MODEL = 'accounts.User'
 
+LOGIN_REDIRECT_URL = 'home'
+LOGIN_URL = 'login'
 
 MATERIAL_ADMIN_SITE = {
     'HEADER':  'Recuit Admin Prtal',  # Admin site header
     'TITLE':  'Recuit Admin Prtal',  # Admin site title
-    'FAVICON':  'path/to/favicon',  # Admin site favicon (path to static should be specified)
-   # 'MAIN_BG_COLOR':  'color',  # Admin site main color, css color should be specified
-   # 'MAIN_HOVER_COLOR':  'color',  # Admin site main hover color, css color should be specified
-    #'PROFILE_PICTURE':  'path/to/image',  # Admin site profile picture (path to static should be specified)
-    #'PROFILE_BG':  'path/to/image',  # Admin site profile background (path to static should be specified)
-    #'LOGIN_LOGO':  'path/to/image',  # Admin site logo on login page (path to static should be specified)
-    #'LOGOUT_BG':  'path/to/image',  # Admin site background on login/logout pages (path to static should be specified)
-    'SHOW_THEMES':  True,  #  Show default admin themes button
+    # Admin site favicon (path to static should be specified)
+    'FAVICON':  'path/to/favicon',
+    # 'MAIN_BG_COLOR':  'color',  # Admin site main color, css color should be specified
+    # 'MAIN_HOVER_COLOR':  'color',  # Admin site main hover color, css color should be specified
+    # 'PROFILE_PICTURE':  'path/to/image',  # Admin site profile picture (path to static should be specified)
+    # 'PROFILE_BG':  'path/to/image',  # Admin site profile background (path to static should be specified)
+    # 'LOGIN_LOGO':  'path/to/image',  # Admin site logo on login page (path to static should be specified)
+    # 'LOGOUT_BG':  'path/to/image',  # Admin site background on login/logout pages (path to static should be specified)
+    'SHOW_THEMES':  True,  # Show default admin themes button
     'TRAY_REVERSE': True,  # Hide object-tools and additional-submit-line by default
     'NAVBAR_REVERSE': True,  # Hide side navbar by default
-    'SHOW_COUNTS': True, # Show instances counts for each model
+    'SHOW_COUNTS': True,  # Show instances counts for each model
     'APP_ICONS': {  # Set icons for applications(lowercase), including 3rd party apps, {'application_name': 'material_icon_name', ...}
         'sites': 'send',
     },
@@ -171,3 +189,14 @@ MATERIAL_ADMIN_SITE = {
 GRAPPELLI_ADMIN_TITLE = 'Erecruit system'
 #GRAPPELLI_SWITCH_USER = True
 GRAPPELLI_SWITCH_USER_ORIGINAL = True
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+
+THUMBNAIL_ALIASES = {
+    '': {
+        'avatar': {'size': (100, 100), 'crop': True},
+    },
+}
