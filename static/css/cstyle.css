@@ -2,11 +2,16 @@
 @import url(magnific-popup.css);
 @import url(bootstrap-select.min.css);
 @import url(jquery-ui.min.css);
-@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+@import url(bootstrap.min.css);
 a,
 a:focus,
 a:hover {
     color: #29b2fe
+}
+
+a.disabled {
+    pointer-events: none;
+    color: #ccc;
 }
 
 .list li,
@@ -23,7 +28,7 @@ footer .footer-info .footer-posts .footer-blog-post {
 
 *,
 body {
-    font-family: 'Raleway', sans-serif;
+    font-family: Raleway, sans-serif
 }
 
 h1,
@@ -696,6 +701,10 @@ ul.list {
     padding-top: 100px
 }
 
+.pm100 {
+    padding-bottom: 100px
+}
+
 .pt110 {
     padding-top: 110px
 }
@@ -967,15 +976,15 @@ footer .footer-info .footer-posts .thumbnail-post img {
 }
 
 .btn-blue {
-    background: #273577 !important
+    background: #29b1fd
 }
 
 .btn-blue:hover {
-    background: #66c9ff !important
+    background: #66c9ff
 }
 
 .btn-green {
-    background: #2ecc71 !important
+    background: #2ecc71
 }
 
 .btn-green:hover {
@@ -983,35 +992,35 @@ footer .footer-info .footer-posts .thumbnail-post img {
 }
 
 .btn-purple {
-    background: #443088 !important
+    background: #443088
 }
 
 .btn-purple:hover {
-    background: #5c48a0 !important
+    background: #5c48a0
 }
 
 .btn-orange {
-    background: #e69d29 !important
+    background: #e69d29
 }
 
 .btn-orange:hover {
-    background: #ecaf4f !important
+    background: #ecaf4f
 }
 
 .btn-red {
-    background: #db6131 !important
+    background: #db6131
 }
 
 .btn-red:hover {
-    background: #dc7f5a !important
+    background: #dc7f5a
 }
 
 .btn-dark {
-    background: #0c112a !important
+    background: #0c112a
 }
 
 .btn-dark:hover {
-    background: #293053 !important
+    background: #293053
 }
 
 .back-top {
@@ -1254,7 +1263,7 @@ footer .footer-info .footer-posts .thumbnail-post img {
 
 section.page-header {
     position: relative;
-    background: #f0f0f0;
+    background: url(../images/img/page-header.jpg) center center no-repeat;
     background-size: cover;
     text-align: center;
     padding: 40px 0;
@@ -1540,7 +1549,7 @@ nav.navbar {
 }
 
 .navbar-brand img {
-    height: 40px;
+    height: 30px;
     cursor: pointer
 }
 
@@ -1600,7 +1609,7 @@ div#main-nav {
 }
 
 .navbar .navbar-nav>li.login-btn>a {
-    background: #273577;
+    background: #29b2fe;
     color: #f6f6f6!important;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -2129,7 +2138,7 @@ footer .footer-info .footer-about {
 }
 
 footer .footer-info .footer-about img {
-    height: 80px;
+    height: 33px
 }
 
 footer .footer-info .footer-about ul li {
@@ -2437,7 +2446,6 @@ section.main .wrapper h1 {
 }
 
 .job-search-form input {
-    height: 50px;
     width: 100%;
     border: none;
     -webkit-border-radius: 5px;
@@ -2448,13 +2456,6 @@ section.main .wrapper h1 {
     color: #999
 }
 
-select#country,
-select#search-categories {
-    height: 50px;
-}
-
-
-/* 
 .job-search-form .search-location:before {
     content: '\f276';
     font-family: fontawesome;
@@ -2463,10 +2464,9 @@ select#search-categories {
     right: 30px;
     color: #999;
     line-height: 50px
-} */
+}
 
 .job-search-form .search-submit button {
-    height: 50px;
     width: 100%;
     margin: 0
 }
@@ -3127,7 +3127,7 @@ section#countup {
 
 section#countup .counter {
     font-size: 50px;
-    color: #273577
+    color: #29b1fd
 }
 
 section#countup h4 {

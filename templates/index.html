@@ -5,56 +5,59 @@
 {% get_available_languages as AVAILABLE_LANGUAGES %}
 {% get_language_info_list for AVAILABLE_LANGUAGES as languages %}
 {% block content %}
-{% load static %}
 
 <!-- ===== Start of Main Search Section ===== -->
 <section class="main overlay-black">
 
     <!-- Start of Wrapper -->
     <div class="container wrapper">
-        <h1 class="capitalize text-center text-white">{% trans 'search for candidates now' %}</h1>
+
+        <h1 class="capitalize text-center text-white ">{% trans 'search for candidates now' %}</h1>
 
         <!-- Start of Form -->
-        <form class="job-search-form row pt40" action="#" method="get">
-
-            <!-- Start of keywords input -->
+        <form class="job-search-form row pt40" action="#" method="post">
+            {% csrf_token %}
+            <!-- Start of keywords input 
             <div class="col-md-3 col-sm-12 search-keywords">
                 <label for="search-keywords">{% trans 'Keywords' %}</label>
-                <input type="text" name="search-keywords" id="search-keywords" placeholder="{% trans 'Keywords' %}">
+                <input class="form-control" type="text" name="search-keywords" id="search-keywords"
+                    placeholder="{% trans 'Keywords' %}">
             </div>
+-->
+            <!-- Start of education input -->
+            <div class="row justify-content-center">
+                <div class="col-md-4 col-sm-12 search-categories">
+                    <select class="form-control form-control-lg" name="education" id="education"
+                        title="{% trans 'Education' %}">
+                        <option value="1">{% trans 'Non-Degree Programme' %}</option>
+                        <option value="2">{% trans 'High School diploma' %}</option>
+                        <option value="3">{% trans 'Technical Diploma' %}</option>
+                        <option value="4">{% trans 'Bachelors Degree' %}</option>
+                        <option value="5">{% trans 'Master Degree' %}</option>
+                        <option value="6">{% trans 'PhD Doctorate Degree' %}</option>
+                    </select>
+                    <label for="education">{% trans 'Education' %}</label>
+                </div>
 
-            <!-- Start of category input -->
-            <div class="col-md-3 col-sm-12 search-categories">
-                <label for="search-categories">{% trans 'Education' %}</label>
-                <select class="form-control" name="search-categories" id="search-categories"
-                    title="{% trans 'Education' %}">
-                    <option value="1">{% trans 'Non-Degree Programme' %}</option>
-                    <option value="2">{% trans 'High School diploma' %}</option>
-                    <option value="3">{% trans 'Technical Diploma' %}</option>
-                    <option value="4">{% trans 'Bachelors Degree' %}</option>
-                    <option value="5">{% trans 'Master Degree' %}</option>
-                    <option value="6">{% trans 'PhD Doctorate Degree' %}</option>
-                </select>
+                <!-- Start of location input -->
+                <div class="col-md-4 col-sm-12 search-location">
+                    {% get_countries as countries %}
+                    <select class="form-control form-control-lg" placeholder="select country" id="country"
+                        name="country">
+                        {% for country in countries %}
+                        <option value="{{ country.code }}">{{ country.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="country">{% trans 'Location' %}</label>
+
+                </div>
+
+                <!-- Start of submit input -->
+                <div class="col-md-2 col-sm-12 search-submit">
+                    <button type="submit" class="btn btn-primary btn-effect btn-large form-control-lg"><i
+                            class="fa fa-search"></i>{% trans 'Search' %}</button>
+                </div>
             </div>
-
-            <!-- Start of location input -->
-            <div class="col-md-4 col-sm-12 search-location">
-                {% get_countries as countries %}
-                <select class="form-control" placeholder="select country" id="country" name="country">
-                    {% for country in countries %}
-                    <option value="{{ country.code }}">{{ country.name }}</option>
-                    {% endfor %}
-                </select>
-                <label for="country">{% trans 'Location' %}</label>
-
-            </div>
-
-            <!-- Start of submit input -->
-            <div class="col-md-2 col-sm-12 search-submit">
-                <button type="submit" class="btn btn-blue btn-effect btn-large"><i
-                        class="fa fa-search"></i>{% trans 'Search' %}</button>
-            </div>
-
         </form>
         <!-- End of Form -->
 

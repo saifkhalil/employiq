@@ -1,15 +1,18 @@
-{% include "header.html" %}
+{% extends "base.html" %}
+{% load countries %}
+
 {% block content %}
 {% load static %}
-
+{% load i18n %}
 <div class="header">
     <div class="filtered">
         <div class="content">
             <br>
             <br>
-            <h1 class="text-center text-white">{{object.get_title_display}} {{ object.firstname }}
-                {{ object.secondname }} {{ object.lastname }} Profile</h1>
+
             {% if remcand > 0 %}
+            <h1 class="text-center ">{{object.get_title_display}} {{ object.firstname }}
+                {{ object.secondname }} {{ object.lastname }} Profile</h1>
             <div class="row justify-content-md-center">
                 <div class="col-10">
                     <div class="card">
@@ -22,8 +25,7 @@
                                     <div class="accordion" id="accordionPanelsStayOpenExample">
                                         <div class="accordion-item">
                                             <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-                                                <button class="btn btn-primary accordion-button" type="button"
-                                                    data-bs-toggle="collapse"
+                                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
                                                     data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
                                                     aria-controls="panelsStayOpen-collapseOne">
                                                     <i class="fas fa-user"></i> Personal information
@@ -150,7 +152,7 @@
                                     </div>
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
-                                            <button class="btn btn-primary accordion-button collapsed" type="button"
+                                            <button class="accordion-button collapsed" type="button"
                                                 data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo"
                                                 aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
                                                 <i class="fas fa-tty"></i> Contact information
@@ -187,7 +189,7 @@
                                     </div>
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" id="panelsStayOpen-headingThree">
-                                            <button class="btn btn-primary accordion-button collapsed" type="button"
+                                            <button class="accordion-button collapsed" type="button"
                                                 data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree"
                                                 aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
                                                 <i class="fas fa-street-view"></i> Permanent Address
@@ -243,7 +245,7 @@
 
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" id="panelsStayOpen-headingFour">
-                                            <button class="btn btn-primary accordion-button collapsed" type="button"
+                                            <button class="accordion-button collapsed" type="button"
                                                 data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour"
                                                 aria-expanded="false" aria-controls="panelsStayOpen-collapseFour">
                                                 <i class="fas fa-user-graduate"></i> Education <span
@@ -335,7 +337,7 @@
                                     </div>
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" id="panelsStayOpen-headingFive">
-                                            <button class="btn btn-primary accordion-button collapsed" type="button"
+                                            <button class="accordion-button collapsed" type="button"
                                                 data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFive"
                                                 aria-expanded="false" aria-controls="panelsStayOpen-collapseFive">
                                                 <a>
@@ -432,7 +434,9 @@
                 </div>
             </div>
             {% else %}
-            <h3 class="text-white text-center"> You don't have remaining views </h3>
+            <div class="row justify-content-md-center">
+                <h3 class="text-danger text-center"> You don't have remaining views </h3>
+            </div>
             {% endif %}
         </div>
     </div>
@@ -443,5 +447,3 @@
         }
     </script>
     {% endblock %}
-
-    {% include "footer.html" %}

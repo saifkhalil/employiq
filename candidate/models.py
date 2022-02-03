@@ -1,3 +1,5 @@
+from tabnanny import verbose
+from django.utils.translation import ugettext_lazy as _
 from io import BytesIO
 import os.path
 from django.db import models
@@ -17,34 +19,34 @@ from easy_thumbnails.fields import ThumbnailerImageField
 User = settings.AUTH_USER_MODEL
 
 TITLE_CHOICES = [
-    ('MR', 'Mr.'),
-    ('MS', 'Ms.'),
+    ('MR', _('Mr.')),
+    ('MS', _('Ms.')),
 ]
 
 GENDER_CHOICES = [
-    ('F', 'Female'),
-    ('M', 'Male'),
+    ('F', _('Female')),
+    ('M', _('Male')),
 ]
 
 
 PHONE_CHOICES = [
-    ('H', 'Home'),
-    ('M', 'Mobile'),
-    ('W', 'Work'),
+    ('H', _('Home')),
+    ('M', _('Mobile')),
+    ('W', _('Work')),
 ]
 
 JOB_CHOICES = [
-    ('Y', 'Yes'),
-    ('N', 'No'),
+    ('Y', _('Yes')),
+    ('N', _('No')),
 ]
 
 EDUCATION_CHOICES = [
-    ('1', 'Non-Degree Programme'),
-    ('2', 'High School diploma'),
-    ('3', 'Technical Diploma'),
-    ('4', 'Bachelors Degree'),
-    ('5', 'Master Degree'),
-    ('6', 'PhD Doctorate Degree'),
+    ('1', _('Non-Degree Programme')),
+    ('2', _('High School diploma')),
+    ('3', _('Technical Diploma')),
+    ('4', _('Bachelors Degree')),
+    ('5', _('Master Degree')),
+    ('6', _('PhD Doctorate Degree')),
 ]
 
 
@@ -99,55 +101,58 @@ class education(models.Model):
 
 class candidate(models.Model):
     id = models.AutoField(primary_key=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        User, blank=True, null=True, on_delete=models.CASCADE)
     title = models.CharField(max_length=2, choices=TITLE_CHOICES,
-                             default="Mr.", blank=False, null=False, verbose_name='Title')
+                             default="Mr.", blank=False, null=False, verbose_name=_('Title'))
     firstname = models.CharField(
-        max_length=200, blank=False, null=False, verbose_name='First Name')
+        max_length=200, blank=False, null=False, verbose_name=_('First Name'))
     secondname = models.CharField(
-        max_length=200, blank=False, null=False, verbose_name='Second Name')
+        max_length=200, blank=False, null=False, verbose_name=_('Second Name'))
     lastname = models.CharField(
-        max_length=200, blank=False, null=False, verbose_name='Last Name')
+        max_length=200, blank=False, null=False, verbose_name=_('Last Name'))
     email = models.EmailField(
-        max_length=200, blank=False, null=False, verbose_name='Email')
+        max_length=200, blank=False, null=False, verbose_name=_('Email'))
     phone_number = PhoneNumberField(
-        blank=False, null=False, verbose_name='Phone')
+        blank=False, null=False, verbose_name=_('Phone'))
     gender = models.CharField(max_length=2, choices=GENDER_CHOICES,
-                              default="M", blank=False, null=False, verbose_name='Gender')
+                              default="M", blank=False, null=False, verbose_name=_('Gender'))
     photo = ThumbnailerImageField(
-        upload_to='photos', blank=True, default='photos/default.jpg')
+        upload_to='photos', blank=True, default='photos/default.jpg', verbose_name=_('Photo'))
     birthofdate = models.DateField(
-        blank=False, null=False, verbose_name='Birth of date')
+        blank=False, null=False, verbose_name=_('Birth of date'))
     country_of_birth = CountryField(
-        blank=False, null=False, verbose_name='Country')
+        blank=False, null=False, verbose_name=_('Country'))
     place_of_birth = models.CharField(
-        max_length=200, blank=False, null=False, verbose_name='Place of birth')
+        max_length=200, blank=False, null=False, verbose_name=_('Place of birth'))
     primary_nationality = CountryField(
-        blank=False, null=False, verbose_name='Primary nationality')
+        blank=False, null=False, verbose_name=_('Primary nationality'))
     secondary_nationality = CountryField(
-        blank=True, null=True, verbose_name='Seondary nationality')
+        blank=True, null=True, verbose_name=_('Seondary nationality'))
     highest_level_of_education = models.CharField(
-        max_length=1, choices=EDUCATION_CHOICES, blank=False, null=False, verbose_name='Highest level of education')
+        max_length=1, choices=EDUCATION_CHOICES, blank=False, null=False, verbose_name=_('Highest level of education'))
     contact_phone = PhoneNumberField(
-        blank=True, null=True, verbose_name='Conact phone')
+        blank=True, null=True, verbose_name=_('Conact phone'))
     phone_type = models.CharField(blank=True, null=True,
-                                  max_length=1, choices=PHONE_CHOICES, verbose_name='Type')
+                                  max_length=1, choices=PHONE_CHOICES, verbose_name=_('Type'))
     alternate_email_address = models.EmailField(blank=True, null=True,
-                                                verbose_name='Alternative email address')
-    address1 = models.CharField(max_length=500, verbose_name='Address Line(1)')
+                                                verbose_name=_('Alternative email address'))
+    address1 = models.CharField(
+        max_length=500, verbose_name=_('Address Line(1)'))
     address2 = models.CharField(
-        blank=True, null=True, max_length=500, verbose_name='Address Line(2)')
-    city = models.CharField(max_length=500, verbose_name='City')
+        blank=True, null=True, max_length=500, verbose_name=_('Address Line(2)'))
+    city = models.CharField(max_length=500, verbose_name=_('City'))
     country = CountryField(
-        blank_label='(select country)', verbose_name='Country')
+        blank_label=_('(select country)'), verbose_name=_('Country'))
     postal_code = models.IntegerField(validators=[MaxValueValidator(
-        99999), MinValueValidator(10000)], verbose_name='Postal Code')
+        99999), MinValueValidator(10000)], verbose_name=_('Postal Code'))
     education = models.ManyToManyField(
-        'education', blank=True, verbose_name='Candidate Education')
+        'education', blank=True, verbose_name=_('Candidate Education'))
     Employment = models.ManyToManyField(
-        'employment', blank=True, verbose_name='Employment History')
-    cv = models.FileField(upload_to='media/cv', verbose_name='CV File')
-    bio = models.CharField(max_length=1000, blank=True, null=True)
+        'employment', blank=True, verbose_name=_('Employment History'))
+    cv = models.FileField(upload_to='media/cv', verbose_name=_('CV File'))
+    bio = models.CharField(max_length=1000, blank=True,
+                           null=True, verbose_name=_('bio'))
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(

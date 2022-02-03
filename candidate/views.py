@@ -14,9 +14,11 @@ from django.contrib import messages
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import View
 from django.urls import reverse_lazy
-from .forms import EduForm, EmpForm
+from .forms import EduForm, EmpForm, CanForm
 from .pdf_process import html_to_pdf
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 # Create your views here.
 
 
@@ -25,9 +27,9 @@ def candlist(request):
         if request.GET.get('country'):
             country = request.GET.get('country')
             request.session['country'] = country
-        if request.GET.get('skills'):
-            skills = request.GET.get('skills')
-            request.session['skills'] = skills
+        if request.GET.get('education'):
+            education = request.GET.get('education')
+            request.session['education'] = education
 
         if request.GET.get('number_of_records'):
             number_of_records = request.GET.get('number_of_records')
@@ -35,12 +37,12 @@ def candlist(request):
         if request.GET.get('clear'):
             if request.session.get('country'):
                 del request.session['country']
-            if request.session.get('skills'):
-                del request.session['skills']
+            if request.session.get('education'):
+                del request.session['education']
             if request.session.get('number_of_records'):
                 del request.session['number_of_records']
     country = request.session.get('country')
-    skills = request.session.get('skills')
+    education = request.session.get('education')
     number_of_records = request.session.get('number_of_records')
     cand_list = candidate.objects.all()
     if number_of_records:
@@ -49,9 +51,10 @@ def candlist(request):
         number_of_records = 10
     if country:
         cand_list = cand_list.filter(country__icontains=country)
-    if skills:
-        cand_list = cand_list.filter(skills__icontains=skills)
-    session = [country, skills, number_of_records]
+    if education:
+        cand_list = cand_list.filter(
+            highest_level_of_education__icontains=education)
+    session = [country, education, number_of_records]
     # Show 25 contacts per page.
     paginator = Paginator(cand_list, number_of_records)
     page_number = request.GET.get('page')
@@ -104,7 +107,10 @@ def my_candidate_details(request):
         }
         return render(request, 'candidate/my_candidate_details.html', context)
     except ObjectDoesNotExist:
-        return redirect('home')
+        context = {
+            'iscandidate': 'false'
+        }
+        return render(request, 'candidate/my_candidate_details.html', context)
 
 
 def del_education(request, eid):
@@ -119,14 +125,17 @@ def del_education(request, eid):
 
 
 def del_employement(request, eid):
-    userid = request.user.id
-    cid = candidate.objects.get(user__id=userid).id
-    msg = ""
-    if employment.objects.filter(id=eid).exists() and employment.objects.filter(candidate__id=cid).exists():
-        employment.objects.filter(id=eid).delete()
-        return JsonResponse({"data": ""}, status=200)
+    if request.method == 'GET':
+        userid = request.user.id
+        cid = candidate.objects.get(user__id=userid).id
+        msg = ""
+        if employment.objects.filter(id=eid).exists() and employment.objects.filter(candidate__id=cid).exists():
+            employment.objects.filter(id=eid).delete()
+            return JsonResponse({"data": ""}, status=200)
+        else:
+            return JsonResponse({"data": ""}, status=400)
     else:
-        return JsonResponse({"data": ""}, status=400)
+        return JsonResponse({"data": ""}, status=405)
 
 
 class EducationCreateView(CreateView):
@@ -190,6 +199,38 @@ class EmploymentCreateView(CreateView):
 
         Emp.save()
         Emp.candidate_set.add(current_candidate)
+        '''
+        html_message = render_to_string('mail_template.html', {'cm': Edu})
+        send_mail(
+            subject='New Change Management Created Reason: ' +
+            form.cleaned_data['reason'],
+            html_message=html_message,
+            message='',
+            from_email='isms@qi.iq',
+            recipient_list=['saif.ibrahim@qi.iq', 'saif780@gmail.com'],
+            fail_silently=False,
+        )
+        '''
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('my_candidate_details')
+
+
+class CandidateCreateView(CreateView):
+    model = candidate
+    template_name = 'candidate/create.html'
+    form_class = CanForm
+
+    def form_valid(self, form):
+       # current_candidate = candidate.objects.get(user__id=self.request.user.id)
+        Candidate = form.save(commit=False)
+        Candidate.created_by = User.objects.get(email=self.request.user.email)
+        Candidate.user = self.request.user
+        currentuser = User.objects.filter(id=self.request.user.id)
+        currentuser.is_candidate = True
+        currentuser.save()
+        Candidate.save()
         '''
         html_message = render_to_string('mail_template.html', {'cm': Edu})
         send_mail(

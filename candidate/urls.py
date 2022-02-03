@@ -3,9 +3,13 @@ from .views import *
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth.decorators import login_required
+from django.utils.translation import gettext_lazy as _
+from django.conf.urls.i18n import i18n_patterns
 
 urlpatterns = [
     path('', login_required(candlist), name='candlist'),
+    path('create', login_required(
+        CandidateCreateView.as_view()), name='candidate_create'),
     path('<int:cid>', login_required(candetials), name='candetials'),
     path('education/delete/<int:eid>',
          login_required(del_education), name='del_education'),
@@ -19,7 +23,7 @@ urlpatterns = [
          name='employmentcreate'),
     path('employement/<int:pk>/update/',
          login_required(EmploymentUpdateView.as_view()), name='employement_update'),
-    path('employement/delete/<int:eid>',
+    path('employement/<int:eid>/delete/',
          login_required(del_employement), name='del_employement'),
     path('myprofile', login_required(my_candidate_details),
          name='my_candidate_details'),

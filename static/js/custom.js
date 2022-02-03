@@ -1,6 +1,10 @@
 ! function(a) {
     "use strict";
     a(window).on("load", function() {}), a(document).ready(function() {
+        $("button#tb").click(function() {
+            $("div#navbarsExampleDefault").toggleClass("show");
+        });
+
         function h() { a("#main-nav .navbar-nav .dropdown-menu > .dropdown-submenu > .dropdown-menu").each(function(b) { a(this).parent().offset().left + a(this).parent().width() + a(this).width() > a("body").width() ? a(this).addClass("left") : a(this).removeClass("left") }) }
 
         function t() { m.addClass("is-selected"), n.removeClass("is-selected"), o.removeClass("is-selected"), q.addClass("selected"), r.removeClass("selected") }

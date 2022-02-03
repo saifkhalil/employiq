@@ -1,0 +1,9 @@
+Type	DataType
+1	Text
+5	Text
+2	Date
+7	Date
+3	Text
+4	Number
+6	Text
+8	Number
