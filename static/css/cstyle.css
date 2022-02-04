@@ -2138,7 +2138,8 @@ footer .footer-info .footer-about {
 }
 
 footer .footer-info .footer-about img {
-    height: 33px
+    height: 100px;
+    width: 100px;
 }
 
 footer .footer-info .footer-about ul li {

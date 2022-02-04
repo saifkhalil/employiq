@@ -14,7 +14,7 @@
             <h1 class="text-center ">{{object.get_title_display}} {{ object.firstname }}
                 {{ object.secondname }} {{ object.lastname }} Profile</h1>
             <div class="row justify-content-md-center">
-                <div class="col-10">
+                <div class="col-lg-10 col-md-10 col-sm-12">
                     <div class="card">
                         <div class="card-header">
                             <strong>Candidate information</strong>
@@ -35,9 +35,8 @@
                                                 class="accordion-collapse collapse show"
                                                 aria-labelledby="panelsStayOpen-headingOne">
                                                 <div class="accordion-body">
-
                                                     <div class="row">
-                                                        <div class="col-4">
+                                                        <div class="col-lg-4 col-md-6 col-sm-12">
                                                             <div class="form-floating mb-3">
                                                                 <input type="text" class="form-control"
                                                                     id="floatingInput"
@@ -45,7 +44,7 @@
                                                                 <label for="floatingInput">Title</label>
                                                             </div>
                                                         </div>
-                                                        <div class="col-4">
+                                                        <div class="col-lg-4 col-md-6 col-sm-12">
                                                             <div class="form-floating mb-3">
                                                                 <input type="text" class="form-control"
                                                                     id="floatingInput" value="{{  object.firstname }}"
@@ -53,7 +52,7 @@
                                                                 <label for="floatingInput">First Name</label>
                                                             </div>
                                                         </div>
-                                                        <div class="col-4">
+                                                        <div class="col-lg-4 col-md-6 col-sm-12">
                                                             <div class="form-floating mb-3">
                                                                 <input type="text" class="form-control"
                                                                     id="floatingInput" value="{{  object.secondname }}"
@@ -61,9 +60,7 @@
                                                                 <label for="floatingInput">Second Name</label>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-4">
+                                                        <div class="col-lg-4 col-md-6 col-sm-12">
                                                             <div class="form-floating mb-3">
                                                                 <input type="text" class="form-control"
                                                                     id="floatingInput" value="{{  object.email }}"
@@ -71,7 +68,7 @@
                                                                 <label for="floatingInput">Email</label>
                                                             </div>
                                                         </div>
-                                                        <div class="col-4">
+                                                        <div class="col-lg-4 col-md-6 col-sm-12">
                                                             <div class="form-floating mb-3">
                                                                 <input type="text" class="form-control"
                                                                     id="floatingInput"
@@ -79,7 +76,7 @@
                                                                 <label for="floatingInput">Phone</label>
                                                             </div>
                                                         </div>
-                                                        <div class="col-4">
+                                                        <div class="col-lg-4 col-md-6 col-sm-12">
                                                             <div class="form-floating mb-3">
                                                                 <input type="text" class="form-control"
                                                                     id="floatingInput"
@@ -87,9 +84,16 @@
                                                                 <label for="floatingInput">Gender</label>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-4">
+                                                        <div class="col-lg-4 col-md-6 col-sm-12">
+                                                            <div class="form-floating mb-3">
+                                                                <input type="text" class="form-control"
+                                                                    id="floatingInput"
+                                                                    value="{{  object.get_marital_status_display }}"
+                                                                    disabled>
+                                                                <label for="floatingInput">Marital Status</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-4 col-md-6 col-sm-12">
                                                             <div class="form-floating mb-3">
                                                                 <input type="text" class="form-control"
                                                                     id="floatingInput"
@@ -98,7 +102,7 @@
                                                                 <label for="floatingInput">Date of birth</label>
                                                             </div>
                                                         </div>
-                                                        <div class="col-4">
+                                                        <div class="col-lg-4 col-md-6 col-sm-12">
                                                             <div class="form-floating mb-3">
                                                                 <input type="text" class="form-control"
                                                                     id="floatingInput"
@@ -107,7 +111,7 @@
                                                                 <label for="floatingInput">Country of birth</label>
                                                             </div>
                                                         </div>
-                                                        <div class="col-4">
+                                                        <div class="col-lg-4 col-md-6 col-sm-12">
                                                             <div class="form-floating mb-3">
                                                                 <input type="text" class="form-control"
                                                                     id="floatingInput"
@@ -115,9 +119,7 @@
                                                                 <label for="floatingInput">Place of birth</label>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-4">
+                                                        <div class="col-lg-4 col-md-6 col-sm-12">
                                                             <div class="form-floating mb-3">
                                                                 <input type="text" class="form-control"
                                                                     id="floatingInput"
@@ -126,7 +128,7 @@
                                                                 <label for="floatingInput">Primary nationality</label>
                                                             </div>
                                                         </div>
-                                                        <div class="col-4">
+                                                        <div class="col-lg-4 col-md-6 col-sm-12">
                                                             <div class="form-floating mb-3">
                                                                 <input type="text" class="form-control"
                                                                     id="floatingInput"
@@ -135,7 +137,7 @@
                                                                 <label for="floatingInput">Secondary nationality</label>
                                                             </div>
                                                         </div>
-                                                        <div class="col-4">
+                                                        <div class="col-lg-4 col-md-6 col-sm-12">
                                                             <div class="form-floating mb-3">
                                                                 <input type="text" class="form-control"
                                                                     id="floatingInput"
@@ -162,21 +164,21 @@
                                             aria-labelledby="panelsStayOpen-headingTwo">
                                             <div class="accordion-body">
                                                 <div class="row">
-                                                    <div class="col-4">
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
                                                         <div class="form-floating mb-3">
                                                             <input type="text" class="form-control" id="floatingInput"
                                                                 value="{{  object.contact_phone }}" disabled>
                                                             <label for="floatingInput">Contact phone</label>
                                                         </div>
                                                     </div>
-                                                    <div class="col-4">
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
                                                         <div class="form-floating mb-3">
                                                             <input type="text" class="form-control" id="floatingInput"
                                                                 value="{{  object.get_phone_type_display }}" disabled>
                                                             <label for="floatingInput">Type</label>
                                                         </div>
                                                     </div>
-                                                    <div class="col-4">
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
                                                         <div class="form-floating mb-3">
                                                             <input type="text" class="form-control" id="floatingInput"
                                                                 value="{{  object.alternate_email_address }}" disabled>
@@ -199,7 +201,7 @@
                                             aria-labelledby="panelsStayOpen-headingThree">
                                             <div class="accordion-body">
                                                 <div class="row">
-                                                    <div class="col-4">
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
                                                         <div class="form-floating mb-3">
                                                             <input type="text" class="form-control"
                                                                 id="floatingInputaddress1"
@@ -207,7 +209,7 @@
                                                             <label for="floatingInputaddress1">Address (line 1)</label>
                                                         </div>
                                                     </div>
-                                                    <div class="col-4">
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
                                                         <div class="form-floating mb-3">
                                                             <input type="text" class="form-control"
                                                                 id="floatingInputaddress2"
@@ -215,23 +217,21 @@
                                                             <label for="floatingInputaddress2">Address (line 2)</label>
                                                         </div>
                                                     </div>
-                                                    <div class="col-4">
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
                                                         <div class="form-floating mb-3">
                                                             <input type="text" class="form-control"
                                                                 id="floatingInputcity" value="{{object.city}}" disabled>
                                                             <label for="floatingInputcity">City</label>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-4">
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
                                                         <div class="form-floating mb-3">
                                                             <input type="text" class="form-control" id="floatingInput"
                                                                 value="{{  object.postal_code }}" disabled>
                                                             <label for="floatingInput">Postal Code</label>
                                                         </div>
                                                     </div>
-                                                    <div class="col-4">
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
                                                         <div class="form-floating mb-3">
                                                             <input type="text" class="form-control" id="floatingInput"
                                                                 value="{{  object.get_country_display }}" disabled>
@@ -265,37 +265,35 @@
                                                 {% else %}
                                                 {% for edu in educations %}
                                                 <div class="row">
-                                                    <div class="col-4">
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
                                                         <div class="form-floating mb-3">
                                                             <input type="text" class="form-control" id="floatingInput"
                                                                 value="{{  edu.get_education_level_display }}" disabled>
                                                             <label for="floatingInput">Education level</label>
                                                         </div>
                                                     </div>
-                                                    <div class="col-4">
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
                                                         <div class="form-floating mb-3">
                                                             <input type="text" class="form-control" id="floatingInput"
                                                                 value="{{  edu.get_country_display }}" disabled>
                                                             <label for="floatingInput">Country</label>
                                                         </div>
                                                     </div>
-                                                    <div class="col-4">
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
                                                         <div class="form-floating mb-3">
                                                             <input type="text" class="form-control" id="floatingInput"
                                                                 value="{{  edu.city }}" disabled>
                                                             <label for="floatingInput">City</label>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-4">
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
                                                         <div class="form-floating mb-3">
                                                             <input type="text" class="form-control" id="floatingInput"
                                                                 value="{{  edu.institution }}" disabled>
                                                             <label for="floatingInput">Institution</label>
                                                         </div>
                                                     </div>
-                                                    <div class="col-4">
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
                                                         <div class="form-floating mb-3">
                                                             <input type="text" class="form-control" id="floatingInput"
                                                                 value="{{  edu.original_title_of_the_qualification }}"
@@ -304,16 +302,14 @@
                                                                 Qualification</label>
                                                         </div>
                                                     </div>
-                                                    <div class="col-4">
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
                                                         <div class="form-floating mb-3">
                                                             <input type="text" class="form-control" id="floatingInput"
                                                                 value="{{  edu.main_subject }}" disabled>
                                                             <label for="floatingInput">Main subject</label>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-4">
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
                                                         <div class="form-floating mb-3">
                                                             <input type="text" class="form-control" id="floatingInput"
                                                                 value="{{  edu.start_date }}" disabled>
@@ -321,7 +317,7 @@
                                                         </div>
 
                                                     </div>
-                                                    <div class="col-4">
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
                                                         <div class="form-floating mb-3">
                                                             <input type="text" class="form-control" id="floatingInput"
                                                                 value="{{  edu.graduation_date }}" disabled>
@@ -358,60 +354,56 @@
                                                 {% else %}
                                                 {% for emp in employments %}
                                                 <div class="row">
-                                                    <div class="col-4">
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
                                                         <div class="form-floating mb-3">
                                                             <input type="text" class="form-control" id="floatingInput"
                                                                 value="{{  emp.employer }}" disabled>
                                                             <label for="floatingInput">Employer</label>
                                                         </div>
                                                     </div>
-                                                    <div class="col-4">
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
                                                         <div class="form-floating mb-3">
                                                             <input type="text" class="form-control" id="floatingInput"
                                                                 value="{{  emp.get_country_display }}" disabled>
                                                             <label for="floatingInput">Country</label>
                                                         </div>
                                                     </div>
-                                                    <div class="col-4">
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
                                                         <div class="form-floating mb-3">
                                                             <input type="text" class="form-control" id="floatingInput"
                                                                 value="{{  emp.city }}" disabled>
                                                             <label for="floatingInput">City</label>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-4">
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
                                                         <div class="form-floating mb-3">
                                                             <input type="text" class="form-control" id="floatingInput"
                                                                 value="{{  emp.get_current_job_display }}" disabled>
                                                             <label for="floatingInput">Current job</label>
                                                         </div>
                                                     </div>
-                                                    <div class="col-4">
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
                                                         <div class="form-floating mb-3">
                                                             <input type="text" class="form-control" id="floatingInput"
                                                                 value="{{  emp.start_date|date:"d/m/Y" }}" disabled>
                                                             <label for="floatingInput">Start date</label>
                                                         </div>
                                                     </div>
-                                                    <div class="col-4">
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
                                                         <div class="form-floating mb-3">
                                                             <input type="text" class="form-control" id="floatingInput"
                                                                 value="{{  emp.end_date|date:"d/m/Y" }}" disabled>
                                                             <label for="floatingInput">End date</label>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-4">
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
                                                         <div class="form-floating mb-3">
                                                             <input type="text" class="form-control" id="floatingInput"
                                                                 value="{{  emp.job_title }}" disabled>
                                                             <label for="floatingInput">Job title</label>
                                                         </div>
                                                     </div>
-                                                    <div class="col-4">
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
                                                         <div class="form-floating mb-3">
                                                             <input type="text" class="form-control" id="floatingInput"
                                                                 value="{{  emp.reason_for_leaving }}" disabled>

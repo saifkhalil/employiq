@@ -12,7 +12,7 @@ import moneyed
 from djmoney.models.fields import MoneyField
 #from pkg_resources import Version
 from accounts.models import User
-from django.core.validators import MaxValueValidator, MinValueValidator
+from django.core.validators import MaxValueValidator, MinValueValidator, MinLengthValidator
 from PIL import Image
 from django.core.files.base import ContentFile
 from easy_thumbnails.fields import ThumbnailerImageField
@@ -40,6 +40,14 @@ JOB_CHOICES = [
     ('N', _('No')),
 ]
 
+MARITAL_STATUS = [
+    ('Single', _('Single')),
+    ('Married', _('Married')),
+    ('Widowed', _('Widowed')),
+    ('Separated', _('Separated')),
+    ('Divorced', _('Divorced')),
+]
+
 EDUCATION_CHOICES = [
     ('1', _('Non-Degree Programme')),
     ('2', _('High School diploma')),
@@ -64,6 +72,8 @@ class employment(models.Model):
     end_date = models.DateField(blank=True, null=True, verbose_name='End Date')
     job_title = models.CharField(
         max_length=50, blank=False, null=False, verbose_name='Job Title')
+    job_description = models.CharField(
+        max_length=2000, validators=[MinLengthValidator(200)], blank=False, null=False, verbose_name='Job Description')
     reason_for_leaving = models.CharField(
         max_length=200, blank=True, null=True, verbose_name='Reason for leaving')
 
@@ -117,6 +127,8 @@ class candidate(models.Model):
         blank=False, null=False, verbose_name=_('Phone'))
     gender = models.CharField(max_length=2, choices=GENDER_CHOICES,
                               default="M", blank=False, null=False, verbose_name=_('Gender'))
+    marital_status = models.CharField(max_length=10, choices=MARITAL_STATUS,
+                                      default="Single", blank=False, null=False, verbose_name=_('Marital Status'))
     photo = ThumbnailerImageField(
         upload_to='photos', blank=True, default='photos/default.jpg', verbose_name=_('Photo'))
     birthofdate = models.DateField(
