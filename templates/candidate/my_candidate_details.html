@@ -196,6 +196,18 @@
                                                                 </div>
                                                                 <div class="col-lg-4 col-md-6 col-sm-12">
                                                                     <label
+                                                                        for="basic-url">{% trans 'Marital Status' %}</label>
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                            id="basic-url"
+                                                                            aria-describedby="basic-addon3"
+                                                                            value="{{ object.get_marital_status_display }}"
+                                                                            disabled>
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                    <label
                                                                         for="basic-url">{% trans 'Date of birth' %}</label>
                                                                     <div class="input-group mb-3">
                                                                         <input type="text" class="form-control"
