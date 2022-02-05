@@ -171,7 +171,7 @@ class EducationCreateView(CreateView):
 
 class EducationUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView, ABC):
     model = education
-    template_name = 'candidate/education/create.html'
+    template_name = 'candidate/education/update.html'
     fields = ['education_level', 'country', 'city', 'institution',
               'original_title_of_the_qualification', 'main_subject', 'start_date',
               'graduation_date']
@@ -251,9 +251,9 @@ class CandidateCreateView(CreateView):
 
 class EmploymentUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView, ABC):
     model = employment
-    template_name = 'candidate/employment/create.html'
+    template_name = 'candidate/employment/update.html'
     fields = ['employer', 'country', 'city', 'current_job',
-              'start_date', 'end_date', 'job_title',
+              'start_date', 'end_date', 'job_title', 'supervisor_name', 'supervisor_title', 'supervisor_phone', 'supervisor_email',
               'reason_for_leaving']
 
     def form_valid(self, form):

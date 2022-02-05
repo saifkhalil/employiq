@@ -12,7 +12,7 @@ import moneyed
 from djmoney.models.fields import MoneyField
 #from pkg_resources import Version
 from accounts.models import User
-from django.core.validators import MaxValueValidator, MinValueValidator, MinLengthValidator
+from django.core.validators import MaxValueValidator, MinValueValidator, MinLengthValidator, FileExtensionValidator
 from PIL import Image
 from django.core.files.base import ContentFile
 from easy_thumbnails.fields import ThumbnailerImageField
@@ -61,21 +61,30 @@ EDUCATION_CHOICES = [
 class employment(models.Model):
     id = models.AutoField(primary_key=True)
     employer = models.CharField(
-        max_length=50, blank=False, null=False, verbose_name='Employer')
-    country = CountryField(blank=False, null=False, verbose_name='Country')
+        max_length=50, blank=False, null=False, verbose_name=_('Employer'))
+    country = CountryField(blank=False, null=False, verbose_name=_('Country'))
     city = models.CharField(max_length=50, blank=False,
-                            null=False, verbose_name='City')
+                            null=False, verbose_name=_('City'))
     current_job = models.CharField(
-        max_length=1, default='N', choices=JOB_CHOICES, blank=False, null=False, verbose_name='Current Job')
+        max_length=1, default='N', choices=JOB_CHOICES, blank=False, null=False, verbose_name=_('Current Job'))
     start_date = models.DateField(
-        blank=False, null=False, verbose_name='Start Date')
-    end_date = models.DateField(blank=True, null=True, verbose_name='End Date')
+        blank=False, null=False, verbose_name=_('Start Date'))
+    end_date = models.DateField(
+        blank=True, null=True, verbose_name=_('End Date'))
     job_title = models.CharField(
-        max_length=50, blank=False, null=False, verbose_name='Job Title')
+        max_length=50, blank=False, null=False, verbose_name=_('Job Title'))
     job_description = models.CharField(
-        max_length=2000, validators=[MinLengthValidator(200)], blank=False, null=False, verbose_name='Job Description')
+        max_length=2000, validators=[MinLengthValidator(200)], blank=False, null=False, verbose_name=_('Job Description'))
     reason_for_leaving = models.CharField(
-        max_length=200, blank=True, null=True, verbose_name='Reason for leaving')
+        max_length=200, blank=True, null=True, verbose_name=_('Reason for leaving'))
+    supervisor_name = models.CharField(
+        max_length=50, blank=False, null=False, verbose_name=_("Supervisor's Name"))
+    supervisor_title = models.CharField(
+        max_length=50, blank=False, null=False, verbose_name=_("Supervisor's Title"))
+    supervisor_phone = PhoneNumberField(
+        blank=False, null=False, verbose_name=_("Supervisor's Phone"))
+    supervisor_email = models.EmailField(
+        max_length=100, blank=False, null=False, verbose_name=_("Supervisor's Email"))
 
     def __str__(self):
         return self.employer
@@ -87,20 +96,20 @@ class employment(models.Model):
 class education(models.Model):
     id = models.AutoField(primary_key=True)
     education_level = models.CharField(
-        max_length=1, choices=EDUCATION_CHOICES, blank=False, null=False, verbose_name='Education Level')
-    country = CountryField(blank=False, null=False, verbose_name='Country')
+        max_length=1, choices=EDUCATION_CHOICES, blank=False, null=False, verbose_name=_('Education Level'))
+    country = CountryField(blank=False, null=False, verbose_name=_('Country'))
     city = models.CharField(max_length=50, blank=False,
-                            null=False, verbose_name='City')
+                            null=False, verbose_name=_('City'))
     institution = models.CharField(
-        max_length=100, blank=False, null=False, verbose_name='Institution')
+        max_length=100, blank=False, null=False, verbose_name=_('Institution'))
     original_title_of_the_qualification = models.CharField(
-        max_length=100, blank=False, null=False, verbose_name='Original Title of the qualification')
+        max_length=100, blank=False, null=False, verbose_name=_('Original Title of the qualification'))
     main_subject = models.CharField(
-        max_length=100, blank=False, null=False, verbose_name='Main subject')
+        max_length=100, blank=False, null=False, verbose_name=_('Main subject'))
     start_date = models.DateField(
-        blank=False, null=False, verbose_name='Start Date')
+        blank=False, null=False, verbose_name=_('Start Date'))
     graduation_date = models.DateField(
-        blank=False, null=False, verbose_name='Graduation Date')
+        blank=False, null=False, verbose_name=_('Graduation Date'))
 
     def __str__(self):
         return str(self.id)

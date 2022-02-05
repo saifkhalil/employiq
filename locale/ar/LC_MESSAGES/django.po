@@ -8,16 +8,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-05 00:58+0300\n"
-"PO-Revision-Date: 2022-02-05 00:53+0258\n"
+"POT-Creation-Date: 2022-02-06 00:14+0300\n"
+"PO-Revision-Date: 2022-02-06 00:15+0258\n"
 "Last-Translator: Anonymous User <saif7800@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
-"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 "X-Translated-Using: django-rosetta 0.9.8\n"
 
 #: .\candidate\models.py:22
@@ -36,7 +35,8 @@ msgstr "اثنى"
 msgid "Male"
 msgstr "ذكر"
 
-#: .\candidate\models.py:33 .\templates\base.html:77 .\templates\base.html:1071
+#: .\candidate\models.py:33 .\templates\base.html:77
+#: .\templates\base.html:1071
 msgid "Home"
 msgstr "الصفحة الرئيسية"
 
@@ -106,129 +106,206 @@ msgstr "درجة الماجستير"
 msgid "PhD Doctorate Degree"
 msgstr "درجة الدكتوراه"
 
-#: .\candidate\models.py:115
+#: .\candidate\models.py:64
+#: .\templates\candidate\my_candidate_details.html:538
+msgid "Employer"
+msgstr "صاحب العمل"
+
+#: .\candidate\models.py:65 .\candidate\models.py:100
+#: .\candidate\models.py:146 .\candidate\models.py:167
+#: .\templates\candidate\cand_list.html:32
+#: .\templates\candidate\my_candidate_details.html:377
+#: .\templates\candidate\my_candidate_details.html:425
+#: .\templates\candidate\my_candidate_details.html:546 .\vendor\models.py:49
+msgid "Country"
+msgstr "البلد"
+
+#: .\candidate\models.py:67 .\candidate\models.py:102
+#: .\candidate\models.py:165
+#: .\templates\candidate\my_candidate_details.html:361
+#: .\templates\candidate\my_candidate_details.html:433
+#: .\templates\candidate\my_candidate_details.html:554 .\vendor\models.py:47
+msgid "City"
+msgstr "المدينة"
+
+#: .\candidate\models.py:69
+msgid "Current Job"
+msgstr "الوظيفة حالية"
+
+#: .\candidate\models.py:71 .\candidate\models.py:110
+#: .\templates\candidate\my_candidate_details.html:468
+msgid "Start Date"
+msgstr "تاريخ البدأ"
+
+#: .\candidate\models.py:73
+msgid "End Date"
+msgstr "تاريخ الانتهاء"
+
+#: .\candidate\models.py:75
+msgid "Job Title"
+msgstr "العنوان الوظيفي"
+
+#: .\candidate\models.py:77
+msgid "Job Description"
+msgstr "الوصف الوظيفي"
+
+#: .\candidate\models.py:79
+#: .\templates\candidate\my_candidate_details.html:634
+msgid "Reason for leaving"
+msgstr "سبب ترك العمل"
+
+#: .\candidate\models.py:81
+#: .\templates\candidate\my_candidate_details.html:598
+msgid "Supervisor's Name"
+msgstr "اسم المدير"
+
+#: .\candidate\models.py:83
+#: .\templates\candidate\my_candidate_details.html:607
+msgid "Supervisor's Title"
+msgstr "العنوان الوظيفي للمدير"
+
+#: .\candidate\models.py:85
+#: .\templates\candidate\my_candidate_details.html:616
+msgid "Supervisor's Phone"
+msgstr "رقم هاتف المدير"
+
+#: .\candidate\models.py:87
+#: .\templates\candidate\my_candidate_details.html:625
+msgid "Supervisor's Email"
+msgstr "البريد الالكتروني للبريد"
+
+#: .\candidate\models.py:99
+msgid "Education Level"
+msgstr "المستوى الدراسي"
+
+#: .\candidate\models.py:104
+#: .\templates\candidate\my_candidate_details.html:441
+msgid "Institution"
+msgstr "الجامعة|المعهد"
+
+#: .\candidate\models.py:106
+msgid "Original Title of the qualification"
+msgstr "العنوان الأصلي للمؤهلات"
+
+#: .\candidate\models.py:108
+#: .\templates\candidate\my_candidate_details.html:460
+msgid "Main subject"
+msgstr "العنوان الرئيسي"
+
+#: .\candidate\models.py:112
+#: .\templates\candidate\my_candidate_details.html:477
+msgid "Graduation Date"
+msgstr "تاريخ التخرج"
+
+#: .\candidate\models.py:126
 #: .\templates\candidate\my_candidate_details.html:139
 msgid "Title"
 msgstr "اللقب"
 
-#: .\candidate\models.py:117
+#: .\candidate\models.py:128
 #: .\templates\candidate\my_candidate_details.html:150
 msgid "First Name"
 msgstr "الاسم الاول"
 
-#: .\candidate\models.py:119
+#: .\candidate\models.py:130
 #: .\templates\candidate\my_candidate_details.html:160
 msgid "Second Name"
 msgstr "الاسم الثاني"
 
-#: .\candidate\models.py:121
+#: .\candidate\models.py:132
 msgid "Last Name"
 msgstr "الاسم الاول"
 
-#: .\candidate\models.py:123 .\templates\account\login.html:32
+#: .\candidate\models.py:134 .\templates\account\login.html:32
 #: .\templates\candidate\my_candidate_details.html:169
 msgid "Email"
 msgstr "البريد الالكتروني"
 
-#: .\candidate\models.py:125
+#: .\candidate\models.py:136
 #: .\templates\candidate\my_candidate_details.html:178
 msgid "Phone"
 msgstr "رقم الهاتف"
 
-#: .\candidate\models.py:127
+#: .\candidate\models.py:138
 #: .\templates\candidate\my_candidate_details.html:187
 msgid "Gender"
 msgstr "الجنس"
 
-#: .\candidate\models.py:129
+#: .\candidate\models.py:140
+#: .\templates\candidate\my_candidate_details.html:199
 msgid "Marital Status"
 msgstr "الحالة الزوجية"
 
-#: .\candidate\models.py:131 .\vendor\models.py:40
+#: .\candidate\models.py:142 .\vendor\models.py:40
 msgid "Photo"
 msgstr "الصورة"
 
-#: .\candidate\models.py:133 .\templates\candidate\cand_list.html:77
+#: .\candidate\models.py:144 .\templates\candidate\cand_list.html:77
 msgid "Birth of date"
 msgstr "تاريخ الميلاد"
 
-#: .\candidate\models.py:135 .\candidate\models.py:156
-#: .\templates\candidate\cand_list.html:32
-#: .\templates\candidate\my_candidate_details.html:365
-#: .\templates\candidate\my_candidate_details.html:413
-#: .\templates\candidate\my_candidate_details.html:534 .\vendor\models.py:49
-msgid "Country"
-msgstr "البلد"
-
-#: .\candidate\models.py:137
-#: .\templates\candidate\my_candidate_details.html:221
+#: .\candidate\models.py:148
+#: .\templates\candidate\my_candidate_details.html:233
 msgid "Place of birth"
 msgstr "مكان الولادة"
 
-#: .\candidate\models.py:139
-#: .\templates\candidate\my_candidate_details.html:232
+#: .\candidate\models.py:150
+#: .\templates\candidate\my_candidate_details.html:244
 msgid "Primary nationality"
 msgstr "الجنسبة الاصلية"
 
-#: .\candidate\models.py:141
+#: .\candidate\models.py:152
 msgid "Seondary nationality"
 msgstr "الجنسية الثانية"
 
-#: .\candidate\models.py:143 .\templates\candidate\cand_list.html:78
-#: .\templates\candidate\my_candidate_details.html:254
+#: .\candidate\models.py:154 .\templates\candidate\cand_list.html:78
+#: .\templates\candidate\my_candidate_details.html:266
 msgid "Highest level of education"
 msgstr "أعلى مستوى تعليمي"
 
-#: .\candidate\models.py:145
+#: .\candidate\models.py:156
 msgid "Conact phone"
 msgstr "رقم الهاتف"
 
-#: .\candidate\models.py:147
-#: .\templates\candidate\my_candidate_details.html:292
+#: .\candidate\models.py:158
+#: .\templates\candidate\my_candidate_details.html:304
 msgid "Type"
 msgstr "النوع"
 
-#: .\candidate\models.py:149
+#: .\candidate\models.py:160
 msgid "Alternative email address"
 msgstr "العنوان البريد الثانوي"
 
-#: .\candidate\models.py:151
+#: .\candidate\models.py:162
 msgid "Address Line(1)"
 msgstr "العنوان الاول"
 
-#: .\candidate\models.py:153
+#: .\candidate\models.py:164
 msgid "Address Line(2)"
 msgstr "العنوان الثاني"
 
-#: .\candidate\models.py:154
-#: .\templates\candidate\my_candidate_details.html:349
-#: .\templates\candidate\my_candidate_details.html:421
-#: .\templates\candidate\my_candidate_details.html:542 .\vendor\models.py:47
-msgid "City"
-msgstr "المدينة"
-
-#: .\candidate\models.py:156 .\vendor\models.py:49
+#: .\candidate\models.py:167 .\vendor\models.py:49
 msgid "(select country)"
 msgstr "اختر البلد"
 
-#: .\candidate\models.py:158
-#: .\templates\candidate\my_candidate_details.html:357
+#: .\candidate\models.py:169
+#: .\templates\candidate\my_candidate_details.html:369
 msgid "Postal Code"
 msgstr "الرمز البريدي"
 
-#: .\candidate\models.py:160
+#: .\candidate\models.py:171
 msgid "Candidate Education"
 msgstr "معلومات المرشح"
 
-#: .\candidate\models.py:162
+#: .\candidate\models.py:173
 msgid "Employment History"
 msgstr "تاريخ التوظيف"
 
-#: .\candidate\models.py:163
+#: .\candidate\models.py:174
 msgid "CV File"
 msgstr "ملف السيرة الذاتية"
 
-#: .\candidate\models.py:165
+#: .\candidate\models.py:176
 msgid "bio"
 msgstr "نبذة مختصرة"
 
@@ -266,31 +343,31 @@ msgid ""
 "EmployIQ is a professional Human Resources recruiter in Iraq that have come "
 "together to assist YOU with a simplified and cost-effective recruitment "
 "process.  We connect numerous number of people to new opportunities every "
-"single day, through our job portal by putting job seekers first and offering "
-"free resume building and company research."
+"single day, through our job portal by putting job seekers first and offering"
+" free resume building and company research."
 msgstr ""
 "EmployIQ هو نظام التوظيف المحترف للموارد البشرية في العراق وقد اجتمع معًا "
-"لمساعدتك في عملية توظيف مبسطة وفعالة من حيث التكلفة. نحن نربط عددًا كبيرًا من "
-"الأشخاص بفرص جديدة كل يوم ، من خلال بوابة الوظائف الخاصة بنا من خلال وضع "
+"لمساعدتك في عملية توظيف مبسطة وفعالة من حيث التكلفة. نحن نربط عددًا كبيرًا "
+"من الأشخاص بفرص جديدة كل يوم ، من خلال بوابة الوظائف الخاصة بنا من خلال وضع "
 "الباحثين عن عمل في المرتبة الأولى وتقديم بناء السيرة الذاتية وأبحاث الشركة "
 "مجانًا."
 
 #: .\templates\about.html:42
 msgid ""
-"Since our early beginnings as a local start-up, our main purpose has been to "
-"give back to our community by helping bridge the unemployment gap. Through "
+"Since our early beginnings as a local start-up, our main purpose has been to"
+" give back to our community by helping bridge the unemployment gap. Through "
 "our extensive database that includes various sectors of education, talents, "
-"and backgrounds – we connect top candidates to companies seeking exceptional "
-"talent to join their team. At the same time, we offer excellent services to "
-"those looking to develop their resumes, and give them the best opportunity "
+"and backgrounds – we connect top candidates to companies seeking exceptional"
+" talent to join their team. At the same time, we offer excellent services to"
+" those looking to develop their resumes, and give them the best opportunity "
 "at securing their dream job."
 msgstr ""
 "منذ بداياتنا المبكرة كشركة محلية ناشئة ، كان هدفنا الرئيسي هو رد الجميل "
-"لمجتمعنا من خلال المساعدة في سد فجوة البطالة. من خلال قاعدة بياناتنا الواسعة "
-"التي تشمل قطاعات مختلفة من التعليم والمواهب والخلفيات - نربط أفضل المرشحين "
+"لمجتمعنا من خلال المساعدة في سد فجوة البطالة. من خلال قاعدة بياناتنا الواسعة"
+" التي تشمل قطاعات مختلفة من التعليم والمواهب والخلفيات - نربط أفضل المرشحين "
 "بالشركات التي تبحث عن مواهب استثنائية للانضمام إلى فريقهم. في الوقت نفسه ، "
-"نقدم خدمات ممتازة لأولئك الذين يتطلعون إلى تطوير سيرهم الذاتية ، ومنحهم أفضل "
-"فرصة لتأمين وظيفة أحلامهم."
+"نقدم خدمات ممتازة لأولئك الذين يتطلعون إلى تطوير سيرهم الذاتية ، ومنحهم أفضل"
+" فرصة لتأمين وظيفة أحلامهم."
 
 #: .\templates\about.html:44
 msgid "What we do"
@@ -313,19 +390,19 @@ msgstr ""
 "خدمة مجانية لمساعدتهم على بناء سير ذاتية استثنائية لجعل عملية التقديم سلسة "
 "وسهلة. بمجرد الانتهاء من بناء السيرة الذاتية ، سيتم إرساله على الفور إلى "
 "قاعدة البيانات الخاصة بنا ، والتي تقدم للشركات مجموعة مؤتمتة من المرشحين "
-"الأكثر ملاءمة لاحتياجاتهم. يمكن لأصحاب العمل الاستفادة من خدماتنا لأنها توسع "
-"نطاق المرشحين ذوي الخبرة ، الذين ربما لم يتم اكتشافهم بطريقة أخرى!"
+"الأكثر ملاءمة لاحتياجاتهم. يمكن لأصحاب العمل الاستفادة من خدماتنا لأنها توسع"
+" نطاق المرشحين ذوي الخبرة ، الذين ربما لم يتم اكتشافهم بطريقة أخرى!"
 
 #: .\templates\about.html:47
 msgid ""
 "Employers can advertise the position they’re looking to fill for up to 30 "
 "days, bringing in a wide pool of candidates to choose from. Our intuitive "
 "Advanced Search option also helps you shorten the selection process, by "
-"narrowing your search to our top tier applicants in Iraq who meet your exact "
-"requirements. EmployIQ gives you access to an endless number of job "
+"narrowing your search to our top tier applicants in Iraq who meet your exact"
+" requirements. EmployIQ gives you access to an endless number of job "
 "opportunities, and our database serves as an outstanding resource for all "
-"Iraqi HR professionals. It is our personal mission to make finding a new job "
-"a simple, efficient experience, for both the company and the individual "
+"Iraqi HR professionals. It is our personal mission to make finding a new job"
+" a simple, efficient experience, for both the company and the individual "
 "alike. "
 msgstr ""
 "يمكن لأصحاب العمل الإعلان عن الوظيفة التي يتطلعون لشغلها لمدة تصل إلى 30 "
@@ -407,7 +484,7 @@ msgstr "العدد المتبقي من المشاهدات المفصلة"
 
 #: .\templates\candidate\cand_list.html:37
 #: .\templates\candidate\cand_list.html:45
-#: .\templates\candidate\my_candidate_details.html:384
+#: .\templates\candidate\my_candidate_details.html:396
 #: .\templates\index.html:31 .\templates\index.html:39
 msgid "Education"
 msgstr "الدراسة"
@@ -466,12 +543,40 @@ msgid "Add New Candiate"
 msgstr "اضافة مرشح جديدة"
 
 #: .\templates\candidate\create.html:52
+#: .\templates\candidate\education\create.html:51
+#: .\templates\candidate\employment\create.html:51
 msgid "Submit"
 msgstr "انشاء"
 
 #: .\templates\candidate\create.html:53
+#: .\templates\candidate\education\create.html:52
+#: .\templates\candidate\education\update.html:52
+#: .\templates\candidate\employment\create.html:52
+#: .\templates\candidate\employment\update.html:52
 msgid "Cancel"
 msgstr "الغاء"
+
+#: .\templates\candidate\education\create.html:8
+msgid "Add new education"
+msgstr "اضافة دراسة جديدة"
+
+#: .\templates\candidate\education\update.html:8
+msgid "Update education"
+msgstr "تحديث البيانات الدراسية"
+
+#: .\templates\candidate\education\update.html:51
+#: .\templates\candidate\employment\update.html:51
+msgid "Update"
+msgstr ""
+
+#: .\templates\candidate\employment\create.html:8
+msgid "Add new employement"
+msgstr "اضافة توظيف جديد"
+
+#: .\templates\candidate\employment\update.html:8
+#| msgid "Add new employement"
+msgid "Update employement"
+msgstr "تحديث بيانات التوظيف"
 
 #: .\templates\candidate\my_candidate_details.html:27
 msgid "You Don't have candidate account"
@@ -489,117 +594,93 @@ msgstr "معلومات المرشح"
 msgid "Personal information"
 msgstr "المعلومات الشخصية"
 
-#: .\templates\candidate\my_candidate_details.html:199
+#: .\templates\candidate\my_candidate_details.html:211
 msgid "Date of birth"
 msgstr "تاريخ الميلاد"
 
-#: .\templates\candidate\my_candidate_details.html:210
+#: .\templates\candidate\my_candidate_details.html:222
 msgid "Country of birth"
 msgstr "بلد الولادة"
 
-#: .\templates\candidate\my_candidate_details.html:243
+#: .\templates\candidate\my_candidate_details.html:255
 msgid "Secondary nationality"
 msgstr "الجنسية الثانية"
 
-#: .\templates\candidate\my_candidate_details.html:274
+#: .\templates\candidate\my_candidate_details.html:286
 msgid "Contact information"
 msgstr "معلومات الاتصال"
 
-#: .\templates\candidate\my_candidate_details.html:284
+#: .\templates\candidate\my_candidate_details.html:296
 msgid "Contact phone"
 msgstr "رقم الهاتف"
 
-#: .\templates\candidate\my_candidate_details.html:302
+#: .\templates\candidate\my_candidate_details.html:314
 msgid "Alternate email address"
 msgstr "العنوان البريد الثانوي"
 
-#: .\templates\candidate\my_candidate_details.html:322
+#: .\templates\candidate\my_candidate_details.html:334
 msgid "Permanent Address"
 msgstr "العنوان الرئيسي"
 
-#: .\templates\candidate\my_candidate_details.html:332
+#: .\templates\candidate\my_candidate_details.html:344
 msgid "Address (line 1)"
 msgstr "العنوان"
 
-#: .\templates\candidate\my_candidate_details.html:341
+#: .\templates\candidate\my_candidate_details.html:353
 msgid "Address (line 2)"
 msgstr "العنوان"
 
-#: .\templates\candidate\my_candidate_details.html:397
+#: .\templates\candidate\my_candidate_details.html:409
 msgid "The candidate not added educations records"
 msgstr "لم يتم اضافة دراسة"
 
-#: .\templates\candidate\my_candidate_details.html:404
+#: .\templates\candidate\my_candidate_details.html:416
 msgid "Education level"
 msgstr "المستوى الدراسي"
 
-#: .\templates\candidate\my_candidate_details.html:429
-msgid "Institution"
-msgstr "الجامعة|المعهد"
-
-#: .\templates\candidate\my_candidate_details.html:438
+#: .\templates\candidate\my_candidate_details.html:450
 msgid "Original Title of the Qualification"
 msgstr "العنوان الأصلي للمؤهلات"
 
-#: .\templates\candidate\my_candidate_details.html:448
-msgid "Main subject"
-msgstr "العنوان الرئيسي"
-
-#: .\templates\candidate\my_candidate_details.html:456
-msgid "Start Date"
-msgstr "تاريخ البدأ"
-
-#: .\templates\candidate\my_candidate_details.html:465
-msgid "Graduation Date"
-msgstr "تاريخ التخرج"
-
-#: .\templates\candidate\my_candidate_details.html:476
-#: .\templates\candidate\my_candidate_details.html:597
+#: .\templates\candidate\my_candidate_details.html:488
+#: .\templates\candidate\my_candidate_details.html:645
 msgid "Edit"
 msgstr "تعديل"
 
-#: .\templates\candidate\my_candidate_details.html:481
-#: .\templates\candidate\my_candidate_details.html:602
+#: .\templates\candidate\my_candidate_details.html:493
+#: .\templates\candidate\my_candidate_details.html:650
 msgid "Delete"
 msgstr "حذف"
 
-#: .\templates\candidate\my_candidate_details.html:491
+#: .\templates\candidate\my_candidate_details.html:503
 msgid "Add New Education"
 msgstr "اضافة دراسة جديدة"
 
-#: .\templates\candidate\my_candidate_details.html:506
+#: .\templates\candidate\my_candidate_details.html:518
 msgid "Employments"
 msgstr "التوظيف"
 
-#: .\templates\candidate\my_candidate_details.html:520
+#: .\templates\candidate\my_candidate_details.html:532
 msgid "The candidate not added employments records"
 msgstr "لم يتم اضافة معلومات توظيف"
 
-#: .\templates\candidate\my_candidate_details.html:526
-msgid "Employer"
-msgstr "صاحب العمل"
-
-#: .\templates\candidate\my_candidate_details.html:550
+#: .\templates\candidate\my_candidate_details.html:562
 msgid "Current job"
 msgstr "وظيفة حالية"
 
-#: .\templates\candidate\my_candidate_details.html:559
+#: .\templates\candidate\my_candidate_details.html:571
 msgid "Start date"
 msgstr "تاريخ البدأ"
 
-#: .\templates\candidate\my_candidate_details.html:568
+#: .\templates\candidate\my_candidate_details.html:580
 msgid "End date"
 msgstr "تاريخ الانتهاء"
 
-#: .\templates\candidate\my_candidate_details.html:577
+#: .\templates\candidate\my_candidate_details.html:589
 msgid "Job title"
 msgstr "العنوان الوظيفي"
 
-#: .\templates\candidate\my_candidate_details.html:586
-msgid "Reason for leaving"
-msgstr "سبب ترك العمل"
-
-#: .\templates\candidate\my_candidate_details.html:613
+#: .\templates\candidate\my_candidate_details.html:661
 msgid "Add New Employment"
 msgstr "اضافة توظيف جديد"
 
@@ -677,20 +758,16 @@ msgid "companies"
 msgstr "شركة"
 
 #: .\vendor\models.py:16
-#, fuzzy
-#| msgid "Seondary nationality"
 msgid "International"
-msgstr "الجنسية الثانية"
+msgstr "غير العراقيين"
 
 #: .\vendor\models.py:17
-#, fuzzy
-#| msgid "Location"
 msgid "National"
-msgstr "الموقع"
+msgstr "عراقي الجنسية"
 
 #: .\vendor\models.py:18
 msgid "Both"
-msgstr ""
+msgstr "الكل"
 
 #: .\vendor\models.py:37
 msgid "User"
@@ -737,10 +814,8 @@ msgid "Remaining Records"
 msgstr "العدد المتبقي من الصفوف"
 
 #: .\vendor\models.py:85
-#, fuzzy
-#| msgid "Primary nationality"
 msgid "Nationality"
-msgstr "الجنسبة الاصلية"
+msgstr "الجنسية"
 
 #~ msgid "main menu"
 #~ msgstr "القائمة الرئيسية"

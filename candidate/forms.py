@@ -22,7 +22,7 @@ class EmpForm(ModelForm):
     class Meta:
         model = employment
         fields = ['employer', 'country', 'city', 'current_job',
-                  'start_date', 'end_date', 'job_title',
+                  'start_date', 'end_date', 'job_title', 'supervisor_name', 'supervisor_title', 'supervisor_phone', 'supervisor_email',
                   'reason_for_leaving']
         widgets = {'country': CountrySelectWidget(
         ), 'start_date': DateInput(), 'end_date': DateInput()}
