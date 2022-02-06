@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'easy_thumbnails',
     'rosetta',
+    'languages',
     # Buitin apps
     'accounts',
     'candidate',

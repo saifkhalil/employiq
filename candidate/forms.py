@@ -1,4 +1,4 @@
-from .models import candidate, education, employment
+from .models import candidate, education, employment, language
 from django.forms import ModelForm
 from django_countries.widgets import CountrySelectWidget
 from django import forms
@@ -26,6 +26,12 @@ class EmpForm(ModelForm):
                   'reason_for_leaving']
         widgets = {'country': CountrySelectWidget(
         ), 'start_date': DateInput(), 'end_date': DateInput()}
+
+
+class LangForm(ModelForm):
+    class Meta:
+        model = language
+        fields = ['language', 'level']
 
 
 class CanForm(ModelForm):

@@ -16,6 +16,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator, MinLeng
 from PIL import Image
 from django.core.files.base import ContentFile
 from easy_thumbnails.fields import ThumbnailerImageField
+from languages.fields import LanguageField
 User = settings.AUTH_USER_MODEL
 
 TITLE_CHOICES = [
@@ -57,6 +58,13 @@ EDUCATION_CHOICES = [
     ('6', _('PhD Doctorate Degree')),
 ]
 
+LANGUAGE_LEVELS = [
+    ('1', _('Beginner')),
+    ('2', _('Professional communication')),
+    ('3', _('Fluent')),
+    ('4', _('Mother tongue')),
+]
+
 
 class employment(models.Model):
     id = models.AutoField(primary_key=True)
@@ -91,6 +99,20 @@ class employment(models.Model):
 
     def __unicode__(self):
         return self.employer
+
+
+class language(models.Model):
+    id = models.AutoField(primary_key=True)
+    language = LanguageField(max_length=10, blank=False,
+                             null=False)
+    level = models.CharField(
+        max_length=10, choices=LANGUAGE_LEVELS, blank=False, null=False, verbose_name=_('Level'))
+
+    def __str__(self):
+        return str(self.id)
+
+    def __unicode__(self):
+        return str(self.id)
 
 
 class education(models.Model):
@@ -171,6 +193,8 @@ class candidate(models.Model):
         'education', blank=True, verbose_name=_('Candidate Education'))
     Employment = models.ManyToManyField(
         'employment', blank=True, verbose_name=_('Employment History'))
+    language = models.ManyToManyField(
+        'language', blank=True, verbose_name=_('Language Skills'))
     cv = models.FileField(upload_to='media/cv', verbose_name=_('CV File'))
     bio = models.CharField(max_length=1000, blank=True,
                            null=True, verbose_name=_('bio'))

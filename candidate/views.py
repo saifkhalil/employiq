@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.http.response import JsonResponse
 from django.shortcuts import render, redirect
 from xhtml2pdf import context
-from .models import candidate, education, employment
+from .models import candidate, education, employment, language
 from accounts.models import User
 from vendor.models import vendor
 from django.core.paginator import Paginator
@@ -14,7 +14,7 @@ from django.contrib import messages
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import View
 from django.urls import reverse_lazy
-from .forms import EduForm, EmpForm, CanForm
+from .forms import EduForm, EmpForm, CanForm, LangForm
 from .pdf_process import html_to_pdf
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
@@ -103,7 +103,8 @@ def my_candidate_details(request):
         context = {
             'object': candidate_detials,
             'educations': education.objects.filter(candidate__id=cid),
-            'employments': employment.objects.filter(candidate__id=cid)
+            'employments': employment.objects.filter(candidate__id=cid),
+            'Languages': language.objects.filter(candidate__id=cid)
         }
         return render(request, 'candidate/my_candidate_details.html', context)
     except ObjectDoesNotExist:
@@ -131,6 +132,20 @@ def del_employement(request, eid):
         msg = ""
         if employment.objects.filter(id=eid).exists() and employment.objects.filter(candidate__id=cid).exists():
             employment.objects.filter(id=eid).delete()
+            return JsonResponse({"data": ""}, status=200)
+        else:
+            return JsonResponse({"data": ""}, status=400)
+    else:
+        return JsonResponse({"data": ""}, status=405)
+
+
+def del_language(request, eid):
+    if request.method == 'GET':
+        userid = request.user.id
+        cid = candidate.objects.get(user__id=userid).id
+        msg = ""
+        if language.objects.filter(id=eid).exists() and language.objects.filter(candidate__id=cid).exists():
+            language.objects.filter(id=eid).delete()
             return JsonResponse({"data": ""}, status=200)
         else:
             return JsonResponse({"data": ""}, status=400)
@@ -175,6 +190,52 @@ class EducationUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView, A
     fields = ['education_level', 'country', 'city', 'institution',
               'original_title_of_the_qualification', 'main_subject', 'start_date',
               'graduation_date']
+
+    def form_valid(self, form):
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('my_candidate_details')
+
+    def test_func(self):
+        return True
+
+
+class LanguageCreateView(CreateView):
+    model = language
+    template_name = 'candidate/language/create.html'
+    form_class = LangForm
+
+    def form_valid(self, form):
+        current_candidate = candidate.objects.get(
+            user__id=self.request.user.id)
+        Lang = form.save(commit=False)
+        Lang.created_by = User.objects.get(email=self.request.user.email)
+
+        Lang.save()
+        Lang.candidate_set.add(current_candidate)
+        '''
+        html_message = render_to_string('mail_template.html', {'cm': Edu})
+        send_mail(
+            subject='New Change Management Created Reason: ' +
+            form.cleaned_data['reason'],
+            html_message=html_message,
+            message='',
+            from_email='isms@qi.iq',
+            recipient_list=['saif.ibrahim@qi.iq', 'saif780@gmail.com'],
+            fail_silently=False,
+        )
+        '''
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('my_candidate_details')
+
+
+class LanguageUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView, ABC):
+    model = language
+    template_name = 'candidate/language/update.html'
+    fields = ['language', 'level']
 
     def form_valid(self, form):
         return super().form_valid(form)

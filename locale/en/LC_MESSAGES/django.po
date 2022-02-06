@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-06 00:14+0300\n"
+"POT-Creation-Date: 2022-02-06 01:12+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,296 +18,337 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\candidate\models.py:22
+#: .\candidate\models.py:23
 msgid "Mr."
 msgstr ""
 
-#: .\candidate\models.py:23
+#: .\candidate\models.py:24
 msgid "Ms."
 msgstr ""
 
-#: .\candidate\models.py:27
+#: .\candidate\models.py:28
 msgid "Female"
 msgstr ""
 
-#: .\candidate\models.py:28
+#: .\candidate\models.py:29
 msgid "Male"
 msgstr ""
 
-#: .\candidate\models.py:33 .\templates\base.html:77 .\templates\base.html:1071
+#: .\candidate\models.py:34 .\templates\base.html:68 .\templates\base.html:1031
 msgid "Home"
 msgstr ""
 
-#: .\candidate\models.py:34
+#: .\candidate\models.py:35
 msgid "Mobile"
 msgstr ""
 
-#: .\candidate\models.py:35
+#: .\candidate\models.py:36
 msgid "Work"
 msgstr ""
 
-#: .\candidate\models.py:39
+#: .\candidate\models.py:40
 msgid "Yes"
 msgstr ""
 
-#: .\candidate\models.py:40
+#: .\candidate\models.py:41
 msgid "No"
 msgstr ""
 
-#: .\candidate\models.py:44
+#: .\candidate\models.py:45
 msgid "Single"
 msgstr ""
 
-#: .\candidate\models.py:45
+#: .\candidate\models.py:46
 msgid "Married"
 msgstr ""
 
-#: .\candidate\models.py:46
+#: .\candidate\models.py:47
 msgid "Widowed"
 msgstr ""
 
-#: .\candidate\models.py:47
+#: .\candidate\models.py:48
 msgid "Separated"
 msgstr ""
 
-#: .\candidate\models.py:48
+#: .\candidate\models.py:49
 msgid "Divorced"
 msgstr ""
 
-#: .\candidate\models.py:52 .\templates\candidate\cand_list.html:38
+#: .\candidate\models.py:53 .\templates\candidate\cand_list.html:38
 #: .\templates\index.html:32
 msgid "Non-Degree Programme"
 msgstr ""
 
-#: .\candidate\models.py:53 .\templates\candidate\cand_list.html:39
+#: .\candidate\models.py:54 .\templates\candidate\cand_list.html:39
 #: .\templates\index.html:33
 msgid "High School diploma"
 msgstr ""
 
-#: .\candidate\models.py:54 .\templates\candidate\cand_list.html:40
+#: .\candidate\models.py:55 .\templates\candidate\cand_list.html:40
 #: .\templates\index.html:34
 msgid "Technical Diploma"
 msgstr ""
 
-#: .\candidate\models.py:55 .\templates\candidate\cand_list.html:41
+#: .\candidate\models.py:56 .\templates\candidate\cand_list.html:41
 #: .\templates\index.html:35
 msgid "Bachelors Degree"
 msgstr ""
 
-#: .\candidate\models.py:56 .\templates\candidate\cand_list.html:42
+#: .\candidate\models.py:57 .\templates\candidate\cand_list.html:42
 #: .\templates\index.html:36
 msgid "Master Degree"
 msgstr ""
 
-#: .\candidate\models.py:57 .\templates\candidate\cand_list.html:43
+#: .\candidate\models.py:58 .\templates\candidate\cand_list.html:43
 #: .\templates\index.html:37
 msgid "PhD Doctorate Degree"
 msgstr ""
 
-#: .\candidate\models.py:64 .\templates\candidate\my_candidate_details.html:538
+#: .\candidate\models.py:62
+msgid "Beginner"
+msgstr ""
+
+#: .\candidate\models.py:63
+msgid "Professional communication"
+msgstr ""
+
+#: .\candidate\models.py:64
+msgid "Fluent"
+msgstr ""
+
+#: .\candidate\models.py:65
+msgid "Mother tongue"
+msgstr ""
+
+#: .\candidate\models.py:72 .\templates\candidate\candidate_detail.html:442
+#: .\templates\candidate\my_candidate_details.html:538
 msgid "Employer"
 msgstr ""
 
-#: .\candidate\models.py:65 .\candidate\models.py:100 .\candidate\models.py:146
-#: .\candidate\models.py:167 .\templates\candidate\cand_list.html:32
+#: .\candidate\models.py:73 .\candidate\models.py:122 .\candidate\models.py:168
+#: .\candidate\models.py:189 .\templates\candidate\cand_list.html:32
+#: .\templates\candidate\candidate_detail.html:311
+#: .\templates\candidate\candidate_detail.html:353
+#: .\templates\candidate\candidate_detail.html:450
 #: .\templates\candidate\my_candidate_details.html:377
 #: .\templates\candidate\my_candidate_details.html:425
 #: .\templates\candidate\my_candidate_details.html:546 .\vendor\models.py:49
 msgid "Country"
 msgstr ""
 
-#: .\candidate\models.py:67 .\candidate\models.py:102 .\candidate\models.py:165
+#: .\candidate\models.py:75 .\candidate\models.py:124 .\candidate\models.py:187
+#: .\templates\candidate\candidate_detail.html:295
+#: .\templates\candidate\candidate_detail.html:361
+#: .\templates\candidate\candidate_detail.html:458
 #: .\templates\candidate\my_candidate_details.html:361
 #: .\templates\candidate\my_candidate_details.html:433
 #: .\templates\candidate\my_candidate_details.html:554 .\vendor\models.py:47
 msgid "City"
 msgstr ""
 
-#: .\candidate\models.py:69
+#: .\candidate\models.py:77
 msgid "Current Job"
 msgstr ""
 
-#: .\candidate\models.py:71 .\candidate\models.py:110
+#: .\candidate\models.py:79 .\candidate\models.py:132
+#: .\templates\candidate\candidate_detail.html:395
 #: .\templates\candidate\my_candidate_details.html:468
 msgid "Start Date"
 msgstr ""
 
-#: .\candidate\models.py:73
+#: .\candidate\models.py:81
 msgid "End Date"
 msgstr ""
 
-#: .\candidate\models.py:75
+#: .\candidate\models.py:83
 msgid "Job Title"
 msgstr ""
 
-#: .\candidate\models.py:77
+#: .\candidate\models.py:85
 msgid "Job Description"
 msgstr ""
 
-#: .\candidate\models.py:79 .\templates\candidate\my_candidate_details.html:634
+#: .\candidate\models.py:87 .\templates\candidate\candidate_detail.html:530
+#: .\templates\candidate\my_candidate_details.html:634
 msgid "Reason for leaving"
 msgstr ""
 
-#: .\candidate\models.py:81 .\templates\candidate\my_candidate_details.html:598
+#: .\candidate\models.py:89 .\templates\candidate\candidate_detail.html:498
+#: .\templates\candidate\my_candidate_details.html:598
 msgid "Supervisor's Name"
 msgstr ""
 
-#: .\candidate\models.py:83 .\templates\candidate\my_candidate_details.html:607
+#: .\candidate\models.py:91 .\templates\candidate\candidate_detail.html:506
+#: .\templates\candidate\my_candidate_details.html:607
 msgid "Supervisor's Title"
 msgstr ""
 
-#: .\candidate\models.py:85 .\templates\candidate\my_candidate_details.html:616
+#: .\candidate\models.py:93 .\templates\candidate\candidate_detail.html:514
+#: .\templates\candidate\my_candidate_details.html:616
 msgid "Supervisor's Phone"
 msgstr ""
 
-#: .\candidate\models.py:87 .\templates\candidate\my_candidate_details.html:625
+#: .\candidate\models.py:95 .\templates\candidate\candidate_detail.html:522
+#: .\templates\candidate\my_candidate_details.html:625
 msgid "Supervisor's Email"
 msgstr ""
 
-#: .\candidate\models.py:99
+#: .\candidate\models.py:109
+#: .\templates\candidate\my_candidate_details.html:705
+msgid "Level"
+msgstr ""
+
+#: .\candidate\models.py:121
 msgid "Education Level"
 msgstr ""
 
-#: .\candidate\models.py:104
+#: .\candidate\models.py:126 .\templates\candidate\candidate_detail.html:369
 #: .\templates\candidate\my_candidate_details.html:441
 msgid "Institution"
 msgstr ""
 
-#: .\candidate\models.py:106
+#: .\candidate\models.py:128
 msgid "Original Title of the qualification"
 msgstr ""
 
-#: .\candidate\models.py:108
+#: .\candidate\models.py:130 .\templates\candidate\candidate_detail.html:387
 #: .\templates\candidate\my_candidate_details.html:460
 msgid "Main subject"
 msgstr ""
 
-#: .\candidate\models.py:112
+#: .\candidate\models.py:134 .\templates\candidate\candidate_detail.html:403
 #: .\templates\candidate\my_candidate_details.html:477
 msgid "Graduation Date"
 msgstr ""
 
-#: .\candidate\models.py:126
+#: .\candidate\models.py:148 .\templates\candidate\candidate_detail.html:104
 #: .\templates\candidate\my_candidate_details.html:139
 msgid "Title"
 msgstr ""
 
-#: .\candidate\models.py:128
+#: .\candidate\models.py:150 .\templates\candidate\candidate_detail.html:112
 #: .\templates\candidate\my_candidate_details.html:150
 msgid "First Name"
 msgstr ""
 
-#: .\candidate\models.py:130
+#: .\candidate\models.py:152 .\templates\candidate\candidate_detail.html:120
 #: .\templates\candidate\my_candidate_details.html:160
 msgid "Second Name"
 msgstr ""
 
-#: .\candidate\models.py:132
+#: .\candidate\models.py:154
 msgid "Last Name"
 msgstr ""
 
-#: .\candidate\models.py:134 .\templates\account\login.html:32
+#: .\candidate\models.py:156 .\templates\account\login.html:32
+#: .\templates\candidate\candidate_detail.html:128
 #: .\templates\candidate\my_candidate_details.html:169
 msgid "Email"
 msgstr ""
 
-#: .\candidate\models.py:136
+#: .\candidate\models.py:158 .\templates\candidate\candidate_detail.html:136
 #: .\templates\candidate\my_candidate_details.html:178
 msgid "Phone"
 msgstr ""
 
-#: .\candidate\models.py:138
+#: .\candidate\models.py:160 .\templates\candidate\candidate_detail.html:144
 #: .\templates\candidate\my_candidate_details.html:187
 msgid "Gender"
 msgstr ""
 
-#: .\candidate\models.py:140
+#: .\candidate\models.py:162 .\templates\candidate\candidate_detail.html:153
 #: .\templates\candidate\my_candidate_details.html:199
 msgid "Marital Status"
 msgstr ""
 
-#: .\candidate\models.py:142 .\vendor\models.py:40
+#: .\candidate\models.py:164 .\vendor\models.py:40
 msgid "Photo"
 msgstr ""
 
-#: .\candidate\models.py:144 .\templates\candidate\cand_list.html:77
+#: .\candidate\models.py:166 .\templates\candidate\cand_list.html:77
 msgid "Birth of date"
 msgstr ""
 
-#: .\candidate\models.py:148
+#: .\candidate\models.py:170 .\templates\candidate\candidate_detail.html:182
 #: .\templates\candidate\my_candidate_details.html:233
 msgid "Place of birth"
 msgstr ""
 
-#: .\candidate\models.py:150
+#: .\candidate\models.py:172 .\templates\candidate\candidate_detail.html:191
 #: .\templates\candidate\my_candidate_details.html:244
 msgid "Primary nationality"
 msgstr ""
 
-#: .\candidate\models.py:152
+#: .\candidate\models.py:174
 msgid "Seondary nationality"
 msgstr ""
 
-#: .\candidate\models.py:154 .\templates\candidate\cand_list.html:78
+#: .\candidate\models.py:176 .\templates\candidate\cand_list.html:78
+#: .\templates\candidate\candidate_detail.html:211
 #: .\templates\candidate\my_candidate_details.html:266
 msgid "Highest level of education"
 msgstr ""
 
-#: .\candidate\models.py:156
+#: .\candidate\models.py:178
 msgid "Conact phone"
 msgstr ""
 
-#: .\candidate\models.py:158
+#: .\candidate\models.py:180 .\templates\candidate\candidate_detail.html:245
 #: .\templates\candidate\my_candidate_details.html:304
 msgid "Type"
 msgstr ""
 
-#: .\candidate\models.py:160
+#: .\candidate\models.py:182
 msgid "Alternative email address"
 msgstr ""
 
-#: .\candidate\models.py:162
+#: .\candidate\models.py:184
 msgid "Address Line(1)"
 msgstr ""
 
-#: .\candidate\models.py:164
+#: .\candidate\models.py:186
 msgid "Address Line(2)"
 msgstr ""
 
-#: .\candidate\models.py:167 .\vendor\models.py:49
+#: .\candidate\models.py:189 .\vendor\models.py:49
 msgid "(select country)"
 msgstr ""
 
-#: .\candidate\models.py:169
+#: .\candidate\models.py:191 .\templates\candidate\candidate_detail.html:303
 #: .\templates\candidate\my_candidate_details.html:369
 msgid "Postal Code"
 msgstr ""
 
-#: .\candidate\models.py:171
+#: .\candidate\models.py:193
 msgid "Candidate Education"
 msgstr ""
 
-#: .\candidate\models.py:173
+#: .\candidate\models.py:195
 msgid "Employment History"
 msgstr ""
 
-#: .\candidate\models.py:174
+#: .\candidate\models.py:197
+#: .\templates\candidate\my_candidate_details.html:677
+msgid "Language Skills"
+msgstr ""
+
+#: .\candidate\models.py:198
 msgid "CV File"
 msgstr ""
 
-#: .\candidate\models.py:176
+#: .\candidate\models.py:200
 msgid "bio"
 msgstr ""
 
-#: .\core\settings.py:139
+#: .\core\settings.py:140
 msgid "English"
 msgstr ""
 
-#: .\core\settings.py:140
+#: .\core\settings.py:141
 msgid "Arabic"
 msgstr ""
 
-#: .\templates\about.html:19 .\templates\base.html:80
+#: .\templates\about.html:19 .\templates\base.html:71
 msgid "About"
 msgstr ""
 
@@ -326,7 +367,7 @@ msgstr ""
 msgid "Who we are"
 msgstr ""
 
-#: .\templates\about.html:40 .\templates\base.html:1052
+#: .\templates\about.html:40 .\templates\base.html:1012
 msgid ""
 "EmployIQ is a professional Human Resources recruiter in Iraq that have come "
 "together to assist YOU with a simplified and cost-effective recruitment "
@@ -384,7 +425,7 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
-#: .\templates\account\login.html:53 .\templates\base.html:122
+#: .\templates\account\login.html:53 .\templates\base.html:105
 msgid "Login"
 msgstr ""
 
@@ -396,47 +437,47 @@ msgstr ""
 msgid "Django administration"
 msgstr ""
 
-#: .\templates\base.html:87
+#: .\templates\base.html:76
 msgid "For Candidates"
 msgstr ""
 
-#: .\templates\base.html:90 .\templates\base.html:104
+#: .\templates\base.html:79 .\templates\base.html:93
 msgid "Profile"
 msgstr ""
 
-#: .\templates\base.html:94 .\templates\candidate\my_candidate_details.html:39
+#: .\templates\base.html:83 .\templates\candidate\my_candidate_details.html:39
 msgid "Create Candidate"
 msgstr ""
 
-#: .\templates\base.html:101
+#: .\templates\base.html:90
 msgid "for employers"
 msgstr ""
 
-#: .\templates\base.html:105
+#: .\templates\base.html:94
 msgid "Find a candidate"
 msgstr ""
 
-#: .\templates\base.html:118 .\templates\header.html:103
+#: .\templates\base.html:101 .\templates\header.html:103
 msgid "LOGOUT"
 msgstr ""
 
-#: .\templates\base.html:1057
+#: .\templates\base.html:1017
 msgid "Erbil, Iraq"
 msgstr ""
 
-#: .\templates\base.html:1067
+#: .\templates\base.html:1027
 msgid "Useful links"
 msgstr ""
 
-#: .\templates\base.html:1073
+#: .\templates\base.html:1033
 msgid "My Candidate Profile"
 msgstr ""
 
-#: .\templates\base.html:1075
+#: .\templates\base.html:1035
 msgid "Find Candidate"
 msgstr ""
 
-#: .\templates\base.html:1195
+#: .\templates\base.html:1155
 msgid "Copyright &copy; Employiq. All Rights Reserved"
 msgstr ""
 
@@ -446,6 +487,7 @@ msgstr ""
 
 #: .\templates\candidate\cand_list.html:37
 #: .\templates\candidate\cand_list.html:45
+#: .\templates\candidate\candidate_detail.html:327
 #: .\templates\candidate\my_candidate_details.html:396
 #: .\templates\index.html:31 .\templates\index.html:39
 msgid "Education"
@@ -500,6 +542,106 @@ msgstr ""
 msgid "Next"
 msgstr ""
 
+#: .\templates\candidate\candidate_detail.html:84
+#: .\templates\candidate\my_candidate_details.html:116
+msgid "Candidate information"
+msgstr ""
+
+#: .\templates\candidate\candidate_detail.html:95
+#: .\templates\candidate\my_candidate_details.html:130
+msgid "Personal information"
+msgstr ""
+
+#: .\templates\candidate\candidate_detail.html:163
+#: .\templates\candidate\my_candidate_details.html:211
+msgid "Date of birth"
+msgstr ""
+
+#: .\templates\candidate\candidate_detail.html:173
+#: .\templates\candidate\my_candidate_details.html:222
+msgid "Country of birth"
+msgstr ""
+
+#: .\templates\candidate\candidate_detail.html:201
+#: .\templates\candidate\my_candidate_details.html:255
+msgid "Secondary nationality"
+msgstr ""
+
+#: .\templates\candidate\candidate_detail.html:229
+#: .\templates\candidate\my_candidate_details.html:286
+msgid "Contact information"
+msgstr ""
+
+#: .\templates\candidate\candidate_detail.html:237
+#: .\templates\candidate\my_candidate_details.html:296
+msgid "Contact phone"
+msgstr ""
+
+#: .\templates\candidate\candidate_detail.html:254
+#: .\templates\candidate\my_candidate_details.html:314
+msgid "Alternate email address"
+msgstr ""
+
+#: .\templates\candidate\candidate_detail.html:271
+#: .\templates\candidate\my_candidate_details.html:334
+msgid "Permanent Address"
+msgstr ""
+
+#: .\templates\candidate\candidate_detail.html:279
+#: .\templates\candidate\my_candidate_details.html:344
+msgid "Address (line 1)"
+msgstr ""
+
+#: .\templates\candidate\candidate_detail.html:287
+#: .\templates\candidate\my_candidate_details.html:353
+msgid "Address (line 2)"
+msgstr ""
+
+#: .\templates\candidate\candidate_detail.html:339
+#: .\templates\candidate\my_candidate_details.html:409
+msgid "The candidate not added educations records"
+msgstr ""
+
+#: .\templates\candidate\candidate_detail.html:345
+#: .\templates\candidate\my_candidate_details.html:416
+msgid "Education level"
+msgstr ""
+
+#: .\templates\candidate\candidate_detail.html:378
+#: .\templates\candidate\my_candidate_details.html:450
+msgid "Original Title of the Qualification"
+msgstr ""
+
+#: .\templates\candidate\candidate_detail.html:424
+#: .\templates\candidate\my_candidate_details.html:518
+msgid "Employments"
+msgstr ""
+
+#: .\templates\candidate\candidate_detail.html:436
+#: .\templates\candidate\my_candidate_details.html:532
+msgid "The candidate not added employments records"
+msgstr ""
+
+#: .\templates\candidate\candidate_detail.html:466
+#: .\templates\candidate\my_candidate_details.html:562
+msgid "Current job"
+msgstr ""
+
+#: .\templates\candidate\candidate_detail.html:474
+#: .\templates\candidate\my_candidate_details.html:571
+msgid "Start date"
+msgstr ""
+
+#: .\templates\candidate\candidate_detail.html:482
+#: .\templates\candidate\my_candidate_details.html:580
+msgid "End date"
+msgstr ""
+
+#: .\templates\candidate\candidate_detail.html:490
+#: .\templates\candidate\my_candidate_details.html:589
+msgid "Job title"
+msgstr ""
+
 #: .\templates\candidate\create.html:9
 msgid "Add New Candiate"
 msgstr ""
@@ -507,6 +649,7 @@ msgstr ""
 #: .\templates\candidate\create.html:52
 #: .\templates\candidate\education\create.html:51
 #: .\templates\candidate\employment\create.html:51
+#: .\templates\candidate\language\create.html:51
 msgid "Submit"
 msgstr ""
 
@@ -515,6 +658,8 @@ msgstr ""
 #: .\templates\candidate\education\update.html:52
 #: .\templates\candidate\employment\create.html:52
 #: .\templates\candidate\employment\update.html:52
+#: .\templates\candidate\language\create.html:52
+#: .\templates\candidate\language\update.html:52
 msgid "Cancel"
 msgstr ""
 
@@ -523,11 +668,13 @@ msgid "Add new education"
 msgstr ""
 
 #: .\templates\candidate\education\update.html:8
+#: .\templates\candidate\language\update.html:8
 msgid "Update education"
 msgstr ""
 
 #: .\templates\candidate\education\update.html:51
 #: .\templates\candidate\employment\update.html:51
+#: .\templates\candidate\language\update.html:51
 msgid "Update"
 msgstr ""
 
@@ -539,6 +686,10 @@ msgstr ""
 msgid "Update employement"
 msgstr ""
 
+#: .\templates\candidate\language\create.html:8
+msgid "Add new language"
+msgstr ""
+
 #: .\templates\candidate\my_candidate_details.html:27
 msgid "You Don't have candidate account"
 msgstr ""
@@ -547,69 +698,15 @@ msgstr ""
 msgid "If you need to submit your resume please click on create candidate."
 msgstr ""
 
-#: .\templates\candidate\my_candidate_details.html:116
-msgid "Candidate information"
-msgstr ""
-
-#: .\templates\candidate\my_candidate_details.html:130
-msgid "Personal information"
-msgstr ""
-
-#: .\templates\candidate\my_candidate_details.html:211
-msgid "Date of birth"
-msgstr ""
-
-#: .\templates\candidate\my_candidate_details.html:222
-msgid "Country of birth"
-msgstr ""
-
-#: .\templates\candidate\my_candidate_details.html:255
-msgid "Secondary nationality"
-msgstr ""
-
-#: .\templates\candidate\my_candidate_details.html:286
-msgid "Contact information"
-msgstr ""
-
-#: .\templates\candidate\my_candidate_details.html:296
-msgid "Contact phone"
-msgstr ""
-
-#: .\templates\candidate\my_candidate_details.html:314
-msgid "Alternate email address"
-msgstr ""
-
-#: .\templates\candidate\my_candidate_details.html:334
-msgid "Permanent Address"
-msgstr ""
-
-#: .\templates\candidate\my_candidate_details.html:344
-msgid "Address (line 1)"
-msgstr ""
-
-#: .\templates\candidate\my_candidate_details.html:353
-msgid "Address (line 2)"
-msgstr ""
-
-#: .\templates\candidate\my_candidate_details.html:409
-msgid "The candidate not added educations records"
-msgstr ""
-
-#: .\templates\candidate\my_candidate_details.html:416
-msgid "Education level"
-msgstr ""
-
-#: .\templates\candidate\my_candidate_details.html:450
-msgid "Original Title of the Qualification"
-msgstr ""
-
 #: .\templates\candidate\my_candidate_details.html:488
 #: .\templates\candidate\my_candidate_details.html:645
+#: .\templates\candidate\my_candidate_details.html:715
 msgid "Edit"
 msgstr ""
 
 #: .\templates\candidate\my_candidate_details.html:493
 #: .\templates\candidate\my_candidate_details.html:650
+#: .\templates\candidate\my_candidate_details.html:718
 msgid "Delete"
 msgstr ""
 
@@ -617,32 +714,20 @@ msgstr ""
 msgid "Add New Education"
 msgstr ""
 
-#: .\templates\candidate\my_candidate_details.html:518
-msgid "Employments"
-msgstr ""
-
-#: .\templates\candidate\my_candidate_details.html:532
-msgid "The candidate not added employments records"
-msgstr ""
-
-#: .\templates\candidate\my_candidate_details.html:562
-msgid "Current job"
-msgstr ""
-
-#: .\templates\candidate\my_candidate_details.html:571
-msgid "Start date"
-msgstr ""
-
-#: .\templates\candidate\my_candidate_details.html:580
-msgid "End date"
-msgstr ""
-
-#: .\templates\candidate\my_candidate_details.html:589
-msgid "Job title"
-msgstr ""
-
 #: .\templates\candidate\my_candidate_details.html:661
 msgid "Add New Employment"
+msgstr ""
+
+#: .\templates\candidate\my_candidate_details.html:691
+msgid "The candidate not added Languages records"
+msgstr ""
+
+#: .\templates\candidate\my_candidate_details.html:697
+msgid "Langauge"
+msgstr ""
+
+#: .\templates\candidate\my_candidate_details.html:729
+msgid "Add New Langauge"
 msgstr ""
 
 #: .\templates\header.html:29
