@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.http.response import JsonResponse
 from django.shortcuts import render, redirect
 from xhtml2pdf import context
-from .models import candidate, education, employment, language
+from .models import candidate, education, employment, language, certificate
 from accounts.models import User
 from vendor.models import vendor
 from django.core.paginator import Paginator
@@ -14,7 +14,7 @@ from django.contrib import messages
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import View
 from django.urls import reverse_lazy
-from .forms import EduForm, EmpForm, CanForm, LangForm
+from .forms import EduForm, EmpForm, CanForm, LangForm, CerForm
 from .pdf_process import html_to_pdf
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
@@ -104,7 +104,8 @@ def my_candidate_details(request):
             'object': candidate_detials,
             'educations': education.objects.filter(candidate__id=cid),
             'employments': employment.objects.filter(candidate__id=cid),
-            'Languages': language.objects.filter(candidate__id=cid)
+            'Languages': language.objects.filter(candidate__id=cid),
+            'certificates': certificate.objects.filter(candidate__id=cid)
         }
         return render(request, 'candidate/my_candidate_details.html', context)
     except ObjectDoesNotExist:
@@ -120,6 +121,17 @@ def del_education(request, eid):
     msg = ""
     if education.objects.filter(id=eid).exists() and education.objects.filter(candidate__id=cid).exists():
         education.objects.filter(id=eid).delete()
+        return JsonResponse({"data": ""}, status=200)
+    else:
+        return JsonResponse({"data": ""}, status=400)
+
+
+def del_certificate(request, eid):
+    userid = request.user.id
+    cid = candidate.objects.get(user__id=userid).id
+    msg = ""
+    if certificate.objects.filter(id=eid).exists() and certificate.objects.filter(candidate__id=cid).exists():
+        certificate.objects.filter(id=eid).delete()
         return JsonResponse({"data": ""}, status=200)
     else:
         return JsonResponse({"data": ""}, status=400)
@@ -190,6 +202,53 @@ class EducationUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView, A
     fields = ['education_level', 'country', 'city', 'institution',
               'original_title_of_the_qualification', 'main_subject', 'start_date',
               'graduation_date']
+
+    def form_valid(self, form):
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('my_candidate_details')
+
+    def test_func(self):
+        return True
+
+
+class CertificateCreateView(CreateView):
+    model = certificate
+    template_name = 'candidate/certificate/create.html'
+    form_class = CerForm
+
+    def form_valid(self, form):
+        current_candidate = candidate.objects.get(
+            user__id=self.request.user.id)
+        Cer = form.save(commit=False)
+        Cer.created_by = User.objects.get(email=self.request.user.email)
+
+        Cer.save()
+        Cer.candidate_set.add(current_candidate)
+        '''
+        html_message = render_to_string('mail_template.html', {'cm': Edu})
+        send_mail(
+            subject='New Change Management Created Reason: ' +
+            form.cleaned_data['reason'],
+            html_message=html_message,
+            message='',
+            from_email='isms@qi.iq',
+            recipient_list=['saif.ibrahim@qi.iq', 'saif780@gmail.com'],
+            fail_silently=False,
+        )
+        '''
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('my_candidate_details')
+
+
+class CertificateUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView, ABC):
+    model = certificate
+    template_name = 'candidate/certificate/update.html'
+    fields = ['certificate_name', 'organization',
+              'issue_date', 'expire_date', 'attach']
 
     def form_valid(self, form):
         return super().form_valid(form)

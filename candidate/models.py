@@ -140,6 +140,26 @@ class education(models.Model):
         return str(self.id)
 
 
+class certificate(models.Model):
+    id = models.AutoField(primary_key=True)
+    certificate_name = models.CharField(
+        max_length=100,  blank=False, null=False, verbose_name=_('Certificate Name'))
+    organization = models.CharField(max_length=50, blank=False,
+                                    null=False, verbose_name=_('Organization'))
+    issue_date = models.DateField(
+        blank=False, null=False, verbose_name=_('Issue Date'))
+    expire_date = models.DateField(
+        blank=False, null=False, verbose_name=_('Expire Date'))
+    attach = models.FileField(blank=True, null=True,
+                              upload_to='media/certificate', verbose_name=_('Attach File'), validators=[FileExtensionValidator(['pdf', 'doc', 'docx', 'jpg', 'jpeg', 'png', 'git'])])
+
+    def __str__(self):
+        return str(self.id)
+
+    def __unicode__(self):
+        return str(self.id)
+
+
 class candidate(models.Model):
     id = models.AutoField(primary_key=True)
     user = models.ForeignKey(
@@ -191,6 +211,8 @@ class candidate(models.Model):
         99999), MinValueValidator(10000)], verbose_name=_('Postal Code'))
     education = models.ManyToManyField(
         'education', blank=True, verbose_name=_('Candidate Education'))
+    certificate = models.ManyToManyField(
+        'certificate', blank=True, verbose_name=_('Certificates'))
     Employment = models.ManyToManyField(
         'employment', blank=True, verbose_name=_('Employment History'))
     language = models.ManyToManyField(

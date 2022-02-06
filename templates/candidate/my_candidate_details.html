@@ -672,7 +672,7 @@
                                                         data-bs-target="#panelsStayOpen-collapseSix"
                                                         aria-expanded="true" aria-controls="panelsStayOpen-collapseSix">
 
-                                                        <i class="fas fa-building"></i>
+                                                        <i class="fas fa-language"></i>
                                                         {% trans 'Language Skills' %} <span
                                                             class="badge rounded-pill bg-primary">
 
@@ -729,6 +729,102 @@
                                                             <div class="d-grid gap-2 col-lg-4 col-md-6 col-sm-12">
                                                                 <a href="{% url 'languagecreate' %}"
                                                                     class="btn btn-primary btn-block">{% trans 'Add New Langauge' %}</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="accordion-item">
+                                                <h2 class="accordion-header" id="panelsStayOpen-headingSeven">
+                                                    <button class="accordion-button" type="button"
+                                                        data-bs-toggle="collapse"
+                                                        data-bs-target="#panelsStayOpen-collapseSeven"
+                                                        aria-expanded="true"
+                                                        aria-controls="panelsStayOpen-collapseSeven">
+
+                                                        <i class="fas fa-certificate"></i>
+                                                        {% trans 'Certificate' %} <span
+                                                            class="badge rounded-pill bg-primary">
+
+                                                            {{ certificates|length }}
+                                                        </span>
+                                                    </button>
+                                                </h2>
+                                                <div id="panelsStayOpen-collapseSeven"
+                                                    class="accordion-collapse collapse show"
+                                                    aria-labelledby="panelsStayOpen-headingSeven">
+                                                    <div class="accordion-body">
+                                                        {% if certificates|length == 0 %}
+                                                        <p class="text-center">
+                                                            {% trans 'The candidate not added certificates records' %}
+                                                        </p>
+                                                        {% else %}
+                                                        {% for cert in certificates %}
+                                                        <div class="row">
+                                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                <label
+                                                                    for="basic-url">{% trans 'Certificate name' %}</label>
+                                                                <div class="input-group mb-3">
+                                                                    <input type="text" class="form-control"
+                                                                        id="basic-url" aria-describedby="basic-addon3"
+                                                                        value="{{  cert.certificate_name }}" disabled>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                <label
+                                                                    for="basic-url">{% trans 'Organization' %}</label>
+                                                                <div class="input-group mb-3">
+                                                                    <input type="text" class="form-control"
+                                                                        id="basic-url" aria-describedby="basic-addon3"
+                                                                        value="{{  cert.organization }}" disabled>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                <label for="basic-url">{% trans 'Issue Date' %}</label>
+                                                                <div class="input-group mb-3">
+                                                                    <input type="text" class="form-control"
+                                                                        id="basic-url" aria-describedby="basic-addon3"
+                                                                        value="{{  cert.issue_date }}" disabled>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                <label for="basic-url">{% trans 'Expire Date' %}</label>
+                                                                <div class="input-group mb-3">
+                                                                    <input type="text" class="form-control"
+                                                                        id="basic-url" aria-describedby="basic-addon3"
+                                                                        value="{{  cert.expire_date }}" disabled>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                <label for="basic-url">{% trans 'Attach File' %}</label>
+                                                                <div class="input-group mb-3">
+                                                                    <a class="form-control"
+                                                                        href="{{  cert.attach.url }}"
+                                                                        download>{{  cert.attach.name }}</a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4 col-md-6 col-sm-12 text-right">
+                                                                <br>
+                                                                <a href="{% url 'certificate_update' cert.pk %}"
+                                                                    class="btn text-white btn-warning"><i
+                                                                        class="fas fa-edit"></i> {% trans 'Edit' %}</a>
+                                                                <button id="delete"
+                                                                    apilink="{% url 'del_certificate' cert.pk %}"
+                                                                    class="btn btn-danger">
+                                                                    <i class="far fa-trash-alt"></i>
+                                                                    {% trans 'Delete' %}
+                                                                </button>
+                                                            </div>
+                                                        </div>
+
+                                                        <hr>
+                                                        {% endfor %}
+                                                        {% endif %}
+                                                        <div class="row justify-content-md-center">
+                                                            <div class="d-grid gap-2 col-lg-4 col-md-6 col-sm-12">
+                                                                <a href="{% url 'certificatecreate' %}"
+                                                                    class="btn btn-primary btn-block">{% trans 'Add New Certificate' %}</a>
                                                             </div>
                                                         </div>
                                                     </div>

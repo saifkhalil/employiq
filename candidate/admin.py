@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.admin import ModelAdmin, register
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
-from .models import candidate, education, employment
+from .models import candidate, certificate, education, employment
 # Register your models here.
 
 
@@ -31,4 +31,11 @@ class EducationAdmin(ImportExportModelAdmin):
 class EmploymentAdmin(ImportExportModelAdmin):
     list_display = ('id', 'employer', 'country', 'city', 'current_job',
                     'start_date', 'end_date', 'job_title', 'reason_for_leaving')
+    icon_name = 'assignment_ind'
+
+
+@register(certificate)
+class CertificateAdmin(ImportExportModelAdmin):
+    list_display = ('id', 'certificate_name', 'organization',
+                    'issue_date', 'expire_date')
     icon_name = 'assignment_ind'

@@ -1,4 +1,4 @@
-from .models import candidate, education, employment, language
+from .models import candidate, education, employment, language, certificate
 from django.forms import ModelForm
 from django_countries.widgets import CountrySelectWidget
 from django import forms
@@ -32,6 +32,14 @@ class LangForm(ModelForm):
     class Meta:
         model = language
         fields = ['language', 'level']
+
+
+class CerForm(ModelForm):
+    class Meta:
+        model = certificate
+        fields = ['certificate_name', 'organization',
+                  'issue_date', 'expire_date', 'attach']
+        widgets = {'issue_date': DateInput(), 'expire_date': DateInput()}
 
 
 class CanForm(ModelForm):

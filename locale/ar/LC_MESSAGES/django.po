@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-06 01:12+0300\n"
-"PO-Revision-Date: 2022-02-06 01:20+0258\n"
+"POT-Creation-Date: 2022-02-07 00:36+0300\n"
+"PO-Revision-Date: 2022-02-07 00:37+0258\n"
 "Last-Translator: Anonymous User <saif7800@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -111,7 +111,6 @@ msgid "Beginner"
 msgstr "مبتدى"
 
 #: .\candidate\models.py:63
-#| msgid "Personal information"
 msgid "Professional communication"
 msgstr "التواصل المهني"
 
@@ -129,7 +128,7 @@ msgid "Employer"
 msgstr "صاحب العمل"
 
 #: .\candidate\models.py:73 .\candidate\models.py:122
-#: .\candidate\models.py:168 .\candidate\models.py:189
+#: .\candidate\models.py:188 .\candidate\models.py:209
 #: .\templates\candidate\cand_list.html:32
 #: .\templates\candidate\candidate_detail.html:311
 #: .\templates\candidate\candidate_detail.html:353
@@ -141,7 +140,7 @@ msgid "Country"
 msgstr "البلد"
 
 #: .\candidate\models.py:75 .\candidate\models.py:124
-#: .\candidate\models.py:187 .\templates\candidate\candidate_detail.html:295
+#: .\candidate\models.py:207 .\templates\candidate\candidate_detail.html:295
 #: .\templates\candidate\candidate_detail.html:361
 #: .\templates\candidate\candidate_detail.html:458
 #: .\templates\candidate\my_candidate_details.html:361
@@ -198,7 +197,7 @@ msgid "Supervisor's Email"
 msgstr "البريد الالكتروني للبريد"
 
 #: .\candidate\models.py:109
-#: .\templates\candidate\my_candidate_details.html:705
+#: .\templates\candidate\my_candidate_details.html:704
 msgid "Level"
 msgstr "مستوى"
 
@@ -225,123 +224,150 @@ msgstr "العنوان الرئيسي"
 msgid "Graduation Date"
 msgstr "تاريخ التخرج"
 
-#: .\candidate\models.py:148 .\templates\candidate\candidate_detail.html:104
+#: .\candidate\models.py:146
+msgid "Certificate Name"
+msgstr "اسم الشهادة"
+
+#: .\candidate\models.py:148
+#: .\templates\candidate\my_candidate_details.html:776
+msgid "Organization"
+msgstr "الشركة"
+
+#: .\candidate\models.py:150
+#: .\templates\candidate\my_candidate_details.html:784
+msgid "Issue Date"
+msgstr "تاريخ الاصدار"
+
+#: .\candidate\models.py:152
+#: .\templates\candidate\my_candidate_details.html:792
+msgid "Expire Date"
+msgstr "تاريخ الانتهاء"
+
+#: .\candidate\models.py:154
+#: .\templates\candidate\my_candidate_details.html:800
+msgid "Attach File"
+msgstr "ملف مرفق"
+
+#: .\candidate\models.py:168 .\templates\candidate\candidate_detail.html:104
 #: .\templates\candidate\my_candidate_details.html:139
 msgid "Title"
 msgstr "اللقب"
 
-#: .\candidate\models.py:150 .\templates\candidate\candidate_detail.html:112
+#: .\candidate\models.py:170 .\templates\candidate\candidate_detail.html:112
 #: .\templates\candidate\my_candidate_details.html:150
 msgid "First Name"
 msgstr "الاسم الاول"
 
-#: .\candidate\models.py:152 .\templates\candidate\candidate_detail.html:120
+#: .\candidate\models.py:172 .\templates\candidate\candidate_detail.html:120
 #: .\templates\candidate\my_candidate_details.html:160
 msgid "Second Name"
 msgstr "الاسم الثاني"
 
-#: .\candidate\models.py:154
+#: .\candidate\models.py:174
 msgid "Last Name"
 msgstr "الاسم الاول"
 
-#: .\candidate\models.py:156 .\templates\account\login.html:32
+#: .\candidate\models.py:176 .\templates\account\login.html:32
 #: .\templates\candidate\candidate_detail.html:128
 #: .\templates\candidate\my_candidate_details.html:169
 msgid "Email"
 msgstr "البريد الالكتروني"
 
-#: .\candidate\models.py:158 .\templates\candidate\candidate_detail.html:136
+#: .\candidate\models.py:178 .\templates\candidate\candidate_detail.html:136
 #: .\templates\candidate\my_candidate_details.html:178
 msgid "Phone"
 msgstr "رقم الهاتف"
 
-#: .\candidate\models.py:160 .\templates\candidate\candidate_detail.html:144
+#: .\candidate\models.py:180 .\templates\candidate\candidate_detail.html:144
 #: .\templates\candidate\my_candidate_details.html:187
 msgid "Gender"
 msgstr "الجنس"
 
-#: .\candidate\models.py:162 .\templates\candidate\candidate_detail.html:153
+#: .\candidate\models.py:182 .\templates\candidate\candidate_detail.html:153
 #: .\templates\candidate\my_candidate_details.html:199
 msgid "Marital Status"
 msgstr "الحالة الزوجية"
 
-#: .\candidate\models.py:164 .\vendor\models.py:40
+#: .\candidate\models.py:184 .\vendor\models.py:40
 msgid "Photo"
 msgstr "الصورة"
 
-#: .\candidate\models.py:166 .\templates\candidate\cand_list.html:77
+#: .\candidate\models.py:186 .\templates\candidate\cand_list.html:77
 msgid "Birth of date"
 msgstr "تاريخ الميلاد"
 
-#: .\candidate\models.py:170 .\templates\candidate\candidate_detail.html:182
+#: .\candidate\models.py:190 .\templates\candidate\candidate_detail.html:182
 #: .\templates\candidate\my_candidate_details.html:233
 msgid "Place of birth"
 msgstr "مكان الولادة"
 
-#: .\candidate\models.py:172 .\templates\candidate\candidate_detail.html:191
+#: .\candidate\models.py:192 .\templates\candidate\candidate_detail.html:191
 #: .\templates\candidate\my_candidate_details.html:244
 msgid "Primary nationality"
 msgstr "الجنسبة الاصلية"
 
-#: .\candidate\models.py:174
+#: .\candidate\models.py:194
 msgid "Seondary nationality"
 msgstr "الجنسية الثانية"
 
-#: .\candidate\models.py:176 .\templates\candidate\cand_list.html:78
+#: .\candidate\models.py:196 .\templates\candidate\cand_list.html:78
 #: .\templates\candidate\candidate_detail.html:211
 #: .\templates\candidate\my_candidate_details.html:266
 msgid "Highest level of education"
 msgstr "أعلى مستوى تعليمي"
 
-#: .\candidate\models.py:178
+#: .\candidate\models.py:198
 msgid "Conact phone"
 msgstr "رقم الهاتف"
 
-#: .\candidate\models.py:180 .\templates\candidate\candidate_detail.html:245
+#: .\candidate\models.py:200 .\templates\candidate\candidate_detail.html:245
 #: .\templates\candidate\my_candidate_details.html:304
 msgid "Type"
 msgstr "النوع"
 
-#: .\candidate\models.py:182
+#: .\candidate\models.py:202
 msgid "Alternative email address"
 msgstr "العنوان البريد الثانوي"
 
-#: .\candidate\models.py:184
+#: .\candidate\models.py:204
 msgid "Address Line(1)"
 msgstr "العنوان الاول"
 
-#: .\candidate\models.py:186
+#: .\candidate\models.py:206
 msgid "Address Line(2)"
 msgstr "العنوان الثاني"
 
-#: .\candidate\models.py:189 .\vendor\models.py:49
+#: .\candidate\models.py:209 .\vendor\models.py:49
 msgid "(select country)"
 msgstr "اختر البلد"
 
-#: .\candidate\models.py:191 .\templates\candidate\candidate_detail.html:303
+#: .\candidate\models.py:211 .\templates\candidate\candidate_detail.html:303
 #: .\templates\candidate\my_candidate_details.html:369
 msgid "Postal Code"
 msgstr "الرمز البريدي"
 
-#: .\candidate\models.py:193
+#: .\candidate\models.py:213
 msgid "Candidate Education"
 msgstr "معلومات المرشح"
 
-#: .\candidate\models.py:195
+#: .\candidate\models.py:215
+msgid "Certificates"
+msgstr "الشهادات"
+
+#: .\candidate\models.py:217
 msgid "Employment History"
 msgstr "تاريخ التوظيف"
 
-#: .\candidate\models.py:197
-#: .\templates\candidate\my_candidate_details.html:677
-#| msgid "Language"
+#: .\candidate\models.py:219
+#: .\templates\candidate\my_candidate_details.html:676
 msgid "Language Skills"
 msgstr "مهارات اللغة"
 
-#: .\candidate\models.py:198
+#: .\candidate\models.py:220
 msgid "CV File"
 msgstr "ملف السيرة الذاتية"
 
-#: .\candidate\models.py:200
+#: .\candidate\models.py:222
 msgid "bio"
 msgstr "نبذة مختصرة"
 
@@ -675,10 +701,11 @@ msgstr "تاريخ الانتهاء"
 msgid "Job title"
 msgstr "العنوان الوظيفي"
 
-#: .\templates\candidate\create.html:9
-msgid "Add New Candiate"
-msgstr "اضافة مرشح جديدة"
+#: .\templates\candidate\certificate\create.html:8
+msgid "Add new Certificate"
+msgstr "اضافة شهادة جديدة"
 
+#: .\templates\candidate\certificate\create.html:51
 #: .\templates\candidate\create.html:52
 #: .\templates\candidate\education\create.html:51
 #: .\templates\candidate\employment\create.html:51
@@ -686,6 +713,8 @@ msgstr "اضافة مرشح جديدة"
 msgid "Submit"
 msgstr "انشاء"
 
+#: .\templates\candidate\certificate\create.html:52
+#: .\templates\candidate\certificate\update.html:52
 #: .\templates\candidate\create.html:53
 #: .\templates\candidate\education\create.html:52
 #: .\templates\candidate\education\update.html:52
@@ -696,6 +725,21 @@ msgstr "انشاء"
 msgid "Cancel"
 msgstr "الغاء"
 
+#: .\templates\candidate\certificate\update.html:8
+msgid "Update certificate"
+msgstr "تحديث الشهادة"
+
+#: .\templates\candidate\certificate\update.html:51
+#: .\templates\candidate\education\update.html:51
+#: .\templates\candidate\employment\update.html:51
+#: .\templates\candidate\language\update.html:51
+msgid "Update"
+msgstr "تحديث"
+
+#: .\templates\candidate\create.html:9
+msgid "Add New Candiate"
+msgstr "اضافة مرشح جديدة"
+
 #: .\templates\candidate\education\create.html:8
 msgid "Add new education"
 msgstr "اضافة دراسة جديدة"
@@ -704,12 +748,6 @@ msgstr "اضافة دراسة جديدة"
 #: .\templates\candidate\language\update.html:8
 msgid "Update education"
 msgstr "تحديث البيانات الدراسية"
-
-#: .\templates\candidate\education\update.html:51
-#: .\templates\candidate\employment\update.html:51
-#: .\templates\candidate\language\update.html:51
-msgid "Update"
-msgstr "تحديث"
 
 #: .\templates\candidate\employment\create.html:8
 msgid "Add new employement"
@@ -720,7 +758,6 @@ msgid "Update employement"
 msgstr "تحديث بيانات التوظيف"
 
 #: .\templates\candidate\language\create.html:8
-#| msgid "Add New Candiate"
 msgid "Add new language"
 msgstr "اضافة لغة جديدة"
 
@@ -735,12 +772,14 @@ msgstr "اذا كنت تريد تقديم سيرتك الذاتية يرجى ا�
 #: .\templates\candidate\my_candidate_details.html:488
 #: .\templates\candidate\my_candidate_details.html:645
 #: .\templates\candidate\my_candidate_details.html:715
+#: .\templates\candidate\my_candidate_details.html:811
 msgid "Edit"
 msgstr "تعديل"
 
 #: .\templates\candidate\my_candidate_details.html:493
 #: .\templates\candidate\my_candidate_details.html:650
-#: .\templates\candidate\my_candidate_details.html:718
+#: .\templates\candidate\my_candidate_details.html:720
+#: .\templates\candidate\my_candidate_details.html:816
 msgid "Delete"
 msgstr "حذف"
 
@@ -752,20 +791,33 @@ msgstr "اضافة دراسة جديدة"
 msgid "Add New Employment"
 msgstr "اضافة توظيف جديد"
 
-#: .\templates\candidate\my_candidate_details.html:691
-#| msgid "The candidate not added educations records"
+#: .\templates\candidate\my_candidate_details.html:689
 msgid "The candidate not added Languages records"
 msgstr "لم يتم اضافة لغة"
 
-#: .\templates\candidate\my_candidate_details.html:697
-#| msgid "Language"
+#: .\templates\candidate\my_candidate_details.html:695
 msgid "Langauge"
 msgstr "اللغة"
 
-#: .\templates\candidate\my_candidate_details.html:729
-#| msgid "Add New Candiate"
+#: .\templates\candidate\my_candidate_details.html:731
 msgid "Add New Langauge"
 msgstr "اضافة لغة جديدة"
+
+#: .\templates\candidate\my_candidate_details.html:747
+msgid "Certificate"
+msgstr "الشهادة"
+
+#: .\templates\candidate\my_candidate_details.html:760
+msgid "The candidate not added certificates records"
+msgstr "لم يتم اضافة شهادة"
+
+#: .\templates\candidate\my_candidate_details.html:767
+msgid "Certificate name"
+msgstr "اسم الشهادة"
+
+#: .\templates\candidate\my_candidate_details.html:827
+msgid "Add New Certificate"
+msgstr "اضافة شهادة جديدة"
 
 #: .\templates\header.html:29
 msgid "Emplyiq - HR Recruiting"
