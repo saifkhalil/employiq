@@ -14,11 +14,15 @@ def registration_view(request):
             form.save()
             email = form.cleaned_data.get('email')
             raw_password = form.cleaned_data.get('password1')
-            fullname = "%s %s" % (form.cleaned_data.get('firstname'), form.cleaned_data.get('lastname'))
+            fullname = "%s %s" % (form.cleaned_data.get(
+                'firstname'), form.cleaned_data.get('lastname'))
             phone = str(form.cleaned_data.get('phone'))[1:]
-            account = authenticate(email=email, password=raw_password)
+            account = authenticate(request, email=email, password=raw_password)
             token = Token.objects.get(user=account).key
             context['token'] = token
+            if account:
+                login(request, account)
+                return redirect('home')
         else:
             context['registration_form'] = form
     else:

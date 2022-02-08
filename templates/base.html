@@ -74,7 +74,9 @@
                         {% trans 'for employers' %}
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">{% trans 'Profile' %}</a></li>
+                        {% if not user.is_employer %}
+                        <li><a class="dropdown-item" href="{% url 'my_employer_details' %}">{% trans 'Profile' %}</a>
+                            {% endif %}
                         <li> <a class="dropdown-item" href="{% url 'candlist' %}">{% trans 'Find a candidate' %}</a>
                         </li>
                     </ul>
@@ -87,6 +89,9 @@
                 {% else %}
                 <li class="menu-item login-btn">
                     <a href="{% url 'login' %}"><i class="fa fa-sign-in"></i>{% trans 'Login' %}</a>
+                </li>
+                <li class="menu-item login-btn">
+                    <a href="{% url 'register' %}"><i class="fa fa-sign-in"></i>{% trans 'Register' %}</a>
                 </li>
                 {% endif %}
                 <li class="nav-item">
@@ -101,7 +106,7 @@
     </div>
 </nav>
 
-<div class="main pt100 pm100">
+<div class="main">
     {% block content %}{% endblock %}
 </div>
 
@@ -168,37 +173,16 @@
                 <ul class="social-btns list-group list-group-horizontal text-right">
                     <!-- Social Media -->
                     <li>
-                        <a href="#" class="social-btn-roll facebook">
+                        <a href="https://www.facebook.com/EmployIQ" class="social-btn-roll facebook">
                             <div class="social-btn-roll-icons">
                                 <i class="social-btn-roll-icon fa fa-facebook"></i>
                                 <i class="social-btn-roll-icon fa fa-facebook"></i>
                             </div>
                         </a>
                     </li>
-
                     <!-- Social Media -->
                     <li>
-                        <a href="#" class="social-btn-roll twitter">
-                            <div class="social-btn-roll-icons">
-                                <i class="social-btn-roll-icon fa fa-twitter"></i>
-                                <i class="social-btn-roll-icon fa fa-twitter"></i>
-                            </div>
-                        </a>
-                    </li>
-
-                    <!-- Social Media -->
-                    <li>
-                        <a href="#" class="social-btn-roll google-plus">
-                            <div class="social-btn-roll-icons">
-                                <i class="social-btn-roll-icon fa fa-google-plus"></i>
-                                <i class="social-btn-roll-icon fa fa-google-plus"></i>
-                            </div>
-                        </a>
-                    </li>
-
-                    <!-- Social Media -->
-                    <li>
-                        <a href="#" class="social-btn-roll instagram">
+                        <a href="https://instagram.com/employiq" class="social-btn-roll instagram">
                             <div class="social-btn-roll-icons">
                                 <i class="social-btn-roll-icon fa fa-instagram"></i>
                                 <i class="social-btn-roll-icon fa fa-instagram"></i>
@@ -208,20 +192,10 @@
 
                     <!-- Social Media -->
                     <li>
-                        <a href="#" class="social-btn-roll linkedin">
+                        <a href="https://www.linkedin.com/company/employ-iraq" class="social-btn-roll linkedin">
                             <div class="social-btn-roll-icons">
                                 <i class="social-btn-roll-icon fa fa-linkedin"></i>
                                 <i class="social-btn-roll-icon fa fa-linkedin"></i>
-                            </div>
-                        </a>
-                    </li>
-
-                    <!-- Social Media -->
-                    <li>
-                        <a href="#" class="social-btn-roll rss">
-                            <div class="social-btn-roll-icons">
-                                <i class="social-btn-roll-icon fa fa-rss"></i>
-                                <i class="social-btn-roll-icon fa fa-rss"></i>
                             </div>
                         </a>
                     </li>

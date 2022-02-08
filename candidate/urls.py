@@ -39,6 +39,7 @@ urlpatterns = [
          login_required(del_certificate), name='del_certificate'),
     path('myprofile', login_required(my_candidate_details),
          name='my_candidate_details'),
+    # path('<int:pk>', login_required(CandidateDetail.as_view()),name = 'my_candidate'),
     path('pdf/', GeneratePdf.as_view()),
 ]
 

@@ -50,8 +50,9 @@
             <p>{{login_form.non_field_errors}}</p>
           </div>
           {% endif %}
-          <button class="btn btn-warning" type="submit">{% trans 'Login' %}</button>
-          <a class="btn btn-danger" href="{% url 'password_reset' %}">{% trans 'Change Password' %}</a>
+          <button class="btn btn-primary" type="submit">{% trans 'Login' %}</button>
+          <a class="btn btn-primary" href="{% url 'password_reset' %}">{% trans 'Change Password' %}</a>
+          <a class="btn btn-primary" href="{% url 'register' %}">{% trans 'Register' %}</a>
         </form>
         <!-- End of Login Form -->
       </div>

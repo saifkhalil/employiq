@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'easy_thumbnails',
     'rosetta',
     'languages',
+    'tagify',
     # Buitin apps
     'accounts',
     'candidate',

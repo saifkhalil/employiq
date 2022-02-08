@@ -976,51 +976,51 @@ footer .footer-info .footer-posts .thumbnail-post img {
 }
 
 .btn-blue {
-    background: #29b1fd
+    background: #29b1fd !important
 }
 
 .btn-blue:hover {
-    background: #66c9ff
+    background: #66c9ff !important
 }
 
 .btn-green {
-    background: #2ecc71
+    background: #2ecc71 !important
 }
 
 .btn-green:hover {
-    background: #4dd977
+    background: #4dd977 !important
 }
 
 .btn-purple {
-    background: #443088
+    background: #443088 !important
 }
 
 .btn-purple:hover {
-    background: #5c48a0
+    background: #5c48a0 !important
 }
 
 .btn-orange {
-    background: #e69d29
+    background: #e69d29 !important
 }
 
 .btn-orange:hover {
-    background: #ecaf4f
+    background: #ecaf4f !important
 }
 
 .btn-red {
-    background: #db6131
+    background: #db6131 !important
 }
 
 .btn-red:hover {
-    background: #dc7f5a
+    background: #dc7f5a !important
 }
 
 .btn-dark {
-    background: #0c112a
+    background: #0c112a !important
 }
 
 .btn-dark:hover {
-    background: #293053
+    background: #293053 !important
 }
 
 .back-top {
@@ -2096,7 +2096,7 @@ footer {
 
 footer .footer-info {
     position: relative;
-    background: url(../images/img/footer-bg.jpg) no-repeat;
+    background: url(../images/img/image2.jpg) no-repeat;
     background-size: cover
 }
 
@@ -2431,7 +2431,7 @@ footer .copyright .social-btn-roll {
 }
 
 section.main {
-    background: url(../images/img/image1.jpg) center center no-repeat;
+    background: url(../images/candidate-bg.jpg) center center no-repeat;
     background-size: cover;
     height: 500px
 }
@@ -4181,6 +4181,7 @@ section#company-profile2 .company-profile .profile-photo {
     background: #f0f0f0;
     overflow: hidden;
     width: 240px;
+    height: 240px;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     border-radius: 50%;
@@ -4199,11 +4200,13 @@ section#company-profile2 .company-profile .profile-photo:before {
 }
 
 section#company-profile2 .company-profile .profile-photo img {
-    -webkit-transform: scale(.5);
-    -moz-transform: scale(.5);
-    -ms-transform: scale(.5);
-    -o-transform: scale(.5);
-    transform: scale(.5)
+    -webkit-transform: scale(.8);
+    -moz-transform: scale(.8);
+    -ms-transform: scale(.8);
+    -o-transform: scale(.8);
+    transform: scale(.8);
+    width: 100%;
+    height: auto;
 }
 
 section#company-profile2 .company-profile .profile-photo:before {
@@ -4943,7 +4946,10 @@ section#page-not-found2 {
 }
 
 section#login {
-    background: #f0f0f0
+    background: url(../images/img/coming-soon-bg.png) center center no-repeat, linear-gradient(to right, #d8d8d8 -20%, #858585 120%);
+    background-size: cover;
+    background-position: left center;
+    /* background: #f0f0f0*/
 }
 
 section#login .login-box {

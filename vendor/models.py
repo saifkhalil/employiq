@@ -38,11 +38,13 @@ class vendor(models.Model):
     company = models.CharField(max_length=200, verbose_name=_('Company Name'))
     logo = ThumbnailerImageField(
         upload_to='company_logos', blank=True, default='static/images/EIQLOGO.svg', verbose_name=_('Photo'))
+    industry = models.CharField(max_length=200, verbose_name=_('industry'))
     phone_number = PhoneNumberField(verbose_name=_('Phone Number'))
     public_company_info = models.BooleanField(
         default=False, verbose_name=_('Public company info'))
     communication_email = models.EmailField(
         null=False, blank=False, verbose_name=_('Communication Email'))
+    website = models.URLField(max_length=200, verbose_name=_('website'))
     address = models.CharField(max_length=500, verbose_name=_('Address'))
     city = models.CharField(max_length=500, verbose_name=_('City'))
     country = CountryField(blank_label=_(

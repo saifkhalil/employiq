@@ -12,6 +12,7 @@ from django.core.paginator import Paginator
 import json
 from django.contrib import messages
 from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic import DetailView
 from django.views.generic import View
 from django.urls import reverse_lazy
 from .forms import EduForm, EmpForm, CanForm, LangForm, CerForm
@@ -92,6 +93,23 @@ class EducationCreateView(CreateView):
     def form_valid(self, form):
         self.object = form.save()
         candidate.education.add(self.object)
+
+
+class CandidateDetail(DetailView):
+    model = candidate
+    template_name = 'candidate/my_candidate_details.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(DetailView, self).get_context_data(**kwargs)
+        userid = self.request.user.id
+        candidate_detials = candidate.objects.get(user__id=userid)
+        cid = candidate.objects.get(user__id=userid).id
+        context['object'] = candidate_detials
+        context['educations'] = education.objects.filter(candidate__id=cid)
+        context['employments'] = employment.objects.filter(candidate__id=cid)
+        context['Languages'] = language.objects.filter(candidate__id=cid)
+        context['certificates'] = certificate.objects.filter(candidate__id=cid)
+        return context
 
 
 def my_candidate_details(request):
@@ -349,7 +367,7 @@ class CandidateCreateView(CreateView):
         Candidate.user = self.request.user
         currentuser = User.objects.filter(id=self.request.user.id)
         currentuser.is_candidate = True
-        currentuser.save()
+        # currentuser.save()
         Candidate.save()
         '''
         html_message = render_to_string('mail_template.html', {'cm': Edu})

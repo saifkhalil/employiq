@@ -17,6 +17,7 @@ from PIL import Image
 from django.core.files.base import ContentFile
 from easy_thumbnails.fields import ThumbnailerImageField
 from languages.fields import LanguageField
+from tagify.models import TagField
 User = settings.AUTH_USER_MODEL
 
 TITLE_CHOICES = [
@@ -220,6 +221,8 @@ class candidate(models.Model):
     cv = models.FileField(upload_to='media/cv', verbose_name=_('CV File'))
     bio = models.CharField(max_length=1000, blank=True,
                            null=True, verbose_name=_('bio'))
+    skills = TagField(verbose_name=_('Skills'), delimiters=',')
+    hobbies = TagField(verbose_name=_('Hobbies'), delimiters=',')
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(

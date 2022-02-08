@@ -1,0 +1,257 @@
+{% extends "base.html" %} {% block content %} {% load static %} {% load i18n %} {% load thumbnail %}
+<script src="https://unpkg.com/@yaireo/tagify"></script>
+<script src="https://unpkg.com/@yaireo/tagify@3.1.0/dist/tagify.polyfills.min.js"></script>
+<link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
+
+<!-- ===== Start of Candidate Profile Header Section ===== -->
+<section class="profile-header">
+</section>
+<!-- ===== End of Candidate Header Section ===== -->
+
+
+
+
+
+<!-- ===== Start of Main Wrapper Company Profile Section ===== -->
+<section class="pb80" id="company-profile2">
+    <div class="row">
+
+        <!-- Start of Row -->
+        <div class="row company-profile">
+
+
+            <!-- Start of Profile Picture -->
+            <div class="row ">
+                <div class="col-md-12">
+                    <div class="profile-photo">
+                        <img src="{{ object.logo.url }}" class="img-fluid" alt="">
+                    </div>
+                </div>
+            </div>
+            <!-- End of Profile Picture -->
+
+            <div class="row pt50 justify-content-md-center">
+                <!-- Start of Profile Description -->
+                <div class="col-md-6 col-xs-12 mt80">
+                    <div class="profile-descr">
+
+                        <!-- Profile Title -->
+                        <div class="profile-title">
+                            <a class="btn btn-primary" href="{% url 'job_create' %}">{% trans 'Post a Job' %}</a>
+                            <h2 class="capitalize">{{ object.company }}</h2>
+                            <h5 class="pt10">{{ object.industry }}</h5>
+                        </div>
+                        {% comment %}
+                        <!-- Start of Social Media Buttons -->
+                        <ul class="social-btns list-group list-group-horizontal mt20">
+                            <!-- Social Media -->
+                            <li>
+                                <a href="#" class="social-btn-roll facebook transparent">
+                                    <div class="social-btn-roll-icons">
+                                        <i class="social-btn-roll-icon fa fa-facebook"></i>
+                                        <i class="social-btn-roll-icon fa fa-facebook"></i>
+                                    </div>
+                                </a>
+                            </li>
+
+                            <!-- Social Media -->
+                            <li>
+                                <a href="#" class="social-btn-roll twitter transparent">
+                                    <div class="social-btn-roll-icons">
+                                        <i class="social-btn-roll-icon fa fa-twitter"></i>
+                                        <i class="social-btn-roll-icon fa fa-twitter"></i>
+                                    </div>
+                                </a>
+                            </li>
+
+                            <!-- Social Media -->
+                            <li>
+                                <a href="#" class="social-btn-roll google-plus transparent">
+                                    <div class="social-btn-roll-icons">
+                                        <i class="social-btn-roll-icon fa fa-google-plus"></i>
+                                        <i class="social-btn-roll-icon fa fa-google-plus"></i>
+                                    </div>
+                                </a>
+                            </li>
+
+                            <!-- Social Media -->
+                            <li>
+                                <a href="#" class="social-btn-roll instagram transparent">
+                                    <div class="social-btn-roll-icons">
+                                        <i class="social-btn-roll-icon fa fa-instagram"></i>
+                                        <i class="social-btn-roll-icon fa fa-instagram"></i>
+                                    </div>
+                                </a>
+                            </li>
+
+                            <!-- Social Media -->
+                            <li>
+                                <a href="#" class="social-btn-roll linkedin transparent">
+                                    <div class="social-btn-roll-icons">
+                                        <i class="social-btn-roll-icon fa fa-linkedin"></i>
+                                        <i class="social-btn-roll-icon fa fa-linkedin"></i>
+                                    </div>
+                                </a>
+                            </li>
+
+                        </ul>
+                        <!-- End of Social Media Buttons -->
+
+                        <!-- Profile Details -->
+                        <div class="profile-details mt40">
+                            <p>Front end developers use HTML, CSS, and JavaScript to code the website and
+                                web
+                                app designs created by web designers. The code they write runs inside the
+                                user’s
+                                browser (as opposed to a back end developer, whose code runs on the web
+                                server).
+                                Being also in charge of making sure that there are no errors or bugs on the
+                                front end, as well as making sure that the design appears as it’s supposed
+                                to
+                                across various platforms and browsers.</p>
+                        </div>
+                        {% endcomment %}
+                    </div>
+
+                </div>
+                <!-- End of Profile Description -->
+
+
+                <!-- Start of Profile Info -->
+                <div class="col-md-4 col-md-offset-2 col-xs-12 mt80">
+                    <ul class="profile-info">
+                        <li>
+                            <i class="fa fa-map-marker"></i>
+                            <span>{{object.city}}, {{ object.get_country_display }}</span>
+                        </li>
+
+                        <li>
+                            <i class="fa fa-globe"></i>
+                            <a href="{{ object.website }}" target="_blank">{{ object.website }}</a>
+                        </li>
+
+                        <li>
+                            <i class="fa fa-phone"></i>
+                            <a href="tel:{{ object.communication_email}}">{{ object.phone_number }}</a>
+                        </li>
+
+                        <li>
+                            <i class="fa fa-envelope"></i>
+                            <a href="mailto:{{ object.communication_email}}">{{ object.communication_email}}</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- End of Profile Info -->
+            </div>
+        </div>
+        <!-- End of Row -->
+
+    </div>
+</section>
+<!-- ===== End of Company Profile Section ===== -->
+
+<section class="company-jobs ptb80">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h3 class="pb60">Our Latest Jobs</h3>
+            </div>
+        </div>
+        {% for job in jobs %}
+        <!-- ===== Start of Single Job Post 1 ===== -->
+        <div class="single-job-post row shadow-hover">
+            <!-- Job Company -->
+            <div class="col-md-2 col-xs-3 nopadding">
+                <div class="job-company">
+                    <a href="#">
+                        <img class="img-fluid" src="{{ object.logo.url }}" alt="">
+                    </a>
+                </div>
+            </div>
+
+            <!-- Job Title & Info -->
+            <div class="col-md-8 col-xs-6 ptb20">
+                <div class="job-title">
+                    <a href="job-page.html">{{ job.job_title }}</a>
+                </div>
+            </div>
+
+            <!-- Job Category -->
+            <div class="col-md-2 col-xs-3 ptb30">
+                <div class="job-category">
+                    <a href="javascript:void(0)" class="btn btn-green btn-small btn-effect">{{ job.job_type }}</a>
+                </div>
+            </div>
+        </div>
+        <!-- ===== End of Single Job Post 1 ===== -->
+        {% endfor %}
+
+        {% comment %} <div class="row mt30">
+            <div class="col-md-12 text-center">
+                <a href="#" class="btn btn-blue btn-effect">show all</a>
+            </div>
+        </div> {% endcomment %}
+
+
+    </div>
+</section>
+
+
+
+
+</div>
+</div>
+</div>
+<script type="text/javascript">
+    function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    }
+</script>
+
+<script type="text/javascript">
+    $('button#delete').on('click', function (e) {
+        e.preventDefault();
+        if (confirm('Are you sure you want to delete this?')) {
+            // Save it!
+            var $this = $(this);
+
+            $.ajax({
+                url: $this.attr('apilink'),
+                type: 'GET',
+                cache: false,
+                success: function (response) {
+                    alert("Deleted successfully");
+                    location.reload();
+                },
+                error: function (response) {
+                    alert("There are error please try again");
+
+                }
+            });
+        }
+
+
+    });
+</script>
+<script type="text/javascript">
+    skills_tags = '{{object.skills}}'.trim().split(/\s*,\s*/);
+    hobbies_tags = '{{object.hobbies}}'.trim().split(/\s*,\s*/);
+    var skills = document.querySelector('input#skills');
+    var skills_tagify = new Tagify(skills, {
+        dropdown: {
+            enabled: 0
+        }
+    });
+
+    skills_tagify.addTags(skills_tags);
+    var hobbies = document.querySelector('input#hobbies');
+    var hobbies_tagify = new Tagify(hobbies, {
+        dropdown: {
+            enabled: 0
+        }
+    });
+    hobbies_tagify.addTags(hobbies_tags);
+</script>
+{% endblock %}
