@@ -37,7 +37,7 @@
 
                         <!-- Profile Title -->
                         <div class="profile-title">
-                            <a class="btn btn-primary" href="{% url 'job_create' %}">{% trans 'Post a Job' %}</a>
+
                             <h2 class="capitalize">{{ object.company }}</h2>
                             <h5 class="pt10">{{ object.industry }}</h5>
                         </div>
@@ -159,28 +159,32 @@
             </div>
         </div>
         {% for job in jobs %}
-        <!-- ===== Start of Single Job Post 1 ===== -->
-        <div class="single-job-post row shadow-hover">
-            <!-- Job Company -->
-            <div class="col-md-2 col-xs-3 nopadding">
-                <div class="job-company">
-                    <a href="#">
-                        <img class="img-fluid" src="{{ object.logo.url }}" alt="">
-                    </a>
+        <div class="row ptb5">
+            <!-- ===== Start of Single Job Post 1 ===== -->
+            <div class="single-job-post row shadow-hover">
+                <!-- Job Company -->
+                <div class="col-md-1 col-xs-3 nopadding">
+                    <div class="job-company">
+                        <a href="#">
+                            <img class="img-fluid" src="{{ object.logo.url }}" alt="">
+                        </a>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Job Title & Info -->
-            <div class="col-md-8 col-xs-6 ptb20">
-                <div class="job-title">
-                    <a href="job-page.html">{{ job.job_title }}</a>
+                <!-- Job Title & Info -->
+                <div class="col-md-8 col-xs-6">
+                    <div class="job-title">
+                        <a href="{% url 'job_details' job.id %}">{{ job.job_title }}</a>
+                        <p>{{ job.city}}, {{ job.get_country_display }}</p>
+                    </div>
+
                 </div>
-            </div>
 
-            <!-- Job Category -->
-            <div class="col-md-2 col-xs-3 ptb30">
-                <div class="job-category">
-                    <a href="javascript:void(0)" class="btn btn-green btn-small btn-effect">{{ job.job_type }}</a>
+                <!-- Job Category -->
+                <div class="col-md-2 col-xs-3 ptb30">
+                    <div class="job-category">
+                        <a href="javascript:void(0)" class="btn btn-green btn-small btn-effect">{{ job.job_type }}</a>
+                    </div>
                 </div>
             </div>
         </div>

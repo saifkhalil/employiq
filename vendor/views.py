@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic import DetailView
 from accounts.models import User
 from vendor.forms import EmpForm, JobForm
 from vendor.models import job, vendor
@@ -48,6 +49,9 @@ class JobCreateView(CreateView):
     def form_valid(self, form):
        # current_candidate = candidate.objects.get(user__id=self.request.user.id)
         Job = form.save(commit=False)
+        userid = self.request.user.id
+        employer = vendor.objects.get(user__id=userid)
+        Job.vendor = employer
         Job.created_by = User.objects.get(email=self.request.user.email)
         Job.save()
         '''
@@ -66,6 +70,17 @@ class JobCreateView(CreateView):
 
     def get_success_url(self):
         return reverse_lazy('my_employer_details')
+
+
+def JobDetails(request, jid):
+    user = request.user
+    job_details = job.objects.get(id=jid)
+    employer = vendor.objects.get(job__id=job_details.id)
+    context = {
+        'job': job_details,
+        'employer': employer
+    }
+    return render(request, 'employer/job/details.html', context)
 
 
 def my_employer_details(request):

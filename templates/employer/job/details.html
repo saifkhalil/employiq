@@ -1,0 +1,288 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% load i18n %}
+{% block content %}
+<!-- ===== Start of Job Header Section ===== -->
+<section class="job-header ptb60">
+    <div class="container">
+
+        <!-- Start of Row -->
+        <div class="row">
+
+            <div class="col-md-12 col-xs-12">
+                <h3>{{ job.job_title }}</h3>
+                <a href="#" class="btn btn-green btn-small btn-effect mt15">{{ job.job_type }}</a>
+            </div>
+            {% comment %}
+            <div class="col-md-6 col-xs-12 clearfix">
+                <a href="#" class="btn btn-blue btn-effect pull-right mt15"><i class="fa fa-star"></i>add to
+                    favorites</a>
+            </div> {% endcomment %}
+
+
+        </div>
+        <!-- End of Row -->
+
+    </div>
+</section>
+<!-- ===== End of Job Header Section ===== -->
+
+
+
+
+
+<!-- ===== Start of Main Wrapper Job Section ===== -->
+<section class="ptb80" id="job-page">
+    <div class="container">
+
+        <!-- Start of Row -->
+        <div class="row">
+
+            <!-- ===== Start of Job Details ===== -->
+            <div class="col-md-8 col-xs-12">
+
+                <!-- Start of Company Info -->
+                <div class="row company-info">
+
+                    <!-- Job Company Image -->
+                    <div class="col-md-3">
+                        <div class="job-company">
+                            <a href="company-page.html">
+                                <img class="img-fluid" src="{{ employer.logo.url }}" alt="">
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Job Company Info -->
+                    <div class="col-md-9">
+                        <div class="job-company-info mt30">
+                            <h3 class="capitalize">{{ employer.company }}</h3>
+                            <p class="capitalize">{{ employer.industry }}</p>
+
+                            <ul class="list-inline mt10">
+                                <li><a href="{{ employer.website }}"><i class="fa fa-link"
+                                            aria-hidden="true"></i>Website</a></li>
+                                <li> <i class="fa fa-phone"></i>
+                                    <a href="tel:{{ employer.communication_email}}">{{ employer.phone_number }}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- End of Company Info -->
+
+
+                <!-- Start of Job Details -->
+                <div class="row job-details mt40">
+                    <div class="col-md-12">
+
+                        {% comment %}
+                        <!-- Vimeo Video -->
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item"
+                                src="https://player.vimeo.com/video/176916362?title=0&byline=0&portrait=0"
+                                allowfullscreen=""></iframe>
+                        </div> {% endcomment %}
+
+                        <!-- Div wrapper -->
+                        <div class="pt40">
+                            <h5>{% trans 'Job Description' %}</h5>
+
+                            <p class="mt20">{{ job.job_description|safe }}</p>
+                        </div>
+
+
+
+
+
+                    </div>
+                </div>
+                <!-- End of Job Details -->
+
+            </div>
+            <!-- ===== End of Job Details ===== -->
+
+
+
+
+
+            <!-- ===== Start of Job Sidebar ===== -->
+            <div class="col-md-4 col-xs-12">
+
+                <!-- Start of Job Sidebar -->
+                <div class="job-sidebar">
+                    {% comment %}
+                    <h4 class="uppercase">share this job</h4>
+
+                    <!-- Start of Social Media ul -->
+                    <ul class="social-btns list-inline mt20">
+                        <!-- Social Media -->
+                        <li>
+                            <a href="#" class="social-btn-roll facebook transparent">
+                                <div class="social-btn-roll-icons">
+                                    <i class="social-btn-roll-icon fa fa-facebook"></i>
+                                    <i class="social-btn-roll-icon fa fa-facebook"></i>
+                                </div>
+                            </a>
+                        </li>
+
+                        <!-- Social Media -->
+                        <li>
+                            <a href="#" class="social-btn-roll twitter transparent">
+                                <div class="social-btn-roll-icons">
+                                    <i class="social-btn-roll-icon fa fa-twitter"></i>
+                                    <i class="social-btn-roll-icon fa fa-twitter"></i>
+                                </div>
+                            </a>
+                        </li>
+
+                        <!-- Social Media -->
+                        <li>
+                            <a href="#" class="social-btn-roll google-plus transparent">
+                                <div class="social-btn-roll-icons">
+                                    <i class="social-btn-roll-icon fa fa-google-plus"></i>
+                                    <i class="social-btn-roll-icon fa fa-google-plus"></i>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- End of Social Media ul --> {% endcomment %}
+
+
+
+                    <ul class="job-overview nopadding mt40">
+                        <li>
+                            <h5><i class="fa fa-calendar"></i> {% trans 'Date Opened:' %}
+                                <span>{{ job.date_opened }}</span></h5>
+
+                        </li>
+
+                        <li>
+                            <h5><i class="fa fa-map-marker"></i> {% trans 'Location:' %} <span>{{ job.city }},
+                                    {{ job.get_country_display }}</span></h5>
+
+                        </li>
+                        <li>
+                            <h5><i class="fa fa-money"></i> {% trans 'Salary:' %} <span>{{ job.salary }}</span></h5>
+
+                        </li>
+                        <li>
+                            <h5><i class="fa fa-globe" aria-hidden="true"></i>
+                                {% trans 'Nationality:' %} <span>{{ job.nationality }}</span></h5>
+
+                        </li>
+                    </ul>
+
+                    <div class="mt20">
+                        <a href="#" class="btn btn-blue btn-effect">apply for job</a>
+                    </div>
+
+                </div>
+                <!-- Start of Job Sidebar -->
+
+
+
+
+            </div>
+            <!-- ===== End of Job Sidebar ===== -->
+
+        </div>
+        <!-- End of Row -->
+
+        {% comment %}
+        <!-- Start of Row -->
+        <div class="row mt80">
+            <div class="col-md-12">
+                <h2 class="capitalize pb40">related jobs</h2>
+
+                <!-- Start of Owl Slider -->
+                <div class="owl-carousel related-jobs">
+
+                    <!-- Start of Slide item 1 -->
+                    <div class="item">
+                        <a href="job-page.html">
+                            <h5>UI/UX Designer</h5>
+                        </a>
+                        <a href="#" class="btn btn-green btn-small btn-effect mt15">full time</a>
+
+                        <h5 class="pt40 pb10"><i class="fa fa-money"></i> Salary:</h5>
+                        <h5>$25.000-$35.000</h5>
+                    </div>
+                    <!-- End of Slide item 1 -->
+
+
+                    <!-- Start of Slide item 2 -->
+                    <div class="item">
+                        <a href="job-page.html">
+                            <h5>Restaurant Chef</h5>
+                        </a>
+                        <a href="#" class="btn btn-red btn-small btn-effect mt15">temporary</a>
+
+                        <h5 class="pt40 pb10"><i class="fa fa-money"></i> Salary:</h5>
+                        <h5>$15.000-$20.000</h5>
+                    </div>
+                    <!-- End of Slide item 2 -->
+
+
+                    <!-- Start of Slide item 3 -->
+                    <div class="item">
+                        <a href="job-page.html">
+                            <h5>Social Marketing</h5>
+                        </a>
+                        <a href="#" class="btn btn-purple btn-small btn-effect mt15">part time</a>
+
+                        <h5 class="pt40 pb10"><i class="fa fa-money"></i> Salary:</h5>
+                        <h5>$25.000-$35.000</h5>
+                    </div>
+                    <!-- End of Slide item 3 -->
+
+
+                    <!-- Start of Slide item 4 -->
+                    <div class="item">
+                        <a href="job-page.html">
+                            <h5>PHP Developer</h5>
+                        </a>
+                        <a href="#" class="btn btn-green btn-small btn-effect mt15">full time</a>
+
+                        <h5 class="pt40 pb10"><i class="fa fa-money"></i> Salary:</h5>
+                        <h5>$35.000-$40.000</h5>
+                    </div>
+                    <!-- End of Slide item 4 -->
+
+
+                    <!-- Start of Slide item 5 -->
+                    <div class="item">
+                        <a href="job-page.html">
+                            <h5>IOS Developer</h5>
+                        </a>
+                        <a href="#" class="btn btn-blue btn-small btn-effect mt15">freelancer</a>
+
+                        <h5 class="pt40 pb10"><i class="fa fa-money"></i> Salary:</h5>
+                        <h5>$30.000</h5>
+                    </div>
+                    <!-- End of Slide item 5 -->
+
+
+                    <!-- Start of Slide item 6 -->
+                    <div class="item">
+                        <a href="job-page.html">
+                            <h5>Web Developer</h5>
+                        </a>
+                        <a href="#" class="btn btn-orange btn-small btn-effect mt15">intership</a>
+
+                        <h5 class="pt40 pb10"><i class="fa fa-money"></i> Salary:</h5>
+                        <h5>$45.000-$50.000</h5>
+                    </div>
+                    <!-- End of Slide item 6 -->
+
+                </div>
+                <!-- End of Owl Slider -->
+            </div>
+        </div>
+        <!-- End of Row --> {% endcomment %}
+
+    </div>
+</section>
+<!-- ===== End of Main Wrapper Job Section ===== -->
+
+{% endblock %}

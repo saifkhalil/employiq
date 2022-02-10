@@ -4,6 +4,7 @@ from django_countries.widgets import CountrySelectWidget
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from tagify.fields import TagField
+from ckeditor.widgets import CKEditorWidget
 
 
 class EmpForm(ModelForm):
@@ -16,6 +17,8 @@ class EmpForm(ModelForm):
 
 
 class JobForm(ModelForm):
+    job_description = forms.CharField(widget=CKEditorWidget())
+
     class Meta:
         model = job
         fields = ['job_title', 'job_description', 'job_type', 'city',

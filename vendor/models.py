@@ -1,3 +1,4 @@
+from ckeditor.fields import RichTextField
 from contextlib import nullcontext
 from pyexpat import model
 from django.db import models
@@ -75,7 +76,8 @@ class job(models.Model):
     id = models.AutoField(primary_key=True)
     vendor = models.ForeignKey(vendor, on_delete=models.CASCADE)
     job_title = models.CharField(max_length=200)
-    job_description = models.CharField(max_length=200)
+    job_description = RichTextField(default='',
+                                    blank=False, null=False, verbose_name=_('Job Description'))
     job_type = models.CharField(max_length=200)
     date_opened = models.DateField()
     date_closed = models.DateField()

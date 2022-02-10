@@ -12,6 +12,8 @@ urlpatterns = [
         EmployerCreateView.as_view()), name='employer_create'),
     path('job/create', login_required(
         JobCreateView.as_view()), name='job_create'),
+    path('job/<int:jid>', login_required(
+        JobDetails), name='job_details'),
 ]
 
 if settings.DEBUG:

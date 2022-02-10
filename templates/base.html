@@ -76,8 +76,10 @@
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         {% if not user.is_employer %}
                         <li><a class="dropdown-item" href="{% url 'my_employer_details' %}">{% trans 'Profile' %}</a>
-                            {% endif %}
+                        <li><a class="dropdown-item" href="{% url 'job_create' %}">{% trans 'Post a job' %}</a>
                         <li> <a class="dropdown-item" href="{% url 'candlist' %}">{% trans 'Find a candidate' %}</a>
+                            {% endif %}
+
                         </li>
                     </ul>
                 </li>

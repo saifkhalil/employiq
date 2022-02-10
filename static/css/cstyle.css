@@ -1263,10 +1263,10 @@ footer .footer-info .footer-posts .thumbnail-post img {
 
 section.page-header {
     position: relative;
-    background: url(../images/img/page-header.jpg) center center no-repeat;
+    background: url(../images/img/footer-bg.jpg) center center no-repeat;
     background-size: cover;
     text-align: center;
-    padding: 40px 0;
+    padding: 150px 0;
     margin: 0;
     border: 0;
     color: #f6f6f6
