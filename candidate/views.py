@@ -231,6 +231,21 @@ class EducationUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView, A
         return True
 
 
+class CandidateUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView, ABC):
+    model = candidate
+    template_name = 'candidate/update.html'
+    form_class = CanForm
+
+    def form_valid(self, form):
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('my_candidate_details')
+
+    def test_func(self):
+        return True
+
+
 class CertificateCreateView(CreateView):
     model = certificate
     template_name = 'candidate/certificate/create.html'

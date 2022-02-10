@@ -10,6 +10,8 @@ urlpatterns = [
     path('', login_required(candlist), name='candlist'),
     path('create', login_required(
         CandidateCreateView.as_view()), name='candidate_create'),
+    path('<int:pk>/update/',
+         login_required(CandidateUpdateView.as_view()), name='candidate_update'),
     path('<int:cid>', login_required(candetials), name='candetials'),
     path('education/delete/<int:eid>',
          login_required(del_education), name='del_education'),
