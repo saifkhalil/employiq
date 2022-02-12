@@ -47,7 +47,7 @@
                     <!-- Job Company Image -->
                     <div class="col-md-3">
                         <div class="job-company">
-                            <a href="company-page.html">
+                            <a href="{% url 'employer_details' employer.id %}">
                                 <img class="img-fluid" src="{{ employer.logo.url }}" alt="">
                             </a>
                         </div>
@@ -63,7 +63,7 @@
                                 <li><a href="{{ employer.website }}"><i class="fa fa-link"
                                             aria-hidden="true"></i>Website</a></li>
                                 <li> <i class="fa fa-phone"></i>
-                                    <a href="tel:{{ employer.communication_email}}">{{ employer.phone_number }}</a></li>
+                                    <a href="tel:{{ employer.phone_number}}">{{ employer.phone_number }}</a></li>
                             </ul>
                         </div>
                     </div>

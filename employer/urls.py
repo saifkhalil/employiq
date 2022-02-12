@@ -10,6 +10,8 @@ urlpatterns = [
     path('', login_required(my_employer_details), name='my_employer_details'),
     path('create', login_required(
         EmployerCreateView.as_view()), name='employer_create'),
+    path('<uuid:eid>', login_required(
+        employer_details), name='employer_details'),
     path('job/create', login_required(
         JobCreateView.as_view()), name='job_create'),
     path('job/<uuid:jid>', login_required(

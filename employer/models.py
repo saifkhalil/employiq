@@ -73,7 +73,9 @@ class employer(models.Model):
 
     def __unicode__(self):
         return self.company
-
+        
+    class Meta:
+        unique_together = ('id', 'user',)
 
 class job(models.Model):
     id = models.UUIDField(

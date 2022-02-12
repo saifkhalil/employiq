@@ -75,10 +75,10 @@ class JobCreateView(CreateView):
 def JobDetails(request, jid):
     user = request.user
     job_details = job.objects.get(id=jid)
-    employer = employer.objects.get(job__id=job_details.id)
+    employer_details = employer.objects.get(job__id=job_details.id)
     context = {
         'job': job_details,
-        'employer': employer
+        'employer': employer_details
     }
     return render(request, 'employer/job/details.html', context)
 
@@ -99,3 +99,19 @@ def my_employer_details(request):
             'isemployer': 'false'
         }
         return render(request, 'employer/my_employer_details.html', context)
+
+def employer_details(request,eid):
+
+    try:
+        userid = request.user.id
+        employer_details = employer.objects.get(id=eid)
+        context = {
+            'object': employer_details,
+            'jobs': job.objects.filter(employer__id=eid),
+        }
+        return render(request, 'employer/employer_details.html', context)
+    except ObjectDoesNotExist:
+        context = {
+            'isemployer': 'false'
+        }
+        return render(request, 'employer/employer_details.html', context)
