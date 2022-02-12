@@ -7,14 +7,17 @@
     <div class="filtered">
         <div class="content">
             <br>
-            <br> {% if messages %}
-            <ul class="messages">
-                {% for message in messages %}
-                <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>
-                    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %} {{ message }}
-                    </li>
+            <br>
+            {% if messages %}
+            <div class="row justify-content-center">
+                <div class="col-8">
+                    {% for message in messages %}
+                    <div class="alert {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %} alert-danger {% endif %}">
+                        {{ message }}
+                    </div>
                     {% endfor %}
-            </ul>
+                </div>
+            </div>
             {% endif %} {% if iscandidate == 'false' %}
 
             <!-- ===== Start of Main Wrapper Section ===== -->
@@ -813,9 +816,13 @@
                                                             <div class="col-lg-4 col-md-6 col-sm-12">
                                                                 <label for="basic-url">{% trans 'Attach File' %}</label>
                                                                 <div class="input-group mb-3">
+                                                                    {% if cert.attach.url != none %}
                                                                     <a class="form-control"
                                                                         href="{{  cert.attach.url }}"
-                                                                        download>{{  cert.attach.name }}</a>
+                                                                        download>{{  cert.attach.name }}</a>{% else %}<input
+                                                                        type="text" class="form-control" id="basic-url"
+                                                                        aria-describedby="basic-addon3"
+                                                                        value="No attched file" disabled>{% endif %}
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-4 col-md-6 col-sm-12 text-right">

@@ -3,7 +3,7 @@ from django.template import loader
 from django.core.paginator import Paginator
 import json
 from candidate.models import candidate
-from vendor.models import vendor
+from employer.models import employer
 from django.core.exceptions import ObjectDoesNotExist
 
 

@@ -35,7 +35,7 @@ urlpatterns = i18n_patterns(
     path('about', views.about, name='about'),
     path('language_setting', include('rosetta.urls')),
     path('candidates/', include('candidate.urls'), name='candidate'),
-    path('employer/', include('vendor.urls'), name='employer'),
+    path('employer/', include('employer.urls'), name='employer'),
     path('job-details', views.jobdetails, name='job-details'),
     path('privacy-policy', views.privacypolicy, name='privacy-policy'),
     path('terms-conditions', views.termsconditions, name='terms-conditions'),

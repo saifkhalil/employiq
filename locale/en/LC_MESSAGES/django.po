@@ -155,7 +155,7 @@ msgstr ""
 #: .\templates\employer\cand_list.html:32
 #: .\templates\employer\candidate_detail.html:311
 #: .\templates\employer\candidate_detail.html:353
-#: .\templates\employer\candidate_detail.html:450 .\vendor\models.py:52
+#: .\templates\employer\candidate_detail.html:450 .\employer\models.py:52
 msgid "Country"
 msgstr ""
 
@@ -168,7 +168,7 @@ msgstr ""
 #: .\templates\candidate\my_candidate_details.html:419
 #: .\templates\employer\candidate_detail.html:295
 #: .\templates\employer\candidate_detail.html:361
-#: .\templates\employer\candidate_detail.html:458 .\vendor\models.py:50
+#: .\templates\employer\candidate_detail.html:458 .\employer\models.py:50
 msgid "City"
 msgstr ""
 
@@ -192,7 +192,7 @@ msgid "Job Title"
 msgstr ""
 
 #: .\candidate\models.py:86 .\templates\employer\job\details.html:91
-#: .\vendor\models.py:80
+#: .\employer\models.py:80
 msgid "Job Description"
 msgstr ""
 
@@ -328,7 +328,7 @@ msgstr ""
 msgid "Marital Status"
 msgstr ""
 
-#: .\candidate\models.py:185 .\vendor\models.py:41
+#: .\candidate\models.py:185 .\employer\models.py:41
 msgid "Photo"
 msgstr ""
 
@@ -383,7 +383,7 @@ msgstr ""
 msgid "Address Line(2)"
 msgstr ""
 
-#: .\candidate\models.py:210 .\vendor\models.py:52
+#: .\candidate\models.py:210 .\employer\models.py:52
 msgid "(select country)"
 msgstr ""
 
@@ -989,70 +989,70 @@ msgstr ""
 msgid "companies"
 msgstr ""
 
-#: .\vendor\models.py:17
+#: .\employer\models.py:17
 msgid "International"
 msgstr ""
 
-#: .\vendor\models.py:18
+#: .\employer\models.py:18
 msgid "National"
 msgstr ""
 
-#: .\vendor\models.py:19
+#: .\employer\models.py:19
 msgid "Both"
 msgstr ""
 
-#: .\vendor\models.py:38
+#: .\employer\models.py:38
 msgid "User"
 msgstr ""
 
-#: .\vendor\models.py:39
+#: .\employer\models.py:39
 msgid "Company Name"
 msgstr ""
 
-#: .\vendor\models.py:42
+#: .\employer\models.py:42
 msgid "industry"
 msgstr ""
 
-#: .\vendor\models.py:43
+#: .\employer\models.py:43
 msgid "Phone Number"
 msgstr ""
 
-#: .\vendor\models.py:45
+#: .\employer\models.py:45
 msgid "Public company info"
 msgstr ""
 
-#: .\vendor\models.py:47
+#: .\employer\models.py:47
 msgid "Communication Email"
 msgstr ""
 
-#: .\vendor\models.py:48
+#: .\employer\models.py:48
 msgid "website"
 msgstr ""
 
-#: .\vendor\models.py:49
+#: .\employer\models.py:49
 msgid "Address"
 msgstr ""
 
-#: .\vendor\models.py:54
+#: .\employer\models.py:54
 msgid "Is subscribed"
 msgstr ""
 
-#: .\vendor\models.py:56
+#: .\employer\models.py:56
 msgid "Plan"
 msgstr ""
 
-#: .\vendor\models.py:57
+#: .\employer\models.py:57
 msgid "Subscription From"
 msgstr ""
 
-#: .\vendor\models.py:58
+#: .\employer\models.py:58
 msgid "Subscription To"
 msgstr ""
 
-#: .\vendor\models.py:60
+#: .\employer\models.py:60
 msgid "Remaining Records"
 msgstr ""
 
-#: .\vendor\models.py:89
+#: .\employer\models.py:89
 msgid "Nationality"
 msgstr ""

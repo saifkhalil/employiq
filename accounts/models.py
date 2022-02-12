@@ -9,6 +9,7 @@ import os.path
 from PIL import Image
 from io import BytesIO
 from django.core.files.base import ContentFile
+import uuid
 
 
 class UserManager(BaseUserManager):
@@ -51,6 +52,8 @@ class Department(models.Model):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
+    id = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False)
     phone = PhoneNumberField()
     firstname = models.CharField(verbose_name="first name", max_length=30)
     lastname = models.CharField(verbose_name="last name", max_length=30)

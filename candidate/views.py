@@ -1,3 +1,5 @@
+from mimetypes import init
+from urllib import request
 from django.db.models.expressions import Exists
 from abc import ABC
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -7,7 +9,7 @@ from django.shortcuts import render, redirect
 from xhtml2pdf import context
 from .models import candidate, education, employment, language, certificate
 from accounts.models import User
-from vendor.models import vendor
+from employer.models import employer
 from django.core.paginator import Paginator
 import json
 from django.contrib import messages
@@ -63,7 +65,7 @@ def candlist(request):
     context = {
         'session': json.dumps(session),
         'page_obj': page_obj,
-        'remcand': vendor.objects.filter(user=request.user).order_by().values_list('remaining_records', flat=True).first()
+        'remcand': employer.objects.filter(user=request.user).order_by().values_list('remaining_records', flat=True).first()
     }
     return render(request, 'candidate/cand_list.html', context)
 
@@ -71,7 +73,7 @@ def candlist(request):
 def candetials(request, cid):
     user = request.user
     cm = {}
-    remcand = vendor.objects.get(user=request.user)
+    remcand = employer.objects.get(user=request.user)
     if remcand.remaining_records > 0:
         cm = candidate.objects.get(id=cid)
         remcand.remaining_records = remcand.remaining_records - 1
@@ -374,16 +376,20 @@ class CandidateCreateView(CreateView):
     model = candidate
     template_name = 'candidate/create.html'
     form_class = CanForm
+    error_meesage = "Error saving the Candidate, check fields below."
 
-    def form_valid(self, form):
-       # current_candidate = candidate.objects.get(user__id=self.request.user.id)
-        Candidate = form.save(commit=False)
-        Candidate.created_by = User.objects.get(email=self.request.user.email)
-        Candidate.user = self.request.user
-        currentuser = User.objects.filter(id=self.request.user.id)
-        currentuser.is_candidate = True
-        # currentuser.save()
-        Candidate.save()
+    def form_valid(self, form): 
+        try:
+            mycand = candidate.objects.get(user=self.request.user)
+            messages.add_message(self.request,messages.ERROR, "Error saving the Candidate, You registered as below candidate")
+        except candidate.DoesNotExist:
+            Candidate = form.save(commit=False)
+            Candidate.created_by = User.objects.get(email=self.request.user.email)
+            Candidate.user = self.request.user
+            currentuser = self.request.user
+            currentuser.is_candidate = True
+            currentuser.save()
+            Candidate.save()
         '''
         html_message = render_to_string('mail_template.html', {'cm': Edu})
         send_mail(

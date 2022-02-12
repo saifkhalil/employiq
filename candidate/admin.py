@@ -6,7 +6,7 @@ from .models import candidate, certificate, education, employment
 # Register your models here.
 
 
-class VendorResource(resources.ModelResource):
+class EmployerResource(resources.ModelResource):
     class Meta:
         model: candidate
         fields = ('firstname', 'secondname', 'lastname', 'email', 'cv',
@@ -15,7 +15,7 @@ class VendorResource(resources.ModelResource):
 
 @register(candidate)
 class CandidateAdmin(ImportExportModelAdmin):
-    list_display = ('firstname', 'secondname', 'lastname', 'email', 'user', 'photo', 'cv',
+    list_display = ('id', 'firstname', 'secondname', 'lastname', 'email', 'user', 'photo', 'cv',
                     'birthofdate', 'phone_number', 'address1', 'city', 'country', 'bio')
     icon_name = 'assignment_ind'
 

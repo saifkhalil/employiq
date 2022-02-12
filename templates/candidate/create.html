@@ -13,7 +13,13 @@
 
             <!-- Start of Login Box -->
             <div class="login-box">
-
+                <div class="row">
+                    {% if messages %}
+                    {% for message in messages %}
+                    <p>message</p>
+                    {% endfor %}
+                    {% endif %}
+                </div>
                 <div class="login-title">
                     <h4>{% trans 'Register as Candiate' %}</h4>
                 </div>

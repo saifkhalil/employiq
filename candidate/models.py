@@ -1,3 +1,4 @@
+import uuid
 from tabnanny import verbose
 from django.utils.translation import ugettext_lazy as _
 from io import BytesIO
@@ -68,7 +69,8 @@ LANGUAGE_LEVELS = [
 
 
 class employment(models.Model):
-    id = models.AutoField(primary_key=True)
+    id = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False)
     employer = models.CharField(
         max_length=50, blank=False, null=False, verbose_name=_('Employer'))
     country = CountryField(blank=False, null=False, verbose_name=_('Country'))
@@ -103,7 +105,8 @@ class employment(models.Model):
 
 
 class language(models.Model):
-    id = models.AutoField(primary_key=True)
+    id = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False)
     language = LanguageField(max_length=10, blank=False,
                              null=False)
     level = models.CharField(
@@ -117,7 +120,8 @@ class language(models.Model):
 
 
 class education(models.Model):
-    id = models.AutoField(primary_key=True)
+    id = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False)
     education_level = models.CharField(
         max_length=1, choices=EDUCATION_CHOICES, blank=False, null=False, verbose_name=_('Education Level'))
     country = CountryField(blank=False, null=False, verbose_name=_('Country'))
@@ -142,7 +146,8 @@ class education(models.Model):
 
 
 class certificate(models.Model):
-    id = models.AutoField(primary_key=True)
+    id = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False)
     certificate_name = models.CharField(
         max_length=100,  blank=False, null=False, verbose_name=_('Certificate Name'))
     organization = models.CharField(max_length=50, blank=False,
@@ -162,8 +167,9 @@ class certificate(models.Model):
 
 
 class candidate(models.Model):
-    id = models.AutoField(primary_key=True)
-    user = models.ForeignKey(
+    id = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False)
+    user = models.OneToOneField(
         User, blank=True, null=True, on_delete=models.CASCADE)
     title = models.CharField(max_length=2, choices=TITLE_CHOICES,
                              default="Mr.", blank=False, null=False, verbose_name=_('Title'))
@@ -223,15 +229,18 @@ class candidate(models.Model):
                            null=True, verbose_name=_('bio'))
     skills = TagField(verbose_name=_('Skills'), delimiters=',')
     hobbies = TagField(verbose_name=_('Hobbies'), delimiters=',')
-    created_at = models.DateTimeField(auto_now_add=True)
-    modified_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True, editable=False)
+    modified_at = models.DateTimeField(auto_now=True, editable=False)
     created_by = models.ForeignKey(
-        User, related_name='%(class)s_createdby', on_delete=models.CASCADE, blank=True, null=True)
+        User, related_name='%(class)s_createdby', on_delete=models.CASCADE, blank=True, null=True, editable=False)
     modified_by = models.ForeignKey(
-        User, related_name='%(class)s_modifiedby', null=True, blank=True, on_delete=models.CASCADE)
+        User, related_name='%(class)s_modifiedby', null=True, blank=True, on_delete=models.CASCADE, editable=False)
 
     def __str__(self):
         return self.firstname + " " + self.secondname + " " + self.lastname
 
     def __unicode__(self):
         return self.firstname + " " + self.secondname + " " + self.lastname
+    
+    class Meta:
+        unique_together = ('id', 'user',)
