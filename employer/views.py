@@ -16,6 +16,7 @@ from django.db.models import Count
 from django.db.models import Q
 from django.core.paginator import Paginator
 import json
+from django.utils.translation import ugettext_lazy as _
 # Create your views here.
 
 
@@ -90,11 +91,11 @@ def job_apply(request, jid):
             current_job.applied_candidates.add(current_candidate)
             current_job.save()
             messages.add_message(request, messages.SUCCESS,
-                                 "Your are appiled to job")
+                                 _("Your are appiled to job"))
             return redirect(reverse('job_details', kwargs={"jid": current_job.id}))
         except:
             messages.add_message(request, messages.ERROR,
-                                 "There are error on appiled job")
+                                 _("There are error on appiled job"))
             return redirect(reverse('job_details', kwargs={"jid": current_job.id}))
 
 

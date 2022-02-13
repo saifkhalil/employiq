@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-14 00:21+0300\n"
+"POT-Creation-Date: 2022-02-14 01:16+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -144,7 +144,7 @@ msgid "Employer"
 msgstr ""
 
 #: .\candidate\models.py:76 .\candidate\models.py:127 .\candidate\models.py:197
-#: .\candidate\models.py:218 .\employer\models.py:56
+#: .\candidate\models.py:218 .\employer\models.py:65 .\employer\models.py:104
 #: .\templates\candidate\cand_list.html:32
 #: .\templates\candidate\candidate_detail.html:311
 #: .\templates\candidate\candidate_detail.html:353
@@ -158,7 +158,8 @@ msgid "Country"
 msgstr ""
 
 #: .\candidate\models.py:78 .\candidate\models.py:129 .\candidate\models.py:216
-#: .\employer\models.py:54 .\templates\candidate\candidate_detail.html:295
+#: .\employer\models.py:63 .\employer\models.py:102
+#: .\templates\candidate\candidate_detail.html:295
 #: .\templates\candidate\candidate_detail.html:361
 #: .\templates\candidate\candidate_detail.html:458
 #: .\templates\candidate\my_candidate_details.html:388
@@ -181,11 +182,11 @@ msgstr ""
 msgid "End Date"
 msgstr ""
 
-#: .\candidate\models.py:86
+#: .\candidate\models.py:86 .\employer\models.py:95
 msgid "Job Title"
 msgstr ""
 
-#: .\candidate\models.py:88 .\employer\models.py:87
+#: .\candidate\models.py:88 .\employer\models.py:97
 #: .\templates\employer\job\details.html:103
 msgid "Job Description"
 msgstr ""
@@ -312,7 +313,7 @@ msgstr ""
 msgid "Marital Status"
 msgstr ""
 
-#: .\candidate\models.py:193 .\employer\models.py:45
+#: .\candidate\models.py:193 .\employer\models.py:54
 msgid "Photo"
 msgstr ""
 
@@ -363,7 +364,7 @@ msgstr ""
 msgid "Address Line(2)"
 msgstr ""
 
-#: .\candidate\models.py:218 .\employer\models.py:56
+#: .\candidate\models.py:218 .\employer\models.py:65 .\employer\models.py:104
 msgid "(select country)"
 msgstr ""
 
@@ -417,64 +418,112 @@ msgstr ""
 msgid "Both"
 msgstr ""
 
-#: .\employer\models.py:42
-msgid "User"
+#: .\employer\models.py:25
+msgid "Full-time"
 msgstr ""
 
-#: .\employer\models.py:43
-msgid "Company Name"
+#: .\employer\models.py:26
+msgid "Part-time"
 msgstr ""
 
-#: .\employer\models.py:46
-msgid "industry"
+#: .\employer\models.py:27
+msgid "Contract"
 msgstr ""
 
-#: .\employer\models.py:47
-msgid "Phone Number"
+#: .\employer\models.py:28
+msgid "Temporary"
 msgstr ""
 
-#: .\employer\models.py:49
-msgid "Public company info"
+#: .\employer\models.py:29
+msgid "Volunteer"
+msgstr ""
+
+#: .\employer\models.py:30
+msgid "Internship"
 msgstr ""
 
 #: .\employer\models.py:51
-msgid "Communication Email"
+msgid "User"
 msgstr ""
 
 #: .\employer\models.py:52
-msgid "website"
+msgid "Company Name"
 msgstr ""
 
-#: .\employer\models.py:53
-msgid "Address"
+#: .\employer\models.py:55
+msgid "industry"
+msgstr ""
+
+#: .\employer\models.py:56
+msgid "Phone Number"
 msgstr ""
 
 #: .\employer\models.py:58
-msgid "Is subscribed"
+msgid "Public company info"
 msgstr ""
 
 #: .\employer\models.py:60
-msgid "Plan"
+msgid "Communication Email"
 msgstr ""
 
 #: .\employer\models.py:61
-msgid "Subscription From"
+msgid "website"
 msgstr ""
 
 #: .\employer\models.py:62
+msgid "Address"
+msgstr ""
+
+#: .\employer\models.py:67
+msgid "Is subscribed"
+msgstr ""
+
+#: .\employer\models.py:69
+msgid "Plan"
+msgstr ""
+
+#: .\employer\models.py:70
+msgid "Subscription From"
+msgstr ""
+
+#: .\employer\models.py:71
 msgid "Subscription To"
 msgstr ""
 
-#: .\employer\models.py:64
+#: .\employer\models.py:73
 msgid "Remaining Records"
 msgstr ""
 
-#: .\employer\models.py:96
+#: .\employer\models.py:99
+msgid "Employment Type"
+msgstr ""
+
+#: .\employer\models.py:100
+msgid "Date opened"
+msgstr ""
+
+#: .\employer\models.py:101
+msgid "Date closed"
+msgstr ""
+
+#: .\employer\models.py:106
+msgid "Salary"
+msgstr ""
+
+#: .\employer\models.py:108
 msgid "Nationality"
 msgstr ""
 
-#: .\employer\models.py:97
+#: .\employer\models.py:111
 msgid "Applied Candidates"
+msgstr ""
+
+#: .\employer\views.py:94
+msgid "Your are appiled to job"
+msgstr ""
+
+#: .\employer\views.py:98
+msgid "There are error on appiled job"
 msgstr ""
 
 #: .\templates\about.html:19 .\templates\base.html:55
@@ -963,6 +1012,14 @@ msgstr ""
 
 #: .\templates\employer\job\details.html:186
 msgid "Nationality:"
+msgstr ""
+
+#: .\templates\employer\job\details.html:194
+msgid "Apply for job"
+msgstr ""
+
+#: .\templates\employer\job\details.html:196
+msgid "Your Already applied"
 msgstr ""
 
 #: .\templates\employer\job\job_list.html:23

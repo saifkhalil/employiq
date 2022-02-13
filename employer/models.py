@@ -1,3 +1,4 @@
+from candidate.models import candidate
 import uuid
 from ckeditor.fields import RichTextField
 from contextlib import nullcontext
@@ -13,12 +14,20 @@ from easy_thumbnails.fields import ThumbnailerImageField
 from accounts.models import User
 from django.utils.translation import ugettext_lazy as _
 User = settings.AUTH_USER_MODEL
-from candidate.models import candidate
 
 NATIONALITY = [
     ('international', _('International')),
     ('national', _('National')),
     ('both', _('Both')),
+]
+
+Employment_Type = [
+    ('Full-time', _('Full-time')),
+    ('Part-time', _('Part-time')),
+    ('Contract', _('Contract')),
+    ('Temporary', _('Temporary')),
+    ('Volunteer', _('Volunteer')),
+    ('Internship', _('Internship')),
 ]
 
 
@@ -74,27 +83,32 @@ class employer(models.Model):
 
     def __unicode__(self):
         return self.company
-        
+
     class Meta:
         unique_together = ('id', 'user',)
+
 
 class job(models.Model):
     id = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)
     employer = models.ForeignKey(employer, on_delete=models.CASCADE)
-    job_title = models.CharField(max_length=200)
+    job_title = models.CharField(max_length=200, verbose_name=_('Job Title'))
     job_description = RichTextField(default='',
                                     blank=False, null=False, verbose_name=_('Job Description'))
-    job_type = models.CharField(max_length=200)
-    date_opened = models.DateField()
-    date_closed = models.DateField()
-    city = models.CharField(max_length=200)
-    country = CountryField(blank_label='(select country)')
+    job_type = models.CharField(max_length=15, choices=Employment_Type,
+                                default="Full-time", blank=False, null=False, verbose_name=_('Employment Type'))
+    date_opened = models.DateField(verbose_name=_('Date opened'))
+    date_closed = models.DateField(verbose_name=_('Date closed'))
+    city = models.CharField(max_length=200, verbose_name=_('City'))
+    country = CountryField(blank_label=_(
+        '(select country)'), verbose_name=_('Country'))
     salary = MoneyField(max_digits=10, decimal_places=3,
-                        default_currency='IQD')
+                        default_currency='IQD', verbose_name=_('Salary'))
     nationality = models.CharField(max_length=15, choices=NATIONALITY,
                                    default="both", blank=False, null=False, verbose_name=_('Nationality'))
-    applied_candidates = models.ManyToManyField(candidate, blank=True, verbose_name=_('Applied Candidates'))
+
+    applied_candidates = models.ManyToManyField(
+        candidate, blank=True, verbose_name=_('Applied Candidates'))
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(
