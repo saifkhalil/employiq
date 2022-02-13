@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+{% load countries %}
+
+{% block content %}
+{% load static %}
+{% load i18n %}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css" />
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.1.1/css/buttons.bootstrap5.min.css" />
+<link rel="stylesheet" type="text/css"
+  href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap5.min.css" />
+<!-- filter options -->
+<div class="header">
+  <div class="filtered">
+    <section class="main overlay-black">
+      <div class="container wrapper">
+
+        <form method="GET">
+          <div class="row m-3">
+            <div class="col-md">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="keywords" name="keywords"
+                  aria-describedby="search by jib title, employer" placeholder="search by jib title, employer">
+                <label for="keywords">{% trans 'keywords' %}</label>
+              </div>
+            </div>
+            <div class="col-md">
+              <div class="form-floating">
+                {% get_countries as countries %}
+                <select class="form-control" placeholder="select country" id="country" name="country">
+                  {% for country in countries %}
+                  <option value="{{ country.code }}">{{ country.name }} <img src="{{ country.flag }}"></img></option>
+                  {% endfor %}
+                </select>
+                <label for="id" class="form-label">{% trans 'Country' %}</label>
+              </div>
+            </div>
+            <div class="col-md">
+              <div class="form-floating">
+                <select class="form-control" placeholder="Number of records" id="number_of_records"
+                  name="number_of_records" aria-label="priority">
+                  <option value='10'>{% trans '10 records' %}</option>
+                  <option value='25'>{% trans '25 records' %}</option>
+                  <option value='50'>{% trans '50 records' %}</option>
+                </select>
+                <label for="id" class="form-label">{% trans 'Number of records' %}</label>
+              </div>
+            </div>
+          </div>
+          <div class="row m-3">
+            <div class="d-grid gap-2 col-2 mx-auto">
+              <button type="submit" name="search" value="search" class="btn btn-warning">{% trans 'Search' %}</button>
+            </div>
+            <div class="d-grid gap-2 col-2 mx-auto">
+              <button type="submit" name="clear" value="clear" class="btn btn-danger">{% trans 'Clear' %}</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+  </div>
+
+  <section class="company-jobs ptb80">
+    <div class="container">
+
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <h3 class="pb60">{% trans 'Jobs' %}</h3>
+        </div>
+      </div>
+      {% for job in page_obj %}
+      <div class="row ptb5">
+        <!-- ===== Start of Single Job Post 1 ===== -->
+        <div class="single-job-post row shadow-hover">
+          <!-- Job Company -->
+          <div class="col-md-1 col-xs-3 nopadding">
+            <div class="job-company">
+              <a href="#">
+                <img class="img-fluid" src="{{ job.employer.logo.url }}" alt="">
+              </a>
+            </div>
+          </div>
+
+          <!-- Job Title & Info -->
+          <div class="col-md-8 col-xs-6">
+            <div class="job-title">
+              <a href="{% url 'job_details' job.id %}">{{ job.job_title }}</a>
+              <p>{{ job.city}}, {{ job.get_country_display }}</p>
+            </div>
+
+          </div>
+
+          <!-- Job Category -->
+          <div class="col-md-2 col-xs-3 ptb30">
+            <div class="job-category">
+              <a href="javascript:void(0)" class="btn btn-green btn-small btn-effect">{{ job.job_type }}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ===== End of Single Job Post 1 ===== -->
+      {% endfor %}
+
+      {% comment %} <div class="row mt30">
+        <div class="col-md-12 text-center">
+          <a href="#" class="btn btn-blue btn-effect">show all</a>
+        </div>
+      </div> {% endcomment %}
+
+
+    </div>
+  </section>
+
+
+
+</div>
+
+
+
+
+
+<script type="text/javascript">
+  var srchval = JSON.parse('{{ session | escapejs }}');
+  window.addEventListener('load', function () {
+    // document.getElementById('cm').classList.add('active');
+    document.getElementById('country').value = srchval[0];
+    document.getElementById('number_of_records').value = srchval[2];
+    document.getElementById('keywords').value = srchval[1];
+  })
+</script>
+{% endblock %}
+
+{% include "footer.html" %}
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.1.1/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.1.1/js/buttons.bootstrap5.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js">
+</script>
+<script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap5.js"></script>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    const table = $('#cand_list').DataTable({
+      dom: 'Brti',
+      buttons: ['copy', 'excel', 'csv', 'print'],
+      responsive: !0,
+      fixedHeader: !0,
+      stateSave: !0,
+      colReorder: !0,
+      scrollY: 600,
+      deferRender: !0,
+      scroller: !0,
+      scrollCollapse: !0,
+      paging: false,
+    });
+  });
+</script>

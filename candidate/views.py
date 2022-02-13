@@ -4,7 +4,7 @@ from django.db.models.expressions import Exists
 from abc import ABC
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import HttpResponse
-from django.http.response import JsonResponse
+from django.http.response import JsonResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from xhtml2pdf import context
 from .models import candidate, education, employment, language, certificate
@@ -22,6 +22,8 @@ from .pdf_process import html_to_pdf
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from employer.models import job
+
 # Create your views here.
 
 
@@ -125,7 +127,8 @@ def my_candidate_details(request):
             'educations': education.objects.filter(candidate__id=cid),
             'employments': employment.objects.filter(candidate__id=cid),
             'Languages': language.objects.filter(candidate__id=cid),
-            'certificates': certificate.objects.filter(candidate__id=cid)
+            'certificates': certificate.objects.filter(candidate__id=cid),
+            'applied_jobs': job.objects.filter(applied_candidates=candidate_detials)
         }
         return render(request, 'candidate/my_candidate_details.html', context)
     except ObjectDoesNotExist:
@@ -283,7 +286,7 @@ class CertificateUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView,
     model = certificate
     template_name = 'candidate/certificate/update.html'
     fields = ['certificate_name', 'organization',
-              'issue_date', 'expire_date', 'attach']
+              'issue_date', 'expire_date', 'expired_certificate', 'attach']
 
     def form_valid(self, form):
         return super().form_valid(form)
@@ -378,13 +381,15 @@ class CandidateCreateView(CreateView):
     form_class = CanForm
     error_meesage = "Error saving the Candidate, check fields below."
 
-    def form_valid(self, form): 
+    def form_valid(self, form):
         try:
             mycand = candidate.objects.get(user=self.request.user)
-            messages.add_message(self.request,messages.ERROR, "Error saving the Candidate, You registered as below candidate")
+            messages.add_message(self.request, messages.ERROR,
+                                 "Error saving the Candidate, You registered as below candidate")
         except candidate.DoesNotExist:
             Candidate = form.save(commit=False)
-            Candidate.created_by = User.objects.get(email=self.request.user.email)
+            Candidate.created_by = User.objects.get(
+                email=self.request.user.email)
             Candidate.user = self.request.user
             currentuser = self.request.user
             currentuser.is_candidate = True

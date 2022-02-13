@@ -62,6 +62,8 @@
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="{% url 'my_candidate_details' %}">{% trans 'Profile' %}</a>
                         </li>
+                        <li><a class="dropdown-item" href="{% url 'job_list' %}">{% trans 'Search for a job' %}</a>
+                        </li>
                         {% if not user.is_candidate %}
                         <li><a class="dropdown-item"
                                 href="{% url 'candidate_create' %}">{% trans 'Create Candidate' %}</a></li>
@@ -130,7 +132,7 @@
                 <h3>Employeiq</h3>
                 <!-- Small Description -->
                 <p class="pt40">
-                    {% trans 'EmployIQ is a professional Human Resources recruiter in Iraq that have come together to assist YOU with a simplified and cost-effective recruitment process.  We connect numerous number of people to new opportunities every single day, through our job portal by putting job seekers first and offering free resume building and company research.' %}
+                    {% trans 'EmployIQ is a professional recruiter in Iraq that have come together to assist YOU with a simplified and cost-effective recruitment process.  We connect numerous number of people to new opportunities every single day, through our job portal by putting job seekers first and offering free resume building and company research.' %}
                 </p>
 
                 <!-- Info -->
@@ -153,7 +155,11 @@
                     <li><a href="{% url 'my_candidate_details' %}"><i
                                 class="fa fa-angle-double-right"></i>{% trans 'My Candidate Profile' %}</a></li>
                     <li><a href="{% url 'candlist' %}"><i
-                                class="fa fa-angle-double-right"></i>{% trans 'Find Candidate' %}</a></li>
+                                class="fa fa-angle-double-right"></i>{% trans 'Find a candidate' %}</a></li>
+                    <li><a href="{% url 'job_create' %}"><i
+                                class="fa fa-angle-double-right"></i>{% trans 'Post a job' %}</a></li>
+                    <li><a href="{% url 'job_list' %}"><i
+                                class="fa fa-angle-double-right"></i>{% trans 'Search for a job' %}</a></li>
                 </ul>
             </div>
 

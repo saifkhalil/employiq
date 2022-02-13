@@ -814,6 +814,20 @@
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-4 col-md-6 col-sm-12">
+
+                                                                <div class="form-check form-switch">
+
+                                                                    <input type="checkbox" class="form-check-input"
+                                                                        id="expired_certificate"
+                                                                        aria-describedby="basic-addon3"
+                                                                        {% if cert.expired_certificate == True %}
+                                                                        checked {% endif %}>
+                                                                    <label class="form-check-label"
+                                                                        for="expired_certificate">{% trans 'This credential does not expire' %}</label>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="col-lg-4 col-md-6 col-sm-12">
                                                                 <label for="basic-url">{% trans 'Attach File' %}</label>
                                                                 <div class="input-group mb-3">
                                                                     {% if cert.attach.url != none %}
@@ -860,6 +874,59 @@
                     <!-- ===== End of Candidate Profile Details ===== -->
 
                     {% endif %}
+
+                    <section class="company-jobs ptb80">
+                        <div class="container">
+
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <h3 class="pb60">{% trans 'Applied Jobs' %}</h3>
+                                </div>
+                            </div>
+                            {% for job in applied_jobs %}
+                            <div class="row ptb5">
+                                <!-- ===== Start of Single Job Post 1 ===== -->
+                                <div class="single-job-post row shadow-hover">
+                                    <!-- Job Company -->
+                                    <div class="col-md-1 col-xs-3 nopadding">
+                                        <div class="job-company">
+                                            <a href="#">
+                                                <img class="img-fluid" src="{{ object.logo.url }}" alt="">
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <!-- Job Title & Info -->
+                                    <div class="col-md-8 col-xs-6">
+                                        <div class="job-title">
+                                            <a href="{% url 'job_details' job.id %}">{{ job.job_title }}</a>
+                                            <p>{{ job.city}}, {{ job.get_country_display }}</p>
+                                        </div>
+
+                                    </div>
+
+                                    <!-- Job Category -->
+                                    <div class="col-md-2 col-xs-3 ptb30">
+                                        <div class="job-category">
+                                            <a href="javascript:void(0)"
+                                                class="btn btn-green btn-small btn-effect">{{ job.job_type }}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ===== End of Single Job Post 1 ===== -->
+                            {% endfor %}
+
+                            {% comment %} <div class="row mt30">
+                                <div class="col-md-12 text-center">
+                                    <a href="#" class="btn btn-blue btn-effect">show all</a>
+                                </div>
+                            </div> {% endcomment %}
+
+
+                        </div>
+                    </section>
+
 
                 </div>
         </div>

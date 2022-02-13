@@ -150,12 +150,14 @@ class certificate(models.Model):
         primary_key=True, default=uuid.uuid4, editable=False)
     certificate_name = models.CharField(
         max_length=100,  blank=False, null=False, verbose_name=_('Certificate Name'))
-    organization = models.CharField(max_length=50, blank=False,
-                                    null=False, verbose_name=_('Organization'))
+    organization = models.CharField(max_length=50, blank=True,
+                                    null=True, verbose_name=_('Organization'))
     issue_date = models.DateField(
         blank=False, null=False, verbose_name=_('Issue Date'))
     expire_date = models.DateField(
-        blank=False, null=False, verbose_name=_('Expire Date'))
+        blank=True, null=True, verbose_name=_('Expire Date'))
+    expired_certificate = models.BooleanField(
+        null=False, blank=False, default=False, verbose_name=_('This credential does not expire'))
     attach = models.FileField(blank=True, null=True,
                               upload_to='media/certificate', verbose_name=_('Attach File'), validators=[FileExtensionValidator(['pdf', 'doc', 'docx', 'jpg', 'jpeg', 'png', 'git'])])
 
@@ -241,6 +243,6 @@ class candidate(models.Model):
 
     def __unicode__(self):
         return self.firstname + " " + self.secondname + " " + self.lastname
-    
+
     class Meta:
         unique_together = ('id', 'user',)

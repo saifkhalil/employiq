@@ -1,3 +1,4 @@
+import re
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView
@@ -6,6 +7,15 @@ from accounts.models import User
 from employer.forms import EmpForm, JobForm
 from employer.models import job, employer
 from django.core.exceptions import ObjectDoesNotExist
+from candidate.models import candidate
+from django.http.response import JsonResponse
+from django.contrib import messages
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from django.db.models import Count
+from django.db.models import Q
+from django.core.paginator import Paginator
+import json
 # Create your views here.
 
 
@@ -72,12 +82,34 @@ class JobCreateView(CreateView):
         return reverse_lazy('my_employer_details')
 
 
+def job_apply(request, jid):
+    if request.method == 'GET':
+        try:
+            current_candidate = candidate.objects.get(user__id=request.user.id)
+            current_job = job.objects.get(id=jid)
+            current_job.applied_candidates.add(current_candidate)
+            current_job.save()
+            messages.add_message(request, messages.SUCCESS,
+                                 "Your are appiled to job")
+            return redirect(reverse('job_details', kwargs={"jid": current_job.id}))
+        except:
+            messages.add_message(request, messages.ERROR,
+                                 "There are error on appiled job")
+            return redirect(reverse('job_details', kwargs={"jid": current_job.id}))
+
+
 def JobDetails(request, jid):
     user = request.user
     job_details = job.objects.get(id=jid)
+    current_candidate = candidate.objects.get(user__id=request.user.id)
+    if job.objects.filter(id=jid, applied_candidates=current_candidate).count() >= 1:
+        current_candidate_applied = True
+    else:
+        current_candidate_applied = False
     employer_details = employer.objects.get(job__id=job_details.id)
     context = {
         'job': job_details,
+        'applied': current_candidate_applied,
         'employer': employer_details
     }
     return render(request, 'employer/job/details.html', context)
@@ -100,7 +132,8 @@ def my_employer_details(request):
         }
         return render(request, 'employer/my_employer_details.html', context)
 
-def employer_details(request,eid):
+
+def employer_details(request, eid):
 
     try:
         userid = request.user.id
@@ -115,3 +148,52 @@ def employer_details(request,eid):
             'isemployer': 'false'
         }
         return render(request, 'employer/employer_details.html', context)
+
+
+def job_list(request):
+    if request.method == 'GET':
+        if request.GET.get('country'):
+            country = request.GET.get('country')
+            request.session['country'] = country
+        else:
+            country = ""
+            request.session['country'] = country
+        if request.GET.get('keywords'):
+            keywords = request.GET.get('keywords')
+            request.session['keywords'] = keywords
+        else:
+            keywords = ""
+            request.session['keywords'] = keywords
+        if request.GET.get('number_of_records'):
+            number_of_records = request.GET.get('number_of_records')
+            request.session['number_of_records'] = int(number_of_records)
+        if request.GET.get('clear'):
+            if request.session.get('country'):
+                del request.session['country']
+            if request.session.get('search'):
+                del request.session['keywords']
+            if request.session.get('number_of_records'):
+                del request.session['number_of_records']
+    country = request.session.get('country')
+    keywords = request.session.get('keywords')
+    number_of_records = request.session.get('number_of_records')
+    job_list = job.objects.all()
+    if number_of_records:
+        number_of_records = int(number_of_records)
+    else:
+        number_of_records = 10
+    if country:
+        job_list = job_list.filter(country__icontains=country)
+    if keywords:
+        job_list = job_list.filter(
+            Q(job_title__icontains=keywords) | Q(employer__company__icontains=keywords))
+    session = [country, keywords, number_of_records]
+    # Show 25 contacts per page.
+    paginator = Paginator(job_list, number_of_records)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {
+        'session': json.dumps(session),
+        'page_obj': page_obj
+    }
+    return render(request, 'employer/job/job_list.html', context)

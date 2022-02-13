@@ -40,7 +40,7 @@ class CerForm(ModelForm):
     class Meta:
         model = certificate
         fields = ['certificate_name', 'organization',
-                  'issue_date', 'expire_date', 'attach']
+                  'issue_date', 'expire_date', 'expired_certificate', 'attach']
         widgets = {'issue_date': DateInput(), 'expire_date': DateInput()}
 
 

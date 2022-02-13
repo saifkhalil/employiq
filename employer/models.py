@@ -13,6 +13,7 @@ from easy_thumbnails.fields import ThumbnailerImageField
 from accounts.models import User
 from django.utils.translation import ugettext_lazy as _
 User = settings.AUTH_USER_MODEL
+from candidate.models import candidate
 
 NATIONALITY = [
     ('international', _('International')),
@@ -93,6 +94,7 @@ class job(models.Model):
                         default_currency='IQD')
     nationality = models.CharField(max_length=15, choices=NATIONALITY,
                                    default="both", blank=False, null=False, verbose_name=_('Nationality'))
+    applied_candidates = models.ManyToManyField(candidate, blank=True, verbose_name=_('Applied Candidates'))
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(
