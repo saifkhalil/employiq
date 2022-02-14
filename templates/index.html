@@ -5,7 +5,8 @@
 {% get_available_languages as AVAILABLE_LANGUAGES %}
 {% get_language_info_list for AVAILABLE_LANGUAGES as languages %}
 {% block content %}
-
+{% load djmoney %}
+{% load static %}
 <!-- ===== Start of Main Search Section ===== -->
 <section class="main overlay-black">
 
@@ -69,8 +70,6 @@
 </section>
 <!-- ===== End of Main Search Section ===== -->
 
-
-
 <!-- ===== Start of Pricing Tables Section ===== -->
 <section class="pricing-tables pb80">
     <div class="container">
@@ -79,33 +78,25 @@
                 <h2>{% trans 'pricing table' %}</h2>
             </div>
         </div>
-        <!-- Start Row -->
         <div class="row">
-
-
-            <!-- Start of 1st Pricing Table -->
-            <div class="col-md-4 col-xs-12 mt80">
-                <div class="pricing-table shadow-hover">
-
-                    <!-- Pricing Header -->
+            {% for price in princing %}
+            <div class="col-md-3 col-xs-12 mt80 mb20">
+                <div class="pricing-table shadow-hover" {% if price.plan == 'Premium' %}id="popular" {% endif %}>
                     <div class="pricing-header">
-                        <h2>small team</h2>
+                        <h2>{{ price.plan }}</h2>
                     </div>
-
-                    <!-- Pricing -->
                     <div class="pricing">
-                        <span class="currency">$</span>
-                        <span class="amount">19</span>
-                        <span class="month">{% trans 'month' %}</span>
+                        <div class="row">
+                            <span class="amount">{{ price.price }}</span>
+                        </div>
+                        <span
+                            class="month">{% if price.days == 30 %}Monthly{% elif  price.days == 365 %}Annual{% endif %}</span>
                     </div>
-
-                    <!-- Pricing Body -->
                     <div class="pricing-body">
                         <ul class="list">
-                            <li>Post 1 Job per Day</li>
-                            <li>Edit Your Job Listing</li>
-                            <li>See Job Stats</li>
-                            <li>1 Email Support</li>
+                            <li>Post {{ price.jobs }} Job</li>
+                            <li>{% if price.suggestions == 99999 %}Unlimited {% else %}{{ price.suggestions }}
+                                {% endif %}{% trans 'Suggestions' %}</li>
                         </ul>
                     </div>
 
@@ -116,83 +107,8 @@
 
                 </div>
             </div>
-            <!-- End of 1st Pricing Table -->
-
-
-            <!-- Start of 2nd Pricing Table -->
-            <div class="col-md-4 col-xs-12 mt80">
-                <div class="pricing-table shadow-hover" id="popular">
-
-                    <!-- Pricing Header -->
-                    <div class="pricing-header">
-                        <h2>corporate</h2>
-                    </div>
-
-                    <!-- Pricing -->
-                    <div class="pricing">
-                        <span class="currency">$</span>
-                        <span class="amount">49</span>
-                        <span class="month">{% trans 'month' %}</span>
-                    </div>
-
-                    <!-- Pricing Body -->
-                    <div class="pricing-body">
-                        <ul class="list">
-                            <li>Post up to 10 Jobs per Day</li>
-                            <li>Edit Your Job Listing</li>
-                            <li>See Job Stats</li>
-                            <li>10 Email Support</li>
-                        </ul>
-                    </div>
-
-                    <!-- Pricing Footer -->
-                    <div class="pricing-footer">
-                        <a href="#" class="btn btn-blue btn-effect">get started</a>
-                    </div>
-
-                </div>
-            </div>
-            <!-- End of 2nd Pricing Table -->
-
-
-            <!-- Start of 3rd Pricing Table -->
-            <div class="col-md-4 col-xs-12 mt80">
-                <div class="pricing-table shadow-hover">
-
-                    <!-- Pricing Header -->
-                    <div class="pricing-header">
-                        <h2>enterprise</h2>
-                    </div>
-
-                    <!-- Pricing -->
-                    <div class="pricing">
-                        <span class="currency">$</span>
-                        <span class="amount">99</span>
-                        <span class="month">{% trans 'month' %}</span>
-                    </div>
-
-                    <!-- Pricing Body -->
-                    <div class="pricing-body">
-                        <ul class="list">
-                            <li>Post up to 100 Jobs per Day</li>
-                            <li>Edit Your Job Listing</li>
-                            <li>See Job Stats</li>
-                            <li>Unlimited Email Support</li>
-                        </ul>
-                    </div>
-
-                    <!-- Pricing Footer -->
-                    <div class="pricing-footer">
-                        <a href="#" class="btn btn-blue btn-effect">get started</a>
-                    </div>
-
-                </div>
-            </div>
-            <!-- End of 3rd Pricing Table -->
-
+            {% endfor %}
         </div>
-        <!-- End Row -->
-
     </div>
 </section>
 <!-- ===== End of Pricing Tables Section ===== -->
@@ -229,6 +145,103 @@
     </div>
 </section>
 <!-- ===== End of CountUp Section ===== -->
+<section class="ptb40" id="partners">
+    <div class="container">
+
+        <!-- Start of Owl Slider -->
+        <div class="owl-carousel partners-slider owl-loaded owl-drag">
+            <!-- Partner Logo -->
 
 
+            <!-- Partner Logo -->
+
+
+            <!-- Partner Logo -->
+
+
+            <!-- Partner Logo -->
+
+
+            <!-- Partner Logo -->
+
+            <div class="owl-stage-outer">
+                <div class="owl-stage"
+                    style="transform: translate3d(-940px, 0px, 0px); transition: all 0.25s ease 0s; width: 3055px;">
+                    <div class="owl-item cloned" style="width: 235px;">
+                        <div class="item">
+                            <a href="#"><img src="{% static 'images/companies/codecanyon.png' %}" alt=""></a>
+                        </div>
+                    </div>
+                    <div class="owl-item cloned" style="width: 235px;">
+                        <div class="item">
+                            <a href="#"><img src="{% static 'images/companies/graphicriver.png' %}" alt=""></a>
+                        </div>
+                    </div>
+                    <div class="owl-item cloned" style="width: 235px;">
+                        <div class="item">
+                            <a href="#"><img src="{% static 'images/companies/photodune.png' %}" alt=""></a>
+                        </div>
+                    </div>
+                    <div class="owl-item cloned" style="width: 235px;">
+                        <div class="item">
+                            <a href="#"><img src="{% static 'images/companies/audiojungle.png' %}" alt=""></a>
+                        </div>
+                    </div>
+                    <div class="owl-item active" style="width: 235px;">
+                        <div class="item">
+                            <a href="#"><img src="{% static 'images/companies/themeforest.png' %}" alt=""></a>
+                        </div>
+                    </div>
+                    <div class="owl-item active" style="width: 235px;">
+                        <div class="item">
+                            <a href="#"><img src="{% static 'images/companies/codecanyon.png' %}" alt=""></a>
+                        </div>
+                    </div>
+                    <div class="owl-item active" style="width: 235px;">
+                        <div class="item">
+                            <a href="#"><img src="{% static 'images/companies/graphicriver.png' %}" alt=""></a>
+                        </div>
+                    </div>
+                    <div class="owl-item active" style="width: 235px;">
+                        <div class="item">
+                            <a href="#"><img src="{% static 'images/companies/photodune.png' %}" alt=""></a>
+                        </div>
+                    </div>
+                    <div class="owl-item" style="width: 235px;">
+                        <div class="item">
+                            <a href="#"><img src="{% static 'images/companies/audiojungle.png' %}" alt=""></a>
+                        </div>
+                    </div>
+                    <div class="owl-item cloned" style="width: 235px;">
+                        <div class="item">
+                            <a href="#"><img src="{% static 'images/companies/themeforest.png' %}" alt=""></a>
+                        </div>
+                    </div>
+                    <div class="owl-item cloned" style="width: 235px;">
+                        <div class="item">
+                            <a href="#"><img src="{% static 'images/companies/codecanyon.png' %}" alt=""></a>
+                        </div>
+                    </div>
+                    <div class="owl-item cloned" style="width: 235px;">
+                        <div class="item">
+                            <a href="#"><img src="{% static 'images/companies/graphicriver.png' %}" alt=""></a>
+                        </div>
+                    </div>
+                    <div class="owl-item cloned" style="width: 235px;">
+                        <div class="item">
+                            <a href="#"><img src="{% static 'images/companies/photodune.png' %}" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="owl-nav disabled">
+                <div class="owl-prev">prev</div>
+                <div class="owl-next">next</div>
+            </div>
+            <div class="owl-dots disabled"></div>
+        </div>
+        <!-- End of Owl Slider -->
+
+    </div>
+</section>
 {% endblock %}

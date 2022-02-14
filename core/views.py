@@ -3,7 +3,7 @@ from django.template import loader
 from django.core.paginator import Paginator
 import json
 from candidate.models import candidate
-from employer.models import employer
+from employer.models import employer, subscription_plan
 from django.core.exceptions import ObjectDoesNotExist
 
 
@@ -33,7 +33,10 @@ def home(request):
         session = [country, education, number_of_records]
         return redirect('candlist')
     else:
-        return render(request, 'index.html')
+        context = {
+            'princing': subscription_plan.objects.all()
+        }
+        return render(request, 'index.html', context=context)
 
 
 def about(request):

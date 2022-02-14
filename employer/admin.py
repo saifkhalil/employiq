@@ -2,7 +2,7 @@ from django.contrib.admin import ModelAdmin, register
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
 
-from .models import employer,job,subscription_plan
+from .models import employer, job, subscription_plan
 # Register your models here.
 
 
@@ -31,6 +31,6 @@ class JobAdmin(ModelAdmin):
 
 @register(subscription_plan)
 class PlanAdmin(ModelAdmin):
-    list_display = ('id', 'plan', 'number_of_records')
+    list_display = ('id', 'plan', 'suggestions', 'jobs', 'price', 'days')
     icon_name = 'assignment'
     list_filter = ('plan',)

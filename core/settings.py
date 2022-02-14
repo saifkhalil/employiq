@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'languages',
     'tagify',
     'ckeditor',
+    'djmoney',
     # Buitin apps
     'accounts',
     'candidate',

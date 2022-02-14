@@ -35,7 +35,11 @@ class subscription_plan(models.Model):
     id = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)
     plan = models.CharField(max_length=200)
-    number_of_records = models.IntegerField()
+    suggestions = models.IntegerField(verbose_name=_('suggestions'))
+    jobs = models.IntegerField(verbose_name=_('Jobs'))
+    price = MoneyField(default=1, max_digits=10, decimal_places=0,
+                       default_currency='USD', verbose_name=_('Price'))
+    days = models.IntegerField()
 
     def __str__(self):
         return self.plan
