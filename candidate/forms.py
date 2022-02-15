@@ -56,4 +56,4 @@ class CanForm(ModelForm):
                   'email', 'alternate_email_address', 'phone_number', 'gender',
                   'photo', 'birthofdate', 'country_of_birth', 'place_of_birth', 'primary_nationality', 'secondary_nationality', 'highest_level_of_education', 'contact_phone', 'phone_type', 'address1', 'address2', 'city', 'country', 'postal_code', 'bio', 'skills', 'hobbies']
         widgets = {'country': CountrySelectWidget(
-        ), 'start_date': DateInput(), 'end_date': DateInput()}
+        ), 'start_date': DateInput(), 'end_date': DateInput(), 'birthofdate': DateInput()}

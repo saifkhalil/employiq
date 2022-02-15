@@ -1508,7 +1508,8 @@ footer .copyright span {
 .pricing-table .pricing .amount {
     font-size: 32px;
     font-weight: 700;
-    vertical-align: middle
+    vertical-align: middle;
+    font-style: italic;
 }
 
 .pricing-table .pricing .month {
@@ -2096,7 +2097,7 @@ footer {
 
 footer .footer-info {
     position: relative;
-    background: url(../images/img/image2.jpg) no-repeat;
+    background: url(../images/details-2-background.jpg) no-repeat;
     background-size: cover
 }
 
@@ -2431,7 +2432,10 @@ footer .copyright .social-btn-roll {
 }
 
 section.main {
-    background: url(../images/candidate-bg.jpg) center center no-repeat;
+    /* background: url(../images/details-2-background.jpg) center center no-repeat; */
+    /* background: url(../images/candidate-bg.jpg) center center no-repeat; */
+    /* background: url(../images/details-1-background.jpg) center center no-repeat; */
+    background: url(../images/img/image1.jpg) center center no-repeat;
     background-size: cover;
     height: 500px
 }
@@ -2457,6 +2461,8 @@ section.main .wrapper h1 {
     color: #999
 }
 
+
+/*
 .job-search-form .search-location:before {
     content: '\f276';
     font-family: fontawesome;
@@ -2466,6 +2472,7 @@ section.main .wrapper h1 {
     color: #999;
     line-height: 50px
 }
+*/
 
 .job-search-form .search-submit button {
     width: 100%;
