@@ -34,7 +34,7 @@ Employment_Type = [
 class subscription_plan(models.Model):
     id = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)
-    plan = models.CharField(max_length=200)
+    plan = models.CharField(max_length=200, verbose_name=_('plan'))
     suggestions = models.IntegerField(verbose_name=_('suggestions'))
     jobs = models.IntegerField(verbose_name=_('Jobs'))
     price = MoneyField(default=1, max_digits=10, decimal_places=0,

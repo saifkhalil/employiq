@@ -90,12 +90,13 @@
                             <span class="amount">{{ price.price }}</span>
                         </div>
                         <span
-                            class="month">{% if price.days == 30 %}Monthly{% elif  price.days == 365 %}Annual{% endif %}</span>
+                            class="month">{% if price.days == 30 %}{% trans 'Monthly' %}{% elif  price.days == 365 %}{% trans 'Annual' %}{% endif %}</span>
                     </div>
                     <div class="pricing-body">
                         <ul class="list">
                             <li>Post {{ price.jobs }} Job</li>
-                            <li>{% if price.suggestions == 99999 %}Unlimited {% else %}{{ price.suggestions }}
+                            <li>{% if price.suggestions == 99999 %}{% trans 'Unlimited' %}
+                                {% else %}{{ price.suggestions }}
                                 {% endif %}{% trans 'Suggestions' %}</li>
                         </ul>
                     </div>
