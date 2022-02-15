@@ -1,3 +1,5 @@
+from functools import reduce
+import operator
 import re
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
@@ -186,11 +188,19 @@ def job_list(request):
     if country:
         job_list = job_list.filter(country__icontains=country)
     if keywords:
-        job_list = job_list.filter(
-            Q(job_title__icontains=keywords) | Q(employer__company__icontains=keywords))
+        query_words = str(keywords).split(" ")  # Get the word in a list
+        for w in query_words:
+            if len(w) < 2:  # Min length
+                query_words.remove(w)
+
+        job_list1 = job_list.filter(reduce(lambda x, y: x | y, [Q(job_title__icontains=word)
+                                                                for word in query_words]))
+        job_list2 = job_list.filter(reduce(lambda x, y: x | y, [Q(employer__company__icontains=word)
+                                                                for word in query_words]))
+        job_list2.union(job_list1)
     session = [country, keywords, number_of_records]
     # Show 25 contacts per page.
-    paginator = Paginator(job_list, number_of_records)
+    paginator = Paginator(job_list2, number_of_records)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     context = {
