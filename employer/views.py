@@ -180,6 +180,7 @@ def job_list(request):
     country = request.session.get('country')
     keywords = request.session.get('keywords')
     number_of_records = request.session.get('number_of_records')
+    job_list2 = job.objects.all()
     job_list = job.objects.all()
     if number_of_records:
         number_of_records = int(number_of_records)
