@@ -7,7 +7,7 @@ import django_countries.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('candidate',),
+        ('candidate', '0006_alter_certificate_expired_certificate'),
     ]
 
     operations = [
