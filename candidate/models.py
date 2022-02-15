@@ -194,7 +194,7 @@ class candidate(models.Model):
     birthofdate = models.DateField(
         blank=False, null=False, verbose_name=_('Birth of date'))
     country_of_birth = CountryField(
-        blank=False, null=False, verbose_name=_('Country'))
+        blank=False, null=False, verbose_name=_('Country of Birth'))
     place_of_birth = models.CharField(
         max_length=200, blank=False, null=False, verbose_name=_('Place of birth'))
     primary_nationality = CountryField(
@@ -210,12 +210,12 @@ class candidate(models.Model):
     alternate_email_address = models.EmailField(blank=True, null=True,
                                                 verbose_name=_('Alternative email address'))
     address1 = models.CharField(
-        max_length=500, verbose_name=_('Address Line(1)'))
+        max_length=500, verbose_name=_('Current address Line(1)'))
     address2 = models.CharField(
         blank=True, null=True, max_length=500, verbose_name=_('Address Line(2)'))
-    city = models.CharField(max_length=500, verbose_name=_('City'))
+    city = models.CharField(max_length=500, verbose_name=_('Current city'))
     country = CountryField(
-        blank_label=_('(select country)'), verbose_name=_('Country'))
+        blank_label=_('(select country)'), verbose_name=_('Current country'))
     postal_code = models.IntegerField(validators=[MaxValueValidator(
         99999), MinValueValidator(10000)], verbose_name=_('Postal Code'))
     education = models.ManyToManyField(

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-15 13:08+0300\n"
+"POT-Creation-Date: 2022-02-15 14:30+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -52,7 +52,7 @@ msgstr ""
 msgid "Male"
 msgstr ""
 
-#: .\candidate\models.py:36 .\templates\base.html:52 .\templates\base.html:155
+#: .\candidate\models.py:36 .\templates\base.html:52 .\templates\base.html:154
 msgid "Home"
 msgstr ""
 
@@ -143,8 +143,8 @@ msgstr ""
 msgid "Employer"
 msgstr ""
 
-#: .\candidate\models.py:76 .\candidate\models.py:127 .\candidate\models.py:197
-#: .\candidate\models.py:218 .\employer\models.py:69 .\employer\models.py:108
+#: .\candidate\models.py:76 .\candidate\models.py:127 .\candidate\models.py:218
+#: .\employer\models.py:69 .\employer\models.py:108
 #: .\templates\candidate\cand_list.html:32
 #: .\templates\candidate\candidate_detail.html:311
 #: .\templates\candidate\candidate_detail.html:353
@@ -320,6 +320,10 @@ msgstr ""
 #: .\candidate\models.py:195 .\templates\candidate\cand_list.html:77
 #: .\templates\employer\cand_list.html:77
 msgid "Birth of date"
+msgstr ""
+
+#: .\candidate\models.py:197
+msgid "Country of Birth"
 msgstr ""
 
 #: .\candidate\models.py:199 .\templates\candidate\candidate_detail.html:182
@@ -562,7 +566,7 @@ msgstr ""
 msgid "Who we are"
 msgstr ""
 
-#: .\templates\about.html:40 .\templates\base.html:136
+#: .\templates\about.html:40 .\templates\base.html:135
 msgid ""
 "EmployIQ is a professional recruiter in Iraq that have come together to "
 "assist YOU with a simplified and cost-effective recruitment process.  We "
@@ -656,11 +660,11 @@ msgstr ""
 msgid "for employers"
 msgstr ""
 
-#: .\templates\base.html:80 .\templates\base.html:161
+#: .\templates\base.html:80 .\templates\base.html:160
 msgid "Post a job"
 msgstr ""
 
-#: .\templates\base.html:81 .\templates\base.html:159
+#: .\templates\base.html:81 .\templates\base.html:158
 msgid "Find a candidate"
 msgstr ""
 
@@ -668,23 +672,23 @@ msgstr ""
 msgid "LOGOUT"
 msgstr ""
 
-#: .\templates\base.html:141
+#: .\templates\base.html:140
 msgid "Erbil, Iraq"
 msgstr ""
 
-#: .\templates\base.html:151
+#: .\templates\base.html:150
 msgid "Useful links"
 msgstr ""
 
-#: .\templates\base.html:157
+#: .\templates\base.html:156
 msgid "My Candidate Profile"
 msgstr ""
 
-#: .\templates\base.html:163
+#: .\templates\base.html:162
 msgid "Search for a job"
 msgstr ""
 
-#: .\templates\base.html:177
+#: .\templates\base.html:176
 msgid "Copyright &copy; Employiq. All Rights Reserved"
 msgstr ""
 
