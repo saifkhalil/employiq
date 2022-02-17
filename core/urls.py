@@ -32,6 +32,7 @@ from django.conf.urls.i18n import i18n_patterns
 
 urlpatterns = i18n_patterns(
     path('', views.home, name='home'),
+    # path('after', views.after, name='after'),
     path('about', views.about, name='about'),
     path('language_setting', include('rosetta.urls')),
     path('candidates/', include('candidate.urls'), name='candidate'),

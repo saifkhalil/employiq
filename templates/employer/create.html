@@ -21,6 +21,8 @@
                 <form method="post" id="cmform" action="" enctype="multipart/form-data" novalidate>
                     {% csrf_token %}
 
+                    {% csrf_token %}
+
                     {% for hidden_field in form.hidden_fields %}
                     {{ hidden_field }}
                     {% endfor %}

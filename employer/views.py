@@ -34,6 +34,7 @@ class EmployerCreateView(CreateView):
         Employer.user = self.request.user
         currentuser = User.objects.filter(id=self.request.user.id)
         currentuser.is_employer = True
+        currentuser.save()
         # currentuser.save()
         Employer.save()
         '''

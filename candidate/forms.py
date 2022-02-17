@@ -4,6 +4,7 @@ from django_countries.widgets import CountrySelectWidget
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from tagify.fields import TagField
+from ckeditor.widgets import CKEditorWidget
 
 
 class DateInput(forms.DateInput):
@@ -21,10 +22,12 @@ class EduForm(ModelForm):
 
 
 class EmpForm(ModelForm):
+    job_description = forms.CharField(widget=CKEditorWidget())
+
     class Meta:
         model = employment
         fields = ['employer', 'country', 'city', 'current_job',
-                  'start_date', 'end_date', 'job_title', 'supervisor_name', 'supervisor_title', 'supervisor_phone', 'supervisor_email',
+                  'start_date', 'end_date', 'job_title', 'job_description', 'supervisor_name', 'supervisor_title', 'supervisor_phone', 'supervisor_email',
                   'reason_for_leaving']
         widgets = {'country': CountrySelectWidget(
         ), 'start_date': DateInput(), 'end_date': DateInput()}

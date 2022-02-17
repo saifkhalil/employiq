@@ -22,18 +22,21 @@ def registration_view(request):
             context['token'] = token
             if account:
                 login(request, account)
-                return redirect('home')
+                return render(request, 'after_register.html', context)
         else:
-            context['registration_form'] = form
+            context['form'] = form
     else:
-        form = RegistrationForm()
-        context['registration_form'] = form
-    return render(request, 'account/register.html', context)
+        if not request.user.is_authenticated:
+            form = RegistrationForm()
+            context['form'] = form
+        else:
+            return render(request, 'after_register.html')
+    return render(request, 'account/register copy.html', context)
 
 
 def logout_view(request):
     logout(request)
-    return redirect('/')
+    return redirect('home')
 
 
 def login_view(request):

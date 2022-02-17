@@ -1,5 +1,5 @@
 from .models import employer, job
-from django.forms import DateInput, ModelForm
+from django.forms import CheckboxInput, DateInput, ModelForm
 from django_countries.widgets import CountrySelectWidget
 from django import forms
 from django.utils.translation import ugettext_lazy as _
@@ -10,14 +10,20 @@ from ckeditor.widgets import CKEditorWidget
 class EmpForm(ModelForm):
     class Meta:
         model = employer
-        fields = ['company', 'logo', 'phone_number', 'public_company_info',
+        fields = ['company', 'industry', 'logo', 'phone_number', 'public_company_info',
                   'communication_email', 'address', 'city',
                   'country']
         widgets = {'country': CountrySelectWidget()}
 
 
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
+
 class JobForm(ModelForm):
-    job_description = forms.CharField(widget=CKEditorWidget())
+    def __init__(self, *args, **kwargs):
+        super(JobForm, self).__init__(*args, **kwargs)
+        self.fields['country'].disabled = True
 
     class Meta:
         model = job
@@ -25,4 +31,4 @@ class JobForm(ModelForm):
                   'country', 'salary', 'nationality',
                   'date_opened', 'date_closed']
         widgets = {'country': CountrySelectWidget(
-        ), 'date_opened': DateInput(), 'date_closed': DateInput()}
+        ), 'date_opened': DateInput(), 'date_closed': DateInput(), 'job_description': CKEditorWidget()}

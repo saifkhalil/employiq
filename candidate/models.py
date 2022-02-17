@@ -153,7 +153,7 @@ class certificate(models.Model):
     organization = models.CharField(max_length=50, blank=True,
                                     null=True, verbose_name=_('Organization'))
     issue_date = models.DateField(
-        blank=False, null=False, verbose_name=_('Issue Date'))
+        blank=True, null=True, verbose_name=_('Issue Date'))
     expire_date = models.DateField(
         blank=True, null=True, verbose_name=_('Expire Date'))
     expired_certificate = models.BooleanField(
@@ -203,8 +203,7 @@ class candidate(models.Model):
         blank=True, null=True, verbose_name=_('Seondary nationality'))
     highest_level_of_education = models.CharField(
         max_length=1, choices=EDUCATION_CHOICES, blank=False, null=False, verbose_name=_('Highest level of education'))
-    contact_phone = PhoneNumberField(
-        blank=True, null=True, verbose_name=_('Conact phone'))
+    contact_phone = PhoneNumberField(verbose_name=_('Conact phone'))
     phone_type = models.CharField(blank=True, null=True,
                                   max_length=1, choices=PHONE_CHOICES, verbose_name=_('Type'))
     alternate_email_address = models.EmailField(blank=True, null=True,
@@ -228,7 +227,7 @@ class candidate(models.Model):
         'language', blank=True, verbose_name=_('Language Skills'))
     cv = models.FileField(upload_to='media/cv', verbose_name=_('CV File'))
     bio = models.CharField(max_length=1000, blank=True,
-                           null=True, verbose_name=_('bio'))
+                           null=True, verbose_name=_('bio / About you'))
     skills = TagField(verbose_name=_('Skills'), delimiters=',')
     hobbies = TagField(verbose_name=_('Hobbies'), delimiters=',')
     created_at = models.DateTimeField(auto_now_add=True, editable=False)

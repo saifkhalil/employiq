@@ -7,6 +7,10 @@ from employer.models import employer, subscription_plan
 from django.core.exceptions import ObjectDoesNotExist
 
 
+def after(request):
+    return render(request, 'after_register.html')
+
+
 def home(request):
     if request.method == 'POST':
         if request.POST.get('country'):
@@ -33,8 +37,16 @@ def home(request):
         session = [country, education, number_of_records]
         return redirect('candlist')
     else:
+        try:
+            userid = request.user.id
+            employer_details = employer.objects.get(user__id=userid)
+            eid = employer.objects.get(user__id=userid).id
+            isemployer = True
+        except ObjectDoesNotExist:
+            isemployer = False
         context = {
-            'princing': subscription_plan.objects.all()
+            'princing': subscription_plan.objects.all(),
+            'isemployer': isemployer
         }
         return render(request, 'index.html', context=context)
 

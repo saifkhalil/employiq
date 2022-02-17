@@ -1438,7 +1438,9 @@ section.page-header4 .breadcrumb>li+li:before {
 }
 
 section.pricing-tables {
-    background: #f0f0f0
+    background: #f0f0f0;
+    padding-left: 40px;
+    padding-right: 40px;
 }
 
 .pricing-table {
@@ -1448,7 +1450,7 @@ section.pricing-tables {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    padding: 40px;
+    padding: 20px;
     -webkit-transition: all .3s ease;
     -moz-transition: all .3s ease;
     -ms-transition: all .3s ease;
@@ -2102,7 +2104,7 @@ footer .footer-info {
 }
 
 footer .footer-info:before {
-    background: rgba(0, 0, 0, .8);
+    background: rgba(0, 0, 0, .4);
     width: 100%;
     height: 100%;
     display: block;
@@ -2131,7 +2133,7 @@ footer .footer-info span,
 footer .footer-info ul li {
     font-size: 14px;
     line-height: 22px;
-    color: #999
+    color: rgb(255, 255, 255)
 }
 
 footer .footer-info .footer-about {
@@ -2139,8 +2141,11 @@ footer .footer-info .footer-about {
 }
 
 footer .footer-info .footer-about img {
-    height: 100px;
-    width: 100px;
+    height: 44px;
+    width: 200px;
+    filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 1));
+    -webkit-filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 1));
+    -moz-filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 1));
 }
 
 footer .footer-info .footer-about ul li {
@@ -2432,10 +2437,10 @@ footer .copyright .social-btn-roll {
 }
 
 section.main {
-    /* background: url(../images/details-2-background.jpg) center center no-repeat; */
+    background: url(../images/details-2-background.jpg) center center no-repeat;
     /* background: url(../images/candidate-bg.jpg) center center no-repeat; */
     /* background: url(../images/details-1-background.jpg) center center no-repeat; */
-    background: url(../images/img/image1.jpg) center center no-repeat;
+    /* background: url(../images/img/image1.jpg) center center no-repeat; */
     background-size: cover;
     height: 500px
 }

@@ -71,46 +71,48 @@
 <!-- ===== End of Main Search Section ===== -->
 
 <!-- ===== Start of Pricing Tables Section ===== -->
-<section class="pricing-tables pb80">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center mb-5 mt-5">
-                <h2>{% trans 'pricing table' %}</h2>
-            </div>
-        </div>
-        <div class="row">
-            {% for price in princing %}
-            <div class="col-md-3 col-xs-12 mt80 mb20">
-                <div class="pricing-table shadow-hover" {% if price.plan == 'Premium' %}id="popular" {% endif %}>
-                    <div class="pricing-header">
-                        <h2>{{ price.plan }}</h2>
-                    </div>
-                    <div class="pricing">
-                        <div class="row">
-                            <span class="amount">{{ price.price }}</span>
-                        </div>
-                        <span
-                            class="month">{% if price.days == 30 %}{% trans 'Monthly' %}{% elif  price.days == 365 %}{% trans 'Annual' %}{% endif %}</span>
-                    </div>
-                    <div class="pricing-body">
-                        <ul class="list">
-                            <li>Post {{ price.jobs }} Job</li>
-                            <li>{% if price.suggestions == 99999 %}{% trans 'Unlimited' %}
-                                {% else %}{{ price.suggestions }}
-                                {% endif %}{% trans 'Suggestions' %}</li>
-                        </ul>
-                    </div>
-
-                    <!-- Pricing Footer -->
-                    <div class="pricing-footer">
-                        <a href="#" class="btn btn-blue btn-effect">get started</a>
-                    </div>
-
-                </div>
-            </div>
-            {% endfor %}
+<section class="pricing-tables pb40">
+    <div class="row">
+        <div class="col-md-12 text-center mb-5 mt-5">
+            <h2>{% trans 'pricing table' %}</h2>
         </div>
     </div>
+    <div class="row">
+        {% for price in princing %}
+        <div class="col-md-3 col-xs-12 mt80 mb20">
+            <div class="pricing-table shadow-hover" {% if price.plan == 'Premium' %}id="popular" {% endif %}>
+                <div class="pricing-header">
+                    <h2>{{ price.plan }}</h2>
+                </div>
+                <div class="pricing">
+                    <div class="row">
+                        <span class="amount">{{ price.price }}</span>
+                    </div>
+                    <span
+                        class="month">{% if price.days == 30 %}{% trans 'Monthly' %}{% elif  price.days == 365 %}{% trans 'Annual' %}{% endif %}</span>
+                </div>
+                <div class="pricing-body">
+                    <ul class="list">
+                        <li>{% trans 'Post in website and social media' %}</li>
+                        <li>{% trans 'Unlimit applicant through email' %}</li>
+                        <li>Post {{ price.jobs }} Job</li>
+                        <li>{% if price.suggestions == 99999 %}{% trans 'Unlimited' %}
+                            {% else %}{{ price.suggestions }}
+                            {% endif %}{% trans 'Suggestions' %}</li>
+
+                    </ul>
+                </div>
+
+                <!-- Pricing Footer -->
+                <div class="pricing-footer">
+                    <a href="#" class="btn btn-blue btn-effect">get started</a>
+                </div>
+
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
 </section>
 <!-- ===== End of Pricing Tables Section ===== -->
 

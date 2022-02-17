@@ -60,12 +60,12 @@
                         {% trans 'For Candidates' %}
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        {% if user.is_candidate %}
                         <li><a class="dropdown-item" href="{% url 'my_candidate_details' %}">{% trans 'Profile' %}</a>
                         </li>
-
-                        {% if not user.is_candidate %}
+                        {% else %}
                         <li><a class="dropdown-item"
-                                href="{% url 'candidate_create' %}">{% trans 'Create Candidate' %}</a></li>
+                                href="{% url 'candidate_create' %}">{% trans 'Register as Candidate' %}</a></li>
                         {% endif %}
                     </ul>
                 </li>
@@ -75,10 +75,13 @@
                         {% trans 'for employers' %}
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        {% if not user.is_employer %}
+                        {% if user.is_employer %}
                         <li><a class="dropdown-item" href="{% url 'my_employer_details' %}">{% trans 'Profile' %}</a>
                         <li><a class="dropdown-item" href="{% url 'job_create' %}">{% trans 'Post a job' %}</a>
                         <li> <a class="dropdown-item" href="{% url 'candlist' %}">{% trans 'Find a candidate' %}</a>
+                            {% else %}
+                        <li> <a class="dropdown-item"
+                                href="{% url 'employer_create' %}">{% trans 'Register as employer' %}</a>
                             {% endif %}
 
                         </li>

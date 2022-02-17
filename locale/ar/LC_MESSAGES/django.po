@@ -9,15 +9,14 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-02-15 14:30+0300\n"
-"PO-Revision-Date: 2022-02-15 13:09+0258\n"
+"PO-Revision-Date: 2022-02-16 12:42+0258\n"
 "Last-Translator: Anonymous User <saif7800@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
-"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 "X-Translated-Using: django-rosetta 0.9.8\n"
 
 #: .\candidate\forms.py:48 .\candidate\models.py:232
@@ -145,8 +144,8 @@ msgstr "اللغة الأم"
 msgid "Employer"
 msgstr "صاحب العمل"
 
-#: .\candidate\models.py:76 .\candidate\models.py:127 .\candidate\models.py:218
-#: .\employer\models.py:69 .\employer\models.py:108
+#: .\candidate\models.py:76 .\candidate\models.py:127
+#: .\candidate\models.py:218 .\employer\models.py:69 .\employer\models.py:108
 #: .\templates\candidate\cand_list.html:32
 #: .\templates\candidate\candidate_detail.html:311
 #: .\templates\candidate\candidate_detail.html:353
@@ -159,8 +158,8 @@ msgstr "صاحب العمل"
 msgid "Country"
 msgstr "البلد"
 
-#: .\candidate\models.py:78 .\candidate\models.py:129 .\candidate\models.py:216
-#: .\employer\models.py:67 .\employer\models.py:106
+#: .\candidate\models.py:78 .\candidate\models.py:129
+#: .\candidate\models.py:216 .\employer\models.py:67 .\employer\models.py:106
 #: .\templates\candidate\candidate_detail.html:295
 #: .\templates\candidate\candidate_detail.html:361
 #: .\templates\candidate\candidate_detail.html:458
@@ -404,7 +403,7 @@ msgstr "ملف السيرة الذاتية"
 
 #: .\candidate\models.py:231
 msgid "bio"
-msgstr "نبذة مختصرة"
+msgstr "نبذة مختصرة عن نفسك"
 
 #: .\core\settings.py:143
 msgid "English"
@@ -577,30 +576,30 @@ msgid ""
 "EmployIQ is a professional recruiter in Iraq that have come together to "
 "assist YOU with a simplified and cost-effective recruitment process.  We "
 "connect numerous number of people to new opportunities every single day, "
-"through our job portal by putting job seekers first and offering free resume "
-"building and company research."
+"through our job portal by putting job seekers first and offering free resume"
+" building and company research."
 msgstr ""
 "EmployIQ هو نظام التوظيف المحترف في العراق وقد اجتمع معًا لمساعدتك في عملية "
-"توظيف مبسطة وفعالة من حيث التكلفة. نحن نربط عددًا كبيرًا من الأشخاص بفرص جديدة "
-"كل يوم ، من خلال بوابة الوظائف الخاصة بنا من خلال وضع الباحثين عن عمل في "
-"المرتبة الأولى وتقديم بناء السيرة الذاتية وأبحاث الشركة مجانًا."
+"توظيف مبسطة وفعالة من حيث التكلفة. نحن نربط عددًا كبيرًا من الأشخاص بفرص "
+"جديدة كل يوم ، من خلال بوابة الوظائف الخاصة بنا من خلال وضع الباحثين عن عمل "
+"في المرتبة الأولى وتقديم بناء السيرة الذاتية وأبحاث الشركة مجانًا."
 
 #: .\templates\about.html:42
 msgid ""
-"Since our early beginnings as a local start-up, our main purpose has been to "
-"give back to our community by helping bridge the unemployment gap. Through "
+"Since our early beginnings as a local start-up, our main purpose has been to"
+" give back to our community by helping bridge the unemployment gap. Through "
 "our extensive database that includes various sectors of education, talents, "
-"and backgrounds – we connect top candidates to companies seeking exceptional "
-"talent to join their team. At the same time, we offer excellent services to "
-"those looking to develop their resumes, and give them the best opportunity "
+"and backgrounds – we connect top candidates to companies seeking exceptional"
+" talent to join their team. At the same time, we offer excellent services to"
+" those looking to develop their resumes, and give them the best opportunity "
 "at securing their dream job."
 msgstr ""
 "منذ بداياتنا المبكرة كشركة محلية ناشئة ، كان هدفنا الرئيسي هو رد الجميل "
-"لمجتمعنا من خلال المساعدة في سد فجوة البطالة. من خلال قاعدة بياناتنا الواسعة "
-"التي تشمل قطاعات مختلفة من التعليم والمواهب والخلفيات - نربط أفضل المرشحين "
+"لمجتمعنا من خلال المساعدة في سد فجوة البطالة. من خلال قاعدة بياناتنا الواسعة"
+" التي تشمل قطاعات مختلفة من التعليم والمواهب والخلفيات - نربط أفضل المرشحين "
 "بالشركات التي تبحث عن مواهب استثنائية للانضمام إلى فريقهم. في الوقت نفسه ، "
-"نقدم خدمات ممتازة لأولئك الذين يتطلعون إلى تطوير سيرهم الذاتية ، ومنحهم أفضل "
-"فرصة لتأمين وظيفة أحلامهم."
+"نقدم خدمات ممتازة لأولئك الذين يتطلعون إلى تطوير سيرهم الذاتية ، ومنحهم أفضل"
+" فرصة لتأمين وظيفة أحلامهم."
 
 #: .\templates\about.html:44
 msgid "What we do"
@@ -623,19 +622,19 @@ msgstr ""
 "خدمة مجانية لمساعدتهم على بناء سير ذاتية استثنائية لجعل عملية التقديم سلسة "
 "وسهلة. بمجرد الانتهاء من بناء السيرة الذاتية ، سيتم إرساله على الفور إلى "
 "قاعدة البيانات الخاصة بنا ، والتي تقدم للشركات مجموعة مؤتمتة من المرشحين "
-"الأكثر ملاءمة لاحتياجاتهم. يمكن لأصحاب العمل الاستفادة من خدماتنا لأنها توسع "
-"نطاق المرشحين ذوي الخبرة ، الذين ربما لم يتم اكتشافهم بطريقة أخرى!"
+"الأكثر ملاءمة لاحتياجاتهم. يمكن لأصحاب العمل الاستفادة من خدماتنا لأنها توسع"
+" نطاق المرشحين ذوي الخبرة ، الذين ربما لم يتم اكتشافهم بطريقة أخرى!"
 
 #: .\templates\about.html:47
 msgid ""
 "Employers can advertise the position they’re looking to fill for up to 30 "
 "days, bringing in a wide pool of candidates to choose from. Our intuitive "
 "Advanced Search option also helps you shorten the selection process, by "
-"narrowing your search to our top tier applicants in Iraq who meet your exact "
-"requirements. EmployIQ gives you access to an endless number of job "
+"narrowing your search to our top tier applicants in Iraq who meet your exact"
+" requirements. EmployIQ gives you access to an endless number of job "
 "opportunities, and our database serves as an outstanding resource for all "
-"Iraqi HR professionals. It is our personal mission to make finding a new job "
-"a simple, efficient experience, for both the company and the individual "
+"Iraqi HR professionals. It is our personal mission to make finding a new job"
+" a simple, efficient experience, for both the company and the individual "
 "alike. "
 msgstr ""
 "يمكن لأصحاب العمل الإعلان عن الوظيفة التي يتطلعون لشغلها لمدة تصل إلى 30 "
@@ -942,7 +941,8 @@ msgstr "تحديث الشهادة"
 #: .\templates\candidate\education\update.html:51
 #: .\templates\candidate\employment\update.html:51
 #: .\templates\candidate\language\update.html:51
-#: .\templates\candidate\update.html:55 .\templates\employer\job\update.html:51
+#: .\templates\candidate\update.html:55
+#: .\templates\employer\job\update.html:51
 msgid "Update"
 msgstr "تحديث"
 
@@ -1116,7 +1116,7 @@ msgstr "اللغة"
 
 #: .\templates\index.html:16
 msgid "search for candidates now"
-msgstr "ابحث عن المرشحين الان"
+msgstr "ابحث عن مرشحين الان"
 
 #: .\templates\index.html:23 .\templates\index.html:25
 msgid "Keywords"
