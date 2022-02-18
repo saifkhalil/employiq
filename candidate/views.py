@@ -416,7 +416,7 @@ class CandidateCreateView(CreateView):
 class EmploymentUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView, ABC):
     model = employment
     template_name = 'candidate/employment/update.html'
-    fields = ['employer', 'country', 'city', 'current_job',
+    fields = ['employer', 'employer_industry', 'country', 'city', 'current_job',
               'start_date', 'end_date', 'job_title', 'supervisor_name', 'supervisor_title', 'supervisor_phone', 'supervisor_email',
               'reason_for_leaving']
 

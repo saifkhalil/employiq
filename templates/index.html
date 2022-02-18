@@ -18,14 +18,7 @@
         <!-- Start of Form -->
         <form class="job-search-form row pt40" action="#" method="post">
             {% csrf_token %}
-            <!-- Start of keywords input 
-            <div class="col-md-3 col-sm-12 search-keywords">
-                <label for="search-keywords">{% trans 'Keywords' %}</label>
-                <input class="form-control" type="text" name="search-keywords" id="search-keywords"
-                    placeholder="{% trans 'Keywords' %}">
-            </div>
--->
-            <!-- Start of education input -->
+
             <div class="row justify-content-center">
                 <div class="col-md-4 col-sm-12 search-categories">
                     <select class="form-control form-control-lg" name="education" id="education"
@@ -153,98 +146,19 @@
 
         <!-- Start of Owl Slider -->
         <div class="owl-carousel partners-slider owl-loaded owl-drag">
-            <!-- Partner Logo -->
-
-
-            <!-- Partner Logo -->
-
-
-            <!-- Partner Logo -->
-
-
-            <!-- Partner Logo -->
-
-
-            <!-- Partner Logo -->
-
-            <div class="owl-stage-outer">
-                <div class="owl-stage"
-                    style="transform: translate3d(-940px, 0px, 0px); transition: all 0.25s ease 0s; width: 3055px;">
-                    <div class="owl-item cloned" style="width: 235px;">
-                        <div class="item">
-                            <a href="#"><img src="{% static 'images/companies/codecanyon.png' %}" alt=""></a>
-                        </div>
-                    </div>
-                    <div class="owl-item cloned" style="width: 235px;">
-                        <div class="item">
-                            <a href="#"><img src="{% static 'images/companies/graphicriver.png' %}" alt=""></a>
-                        </div>
-                    </div>
-                    <div class="owl-item cloned" style="width: 235px;">
-                        <div class="item">
-                            <a href="#"><img src="{% static 'images/companies/photodune.png' %}" alt=""></a>
-                        </div>
-                    </div>
-                    <div class="owl-item cloned" style="width: 235px;">
-                        <div class="item">
-                            <a href="#"><img src="{% static 'images/companies/audiojungle.png' %}" alt=""></a>
-                        </div>
-                    </div>
-                    <div class="owl-item active" style="width: 235px;">
-                        <div class="item">
-                            <a href="#"><img src="{% static 'images/companies/themeforest.png' %}" alt=""></a>
-                        </div>
-                    </div>
-                    <div class="owl-item active" style="width: 235px;">
-                        <div class="item">
-                            <a href="#"><img src="{% static 'images/companies/codecanyon.png' %}" alt=""></a>
-                        </div>
-                    </div>
-                    <div class="owl-item active" style="width: 235px;">
-                        <div class="item">
-                            <a href="#"><img src="{% static 'images/companies/graphicriver.png' %}" alt=""></a>
-                        </div>
-                    </div>
-                    <div class="owl-item active" style="width: 235px;">
-                        <div class="item">
-                            <a href="#"><img src="{% static 'images/companies/photodune.png' %}" alt=""></a>
-                        </div>
-                    </div>
-                    <div class="owl-item" style="width: 235px;">
-                        <div class="item">
-                            <a href="#"><img src="{% static 'images/companies/audiojungle.png' %}" alt=""></a>
-                        </div>
-                    </div>
-                    <div class="owl-item cloned" style="width: 235px;">
-                        <div class="item">
-                            <a href="#"><img src="{% static 'images/companies/themeforest.png' %}" alt=""></a>
-                        </div>
-                    </div>
-                    <div class="owl-item cloned" style="width: 235px;">
-                        <div class="item">
-                            <a href="#"><img src="{% static 'images/companies/codecanyon.png' %}" alt=""></a>
-                        </div>
-                    </div>
-                    <div class="owl-item cloned" style="width: 235px;">
-                        <div class="item">
-                            <a href="#"><img src="{% static 'images/companies/graphicriver.png' %}" alt=""></a>
-                        </div>
-                    </div>
-                    <div class="owl-item cloned" style="width: 235px;">
-                        <div class="item">
-                            <a href="#"><img src="{% static 'images/companies/photodune.png' %}" alt=""></a>
-                        </div>
-                    </div>
+            {% for employere in allemployers %}
+            <div class="owl-item active" style="width: 235px;">
+                <div class="item">
+                    <a href="{% url 'employer_details' employere.id %}" data-bs-toggle="tooltip" data-bs-html="true"
+                        data-bs-original-title="<em>Employer: </em> <b>{{ employere.company }}</b>"
+                        class="text-center d-flex justify-content-center"><img src="{{ employere.logo.url }}"
+                            alt="{{ employere.company }}" class="rounded"></a>
                 </div>
             </div>
-            <div class="owl-nav disabled">
-                <div class="owl-prev">prev</div>
-                <div class="owl-next">next</div>
-            </div>
-            <div class="owl-dots disabled"></div>
-        </div>
-        <!-- End of Owl Slider -->
 
-    </div>
+            {% endfor %}
+
+
+        </div>
 </section>
 {% endblock %}

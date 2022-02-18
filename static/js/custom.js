@@ -66,12 +66,7 @@
                 a(".counter").countTo({ speed: 3e3, refreshInterval: 50 })
             }), a(this).unbind("inview"))
         });
-        var z = a(".testimonial"),
-            A = a(".partners-slider"),
-            B = a(".post-thumbnail-slider"),
-            C = a(".product-slider"),
-            D = a(".related-jobs");
-        a(z).owlCarousel({ center: !0, loop: !0, nav: !1, dots: !1, autoplay: !0, autoplaySpeed: 800, responsive: { 0: { items: 1 }, 992: { items: 3 } } }), a(A).owlCarousel({ loop: !0, nav: !1, dots: !1, autoplay: !0, responsive: { 0: { items: 2 }, 479: { items: 2 }, 768: { items: 3 }, 992: { items: 4 }, 1199: { items: 6 } } }), a(B).owlCarousel({ items: 1, loop: !0, autoplay: !1, nav: !0, dots: !1, navSpeed: 800, navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'] }), a(C).owlCarousel({ loop: !0, nav: !1, dots: !0, autoplay: !1, responsive: { 0: { items: 1 } } }), a(D).owlCarousel({ loop: !0, nav: !1, dots: !0, autoplay: !1, margin: 20, responsive: { 0: { items: 1 }, 479: { items: 2 }, 768: { items: 3 }, 992: { items: 4 } } });
+
         var G = a(".back-top");
         a(window).scroll(function() { a(this).scrollTop() > 400 ? G.addClass("back-top-visible") : G.removeClass("back-top-visible") }), G.on("click", function(b) { b.preventDefault(), a("body,html").animate({ scrollTop: 0 }, 600) });
         var H = a(".mailchimp");
@@ -126,6 +121,15 @@
             a(T).isotope({ filter: c })
         });
         $("select#country").val("IQ").change();
+        var owl = $('.owl-carousel');
+        owl.owlCarousel({
+            items: 4,
+            loop: true,
+            margin: 10,
+            autoplay: true,
+            autoplayTimeout: 1000,
+            autoplayHoverPause: true
+        });
 
     })
 }(jQuery);

@@ -10,7 +10,7 @@ from ckeditor.widgets import CKEditorWidget
 class EmpForm(ModelForm):
     class Meta:
         model = employer
-        fields = ['company', 'industry', 'logo', 'phone_number', 'public_company_info',
+        fields = ['company', 'industry', 'logo', 'phone_number', 'website', 'public_company_info',
                   'communication_email', 'address', 'city',
                   'country']
         widgets = {'country': CountrySelectWidget()}

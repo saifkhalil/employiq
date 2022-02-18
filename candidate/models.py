@@ -73,6 +73,8 @@ class employment(models.Model):
         primary_key=True, default=uuid.uuid4, editable=False)
     employer = models.CharField(
         max_length=50, blank=False, null=False, verbose_name=_('Employer'))
+    employer_industry = models.CharField(
+        max_length=50, blank=False, null=False, verbose_name=_('Employer Industry'))
     country = CountryField(blank=False, null=False, verbose_name=_('Country'))
     city = models.CharField(max_length=50, blank=False,
                             null=False, verbose_name=_('City'))

@@ -32,7 +32,7 @@ class EmployerCreateView(CreateView):
         Employer = form.save(commit=False)
         Employer.created_by = User.objects.get(email=self.request.user.email)
         Employer.user = self.request.user
-        currentuser = User.objects.filter(id=self.request.user.id)
+        currentuser = self.request.user
         currentuser.is_employer = True
         currentuser.save()
         # currentuser.save()
@@ -63,10 +63,10 @@ class JobCreateView(CreateView):
     def form_valid(self, form):
        # current_candidate = candidate.objects.get(user__id=self.request.user.id)
         Job = form.save(commit=False)
-        userid = self.request.user.id
-        employer = employer.objects.get(user__id=userid)
-        Job.employer = employer
-        Job.created_by = User.objects.get(email=self.request.user.email)
+        user = self.request.user
+        current_employer = employer.objects.get(user__id=user.id)
+        Job.employer = current_employer
+        Job.created_by = User.objects.get(email=user.email)
         Job.save()
         '''
         html_message = render_to_string('mail_template.html', {'cm': Edu})

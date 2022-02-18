@@ -46,6 +46,7 @@ def home(request):
             isemployer = False
         context = {
             'princing': subscription_plan.objects.all(),
+            'allemployers': employer.objects.filter(public_company_info='Y'),
             'isemployer': isemployer
         }
         return render(request, 'index.html', context=context)
