@@ -1,8 +1,46 @@
+from audioop import reverse
+from lib2to3.pgen2.tokenize import generate_tokens
+from django.contrib import messages
+from urllib import request
 from django.contrib.auth import login, authenticate, logout
 from django.shortcuts import render, redirect
 from rest_framework.authtoken.models import Token
-
+from django.contrib.sites.shortcuts import get_current_site
 from accounts.forms import RegistrationForm, UserAuthenticationForm, UserUpdateForm
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.template.loader import render_to_string
+from django.utils.encoding import force_bytes, force_str, force_text
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
+import six
+from django.core.mail import EmailMessage, send_mail
+from django.conf import settings
+from accounts.models import User
+
+
+class TokenGenerator(PasswordResetTokenGenerator):
+    def _make_hash_value(self, user, timestamp):
+        return (
+            six.text_type(user.pk) + six.text_type(timestamp) +
+            six.text_type(user.is_active)
+        )
+
+
+account_activation_token = TokenGenerator()
+
+
+def send_active_email(user, request):
+    current_site = get_current_site(request)
+    message = 'text version of HTML message'
+    email_subject = 'Activate your account'
+    email_body = render_to_string('account/verification.html', {
+        'user': user,
+        'domain': current_site,
+        'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+        'token': account_activation_token.make_token(user)
+    })
+
+    send_mail(email_subject, message, settings.DEFAULT_FROM_EMAIL, [
+              user.email], fail_silently=True, html_message=email_body)
 
 
 def registration_view(request):
@@ -10,19 +48,20 @@ def registration_view(request):
     if request.POST:
         form = RegistrationForm(request.POST)
         if form.is_valid():
-            instance = form.save(commit=False)
-            form.save()
+            user = form.save(commit=False)
+            user.is_active = True
+            user.is_verified = False
+            user.save()
             email = form.cleaned_data.get('email')
+            send_active_email(user, request)
             raw_password = form.cleaned_data.get('password1')
             fullname = "%s %s" % (form.cleaned_data.get(
                 'firstname'), form.cleaned_data.get('lastname'))
             phone = str(form.cleaned_data.get('phone'))[1:]
-            account = authenticate(request, email=email, password=raw_password)
-            token = Token.objects.get(user=account).key
-            context['token'] = token
-            if account:
-                login(request, account)
-                return render(request, 'after_register.html', context)
+            #account = authenticate(request, email=email, password=raw_password)
+            # if account:
+            #    login(request, account)
+            return redirect('login')
         else:
             context['form'] = form
     else:
@@ -54,9 +93,16 @@ def login_view(request):
             email = request.POST['email']
             password = request.POST['password']
             user = authenticate(email=email, password=password)
+            if not user.is_verified:
+                messages.add_message(request, messages.ERROR,
+                                     'Email is not verified, please check your email inbox')
+                return render(request, "account/login.html", context)
             if user:
                 login(request, user)
-                return redirect(next_page)
+                if (not user.is_candidate) and (not user.is_employer):
+                    return render(request, "after_register.html", context)
+                else:
+                    return redirect(next_page)
     else:
         form = UserAuthenticationForm()
     context['login_form'] = form
@@ -94,3 +140,23 @@ def account_view(request):
 
 def must_authenticate_view(request):
     return render(request, 'account/must_authenticate.html', {})
+
+
+def active_user(request, uidb64, token):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+
+    except Exception as e:
+        user = None
+
+    if user and account_activation_token.check_token(user, token):
+        user.is_verified = True
+        user.save()
+
+        messages.add_message(request, messages.SUCCESS,
+                             'Email Verified, you can now login')
+        return redirect('login')
+    messages.add_message(request, messages.ERROR,
+                         'Email Verification erorr, please try agin')
+    return redirect('login')

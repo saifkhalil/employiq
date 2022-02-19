@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     # 3d party packages
     'django_countries',
     'phonenumber_field',
@@ -57,7 +58,10 @@ INSTALLED_APPS = [
     'tagify',
     'ckeditor',
     'djmoney',
-
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
     # Buitin apps
     'accounts',
     'candidate',
@@ -139,6 +143,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+SITE_ID = 1
 
 LANGUAGES = (
     ('en', _('English')),
@@ -149,11 +154,6 @@ LOCALE_PATHS = [
     BASE_DIR + '/locale/',
 ]
 
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'saif780@gmail.com'
-EMAIL_HOST_PASSWORD = 'llphqnbkqauylcsx'
-EMAIL_PORT = 587
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
@@ -173,6 +173,40 @@ AUTH_USER_MODEL = 'accounts.User'
 
 LOGIN_REDIRECT_URL = 'home'
 LOGIN_URL = 'login'
+
+# Custom allauth settings
+# Use email as the primary identifier
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+
+# Make email verification mandatory to avoid junk email accounts
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+
+# Eliminate need to provide username, as it's a very old practice
+ACCOUNT_USERNAME_REQUIRED = False
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'saif780@gmail.com'
+EMAIL_HOST_PASSWORD = 'llphqnbkqauylcsx'
+DEFAULT_FROM_EMAIL = 'saif780@gmail.com'
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        # For each OAuth based provider, either add a ``SocialApp``
+        # (``socialaccount`` app) containing the required client
+        # credentials, or list them here:
+        'APP': {
+            'client_id': '864370542760-ea7hco59o04hikjaokigb0ebhirdmf0g.apps.googleusercontent.com',
+            'secret': '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',
+            'key': ''
+        }
+    }
+}
 
 MATERIAL_ADMIN_SITE = {
     'HEADER':  'Recuit Admin Prtal',  # Admin site header
