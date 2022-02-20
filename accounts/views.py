@@ -61,6 +61,8 @@ def registration_view(request):
             #account = authenticate(request, email=email, password=raw_password)
             # if account:
             #    login(request, account)
+            messages.add_message(request, messages.SUCCESS,
+                                 'User registered successfully, verification email has been sent, please check it ')
             return redirect('login')
         else:
             context['form'] = form
