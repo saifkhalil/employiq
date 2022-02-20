@@ -193,7 +193,7 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'saif780@gmail.com'
 EMAIL_HOST_PASSWORD = 'llphqnbkqauylcsx'
-DEFAULT_FROM_EMAIL = 'saif780@gmail.com'
+DEFAULT_FROM_EMAIL = 'EmployIQ <saif780@gmail.com>'
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
