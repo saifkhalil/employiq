@@ -1263,7 +1263,7 @@ footer .footer-info .footer-posts .thumbnail-post img {
 
 section.page-header {
     position: relative;
-    background: url(../images/img/footer-bg.jpg) center center no-repeat;
+    background: url(../images/img/image1.jpg) center center no-repeat;
     background-size: cover;
     text-align: center;
     padding: 150px 0;
@@ -4959,7 +4959,7 @@ section#page-not-found2 {
 }
 
 section#login {
-    background: url(../images/img/coming-soon-bg.png) center center no-repeat, linear-gradient(to right, #d8d8d8 -20%, #858585 120%);
+    background: url(../images/img/login.jpg) center center no-repeat, linear-gradient(to right, #d8d8d8 -20%, #858585 120%);
     background-size: cover;
     background-position: left center;
     /* background: #f0f0f0*/

@@ -94,11 +94,11 @@ def job_apply(request, jid):
             current_job.applied_candidates.add(current_candidate)
             current_job.save()
             messages.add_message(request, messages.SUCCESS,
-                                 _("Your are appiled to job"))
+                                 _("Your application is successful"))
             return redirect(reverse('job_details', kwargs={"jid": current_job.id}))
         except:
             messages.add_message(request, messages.ERROR,
-                                 _("There are error on appiled job"))
+                                 _("Your application is error"))
             return redirect(reverse('job_details', kwargs={"jid": current_job.id}))
 
 

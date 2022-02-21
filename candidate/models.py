@@ -24,6 +24,7 @@ User = settings.AUTH_USER_MODEL
 TITLE_CHOICES = [
     ('MR', _('Mr.')),
     ('MS', _('Ms.')),
+    ('MRS', _('Mrs.')),
 ]
 
 GENDER_CHOICES = [
@@ -67,6 +68,29 @@ LANGUAGE_LEVELS = [
     ('4', _('Mother tongue')),
 ]
 
+GOVERNORATES = [
+    ('Al Anbar', _('Al Anbar')),
+    ('Babylon', _('Babylon')),
+    ('Baghdad', _('Baghdad')),
+    ('Basra', _('Basra')),
+    ('Dhi Qar', _('Dhi Qar')),
+    ('Al-Qadisiyyah', _('Al-Qadisiyyah')),
+    ('Diyala', _('Diyala')),
+    ('Duhok', _('Duhok')),
+    ('Erbil', _('Erbil')),
+    ('Halabja', _('Halabja')),
+    ('Karbala', _('Karbala')),
+    ('Kirkuk', _('Kirkuk')),
+    ('Maysan', _('Maysan')),
+    ('Muthanna', _('Muthanna')),
+    ('Najaf', _('Najaf')),
+    ('Nineveh', _('Nineveh')),
+    ('Saladin', _('Saladin')),
+    ('Sulaymaniyah', _('Sulaymaniyah')),
+    ('Wasit', _('Wasit')),
+
+]
+
 
 class employment(models.Model):
     id = models.UUIDField(
@@ -76,8 +100,8 @@ class employment(models.Model):
     employer_industry = models.CharField(
         max_length=50, blank=False, null=False, verbose_name=_('Employer Industry'))
     country = CountryField(blank=False, null=False, verbose_name=_('Country'))
-    city = models.CharField(max_length=50, blank=False,
-                            null=False, verbose_name=_('City'))
+    city = models.CharField(blank=False, null=False,
+                            max_length=500, verbose_name=_('City'))
     current_job = models.CharField(
         max_length=1, default='N', choices=JOB_CHOICES, blank=False, null=False, verbose_name=_('Current Job'))
     start_date = models.DateField(
@@ -127,8 +151,8 @@ class education(models.Model):
     education_level = models.CharField(
         max_length=1, choices=EDUCATION_CHOICES, blank=False, null=False, verbose_name=_('Education Level'))
     country = CountryField(blank=False, null=False, verbose_name=_('Country'))
-    city = models.CharField(max_length=50, blank=False,
-                            null=False, verbose_name=_('City'))
+    city = models.CharField(blank=False, null=False,
+                            max_length=500, verbose_name=_('City'))
     institution = models.CharField(
         max_length=100, blank=False, null=False, verbose_name=_('Institution'))
     original_title_of_the_qualification = models.CharField(
@@ -158,8 +182,8 @@ class certificate(models.Model):
         blank=True, null=True, verbose_name=_('Issue Date'))
     expire_date = models.DateField(
         blank=True, null=True, verbose_name=_('Expire Date'))
-    expired_certificate = models.BooleanField(
-        null=False, blank=False, default=False, verbose_name=_('This credential does not expire'))
+    expired_certificate = models.CharField(
+        max_length=1, default='N', choices=JOB_CHOICES, blank=False, null=False, verbose_name=_('This credential does not expire'))
     attach = models.FileField(blank=True, null=True,
                               upload_to='media/certificate', verbose_name=_('Attach File'), validators=[FileExtensionValidator(['pdf', 'doc', 'docx', 'jpg', 'jpeg', 'png', 'git'])])
 
@@ -175,7 +199,7 @@ class candidate(models.Model):
         primary_key=True, default=uuid.uuid4, editable=False)
     user = models.OneToOneField(
         User, blank=True, null=True, on_delete=models.CASCADE)
-    title = models.CharField(max_length=2, choices=TITLE_CHOICES,
+    title = models.CharField(max_length=3, choices=TITLE_CHOICES,
                              default="Mr.", blank=False, null=False, verbose_name=_('Title'))
     firstname = models.CharField(
         max_length=200, blank=False, null=False, verbose_name=_('First Name'))
@@ -214,7 +238,8 @@ class candidate(models.Model):
         max_length=500, verbose_name=_('Current address Line(1)'))
     address2 = models.CharField(
         blank=True, null=True, max_length=500, verbose_name=_('Address Line(2)'))
-    city = models.CharField(max_length=500, verbose_name=_('Current city'))
+    city = models.CharField(max_length=500, default='Baghdad',
+                            choices=GOVERNORATES, verbose_name=_('Current City'))
     country = CountryField(
         blank_label=_('(select country)'), verbose_name=_('Current country'))
     postal_code = models.IntegerField(validators=[MaxValueValidator(

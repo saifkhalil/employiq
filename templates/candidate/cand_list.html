@@ -23,13 +23,28 @@
           <div class="row m-3">
             <div class="col-md">
               <div class="form-floating">
-                {% get_countries as countries %}
-                <select class="form-control" placeholder="select country" id="country" name="country">
-                  {% for country in countries %}
-                  <option value="{{ country.code }}">{{ country.name }} <img src="{{ country.flag }}"></img></option>
-                  {% endfor %}
+                <select class="form-control form-control-lg" placeholder="select city" id="city" name="city">
+                  <option value='Al Anbar'>Al Anbar</option>
+                  <option value='Babylon'>Babylon</option>
+                  <option value='Baghdad'>Baghdad</option>
+                  <option value='Basra'>Basra</option>
+                  <option value='Dhi Qar'>Dhi Qar</option>
+                  <option value='Al-Qadisiyyah'>Al-Qadisiyyah</option>
+                  <option value='Diyala'>Diyala</option>
+                  <option value='Duhok'>Duhok</option>
+                  <option value='Erbil'>Erbil</option>
+                  <option value='Halabja'>Halabja</option>
+                  <option value='Karbala'>Karbala</option>
+                  <option value='Kirkuk'>Kirkuk</option>
+                  <option value='Maysan'>Maysan</option>
+                  <option value='Muthanna'>Muthanna</option>
+                  <option value='Najaf'>Najaf</option>
+                  <option value='Nineveh'>Nineveh</option>
+                  <option value='Saladin'>Saladin</option>
+                  <option value='Sulaymaniyah'>Sulaymaniyah</option>
+                  <option value='Wasit'>Wasit</option>
                 </select>
-                <label for="id" class="form-label">{% trans 'Country' %}</label>
+                <label for="city">{% trans 'Location' %}</label>
               </div>
             </div>
             <div class="col-md">
@@ -76,7 +91,7 @@
           <th>{% trans 'Full name' %}</th>
           <th>{% trans 'Birth of date' %}</th>
           <th>{% trans 'Highest level of education' %}</th>
-          <th>{% trans 'country' %}</th>
+          <th>{% trans 'City' %}</th>
           <th>{% trans 'Action' %}</th>
         </tr>
       </thead>
@@ -87,7 +102,7 @@
           <td>{{ cands.get_title_display }} {{ cands.firstname }} {{ cands.secondname }} {{ cands.lastname }}</td>
           <td>{{ cands.birthofdate|date:"d/m/Y" }}</td>
           <td>{{cands.get_highest_level_of_education_display}}</td>
-          <td>{{cands.get_country_display}}</td>
+          <td>{{cands.city}}</td>
           <td><a class="btn {% if remcand < 1 %}btn-secondary disabled {% else %} btn-primary{% endif %}"
               target="_blank"
               href="{% if remcand >= 1 %}{% url 'candetials' cands.id %}{% endif %}">{% trans 'View Full Details' %}</a>
@@ -140,7 +155,7 @@
   var srchval = JSON.parse('{{ session | escapejs }}');
   window.addEventListener('load', function () {
     // document.getElementById('cm').classList.add('active');
-    document.getElementById('country').value = srchval[0];
+    document.getElementById('city').value = srchval[0];
     document.getElementById('number_of_records').value = srchval[2];
     document.getElementById('education').value = srchval[1];
   })

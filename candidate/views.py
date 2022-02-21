@@ -29,9 +29,9 @@ from employer.models import job
 
 def candlist(request):
     if request.method == 'GET':
-        if request.GET.get('country'):
-            country = request.GET.get('country')
-            request.session['country'] = country
+        if request.GET.get('city'):
+            city = request.GET.get('city')
+            request.session['city'] = city
         if request.GET.get('education'):
             education = request.GET.get('education')
             request.session['education'] = education
@@ -40,13 +40,13 @@ def candlist(request):
             number_of_records = request.GET.get('number_of_records')
             request.session['number_of_records'] = int(number_of_records)
         if request.GET.get('clear'):
-            if request.session.get('country'):
-                del request.session['country']
+            if request.session.get('city'):
+                del request.session['city']
             if request.session.get('education'):
                 del request.session['education']
             if request.session.get('number_of_records'):
                 del request.session['number_of_records']
-    country = request.session.get('country')
+    city = request.session.get('city')
     education = request.session.get('education')
     number_of_records = request.session.get('number_of_records')
     cand_list = candidate.objects.all()
@@ -54,12 +54,12 @@ def candlist(request):
         number_of_records = int(number_of_records)
     else:
         number_of_records = 10
-    if country:
-        cand_list = cand_list.filter(country__icontains=country)
+    if city:
+        cand_list = cand_list.filter(city=city)
     if education:
         cand_list = cand_list.filter(
             highest_level_of_education__icontains=education)
-    session = [country, education, number_of_records]
+    session = [city, education, number_of_records]
     # Show 25 contacts per page.
     paginator = Paginator(cand_list, number_of_records)
     page_number = request.GET.get('page')
