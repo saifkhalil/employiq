@@ -8,6 +8,7 @@ from django.conf.urls.i18n import i18n_patterns
 
 urlpatterns = [
     path('', login_required(candlist), name='candlist'),
+    path('pdf', login_required(pdf), name='pdf'),
     path('create', login_required(
         CandidateCreateView.as_view()), name='candidate_create'),
     path('<uuid:pk>/update/',
@@ -42,7 +43,7 @@ urlpatterns = [
     path('myprofile', login_required(my_candidate_details),
          name='my_candidate_details'),
     # path('<uuid:pk>', login_required(CandidateDetail.as_view()),name = 'my_candidate'),
-    path('pdf/', GeneratePdf.as_view()),
+    #path('pdf/', GeneratePdf.as_view()),
 ]
 
 if settings.DEBUG:

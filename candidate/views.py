@@ -427,6 +427,10 @@ class EmploymentUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView, 
         return True
 
 
+def pdf(request):
+    return render(request, 'candidate/resume.html')
+
+
 class GeneratePdf(View):
     def get(self, request, *args, **kwargs):
         userid = request.user.id
@@ -438,7 +442,7 @@ class GeneratePdf(View):
             'employments': employment.objects.filter(candidate__id=cid)
         }
         # getting the template
-        pdf = html_to_pdf('candidate/cv copy.html', context)
+        pdf = html_to_pdf('candidate/resume.html', context)
 
         # rendering the template
         return HttpResponse(pdf, content_type='application/pdf')

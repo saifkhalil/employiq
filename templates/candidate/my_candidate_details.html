@@ -2,8 +2,45 @@
 <script src="https://unpkg.com/@yaireo/tagify"></script>
 <script src="https://unpkg.com/@yaireo/tagify@3.1.0/dist/tagify.polyfills.min.js"></script>
 <link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
+<style>
+    .bold {
+        font-weight: bold
+    }
 
-<div class="header mt-5">
+    .vl {
+        border-left: 1px solid black
+    }
+
+    .print {
+        display: none
+    }
+
+    .information,
+    .footer1,
+    .navbar,
+    .back-top.back-top-visible {
+        display: block
+    }
+
+    @media print {
+        @page {
+            size: A3;
+            zoom: 0.7;
+        }
+
+        .print {
+            display: block
+        }
+
+        .information,
+        .footer1,
+        .navbar,
+        .back-top.back-top-visible {
+            display: none
+        }
+    }
+</style>
+<div class="information header mt-5">
     <div class="filtered">
         <div class="content">
             <br>
@@ -73,9 +110,16 @@
                                                 </div>
                                             </div>
                                             <div class="col-4">
-                                                <a href="{% url 'candidate_update' object.id %}"
-                                                    class="btn text-white btn-primary"><i class="fas fa-edit"></i>
-                                                    {% trans 'Edit Your information' %}</a>
+                                                <div class="btn-group" role="group" aria-label="Basic outlined example">
+
+                                                    <a href="{% url 'candidate_update' object.id %}"
+                                                        class="btn text-dark btn-outline-primary"><i
+                                                            class="fas fa-edit"></i>
+                                                        {% trans 'Edit Info' %}</a>
+
+                                                    <a class="btn text-dark btn-outline-primary" href="#"
+                                                        onclick="window.print();return false;">Print / PDF</a>
+                                                </div>
                                             </div>
                                         </div>
                                         <!-- Profile Details -->
@@ -938,68 +982,149 @@
 
                 </div>
         </div>
-        <script type="text/javascript">
-            function topFunction() {
-                document.body.scrollTop = 0;
-                document.documentElement.scrollTop = 0;
-            }
-        </script>
+    </div>
+</div>
 
-        <script type="text/javascript">
-            $('button#delete').on('click', function (e) {
-                e.preventDefault();
-                if (confirm('Are you sure you want to delete this?')) {
-                    // Save it!
-                    var $this = $(this);
+<div class="print">
+    <div class="row">
+        <div class="col-9">
+            <div class="row">
+                <div class="col-2">
+                    <img class="img-thumbnail" src="{{object.photo.url}}" alt="{{ object.firstname }}">
+                </div>
+                <div class="col-10">
+                    <h5 class="text-secondary bold">{{object.get_title_display}}
+                        {{ object.firstname }} {{ object.secondname }}
+                        {{ object.lastname }}</h5>
+                    <h6>{{ object.get_highest_level_of_education_display }}</h6>
+                    {% comment %} <h6>B.SC. GENERAL MANAGEMENT</h6> {% endcomment %}
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <h5 class="bold">PROFILE</h5>
+                <p>{{ object.bio }}</p>
+            </div>
+            </br>
+            <hr>
+            <div class="row">
+                <h5 class="bold">EXPERIENCES</h5>
+                {% for emp in employments %}
+                <h6 class="text-secondary">{{ emp.employer }} – {{ emp.start_date|date:"M, Y" }} –
+                    {% if emp.get_current_job_display == "Yes" %} Current {% else %} {{ emp.end_date|date:"M, Y" }}
+                    {% endif%}</h6>
+                <p class="text-secondary">{{ emp.city}}, {{ emp.get_country_display }}</p>
+                <h6>{{ emp.job_title }}</h6>
+                <p>{{ emp.job_description|safe }}</p>
+                {% endfor %}
+            </div>
+            <hr>
+            <div class="row">
+                <h5 class="bold">COURSES & WORKSHOPS</h5>
+                {% for cert in certificates %}
+                <h6 class="text-secondary">{{ cert.certificate_name }} — {{ cert.issue_date|date:"Y" }}</h6>
+                <p class="text-secondary">{{ cert.organization }}</p>
+                {% endfor %}
+            </div>
+            <hr>
+            <div class="row">
+                <h5 class="bold">EDUCATION</h5>
+                {% for edu in educations %}
+                <h6 class="bold">{{ edu.original_title_of_the_qualification }}</h6>
+                <p class="text-secondary">{{ edu.institution }}</p>
+                <p class="text-secondary">{{ edu.get_country_display }}, {{ edu.city }}</p>
+                <p class="text-secondary">{{ edu.start_date|date:"Y"}} - {{ edu.graduation_date|date:"Y"}}</p>
+                {% endfor %}
 
-                    $.ajax({
-                        url: $this.attr('apilink'),
-                        type: 'GET',
-                        cache: false,
-                        success: function (response) {
-                            alert("Deleted successfully");
-                            location.reload();
-                        },
-                        error: function (response) {
-                            alert("There are error please try again");
+            </div>
+        </div>
+        <div class="col-3 vl">
+            <h6 class="bold">PERSONAL DETAILS</h6>
+            <br>
+            <p>Gender: {{object.get_gender_display}} </p>
+            <p>Birth: {{ object.birthofdate }}</p>
+            <p>Marital status: {{ object.get_marital_status_display }} </p>
+            <p>Nationality: {{ object.get_primary_nationality_display }}</p>
+            <p>Address: {{ object.get_country_display }}, {{ object.city }}</p>
+            <p>Tel: {{ object.phone_number }}</p>
+            <p>Email: {{ object.email }} </p>
+            <br>
+            <br>
+            <h6 class="bold">PROFESSIONAL SKILLS</h6>
+            <br>
+            <p id="cvskills">#</p>
+            <br>
+            <br>
+            <h6 class="bold">LANGUAGES</h6>
+            <br>
+            {% for lang in Languages %}
+            <p>{{ lang.get_language_display }}: {{ lang.get_level_display }} </p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    }
+</script>
 
-                        }
-                    });
+<script type="text/javascript">
+    $('button#delete').on('click', function (e) {
+        e.preventDefault();
+        if (confirm('Are you sure you want to delete this?')) {
+            // Save it!
+            var $this = $(this);
+
+            $.ajax({
+                url: $this.attr('apilink'),
+                type: 'GET',
+                cache: false,
+                success: function (response) {
+                    alert("Deleted successfully");
+                    location.reload();
+                },
+                error: function (response) {
+                    alert("There are error please try again");
+
                 }
-
-
             });
+        }
 
 
-            var skills = "{{object.skills|safe}}";
-            $('input#skills').val('')
-            var newskills = skills.replaceAll("'", "").replaceAll("[", "").replaceAll("]", "");
-            newskills.split(',');
-
-            var skills_tagify = new Tagify(document.querySelector('input#skills'), {
-                dropdown: {
-                    enabled: 0
-                }
-            });
-            skills_tagify.addTags(newskills);
+    });
 
 
-            var hobbies = "{{object.hobbies|safe}}";
-            $('input#hobbies').val('')
-            var newhobbies = hobbies.replaceAll("'", "").replaceAll("[", "").replaceAll("]", "");
-            newhobbies.split(',');
+    var skills = "{{object.skills|safe}}";
+    $('input#skills').val('')
+    var newskills = skills.replaceAll("'", "").replaceAll("[", "").replaceAll("]", "");
+    newskills.split(',');
 
-            var hobbies_tagify = new Tagify(document.querySelector('input#hobbies'), {
-                dropdown: {
-                    enabled: 0
-                }
-            });
-            hobbies_tagify.addTags(newhobbies);
-        </script>
-        <script>
+    var skills_tagify = new Tagify(document.querySelector('input#skills'), {
+        dropdown: {
+            enabled: 0
+        }
+    });
+    skills_tagify.addTags(newskills);
+    document.getElementById("cvskills").innerHTML = newskills;
 
-        </script>
-        <!--
+    var hobbies = "{{object.hobbies|safe}}";
+    $('input#hobbies').val('')
+    var newhobbies = hobbies.replaceAll("'", "").replaceAll("[", "").replaceAll("]", "");
+    newhobbies.split(',');
+
+    var hobbies_tagify = new Tagify(document.querySelector('input#hobbies'), {
+        dropdown: {
+            enabled: 0
+        }
+    });
+    hobbies_tagify.addTags(newhobbies);
+</script>
+<script>
+
+</script>
+<!--
         <script type="text/javascript">
             skills_tags = '{{object.skills}}'.trim().split(/\s*,\s*/);
             hobbies_tags = '{{object.hobbies}}'.trim().split(/\s*,\s*/);
@@ -1020,4 +1145,4 @@
             hobbies_tagify.addTags(hobbies_tags);
         </script>
         -->
-        {% endblock %}
+{% endblock %}

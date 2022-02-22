@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+{% load static %}
+{% load i18n %}
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+
+    <title>Hello, world!</title>
+    <style>
+        .bold {
+            font-weight: bold
+        }
+
+        .vl {
+            border-left: 1px solid black
+        }
+
+        @media print {
+            @page {
+                size: A3;
+                zoom: 0.7;
+            }
+        }
+    </style>
+</head>
+
+<body style="padding:30px" onload="window.print()">
+    <div class="row">
+        <div class="col-9">
+            <div class="row">
+                <div class="col-2">
+                    <img class="img-thumbnail" scr="{% static 'images/clients/client1.jpg' %}">
+                </div>
+                <div class="col-10">
+                    <h5 class="text-secondary bold">JANAN L. AL-OKAILY</h5>
+                    <h6>MBA- MASTER’S IN BUSINESS ADMINISTRATION</h6>
+                    <h6>B.SC. GENERAL MANAGEMENT</h6>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <h5 class="bold">PROFILE</h5>
+                <p>I am an energetic, ambitious person who has developed a mature and responsible approach to any task
+                    that undertake. I am a quick learner, easily adapt to new ideas and concepts, develop, innovative,
+                    and creative solutions to problems, high level of motivation, able to work on high pressure.
+                    I am excellent in working with others to achieve a certain goal on time and with excellence.
+                    Seeking for a career position to further develop expertise and experience in Management, Operation,
+                    Marketing, and any other related fields to business management.
+                </p>
+            </div>
+            </br>
+            <hr>
+            <div class="row">
+                <h5 class="bold">EXPERIENCES</h5>
+                <h6 class="text-secondary">Promoters – October, 2018 – Current</h6>
+                <p class="text-secondary">Erbil/Kurdistan-Iraq</p>
+                <h6>HR assistant</h6>
+                <p>• Making employee files of administrating and scoring tests.
+                    • Conducting orientations and explain procedures.
+                    • Track, create and update employee’s leaves and absences.
+                    • Assist in the hiring processes like submitting jobs online and scheduling candidates for
+                    interviews and have people interviewed.
+                    • Coordinate for new hiring’s and employee training sessions.
+                    • Assemble, analyze and prepare data for data entry.
+                    • Follow up on daily attendance and make reports.
+                    • Report writing to management and record keeping.
+                    • Provide secretarial support.
+                    • Create monthly payroll and pay slips.
+                    • Share and gather information by answering emails and phone calls.
+                    • Quick with note taking and then compare to the eligibility criteria.
+                    • Make data entry.
+                    • Make employee’s contracts
+
+                </p>
+                <h6 class="text-secondary">COSV /NGO (Service Contract) – June 2017- September 2018</h6>
+                <p class="text-secondary">Erbil/Kurdistan-Iraq</p>
+                <h6>Monitoring and Evaluation assistant</h6>
+                <p>• Responsible for the communication with the interviews (calling the interviews and making the
+                    appointment).
+                    • Responsible for preparing the venue before each session.
+                    • Assist the Monitoring and Evaluation Officer with filling the survey forms.
+                    • Develop and manage the monitoring and evaluation information system and relay the information to
+                    the project stakeholder.
+                    • Collect data needed for the M&E reports from the partner and volunteers on the ground.
+                    • Produce evaluations and analyses related to the implementation of the different phases of the
+                    project.
+                    • Carry out quantitative and qualitative data collection activities at field level through surveys,
+                    interviews or focus groups.
+                    • Support livelihoods, education and social stability for the Syrian refugees and the host
+                    population.
+
+                </p>
+            </div>
+            <hr>
+            <div class="row">
+                <h5 class="bold">COURSES & WORKSHOPS</h5>
+                <h6 class="text-secondary">BRITISH COUNCEL — 2006</h6>
+                <p class="text-secondary">Amman, Jordan</p>
+                <h6>Principles of English certified from B.C.</h6>
+                <p> Participated in leadership mini camp at the choueifat school 2010, Certified from the student life
+                    organisation of choueifat.
+                    Organised a cleaning campaign as head of social responsibilty for the choueifat school 2011.
+                    Certifícate of appreciation for being an active student at social acitivties at the student life
+                    organisation of choueifat 2012.
+                </p>
+            </div>
+            <hr>
+            <div class="row">
+                <h5 class="bold">EDUCATION</h5>
+                <h6>MBA-MASTER’S IN BUSINESS ADMINSTRATION </h6>
+                <p class="text-secondary">UNIVERSITY OF THE PEOPLE</p>
+                <p class="text-secondary">595 E Colorado Blvd Suite 623, Pasadena, CA 91101, United States</p>
+                <p class="text-secondary">in progress 2020-2021</p>
+
+                <h6>BACHELOR DEGREE </h6>
+                <p class="text-secondary">INTERNATIONAL UNIVERSITY OF ERBIL </p>
+                <p class="text-secondary">Erbil, Iraq</p>
+                <p class="text-secondary">in progress 2020-2021</p>
+            </div>
+        </div>
+        <div class="col-3 vl">
+            <h6 class="bold">PERSONAL DETAILS</h6>
+            <br>
+            <p>Gender: Female </p>
+            <p>Birth: 19/04/1995</p>
+            <p>Marital status: Single </p>
+            <p>Nationality: Iraqi</p>
+            <p>Address: Iraq, Erbil</p>
+            <p>Tel: +964 750 026 0060</p>
+            <p>Email: janan@alokaily.com </p>
+            <br>
+            <br>
+            <h6 class="bold">PROFESSIONAL SKILLS</h6>
+            <br>
+            <p>Python</p>
+            <p>C#</p>
+            <p>Website development</p>
+            <p>IOT</p>
+            <p>Date Sceince</p>
+            <br>
+            <br>
+            <h6 class="bold">LANGUAGES</h6>
+            <br>
+            <p>Arabic: Mother tongue </p>
+            <p>English: Fluent</p>
+            <p>France status: Fluent </p>
+        </div>
+    </div>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script>
+
+    </script>
+</body>
+
+</html>
