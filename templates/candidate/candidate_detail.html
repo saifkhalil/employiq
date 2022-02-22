@@ -4,13 +4,14 @@
 {% block content %}
 {% load static %}
 {% load i18n %}
+<script src="https://unpkg.com/@yaireo/tagify"></script>
+<script src="https://unpkg.com/@yaireo/tagify@3.1.0/dist/tagify.polyfills.min.js"></script>
+<link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
 <div class="header">
     <div class="filtered">
         <div class="content">
             <br>
             <br>
-
-            {% if remcand > 0 %}
             <!-- ===== Start of Main Wrapper Candidate Profile Header ===== -->
             <section class="ptb80" id="candidate-profile">
                 <div class="container">
@@ -214,6 +215,22 @@
                                                                     aria-describedby="basic-addon3"
                                                                     value="{{  object.get_highest_level_of_education_display }}"
                                                                     disabled>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <label for="skills">{% trans 'Skills' %}</label>
+                                                            <div class="input-group mb-3">
+                                                                <input type="text" class="form-control"
+                                                                    value="{{object.skills}}" id="skills"
+                                                                    aria-describedby="basic-addon3" disabled>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <label for="hobbies">{% trans 'Hobbies' %}</label>
+                                                            <div class="input-group mb-3">
+                                                                <input type="text" class="form-control" id="hobbies"
+                                                                    value="{{object.hobbies}}"
+                                                                    aria-describedby="basic-addon3" disabled>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -551,6 +568,138 @@
                                         </div>
 
                                     </div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="panelsStayOpen-headingSix">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                data-bs-target="#panelsStayOpen-collapseSix" aria-expanded="true"
+                                                aria-controls="panelsStayOpen-collapseSix">
+
+                                                <i class="fas fa-language"></i>
+                                                {% trans 'Language Skills' %} <span
+                                                    class="badge rounded-pill bg-primary">
+
+                                                    {{ Languages|length }}
+                                                </span>
+                                            </button>
+                                        </h2>
+                                        <div id="panelsStayOpen-collapseSix" class="accordion-collapse collapse show"
+                                            aria-labelledby="panelsStayOpen-headingSix">
+                                            <div class="accordion-body">
+                                                {% if Languages|length == 0 %}
+                                                <p class="text-center">
+                                                    {% trans 'The candidate not added Languages records' %}
+                                                </p>
+                                                {% else %} {% for lang in Languages %}
+                                                <div class="row">
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                                        <label for="basic-url">{% trans 'Langauge' %}</label>
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" class="form-control" id="basic-url"
+                                                                aria-describedby="basic-addon3"
+                                                                value="{{  lang.get_language_display }}" disabled>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                                        <label for="basic-url">{% trans 'Level' %}</label>
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" class="form-control" id="basic-url"
+                                                                aria-describedby="basic-addon3"
+                                                                value="{{  lang.get_level_display }}" disabled>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <hr> {% endfor %} {% endif %}
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="panelsStayOpen-headingSeven">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                data-bs-target="#panelsStayOpen-collapseSeven" aria-expanded="true"
+                                                aria-controls="panelsStayOpen-collapseSeven">
+
+                                                <i class="fas fa-certificate"></i>
+                                                {% trans 'Certificate' %} <span class="badge rounded-pill bg-primary">
+
+                                                    {{ certificates|length }}
+                                                </span>
+                                            </button>
+                                        </h2>
+                                        <div id="panelsStayOpen-collapseSeven" class="accordion-collapse collapse show"
+                                            aria-labelledby="panelsStayOpen-headingSeven">
+                                            <div class="accordion-body">
+                                                {% if certificates|length == 0 %}
+                                                <p class="text-center">
+                                                    {% trans 'The candidate not added certificates records' %}
+                                                </p>
+                                                {% else %} {% for cert in certificates %}
+                                                <div class="row">
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                                        <label for="basic-url">{% trans 'Certificate name' %}</label>
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" class="form-control" id="basic-url"
+                                                                aria-describedby="basic-addon3"
+                                                                value="{{  cert.certificate_name }}" disabled>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                                        <label for="basic-url">{% trans 'Organization' %}</label>
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" class="form-control" id="basic-url"
+                                                                aria-describedby="basic-addon3"
+                                                                value="{{  cert.organization }}" disabled>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                                        <label for="basic-url">{% trans 'Issue Date' %}</label>
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" class="form-control" id="basic-url"
+                                                                aria-describedby="basic-addon3"
+                                                                value="{{  cert.issue_date }}" disabled>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                                        <label for="basic-url">{% trans 'Expire Date' %}</label>
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" class="form-control" id="basic-url"
+                                                                aria-describedby="basic-addon3"
+                                                                value="{{  cert.expire_date }}" disabled>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                                        <label class=" form-check-label"
+                                                            for="expired_certificate">{% trans 'This credential does not expire' %}</label>
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" class="form-control"
+                                                                id="expired_certificate" aria-describedby="basic-addon3"
+                                                                value="{{  cert.get_expired_certificate_display }}"
+                                                                disabled>
+
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                                        <label for="basic-url">{% trans 'Attach File' %}</label>
+                                                        <div class="input-group mb-3">
+                                                            {% if cert.attach.url != none %}
+                                                            <a class="form-control" href="{{  cert.attach.url }}"
+                                                                download>{{  cert.attach.name }}</a>{% else %}<input
+                                                                type="text" class="form-control" id="basic-url"
+                                                                aria-describedby="basic-addon3" value="No attched file"
+                                                                disabled>{% endif %}
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <hr> {% endfor %} {% endif %}
+
+                                            </div>
+                                        </div>
+
+                                    </div>
                                 </div>
                             </div>
 
@@ -559,11 +708,7 @@
                 </div>
             </div>
             <!-- ===== End of Candidate Profile Details ===== -->
-            {% else %}
-            <div class="row justify-content-md-center">
-                <h3 class="text-danger text-center"> You don't have remaining views </h3>
-            </div>
-            {% endif %}
+
         </div>
     </div>
     <script type="text/javascript">
@@ -571,5 +716,30 @@
             document.body.scrollTop = 0;
             document.documentElement.scrollTop = 0;
         }
+
+        var skills = "{{object.skills|safe}}";
+        $('input#skills').val('')
+        var newskills = skills.replaceAll("'", "").replaceAll("[", "").replaceAll("]", "");
+        newskills.split(',');
+
+        var skills_tagify = new Tagify(document.querySelector('input#skills'), {
+            dropdown: {
+                enabled: 0
+            }
+        });
+        skills_tagify.addTags(newskills);
+
+
+        var hobbies = "{{object.hobbies|safe}}";
+        $('input#hobbies').val('')
+        var newhobbies = hobbies.replaceAll("'", "").replaceAll("[", "").replaceAll("]", "");
+        newhobbies.split(',');
+
+        var hobbies_tagify = new Tagify(document.querySelector('input#hobbies'), {
+            dropdown: {
+                enabled: 0
+            }
+        });
+        hobbies_tagify.addTags(newhobbies);
     </script>
     {% endblock %}

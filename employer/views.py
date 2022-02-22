@@ -19,7 +19,27 @@ from django.db.models import Q
 from django.core.paginator import Paginator
 import json
 from django.utils.translation import ugettext_lazy as _
+from django.core.mail import EmailMessage, send_mail
+from django.conf import settings
+from django.template.loader import render_to_string
+from django.contrib.sites.shortcuts import get_current_site
 # Create your views here.
+
+
+def send_employer_email(user, cjob, cand, request):
+    current_site = get_current_site(request)
+    message = 'text version of HTML message'
+    email_subject = 'Candidate apply for job'
+    email_body = render_to_string('employer/job/apply.html', {
+        'domain': current_site,
+        'user': user,
+        'job': cjob,
+        'emp': cjob.employer,
+        'cand': cand
+    })
+
+    send_mail(email_subject, message, settings.DEFAULT_FROM_EMAIL, [
+              cjob.employer.communication_email], fail_silently=True, html_message=email_body)
 
 
 class EmployerCreateView(CreateView):
@@ -93,6 +113,8 @@ def job_apply(request, jid):
             current_job = job.objects.get(id=jid)
             current_job.applied_candidates.add(current_candidate)
             current_job.save()
+            send_employer_email(request.user, current_job,
+                                current_candidate, request)
             messages.add_message(request, messages.SUCCESS,
                                  _("Your application is successful"))
             return redirect(reverse('job_details', kwargs={"jid": current_job.id}))
@@ -106,15 +128,23 @@ def JobDetails(request, jid):
     user = request.user
     job_details = job.objects.get(id=jid)
     current_candidate = candidate.objects.get(user__id=request.user.id)
+    is_job_owner = False
     if job.objects.filter(id=jid, applied_candidates=current_candidate).count() >= 1:
         current_candidate_applied = True
     else:
         current_candidate_applied = False
+    ceid = employer.objects.get(user__id=user.id).id
+    jeid = job_details.employer.id
+    if ceid == jeid:
+        is_job_owner = True
     employer_details = employer.objects.get(job__id=job_details.id)
+    candidates_list = job_details.applied_candidates.all()
     context = {
         'job': job_details,
         'applied': current_candidate_applied,
-        'employer': employer_details
+        'employer': employer_details,
+        'candidates_list': candidates_list,
+        'is_job_owner': is_job_owner
     }
     return render(request, 'employer/job/details.html', context)
 

@@ -68,7 +68,7 @@ class subscription_plan(models.Model):
     plan = models.CharField(max_length=200, verbose_name=_('plan'))
     suggestions = models.IntegerField(verbose_name=_('suggestions'))
     jobs = models.IntegerField(verbose_name=_('Jobs'))
-    price = MoneyField(default=1, max_digits=10, decimal_places=0,
+    price = MoneyField(max_digits=10, decimal_places=0,
                        default_currency='USD', verbose_name=_('Price'))
     days = models.IntegerField()
 

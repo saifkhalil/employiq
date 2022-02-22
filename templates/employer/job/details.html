@@ -87,25 +87,11 @@
                 <!-- Start of Job Details -->
                 <div class="row job-details mt40">
                     <div class="col-md-12">
-
-                        {% comment %}
-                        <!-- Vimeo Video -->
-                        <div class="embed-responsive embed-responsive-16by9">
-                            <iframe class="embed-responsive-item"
-                                src="https://player.vimeo.com/video/176916362?title=0&byline=0&portrait=0"
-                                allowfullscreen=""></iframe>
-                        </div> {% endcomment %}
-
-                        <!-- Div wrapper -->
                         <div class="pt40">
                             <h5>{% trans 'Job Description' %}</h5>
 
                             <p class="mt20">{{ job.job_description|safe }}</p>
                         </div>
-
-
-
-
 
                     </div>
                 </div>
@@ -114,98 +100,68 @@
             </div>
             <!-- ===== End of Job Details ===== -->
 
-
-
-
-
             <!-- ===== Start of Job Sidebar ===== -->
             <div class="col-md-4 col-xs-12">
-
                 <!-- Start of Job Sidebar -->
-                <div class="job-sidebar">
-                    {% comment %}
-                    <h4 class="uppercase">share this job</h4>
-
-                    <!-- Start of Social Media ul -->
-                    <ul class="social-btns list-inline mt20">
-                        <!-- Social Media -->
-                        <li>
-                            <a href="#" class="social-btn-roll facebook transparent">
-                                <div class="social-btn-roll-icons">
-                                    <i class="social-btn-roll-icon fa fa-facebook"></i>
-                                    <i class="social-btn-roll-icon fa fa-facebook"></i>
-                                </div>
-                            </a>
-                        </li>
-
-                        <!-- Social Media -->
-                        <li>
-                            <a href="#" class="social-btn-roll twitter transparent">
-                                <div class="social-btn-roll-icons">
-                                    <i class="social-btn-roll-icon fa fa-twitter"></i>
-                                    <i class="social-btn-roll-icon fa fa-twitter"></i>
-                                </div>
-                            </a>
-                        </li>
-
-                        <!-- Social Media -->
-                        <li>
-                            <a href="#" class="social-btn-roll google-plus transparent">
-                                <div class="social-btn-roll-icons">
-                                    <i class="social-btn-roll-icon fa fa-google-plus"></i>
-                                    <i class="social-btn-roll-icon fa fa-google-plus"></i>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- End of Social Media ul --> {% endcomment %}
-
-
-
-                    <ul class="job-overview nopadding mt40">
-                        <li>
-                            <h5><i class="fa fa-calendar"></i> {% trans 'Date Opened:' %}
-                                <span>{{ job.date_opened }}</span></h5>
-
-                        </li>
-
-                        <li>
-                            <h5><i class="fa fa-map-marker"></i> {% trans 'Location:' %} <span>{{ job.city }},
-                                    {{ job.get_country_display }}</span></h5>
-
-                        </li>
-                        <li>
-                            <h5><i class="fa fa-money"></i> {% trans 'Salary:' %} <span>{{ job.salary }}</span></h5>
-
-                        </li>
-                        <li>
-                            <h5><i class="fa fa-globe" aria-hidden="true"></i>
-                                {% trans 'Nationality:' %} <span>{% trans job.nationality %}</span></h5>
-
-                        </li>
-                    </ul>
-
-                    <div class="mt20">
-                        {% if applied == False %}
-                        <a href="{% url 'job_apply' job.id %}"
-                            class="btn btn-blue btn-effect">{% trans 'Apply for job' %}</a>
-                        {% elif applied == True %}
-                        <a href="#" class="btn btn-green btn-effect">{% trans 'Your Already applied' %}</a>
-                        {% endif %}
+                <div class="row">
+                    <div class="job-sidebar">
+                        <ul class="job-overview nopadding mt40">
+                            <li>
+                                <h5><i class="fa fa-calendar"></i> {% trans 'Date Opened:' %}
+                                    <span>{{ job.date_opened }}</span></h5>
+                            </li>
+                            <li>
+                                <h5><i class="fa fa-map-marker"></i> {% trans 'Location:' %} <span>{{ job.city }},
+                                        {{ job.get_country_display }}</span></h5>
+                            </li>
+                            <li>
+                                <h5><i class="fa fa-money"></i> {% trans 'Salary:' %} <span>{{ job.salary }}</span></h5>
+                            </li>
+                            <li>
+                                <h5><i class="fa fa-globe" aria-hidden="true"></i>
+                                    {% trans 'Nationality:' %} <span>{% trans job.nationality %}</span></h5>
+                            </li>
+                        </ul>
+                        <div class="mt20">
+                            {% if applied == False %}
+                            <button type="button" class="btn btn-blue btn-effect" data-bs-toggle="modal"
+                                data-bs-target="#applyJob">
+                                {% trans 'Apply for job' %}
+                            </button>
+                            {% elif applied == True %}
+                            <a href="#" class="btn btn-green btn-effect">{% trans 'Your Already applied' %}</a>
+                            {% endif %}
+                        </div>
                     </div>
-
                 </div>
+                {% if is_job_owner %}
+                <div class="row">
+                    <div class="job-sidebar">
+                        <p>{% trans 'Applied candidates' %}</p>
+                        <ol class="list-group list-group-numbered">
+                            {% for cand in candidates_list %}
+                            <li class="list-group-item d-flex justify-content-between align-items-start">
+                                <img class="img-thumbnail" width="50px" src="{{cand.photo.url}}"
+                                    alt="{{ cand.firstname }}">
+                                <div class="ms-2 me-auto">
+                                    <div class="fw-bold"> {{ cand.title }} {{ cand.firstname }}
+                                        {{ cand.secondname }}
+                                        {{ cand.lastname }}</div>
+                                    {{ cand.get_city_display }}
+                                </div>
+                                <a href="{% url 'candetials' cand.id %}"
+                                    class="btn btn-blue btn-effect">{% trans 'Details' %}</a>
+                            </li>
+                            {% endfor %}
+                            </ul>
+                    </div>
+                </div>
+                {% endif %}
                 <!-- Start of Job Sidebar -->
-
-
-
-
             </div>
             <!-- ===== End of Job Sidebar ===== -->
-
         </div>
         <!-- End of Row -->
-
         {% comment %}
         <!-- Start of Row -->
         <div class="row mt80">
@@ -302,4 +258,23 @@
 </section>
 <!-- ===== End of Main Wrapper Job Section ===== -->
 
+<!-- Modal -->
+<div class="modal fade" id="applyJob" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="applyJobLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="applyJobLabel">Apply Job</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>You need to edit anything in your profile before applying on this job? or apply for this job now</p>
+            </div>
+            <div class="modal-footer">
+                <a type="button" href="{% url 'my_candidate_details' %}" class="btn btn-warning">Yes Edit</button>
+                    <a type="button" href="{% url 'job_apply' job.id %}" class="btn btn-primary">Apply NOW</a>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

@@ -73,17 +73,14 @@ def candlist(request):
 
 
 def candetials(request, cid):
-    user = request.user
-    cm = {}
     remcand = employer.objects.get(user=request.user)
-    if remcand.remaining_records > 0:
-        cm = candidate.objects.get(id=cid)
-        remcand.remaining_records = remcand.remaining_records - 1
-        remcand.save()
+    cm = candidate.objects.get(id=cid)
     context = {
         'object': cm,
         'educations': education.objects.filter(candidate__id=cid),
         'employments': employment.objects.filter(candidate__id=cid),
+        'Languages': language.objects.filter(candidate__id=cid),
+        'certificates': certificate.objects.filter(candidate__id=cid),
         'remcand': remcand.remaining_records
     }
     return render(request, 'candidate/candidate_detail.html', context)
