@@ -48,7 +48,9 @@
                     {% endfor %}
 
                     <div class="text-center">
-                        <button type="submit" class="btn btn-primary">{% trans 'Submit' %}</button>
+                        <button type="submit" class="btn btn-primary" name="save">{% trans 'Submit' %}</button>
+                        <button type="submit" class="btn btn-primary"
+                            name="save_new">{% trans 'Submit and create new' %}</button>
                         <a href="{% url 'my_candidate_details' %}" class="btn btn-secondary">{% trans 'Cancel' %}</a>
                     </div>
 

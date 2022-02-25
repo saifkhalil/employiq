@@ -23,6 +23,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from employer.models import job
+from bootstrap_modal_forms.generic import BSModalCreateView
 
 # Create your views here.
 
@@ -84,16 +85,6 @@ def candetials(request, cid):
         'remcand': remcand.remaining_records
     }
     return render(request, 'candidate/candidate_detail.html', context)
-
-
-class EducationCreateView(CreateView):
-    model = education
-    fields = ['education_level', 'country', 'city', 'institution',
-              'original_title_of_the_qualification', 'main_subject', 'start_date', 'graduation_date']
-
-    def form_valid(self, form):
-        self.object = form.save()
-        candidate.education.add(self.object)
 
 
 class CandidateDetail(DetailView):
@@ -213,7 +204,10 @@ class EducationCreateView(CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy('my_candidate_details')
+        if 'save' in self.request.POST:
+            return reverse_lazy('my_candidate_details')
+        if 'save_new' in self.request.POST:
+            return reverse_lazy('educationcreate')
 
 
 class EducationUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView, ABC):
@@ -276,7 +270,10 @@ class CertificateCreateView(CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy('my_candidate_details')
+        if 'save' in self.request.POST:
+            return reverse_lazy('my_candidate_details')
+        if 'save_new' in self.request.POST:
+            return reverse_lazy('certificatecreate')
 
 
 class CertificateUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView, ABC):
@@ -299,6 +296,8 @@ class LanguageCreateView(CreateView):
     model = language
     template_name = 'candidate/language/create.html'
     form_class = LangForm
+    # success_message = 'Success: Book was created.'
+    # success_url = reverse_lazy('my_candidate_details')
 
     def form_valid(self, form):
         current_candidate = candidate.objects.get(
@@ -323,7 +322,10 @@ class LanguageCreateView(CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy('my_candidate_details')
+        if 'save' in self.request.POST:
+            return reverse_lazy('my_candidate_details')
+        if 'save_new' in self.request.POST:
+            return reverse_lazy('languagecreate')
 
 
 class LanguageUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView, ABC):
@@ -369,7 +371,10 @@ class EmploymentCreateView(CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy('my_candidate_details')
+        if 'save' in self.request.POST:
+            return reverse_lazy('my_candidate_details')
+        if 'save_new' in self.request.POST:
+            return reverse_lazy('employmentcreate')
 
 
 class CandidateCreateView(CreateView):

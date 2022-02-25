@@ -5,6 +5,7 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 from tagify.fields import TagField
 from ckeditor.widgets import CKEditorWidget
+from bootstrap_modal_forms.forms import BSModalModelForm
 
 
 class DateInput(forms.DateInput):

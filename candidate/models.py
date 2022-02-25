@@ -1,3 +1,8 @@
+from django_currentuser.middleware import (
+    get_current_user, get_current_authenticated_user)
+import datetime
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 import uuid
 from tabnanny import verbose
 from django.utils.translation import ugettext_lazy as _
@@ -137,12 +142,40 @@ class language(models.Model):
                              null=False)
     level = models.CharField(
         max_length=10, choices=LANGUAGE_LEVELS, blank=False, null=False, verbose_name=_('Level'))
+    test = models.CharField(max_length=200, null=True, blank=True,)
+    created_at = models.DateTimeField(auto_now_add=True, editable=False)
+    modified_at = models.DateTimeField(auto_now=True, editable=False)
+    created = models.ForeignKey(
+        User, related_name='%(class)s_createdby', on_delete=models.CASCADE, blank=True, null=True, editable=False)
+    modified = models.ForeignKey(
+        User, related_name='%(class)s_modifiedby', null=True, blank=True, on_delete=models.CASCADE, editable=False)
 
     def __str__(self):
         return str(self.id)
 
     def __unicode__(self):
         return str(self.id)
+
+    def save(self, *args, **kwargs):
+
+        if not self.id:
+            self.created_by = get_current_authenticated_user
+            self.modified_by = get_current_authenticated_user
+            self.test = get_current_authenticated_user
+            super(language, self).save(*args, **kwargs)
+        elif self.id:
+
+            self.modified_by = get_current_authenticated_user
+            self.modified_at = datetime.datetime.now()
+            self.test = get_current_user
+            super(language, self).save(*args, **kwargs)
+
+
+# @receiver(post_save, sender=language, dispatch_uid="add_to_candidate")
+# def add_to_candidate(sender, instance, **kwargs):
+#     current_candidate = instance.create_by
+#     instance.candidate_set = current_candidate
+#     instance.product.save()
 
 
 class education(models.Model):

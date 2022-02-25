@@ -1,8 +1,9 @@
+import datetime
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin, register
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
-from .models import candidate, certificate, education, employment
+from .models import candidate, certificate, education, employment, language
 # Register your models here.
 
 
@@ -38,4 +39,11 @@ class EmploymentAdmin(ImportExportModelAdmin):
 class CertificateAdmin(ImportExportModelAdmin):
     list_display = ('id', 'certificate_name', 'organization',
                     'issue_date', 'expire_date')
+    icon_name = 'assignment_ind'
+
+
+@register(language)
+class LanguageAdmin(ImportExportModelAdmin):
+    list_display = ('id', 'language', 'test', 'level', 'created',
+                    'created_at', 'modified', 'modified_at')
     icon_name = 'assignment_ind'

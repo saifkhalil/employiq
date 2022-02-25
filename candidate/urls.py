@@ -30,6 +30,8 @@ urlpatterns = [
          login_required(del_employement), name='del_employement'),
     path('language/create', login_required(LanguageCreateView.as_view()),
          name='languagecreate'),
+    path('language/createBS/',
+         login_required(LanguageCreateView.as_view()), name='create_Lang_BS'),
     path('language/<uuid:pk>/update/',
          login_required(LanguageUpdateView.as_view()), name='language_update'),
     path('language/<uuid:eid>/delete/',

@@ -17,8 +17,7 @@ urlpatterns = [
     path('job/<uuid:jid>', login_required(
         JobDetails), name='job_details'),
     path('job', job_list, name='job_list'),
-    path('job/apply/<uuid:jid>', login_required(
-        job_apply), name='job_apply'),
+    path('job/apply/<uuid:jid>', login_required(job_apply), name='job_apply'),
 ]
 
 if settings.DEBUG:
