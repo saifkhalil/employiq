@@ -65,6 +65,9 @@
 
                                     <h2 class="capitalize">{{ object.company }}</h2>
                                     <h5 class="pt10">{{ object.industry }}</h5>
+                                    <a href="{% url 'employer_update' object.id %}"
+                                        class="btn text-dark btn-outline-primary"><i class="fas fa-edit"></i>
+                                        {% trans 'Edit Info' %}</a>
                                 </div>
                                 {% comment %}
                                 <!-- Start of Social Media Buttons -->

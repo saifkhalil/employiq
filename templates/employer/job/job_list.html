@@ -91,7 +91,9 @@
           <div class="col-md-1 col-xs-3 nopadding">
             <div class="job-company">
               <a href="#">
-                <img class="img-fluid" src="{{ job.employer.logo.url }}" alt="">
+                <img class="img-fluid"
+                  src="{% if job.employer.public_company_info == 'Y' %} {{ job.employer.logo.url }} {% else %} {% static 'images/EIQLOGO.svg' %}{% endif %}"
+                  alt="{{job.employer.public_company_info}}">
               </a>
             </div>
           </div>

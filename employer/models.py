@@ -95,7 +95,8 @@ class employer(models.Model):
                                            verbose_name=_('Make company info public? (logo and name)'))
     communication_email = models.EmailField(
         null=False, blank=False, verbose_name=_('Email for receiving CVs'))
-    website = models.URLField(max_length=200, verbose_name=_('website'))
+    website = models.URLField(blank=True, null=True,
+                              max_length=200, verbose_name=_('website'))
     address = models.CharField(max_length=500, verbose_name=_('Address'))
     city = models.CharField(max_length=500, default='Baghdad',
                             choices=GOVERNORATES, verbose_name=_('City'))
@@ -133,7 +134,7 @@ class job(models.Model):
         primary_key=True, default=uuid.uuid4, editable=False)
     employer = models.ForeignKey(employer, on_delete=models.CASCADE)
     job_title = models.CharField(max_length=200, verbose_name=_('Job Title'))
-    keywords = TagField(verbose_name=_('Keywords'), delimiters=' ')
+    keywords = TagField(verbose_name=_('Position keywords'), delimiters=' ')
     job_description = RichTextField(default='',
                                     blank=False, null=False, verbose_name=_('Job Description'))
     job_type = models.CharField(max_length=20, choices=Employment_Type,

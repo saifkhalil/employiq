@@ -23,6 +23,8 @@ from django.core.mail import EmailMessage, send_mail
 from django.conf import settings
 from django.template.loader import render_to_string
 from django.contrib.sites.shortcuts import get_current_site
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from abc import ABC
 # Create your views here.
 
 
@@ -250,3 +252,18 @@ def job_list(request):
         'page_obj': page_obj
     }
     return render(request, 'employer/job/job_list.html', context)
+
+
+class EmployerUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView, ABC):
+    model = employer
+    template_name = 'employer/update.html'
+    form_class = EmpForm
+
+    def form_valid(self, form):
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('my_employer_details')
+
+    def test_func(self):
+        return True

@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load widget_tweaks %}
 {% load i18n %}
+{% load static %}
 {% block content %}
 <!-- ===== Start of Job Header Section ===== -->
 <section class="job-header ptb60">
@@ -59,8 +60,11 @@
                     <!-- Job Company Image -->
                     <div class="col-md-3">
                         <div class="job-company">
-                            <a href="{% url 'employer_details' employer.id %}">
-                                <img class="img-fluid" src="{{ employer.logo.url }}" alt="">
+                            <a
+                                href="{% if job.employer.public_company_info == 'Y' %}{% url 'employer_details' employer.id %}{% else %}#{% endif %}">
+                                <img class="img-fluid"
+                                    src="{% if job.employer.public_company_info == 'Y' %} {{ job.employer.logo.url }} {% else %} {% static 'images/EIQLOGO.svg' %}{% endif %}"
+                                    alt="">
                             </a>
                         </div>
                     </div>
@@ -68,14 +72,15 @@
                     <!-- Job Company Info -->
                     <div class="col-md-9">
                         <div class="job-company-info mt30">
-                            <h3 class="capitalize">{{ employer.company }}</h3>
+                            <h3 class="capitalize">
+                                {% if job.employer.public_company_info == 'Y' %}{{ employer.company }}{% else %}{% trans 'Private Company Name' %}{% endif %}
+                            </h3>
                             <p class="capitalize">{{ employer.industry }}</p>
 
                             <ul class="list-inline mt10">
                                 <li><a href="{{ employer.website }}"><i class="fa fa-link"
                                             aria-hidden="true"></i>Website</a></li>
-                                <li> <i class="fa fa-phone"></i>
-                                    <a href="tel:{{ employer.phone_number}}">{{ employer.phone_number }}</a></li>
+
                             </ul>
                         </div>
                     </div>
