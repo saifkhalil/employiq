@@ -222,13 +222,16 @@ def job_list(request):
         job_list = job_list.filter(city=city)
     if keywords:
         query_words = str(keywords).split(" ")  # Get the word in a list
+        query = Q()
         for w in query_words:
             if len(w) < 2:  # Min length
                 query_words.remove(w)
         for word in query_words:
-            job_list1 = job_list.filter(Q(job_title__icontains=word) | Q(
-                employer__company__icontains=word) | Q(keywords__icontains=word))
-            job_list1.union(job_list1)
+            query = query | Q(job_title__icontains=word) | Q(
+                employer__company__icontains=word) | Q(keywords__icontains=word)
+
+        job_list1 = job_list.filter(query)
+        # job_list1.union(job_list1)
         # job_list2 = job_list.filter(reduce(lambda x, y: x | y, [Q(employer__company__icontains=word)
         #                                                         for word in query_words]))
         # # job_list1.union(job_list2)
