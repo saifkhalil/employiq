@@ -213,6 +213,7 @@ def job_list(request):
     number_of_records = request.session.get('number_of_records')
     job_list3 = job.objects.all()
     job_list = job.objects.all()
+    job_list1 = []
     if number_of_records:
         number_of_records = int(number_of_records)
     else:
@@ -224,15 +225,16 @@ def job_list(request):
         for w in query_words:
             if len(w) < 2:  # Min length
                 query_words.remove(w)
-
-        job_list1 = job_list.filter(reduce(lambda x, y: x | y, [Q(job_title__icontains=word)
-                                                                for word in query_words]))
-        job_list2 = job_list.filter(reduce(lambda x, y: x | y, [Q(employer__company__icontains=word)
-                                                                for word in query_words]))
-        job_list1.union(job_list2)
-        job_list3 = job_list.filter(reduce(lambda x, y: x | y, [Q(keywords__icontains=word)
-                                                                for word in query_words]))
-        job_list1.union(job_list3)
+        for word in query_words:
+            job_list1 = job_list.filter(Q(job_title__icontains=word) | Q(
+                employer__company__icontains=word) | Q(keywords__icontains=word))
+            job_list1.union(job_list1)
+        # job_list2 = job_list.filter(reduce(lambda x, y: x | y, [Q(employer__company__icontains=word)
+        #                                                         for word in query_words]))
+        # # job_list1.union(job_list2)
+        # job_list3 = job_list.filter(reduce(lambda x, y: x | y, [Q(keywords__icontains=word)
+        #                                                         for word in query_words]))
+        # job_list1.union(job_list1, job_list2, job_list3)
     else:
         job_list1 = job_list3
     session = [keywords, city, number_of_records]
