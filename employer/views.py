@@ -233,6 +233,8 @@ def job_list(request):
         job_list3 = job_list.filter(reduce(lambda x, y: x | y, [Q(keywords__icontains=word)
                                                                 for word in query_words]))
         job_list1.union(job_list3)
+    else:
+        job_list1 = job_list3
     session = [keywords, city, number_of_records]
     # Show 25 contacts per page.
     paginator = Paginator(job_list1, number_of_records)
