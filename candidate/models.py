@@ -35,9 +35,6 @@ TITLE_CHOICES = [
 GENDER_CHOICES = [
     ('F', _('Female')),
     ('M', _('Male')),
-    ('D', _('Divorced')),
-    ('O', _('Other')),
-
 ]
 
 
