@@ -186,12 +186,12 @@ def employer_details(request, eid):
 
 def job_list(request):
     if request.method == 'GET':
-        if request.GET.get('country'):
-            country = request.GET.get('country')
-            request.session['country'] = country
+        if request.GET.get('city'):
+            city = request.GET.get('city')
+            request.session['city'] = city
         else:
-            country = ""
-            request.session['country'] = country
+            city = ""
+            request.session['city'] = city
         if request.GET.get('keywords'):
             keywords = request.GET.get('keywords')
             request.session['keywords'] = keywords
@@ -202,23 +202,23 @@ def job_list(request):
             number_of_records = request.GET.get('number_of_records')
             request.session['number_of_records'] = int(number_of_records)
         if request.GET.get('clear'):
-            if request.session.get('country'):
-                del request.session['country']
+            if request.session.get('city'):
+                del request.session['city']
             if request.session.get('search'):
                 del request.session['keywords']
             if request.session.get('number_of_records'):
                 del request.session['number_of_records']
-    country = request.session.get('country')
+    city = request.session.get('city')
     keywords = request.session.get('keywords')
     number_of_records = request.session.get('number_of_records')
-    job_list2 = job.objects.all()
+    job_list3 = job.objects.all()
     job_list = job.objects.all()
     if number_of_records:
         number_of_records = int(number_of_records)
     else:
         number_of_records = 10
-    if country:
-        job_list = job_list.filter(country__icontains=country)
+    if city:
+        job_list = job_list.filter(city=city)
     if keywords:
         query_words = str(keywords).split(" ")  # Get the word in a list
         for w in query_words:
@@ -229,10 +229,13 @@ def job_list(request):
                                                                 for word in query_words]))
         job_list2 = job_list.filter(reduce(lambda x, y: x | y, [Q(employer__company__icontains=word)
                                                                 for word in query_words]))
-        job_list2.union(job_list1)
-    session = [country, keywords, number_of_records]
+        job_list1.union(job_list2)
+        job_list3 = job_list.filter(reduce(lambda x, y: x | y, [Q(keywords__icontains=word)
+                                                                for word in query_words]))
+        job_list1.union(job_list3)
+    session = [keywords, city, number_of_records]
     # Show 25 contacts per page.
-    paginator = Paginator(job_list2, number_of_records)
+    paginator = Paginator(job_list1, number_of_records)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     context = {

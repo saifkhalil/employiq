@@ -21,13 +21,16 @@ class DateInput(forms.DateInput):
 
 
 class JobForm(ModelForm):
+    keywords = TagField(label=_('Keywords'), place_holder=_(
+        'add a keywords'), delimiters=' ')
+
     def __init__(self, *args, **kwargs):
         super(JobForm, self).__init__(*args, **kwargs)
         self.fields['country'].disabled = True
 
     class Meta:
         model = job
-        fields = ['job_title', 'job_description', 'job_type', 'city',
+        fields = ['job_title', 'keywords', 'job_description', 'job_type', 'city',
                   'country', 'salary', 'nationality',
                   'date_opened', 'date_closed']
         widgets = {'country': CountrySelectWidget(

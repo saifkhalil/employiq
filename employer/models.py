@@ -1,3 +1,5 @@
+from tagify.models import TagField
+from ast import keyword
 from email.policy import default
 from candidate.models import candidate
 import uuid
@@ -131,6 +133,7 @@ class job(models.Model):
         primary_key=True, default=uuid.uuid4, editable=False)
     employer = models.ForeignKey(employer, on_delete=models.CASCADE)
     job_title = models.CharField(max_length=200, verbose_name=_('Job Title'))
+    keywords = TagField(verbose_name=_('Keywords'), delimiters=' ')
     job_description = RichTextField(default='',
                                     blank=False, null=False, verbose_name=_('Job Description'))
     job_type = models.CharField(max_length=20, choices=Employment_Type,
