@@ -135,7 +135,10 @@ def JobDetails(request, jid):
         current_candidate_applied = True
     else:
         current_candidate_applied = False
-    ceid = employer.objects.get(user__id=user.id).id
+    try:
+        ceid = employer.objects.get(user__id=user.id).id
+    except:
+        cied = []
     jeid = job_details.employer.id
     if ceid == jeid:
         is_job_owner = True
