@@ -135,13 +135,12 @@ def JobDetails(request, jid):
         current_candidate_applied = True
     else:
         current_candidate_applied = False
-    try:
-        ceid = employer.objects.get(user__id=user.id).id
-    except ObjectDoesNotExist:
-        cied = []
     jeid = job_details.employer.id
-    if ceid == jeid:
-        is_job_owner = True
+    if user.is_employer == True:
+        ceid = employer.objects.get(user__id=user.id).id
+        if ceid == jeid:
+            is_job_owner = True
+
     employer_details = employer.objects.get(job__id=job_details.id)
     candidates_list = job_details.applied_candidates.all()
     context = {
