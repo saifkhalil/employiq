@@ -137,7 +137,7 @@ def JobDetails(request, jid):
         current_candidate_applied = False
     try:
         ceid = employer.objects.get(user__id=user.id).id
-    except:
+    except ObjectDoesNotExist:
         cied = []
     jeid = job_details.employer.id
     if ceid == jeid:
