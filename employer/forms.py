@@ -21,8 +21,8 @@ class DateInput(forms.DateInput):
 
 
 class JobForm(ModelForm):
-    keywords = TagField(label=_('Keywords'), place_holder=_(
-        'add a keywords'), delimiters=' ')
+    keywords = TagField(label=_('Position keywords'), place_holder=_(
+        'add a position keywords'), delimiters=' ')
 
     def __init__(self, *args, **kwargs):
         super(JobForm, self).__init__(*args, **kwargs)

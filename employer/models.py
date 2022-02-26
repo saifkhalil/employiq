@@ -134,7 +134,8 @@ class job(models.Model):
         primary_key=True, default=uuid.uuid4, editable=False)
     employer = models.ForeignKey(employer, on_delete=models.CASCADE)
     job_title = models.CharField(max_length=200, verbose_name=_('Job Title'))
-    keywords = TagField(verbose_name=_('Position keywords'), delimiters=' ')
+    keywords = TagField(verbose_name=_('Position keywords'),
+                        delimiters=' ')
     job_description = RichTextField(default='',
                                     blank=False, null=False, verbose_name=_('Job Description'))
     job_type = models.CharField(max_length=20, choices=Employment_Type,
