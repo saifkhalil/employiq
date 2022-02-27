@@ -134,6 +134,9 @@ class employment(models.Model):
     def __unicode__(self):
         return self.employer
 
+    class Meta:
+        ordering = ('-start_date',)
+
 
 class language(models.Model):
     id = models.UUIDField(
@@ -203,6 +206,9 @@ class education(models.Model):
     def __unicode__(self):
         return str(self.id)
 
+    class Meta:
+        ordering = ('-start_date',)
+
 
 class certificate(models.Model):
     id = models.UUIDField(
@@ -225,6 +231,9 @@ class certificate(models.Model):
 
     def __unicode__(self):
         return str(self.id)
+
+    class Meta:
+        ordering = ('-issue_date',)
 
 
 class candidate(models.Model):
@@ -305,3 +314,4 @@ class candidate(models.Model):
 
     class Meta:
         unique_together = ('id', 'user',)
+        ordering = ('-created_at',)

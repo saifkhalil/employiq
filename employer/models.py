@@ -167,3 +167,6 @@ class job(models.Model):
 
     def __unicode__(self):
         return self.job_title
+
+    class Meta:
+        ordering = ('-date_opened',)
