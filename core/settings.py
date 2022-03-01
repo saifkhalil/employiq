@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'bootstrap_modal_forms',
     'django_currentuser',
+    'weasyprint',
     # Buitin apps
     'accounts',
     'candidate',

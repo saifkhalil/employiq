@@ -3036,6 +3036,8 @@ section#signup-video .video-sec a i {
     float: right
 }
 
+
+/* 
 ul.pagination {
     display: block;
     padding: 0;
@@ -3043,8 +3045,10 @@ ul.pagination {
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     border-radius: 0
-}
+} */
 
+
+/* 
 ul.pagination li a {
     font-size: 16px;
     color: #f6f6f6;
@@ -3062,8 +3066,10 @@ ul.pagination li a:hover {
     background: 0 0;
     color: #29b1fd;
     border-color: #29b1fd
-}
+} */
 
+
+/* 
 ul.pagination li.active a {
     background: 0 0;
     border: 2px solid #29b1fd;
@@ -3075,7 +3081,7 @@ ul.pagination li.active a:hover {
     background: 0 0;
     color: #29b1fd;
     border-color: #29b1fd
-}
+} */
 
 .widget {
     border: 1px solid #e3e3e3

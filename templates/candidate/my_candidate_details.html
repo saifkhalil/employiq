@@ -3,13 +3,14 @@
 <script src="https://unpkg.com/@yaireo/tagify@3.1.0/dist/tagify.polyfills.min.js"></script>
 <link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
-<script src="https://cdn.jsdelivr.net/canvg/1.4.0/canvg.min.js"></script>
+<script src="{% static 'js/canvg.min.js' %}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.min.js"></script>
+{% comment %}
 <!-- pdfmake files: -->
 <script src='https://cdn.jsdelivr.net/npm/pdfmake@latest/build/pdfmake.min.js'></script>
 <script src='https://cdn.jsdelivr.net/npm/pdfmake@latest/build/vfs_fonts.min.js'></script>
 <!-- html-to-pdfmake file: -->
-<script src="https://cdn.jsdelivr.net/npm/html-to-pdfmake/browser.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html-to-pdfmake/browser.js"></script> {% endcomment %}
 <style>
     .bold {
         font-weight: bold;
@@ -121,15 +122,16 @@
                                                 </div>
                                             </div>
                                             <div class="col-4">
-                                                <div class="btn-group" role="group" aria-label="Basic outlined example">
 
+                                                <div class="row">
                                                     <a href="{% url 'candidate_update' object.id %}"
                                                         class="btn text-dark btn-outline-primary"><i
                                                             class="fas fa-edit"></i>
                                                         {% trans 'Edit Info' %}</a>
-
-                                                    <a class="btn text-dark btn-outline-primary" href="#"
-                                                        onclick="javascript:cvtopdf()">{% trans 'Generate CV' %}</a>
+                                                </div>
+                                                <div class="row">
+                                                    <a class="btn text-dark btn-outline-primary"
+                                                        href="{% url 'generate_pdf' %}">{% trans 'Generate CV' %}</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -995,86 +997,9 @@
         </div>
     </div>
 </div>
+<div>
 
-<div style="color:black;" id="print" class="print">
-    <div class="row">
-        <div class="col-9">
-            <div class="row">
-                <div class="col-2">
-                    <img class="img-thumbnail" src="{{object.photo.url}}" alt="{{ object.firstname }}">
-                </div>
-                <div class="col-10">
-                    <h5 style="color: #6c757d !important;font-weight: bold;">{{object.get_title_display}}
-                        {{ object.firstname }} {{ object.secondname }} {{ object.lastname }}</h5>
-                    <h6>{{ object.get_highest_level_of_education_display }}</h6>
-                    {% comment %}
-                    <h6>B.SC. GENERAL MANAGEMENT</h6> {% endcomment %}
-                </div>
-            </div>
-            <hr>
-            <div class="row">
-                <h5 class="bold">PROFILE</h5>
-                <p>{{ object.bio }}</p>
-            </div>
-            </br>
-            <hr>
-            <div class="row">
-                <h5 style="color:black" class="bold">EXPERIENCES</h5>
-                {% for emp in employments %}
-                <h6 style="color: #6c757d !important">{{ emp.employer }} – {{ emp.start_date|date:"M, Y" }} –
-                    {% if emp.get_current_job_display == "Yes" %} Current {% else %} {{ emp.end_date|date:"M, Y" }}
-                    {% endif%}</h6>
-                <p style="color: #6c757d !important">{{ emp.city}}, {{ emp.get_country_display }}</p>
-                <h6>{{ emp.job_title }}</h6>
-                <p>{{ emp.job_description|safe }}</p>
-                {% endfor %}
-            </div>
-            <hr>
-            <div class="row">
-                <h5 style="color:black" class="bold">COURSES & WORKSHOPS</h5>
-                {% for cert in certificates %}
-                <h6 style="color: #6c757d !important">{{ cert.certificate_name }} — {{ cert.issue_date|date:"Y" }}</h6>
-                <p style="color: #6c757d !important">{{ cert.organization }}</p>
-                {% endfor %}
-            </div>
-            <hr>
-            <div class="row">
-                <h5 style="color:black" class="bold">EDUCATION</h5>
-                {% for edu in educations %}
-                <h6 class="bold">{{ edu.original_title_of_the_qualification }}</h6>
-                <p style="color: #6c757d !important">{{ edu.institution }}</p>
-                <p style="color: #6c757d !important">{{ edu.get_country_display }}, {{ edu.city }}</p>
-                <p style="color: #6c757d !important">{{ edu.start_date|date:"Y"}} - {{ edu.graduation_date|date:"Y"}}
-                </p>
-                {% endfor %}
-
-            </div>
-        </div>
-        <div class="col-3 vl">
-            <h6 style="color:black" class="bold">PERSONAL DETAILS</h6>
-            <br>
-            <p>Gender: {{object.get_gender_display}} </p>
-            <p>Birth: {{ object.birthofdate }}</p>
-            <p>Marital status: {{ object.get_marital_status_display }} </p>
-            <p>Nationality: {{ object.get_primary_nationality_display }}</p>
-            <p>Address: {{ object.get_country_display }}, {{ object.city }}</p>
-            <p>Tel: {{ object.phone_number }}</p>
-            <p>Email: {{ object.email }} </p>
-            <br>
-            <br>
-            <h6 style="color:black" class="bold">PROFESSIONAL SKILLS</h6>
-            <br>
-            <p id="cvskills">#</p>
-            <br>
-            <br>
-            <h6 class="bold">LANGUAGES</h6>
-            <br> {% for lang in Languages %}
-            <p>{{ lang.get_language_display }}: {{ lang.get_level_display }} </p>
-            {% endfor %}
-        </div>
-    </div>
 </div>
-
 <div class="modal fade" tabindex="-1" role="dialog" id="modal">
     <div class="modal-dialog" role="document">
         <div class="modal-content"></div>
@@ -1085,17 +1010,36 @@
 
 
 <script type="text/javascript">
-    function cvtopdf() {
+    function exportCV() {
+        source = $('#print');
+        var pdf = new jsPDF('p', 'pt', 'a4');
+        source.show();
+        specialElementHandlers = {
+            '#bypassme': function (element, renderer) {
+                return true
+            }
+        };
+        margins = {
+            top: 80,
+            bottom: 60,
+            left: 40,
+            width: 522
+        };
 
+        pdf.fromHTML(
+            source[0],
+            margins.left,
+            margins.top, {
+                'width': margins.width,
+                'elementHandlers': specialElementHandlers
+            },
 
-        var pdf = new jsPDF('a4');
-        pdf.setFillColor(255, 255, 255);
-        pdf.setTextColor(0, 0, 0);
-        pdf.addHTML($('#print'), function () {
-            pdf.save('CV.pdf');
-        });
-
-    };
+            function (dispose) {
+                pdf.save('CV.pdf');
+            }, margins
+        );
+        source.hide();
+    }
 
     function topFunction() {
         document.body.scrollTop = 0;

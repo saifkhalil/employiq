@@ -129,12 +129,14 @@ def job_apply(request, jid):
 def JobDetails(request, jid):
     user = request.user
     job_details = job.objects.get(id=jid)
-    current_candidate = candidate.objects.get(user__id=request.user.id)
-    is_job_owner = False
-    if job.objects.filter(id=jid, applied_candidates=current_candidate).count() >= 1:
-        current_candidate_applied = True
-    else:
-        current_candidate_applied = False
+    current_candidate_applied = False
+    if user.is_candidate == True:
+        current_candidate = candidate.objects.get(user__id=request.user.id)
+        is_job_owner = False
+        if job.objects.filter(id=jid, applied_candidates=current_candidate).count() >= 1:
+            current_candidate_applied = True
+        else:
+            current_candidate_applied = False
     jeid = job_details.employer.id
     if user.is_employer == True:
         ceid = employer.objects.get(user__id=user.id).id

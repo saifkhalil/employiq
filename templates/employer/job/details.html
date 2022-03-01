@@ -127,7 +127,9 @@
                                     {% trans 'Nationality:' %} <span>{% trans job.nationality %}</span></h5>
                             </li>
                         </ul>
+                        {% if is_job_owner == False %}
                         <div class="mt20">
+
                             {% if applied == False %}
                             <button type="button" class="btn btn-blue btn-effect" data-bs-toggle="modal"
                                 data-bs-target="#applyJob">
@@ -137,6 +139,7 @@
                             <a href="#" class="btn btn-green btn-effect">{% trans 'Your Already applied' %}</a>
                             {% endif %}
                         </div>
+                        {% endif %}
                     </div>
                 </div>
                 {% if is_job_owner %}

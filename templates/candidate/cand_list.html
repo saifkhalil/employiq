@@ -16,9 +16,9 @@
     </div>
     <section class="main overlay-black">
       <div class="container wrapper">
-        <h3 class="{% if remcand >= 1 %} text-white {% else %} text-danger {% endif %} text-center">
+        {% comment %} <h3 class="{% if remcand >= 1 %} text-white {% else %} text-danger {% endif %} text-center">
           {% trans 'Your remaining candidate details views' %} "{{remcand}}"
-        </h3>
+        </h3> {% endcomment %}
         <form method="GET">
           <div class="row m-3">
             <div class="col-md">
@@ -104,21 +104,22 @@
           <td>{{ cands.birthofdate|date:"d/m/Y" }}</td>
           <td>{{cands.get_highest_level_of_education_display}}</td>
           <td>{{cands.city}}</td>
-          <td><a class="btn {% if remcand < 1 %}btn-secondary disabled {% else %} btn-primary{% endif %}"
-              target="_blank"
-              href="{% if remcand >= 1 %}{% url 'candetials' cands.id %}{% endif %}">{% trans 'View Full Details' %}</a>
+          <td><a class="btn btn-primary" target="_blank"
+              href="{% url 'candetials' cands.id %}">{% trans 'View Full Details' %}</a>
           </td>
         </tr>
         {% else %}
-        {% if cm.requester == user %}
+
         <tr class="bg-white">
-          <td>{{ cands.title }} {{ cands.firstname }} {{ cands.secondname }} {{ cands.lastname }}</td>
-          <td>{{ cands.birthofdate }}</td>
+          <td>{{ cands.get_title_display }} {{ cands.firstname }} {{ cands.secondname }} {{ cands.lastname }}</td>
+          <td>{{ cands.birthofdate|date:"d/m/Y" }}</td>
+          <td>{{cands.get_highest_level_of_education_display}}</td>
+          <td>{{cands.city}}</td>
           <td><a class="btn btn-primary" target="_blank"
-              href="{% if remcand >= 1 %}{% url 'candetials' cands.id %}{% endif %}">{% trans 'View Full Details' %}</a>
+              href="{% url 'candetials' cands.id %}">{% trans 'View Full Details' %}</a>
           </td>
         </tr>
-        {% endif %}
+
         {% endif %}
         {% endfor %}
       </tbody>
@@ -126,7 +127,7 @@
 
     <nav aria-label="Page navigation">
       <ul class="pagination">
-        <li class="page-item {% if not page_obj.has_previous %}disabled{%endif%}">
+        <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
           <a class="page-link" {% if page_obj.has_previous %} href="?page={{ page_obj.previous_page_number }}"
             {% endif %} aria-label="Previous">
             {% trans 'Previous' %}
@@ -137,7 +138,7 @@
         {% else %}
         <li class="page-item"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
         {% endif %} {% endfor %}
-        <li class="page-item {% if not page_obj.has_next %}disabled{%endif%}">
+        <li class="page-item {% if not page_obj.has_next %}disabled{% endif %}">
           <a class="page-link" {% if page_obj.has_next %}href="?page={{ page_obj.next_page_number }}" {% endif %}
             aria-label="Next">
             {% trans 'Next' %}
@@ -147,7 +148,6 @@
     </nav>
   </div>
 </div>
-
 
 
 

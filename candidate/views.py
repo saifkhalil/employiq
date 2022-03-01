@@ -1,9 +1,13 @@
 from mimetypes import init
 from urllib import request
+from django.conf import settings
 from django.db.models.expressions import Exists
 from abc import ABC
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import HttpResponse
+from django.template.loader import render_to_string
+from weasyprint import HTML
+import tempfile
 from django.http.response import JsonResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from xhtml2pdf import context
@@ -68,13 +72,14 @@ def candlist(request):
     context = {
         'session': json.dumps(session),
         'page_obj': page_obj,
+        'cn': cand_list,
         'remcand': employer.objects.filter(user=request.user).order_by().values_list('remaining_records', flat=True).first()
     }
     return render(request, 'candidate/cand_list.html', context)
 
 
 def candetials(request, cid):
-    remcand = employer.objects.get(user=request.user)
+    # remcand = employer.objects.get(user=request.user)
     cm = candidate.objects.get(id=cid)
     context = {
         'object': cm,
@@ -82,7 +87,7 @@ def candetials(request, cid):
         'employments': employment.objects.filter(candidate__id=cid),
         'Languages': language.objects.filter(candidate__id=cid),
         'certificates': certificate.objects.filter(candidate__id=cid),
-        'remcand': remcand.remaining_records
+        # 'remcand': remcand.remaining_records
     }
     return render(request, 'candidate/candidate_detail.html', context)
 
@@ -451,3 +456,36 @@ class GeneratePdf(View):
 
         # rendering the template
         return HttpResponse(pdf, content_type='application/pdf')
+
+
+def generate_pdf(request):
+    userid = request.user.id
+    try:
+        candidate_detials = candidate.objects.get(user__id=userid)
+        cid = candidate.objects.get(user__id=userid).id
+    except ObjectDoesNotExist:
+        return reverse_lazy('my_candidate_details')
+    context = {
+        'object': candidate_detials,
+        'educations': education.objects.filter(candidate__id=cid),
+        'employments': employment.objects.filter(candidate__id=cid),
+        'Languages': language.objects.filter(candidate__id=cid),
+        'certificates': certificate.objects.filter(candidate__id=cid),
+    }
+    # Rendered
+    html_string = render_to_string('candidate/pdf.html', context=context)
+    html = HTML(string=html_string, base_url=request.build_absolute_uri())
+    result = html.write_pdf(stylesheets=[
+                            settings.BASE_DIR + '/static/css/bootstrap.min.css', ])
+
+    # Creating http response
+    # response = HttpResponse(content_type='application/pdf;')
+    # response['Content-Disposition'] = 'inline; filename=list_people.pdf'
+    # response['Content-Transfer-Encoding'] = 'binary'
+    # with tempfile.NamedTemporaryFile(delete=True) as output:
+    #     output.write(result)
+    #     output.flush()
+    #     output = open(output.name, 'r')
+    #     response.write(output.read())
+
+    return HttpResponse(result, content_type='application/pdf')
