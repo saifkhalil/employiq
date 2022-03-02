@@ -130,6 +130,7 @@ def JobDetails(request, jid):
     user = request.user
     job_details = job.objects.get(id=jid)
     current_candidate_applied = False
+    is_job_owner = False
     if user.is_candidate == True:
         current_candidate = candidate.objects.get(user__id=request.user.id)
         is_job_owner = False
