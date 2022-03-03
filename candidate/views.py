@@ -1,3 +1,4 @@
+from ast import keyword
 from mimetypes import init
 from urllib import request
 from django.conf import settings
@@ -8,6 +9,7 @@ from django.http import HttpResponse
 from django.template.loader import render_to_string
 from weasyprint import HTML
 import tempfile
+from django.db.models import Q
 from django.http.response import JsonResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from xhtml2pdf import context
@@ -33,10 +35,17 @@ from bootstrap_modal_forms.generic import BSModalCreateView
 
 
 def candlist(request):
+    keywords = ''
+    city = ''
+    education = ''
+    number_of_records = ''
     if request.method == 'GET':
         if request.GET.get('keywords'):
             keywords = request.GET.get('keywords')
-            request.session['keywords'] = keywords
+            if keywords != "":
+                request.session['keywords'] = keywords
+            else:
+                del request.session['keywords']
         if request.GET.get('city'):
             city = request.GET.get('city')
             request.session['city'] = city
@@ -55,23 +64,28 @@ def candlist(request):
                 del request.session['education']
             if request.session.get('number_of_records'):
                 del request.session['number_of_records']
-    keywords = request.session.get('keywords')
-    city = request.session.get('city')
-    education = request.session.get('education')
-    number_of_records = request.session.get('number_of_records')
+
     cand_list = candidate.objects.all()
     if number_of_records:
         number_of_records = int(number_of_records)
     else:
         number_of_records = 10
-    # if keywords:
-    #     cand_list = cand_list.filter(city=city)
+    if keywords:
+        query_words = str(keywords).split(" ")  # Get the word in a list
+        query = Q()
+        for w in query_words:
+            if len(w) < 2:  # Min length
+                query_words.remove(w)
+        for word in query_words:
+            query = query | Q(firstname__icontains=word) | Q(
+                bio__icontains=word) | Q(skills__icontains=word)
+        cand_list = cand_list.filter(query)
     if city:
         cand_list = cand_list.filter(city=city)
     if education:
         cand_list = cand_list.filter(
             highest_level_of_education__icontains=education)
-    session = [city, education, number_of_records]
+    session = [city, education, number_of_records, keywords]
     # Show 25 contacts per page.
     paginator = Paginator(cand_list, number_of_records)
     page_number = request.GET.get('page')

@@ -19,7 +19,6 @@ def home(request):
         if request.POST.get('education'):
             education = request.POST.get('education')
             request.session['education'] = education
-
         if request.POST.get('number_of_records'):
             number_of_records = request.POST.get('number_of_records')
             request.session['number_of_records'] = int(number_of_records)
