@@ -10,13 +10,13 @@ class EmployerResource(resources.ModelResource):
     class Meta:
         model: employer
         fields = ('user', 'company', 'logo', 'public_company_info', 'communication_email', 'is_subscribed', 'plan',
-                  'subscription_from', 'subscription_to', 'remaining_records', 'phone_number', 'address', 'city', 'country',)
+                  'subscription_from', 'subscription_to', 'remaining_records', 'remaining_jobs', 'phone_number', 'address', 'city', 'country',)
 
 
 @register(employer)
 class EmployerAdmin(ImportExportModelAdmin):
     list_display = ('company', 'is_subscribed', 'plan', 'subscription_from',
-                    'subscription_to', 'remaining_records', 'phone_number', 'address', 'city', 'country')
+                    'subscription_to', 'remaining_records', 'remaining_jobs', 'phone_number', 'address', 'city', 'country')
     icon_name = 'business'
 
 

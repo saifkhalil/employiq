@@ -86,26 +86,30 @@ class JobCreateView(CreateView):
        # current_candidate = candidate.objects.get(user__id=self.request.user.id)
         Job = form.save(commit=False)
         user = self.request.user
-        current_employer = employer.objects.get(user__id=user.id)
-        Job.employer = current_employer
-        Job.created_by = User.objects.get(email=user.email)
-        Job.save()
-        '''
-        html_message = render_to_string('mail_template.html', {'cm': Edu})
-        send_mail(
-            subject='New Change Management Created Reason: ' +
-            form.cleaned_data['reason'],
-            html_message=html_message,
-            message='',
-            from_email='isms@qi.iq',
-            recipient_list=['saif.ibrahim@qi.iq', 'saif780@gmail.com'],
-            fail_silently=False,
-        )
-        '''
-        return super().form_valid(form)
+        current_employer = employer.objects.filter(user__id=user.id).first()
+        remaining_jobs = current_employer.remaining_jobs
+        if remaining_jobs >= 1:
+            current_employer.remaining_jobs = remaining_jobs - 1
+            current_employer.save()
+            Job.employer = current_employer
+            Job.created_by = User.objects.get(email=user.email)
+            messages.add_message(self.request, messages.SUCCESS,
+                                 _("Your job post is successful"))
+            Job.save()
+        else:
+            messages.add_message(self.request, messages.ERROR,
+                                 _("job not posted, please check jobs balance"))
+        return super(JobCreateView, self).form_valid(form)
 
     def get_success_url(self):
         return reverse_lazy('my_employer_details')
+
+    def get_context_data(self, **kwargs):
+        ctx = super(JobCreateView, self).get_context_data(**kwargs)
+        user = self.request.user
+        current_employer = employer.objects.filter(user__id=user.id).first()
+        ctx['current_employer'] = current_employer
+        return ctx
 
 
 def job_apply(request, jid):

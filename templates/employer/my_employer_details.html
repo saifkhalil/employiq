@@ -13,6 +13,19 @@
 <!-- ===== Start of Main Wrapper Section ===== -->
 <section class="ptb80" id="post-job">
     <div class="row justify-content-center">
+        {% if messages %}
+        <div class="row justify-content-center">
+            <div class="col-8">
+                {% for message in messages %}
+                <div
+                    class="alert {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %} alert-danger {% else %} alert-success {% endif %} alert-dismissible fade show">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
         <div class="col-lg-10 col-md-10 col-sm-12">
             <div class="row">
                 <h3 class="uppercase text-blue">{% trans "You Don't have employer account" %}</h3>
@@ -166,6 +179,14 @@
                                 <li>
                                     <i class="fa fa-envelope"></i>
                                     <a href="mailto:{{ object.communication_email}}">{{ object.communication_email}}</a>
+                                </li>
+                                <li>
+                                    <i class="fa fa-briefcase"></i>
+                                    <span>Job balance {{ object.remaining_jobs}}</span>
+                                </li>
+                                <li>
+                                    <i class="fa fa-search"></i>
+                                    <span>Suggestions balance {{ object.remaining_records}}</span>
                                 </li>
                             </ul>
                         </div>

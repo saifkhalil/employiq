@@ -17,10 +17,17 @@
     <section class="main overlay-black">
       <div class="container wrapper">
         {% comment %} <h3 class="{% if remcand >= 1 %} text-white {% else %} text-danger {% endif %} text-center">
-          {% trans 'Your remaining candidate details views' %} "{{remcand}}"
+          {% trans 'Your remaining candidate suggestions ' %} "{{remcand}}"
         </h3> {% endcomment %}
         <form method="GET">
           <div class="row m-3">
+            <div class="col-md">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="keywords" name="keywords"
+                  aria-describedby="search by skills" placeholder="search by skills, job title">
+                <label for="keywords">{% trans 'Search keywords' %}</label>
+              </div>
+            </div>
             <div class="col-md">
               <div class="form-floating">
                 <select class="form-control form-control-lg" placeholder="{% trans 'select city' %}" id="city"
@@ -104,8 +111,9 @@
           <td>{{ cands.birthofdate|date:"d/m/Y" }}</td>
           <td>{{cands.get_highest_level_of_education_display}}</td>
           <td>{{cands.city}}</td>
-          <td><a class="btn btn-primary" target="_blank"
-              href="{% url 'candetials' cands.id %}">{% trans 'View Full Details' %}</a>
+          <td>{% if remcand >= 1 %}<a class="btn btn-primary" target="_blank"
+              href="{% url 'candetials' cands.id %}">{% trans 'View Full Details' %}</a>{% else %}<a
+              class="btn btn-secondary" href="#" disabled>{% trans 'View Full Details' %}</a>{% endif %}
           </td>
         </tr>
         {% else %}
@@ -115,8 +123,9 @@
           <td>{{ cands.birthofdate|date:"d/m/Y" }}</td>
           <td>{{cands.get_highest_level_of_education_display}}</td>
           <td>{{cands.city}}</td>
-          <td><a class="btn btn-primary" target="_blank"
-              href="{% url 'candetials' cands.id %}">{% trans 'View Full Details' %}</a>
+          <td>{% if remcand >= 1 %}<a class="btn btn-primary" target="_blank"
+              href="{% url 'candetials' cands.id %}">{% trans 'View Full Details' %}</a>{% else %}<a
+              class="btn btn-secondary" href="#" disabled>{% trans 'View Full Details' %}</a>{% endif %}
           </td>
         </tr>
 

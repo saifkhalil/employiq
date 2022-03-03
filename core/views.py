@@ -47,6 +47,7 @@ def home(request):
         context = {
             'princing': subscription_plan.objects.all(),
             'allemployers': employer.objects.filter(public_company_info='Y'),
+            'employer_details': employer_details,
             'isemployer': isemployer
         }
         return render(request, 'index.html', context=context)

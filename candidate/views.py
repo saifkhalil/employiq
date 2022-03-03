@@ -34,23 +34,28 @@ from bootstrap_modal_forms.generic import BSModalCreateView
 
 def candlist(request):
     if request.method == 'GET':
+        if request.GET.get('keywords'):
+            keywords = request.GET.get('keywords')
+            request.session['keywords'] = keywords
         if request.GET.get('city'):
             city = request.GET.get('city')
             request.session['city'] = city
         if request.GET.get('education'):
             education = request.GET.get('education')
             request.session['education'] = education
-
         if request.GET.get('number_of_records'):
             number_of_records = request.GET.get('number_of_records')
             request.session['number_of_records'] = int(number_of_records)
         if request.GET.get('clear'):
+            if request.session.get('keywords'):
+                del request.session['keywords']
             if request.session.get('city'):
                 del request.session['city']
             if request.session.get('education'):
                 del request.session['education']
             if request.session.get('number_of_records'):
                 del request.session['number_of_records']
+    keywords = request.session.get('keywords')
     city = request.session.get('city')
     education = request.session.get('education')
     number_of_records = request.session.get('number_of_records')
@@ -59,6 +64,8 @@ def candlist(request):
         number_of_records = int(number_of_records)
     else:
         number_of_records = 10
+    # if keywords:
+    #     cand_list = cand_list.filter(city=city)
     if city:
         cand_list = cand_list.filter(city=city)
     if education:
@@ -79,15 +86,17 @@ def candlist(request):
 
 
 def candetials(request, cid):
-    # remcand = employer.objects.get(user=request.user)
+    remcand = employer.objects.get(user=request.user)
     cm = candidate.objects.get(id=cid)
+    remcand.remaining_records = remcand.remaining_records - 1
+    remcand.save()
     context = {
         'object': cm,
         'educations': education.objects.filter(candidate__id=cid),
         'employments': employment.objects.filter(candidate__id=cid),
         'Languages': language.objects.filter(candidate__id=cid),
         'certificates': certificate.objects.filter(candidate__id=cid),
-        # 'remcand': remcand.remaining_records
+        'remcand': remcand.remaining_records
     }
     return render(request, 'candidate/candidate_detail.html', context)
 

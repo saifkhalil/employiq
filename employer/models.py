@@ -112,6 +112,8 @@ class employer(models.Model):
         blank=True, null=True, verbose_name=_('Subscription To'))
     remaining_records = models.IntegerField(blank=True, null=True,
                                             verbose_name=_('Remaining Records'))
+    remaining_jobs = models.IntegerField(blank=True, null=True,
+                                         verbose_name=_('Remaining Jobs'))
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(
