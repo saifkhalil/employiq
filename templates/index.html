@@ -20,9 +20,15 @@
             {% csrf_token %}
 
             <div class="row justify-content-center">
-                <div class="col-md-4 col-sm-12 search-categories">
+                <div class="col-md-3 col-sm-12 search-keywords">
+                    <input type="text" class="form-control form-control-lg" id="keywords" name="keywords"
+                        aria-describedby="search by skills" placeholder="search by skills, job title">
+                    <label for="keywords">{% trans 'Search keywords' %}</label>
+                </div>
+                <div class="col-md-3 col-sm-12 search-categories">
                     <select class="form-control form-control-lg" name="education" id="education"
                         title="{% trans 'Education' %}">
+                        <option value='' selected>{% trans 'All' %}</option>
                         <option value="1">{% trans 'Non-Degree Programme' %}</option>
                         <option value="2">{% trans 'High School diploma' %}</option>
                         <option value="3">{% trans 'Technical Diploma' %}</option>
@@ -34,9 +40,10 @@
                 </div>
 
                 <!-- Start of location input -->
-                <div class="col-md-4 col-sm-12 search-location">
+                <div class="col-md-3 col-sm-12 search-location">
 
                     <select class="form-control form-control-lg" placeholder="select city" id="city" name="city">
+                        <option value='' selected>{% trans 'All' %}</option>
                         <option value='Al Anbar'>Al Anbar</option>
                         <option value='Babylon'>Babylon</option>
                         <option value='Baghdad'>Baghdad</option>
