@@ -37,6 +37,7 @@ def home(request):
         session = [city, education, number_of_records]
         return redirect('candlist')
     else:
+        employer_details = []
         try:
             userid = request.user.id
             employer_details = employer.objects.get(user__id=userid)
