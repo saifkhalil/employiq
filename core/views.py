@@ -8,10 +8,33 @@ from employer.models import employer, subscription_plan
 from django.core.exceptions import ObjectDoesNotExist
 from django.urls import reverse_lazy
 import urllib
+from candidate.models import candidate
+from employer.models import employer,job
+from accounts.models import User
+from django.db.models import Count
+from django.contrib.auth.decorators import user_passes_test
 
 
 def after(request):
     return render(request, 'after_register.html')
+
+@user_passes_test(lambda u: u.is_superuser)
+def dashboard(request):
+    active_users_count = User.objects.filter(is_verified=True).count()
+    candidates_count = candidate.objects.all().count()
+    employers_count = employer.objects.all().count()
+    jobs_count = job.objects.all().count()
+    users = User.objects.all()
+    users_count = User.objects.all().count()
+    context = {
+        'active_users_count': active_users_count,
+        'candidates_count': candidates_count,
+        'employers_count': employers_count,
+        'jobs_count':jobs_count,
+        'users': users,
+        'users_count': users_count,
+    }
+    return render(request, 'dashboard.html', context=context)
 
 
 def home(request):
@@ -59,7 +82,7 @@ def home(request):
         except ObjectDoesNotExist:
             isemployer = False
         context = {
-            'princing': subscription_plan.objects.all(),
+            'princing': subscription_plan.objects.all().order_by('price'),
             'allemployers': employer.objects.filter(public_company_info='Y'),
             'employer_details': employer_details,
             'isemployer': isemployer

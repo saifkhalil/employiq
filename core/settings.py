@@ -28,6 +28,16 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*', ]
 
+# SECURE_SSL_REDIRECT = True
+# SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+# SECURE_HSTS_PRELOAD = True
+# SECURE_FRAME_DENY = True
+# SECURE_HSTS_SECONDS = 3600
+# SECURE_CONTENT_TYPE_NOSNIFF = True
+# SECURE_BROWSER_XSS_FILTER = True
+# SESSION_COOKIE_HTTPONLY = True
 
 # Application definition
 
@@ -57,7 +67,6 @@ INSTALLED_APPS = [
     'languages',
     'tagify',
     'ckeditor',
-    'djmoney',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -65,6 +74,8 @@ INSTALLED_APPS = [
     'bootstrap_modal_forms',
     'django_currentuser',
     'weasyprint',
+    # 'djangosecure',
+    # 'sslserver',
     # Buitin apps
     'accounts',
     'candidate',
@@ -72,6 +83,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    # 'djangosecure.middleware.SecurityMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
@@ -81,6 +93,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django_currentuser.middleware.ThreadLocalUserMiddleware',
+
 
 ]
 
@@ -107,14 +120,25 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'database.sqlite3'),
     }
 }
+'''
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'employadmin_recruitment',
+        'USER': 'employadmin_recruitment',
+        'PASSWORD': 'Z@id1978',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -189,16 +213,25 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
 # Eliminate need to provide username, as it's a very old practice
 ACCOUNT_USERNAME_REQUIRED = False
-
+DJANGO_ALLOW_ASYNC_UNSAFE = True
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_USE_TLS = True
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'saif780@gmail.com'
-EMAIL_HOST_PASSWORD = 'llphqnbkqauylcsx'
-DEFAULT_FROM_EMAIL = 'EmployIQ <saif780@gmail.com>'
+
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_USE_TLS = True
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = 'saif780@gmail.com'
+# EMAIL_HOST_PASSWORD = 'llphqnbkqauylcsx'
+# DEFAULT_FROM_EMAIL = 'EmployIQ <saif780@gmail.com>'
+
+
+EMAIL_HOST = 'smtpout.secureserver.net'
+EMAIL_PORT = 465
+EMAIL_USE_SSL = True
+EMAIL_HOST_USER = 'donotreply@employiq.net'
+EMAIL_HOST_PASSWORD = 'Empl@y1Q'
+DEFAULT_FROM_EMAIL = 'EmployIQ <donotreply@employiq.net>'
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
@@ -235,6 +268,8 @@ MATERIAL_ADMIN_SITE = {
         'site': 'contact_mail',
     }
 }
+
+PHONENUMBER_DEFAULT_REGION = 'IQ'
 
 GRAPPELLI_ADMIN_TITLE = 'Erecruit system'
 #GRAPPELLI_SWITCH_USER = True

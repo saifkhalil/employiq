@@ -20,7 +20,9 @@ urlpatterns = [
         JobDetails), name='job_details'),
     path('job', job_list, name='job_list'),
     path('job/apply/<uuid:jid>', login_required(job_apply), name='job_apply'),
+    path('subscribe/<uuid:sid>', login_required(employer_plan), name='employer_plan'),
 ]
+
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,

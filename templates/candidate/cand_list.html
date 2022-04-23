@@ -32,7 +32,6 @@
               <div class="form-floating">
                 <select class="form-control form-control-lg" placeholder="{% trans 'select city' %}" id="city"
                   name="city">
-                  <option value='' selected>{% trans 'All' %}</option>
                   <option value='Al Anbar'>{% trans 'Al Anbar' %}</option>
                   <option value='Babylon'>{% trans 'Babylon' %}</option>
                   <option value='Baghdad'>{% trans 'Baghdad' %}</option>
@@ -59,7 +58,6 @@
             <div class="col-md">
               <div class="form-floating">
                 <select class="form-control" name="education" id="education" title="{% trans 'Education' %}">
-                  <option value='' selected>{% trans 'All' %}</option>
                   <option value="1">{% trans 'Non-Degree Programme' %}</option>
                   <option value="2">{% trans 'High School diploma' %}</option>
                   <option value="3">{% trans 'Technical Diploma' %}</option>
@@ -113,9 +111,8 @@
           <td>{{ cands.birthofdate|date:"d/m/Y" }}</td>
           <td>{{cands.get_highest_level_of_education_display}}</td>
           <td>{{cands.city}}</td>
-          <td>{% if remcand >= 1 %}<a class="btn btn-primary" target="_blank"
-              href="{% url 'candetials' cands.id %}">{% trans 'View Full Details' %}</a>{% else %}<a
-              class="btn btn-secondary" href="#" disabled>{% trans 'View Full Details' %}</a>{% endif %}
+          <td><a class="btn btn-primary" target="_blank"
+              href="{% url 'candetials' cands.id %}">{% trans 'View Full Details' %}</a>
           </td>
         </tr>
         {% else %}
@@ -167,7 +164,6 @@
   var srchval = JSON.parse('{{ session | escapejs }}');
   window.addEventListener('load', function () {
     // document.getElementById('cm').classList.add('active');
-    document.getElementById('keywords').value = srchval[3];
     document.getElementById('city').value = srchval[0];
     document.getElementById('number_of_records').value = srchval[2];
     document.getElementById('education').value = srchval[1];

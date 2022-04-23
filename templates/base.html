@@ -1,30 +1,77 @@
+<!DOCTYPE html>
 {% load i18n %}
 {% get_current_language as CURRENT_LANGUAGE %}
 {% get_available_languages as AVAILABLE_LANGUAGES %}
 {% get_language_info_list for AVAILABLE_LANGUAGES as languages %}
 {% load static %}
-<!DOCTYPE html>
-
 <html lang="{{CURRENT_LANGUAGE}}" dir="{% if CURRENT_LANGUAGE == 'en' %}ltr{% else %}rtl{% endif %}">
-
+    
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
 
-    <!-- Meta Tags - Description for Search Engine purposes -->
-    <meta name="description" content="Employiq - Job Board">
-    <meta name="keywords"
-        content="Employiq - Job Board, job board, job listing, job portal, job postings, jobs, recruiters, recruiting, recruitment">
-    <meta name="author" content="Saif AlKhateeb">
+    <!-- Facebook Pixel Code -->
 
-    <!-- Website Title -->
-    <title>Employiq - Job Board</title>
-    <link rel="shortcut icon" href="{% static 'images/EIQLOGO.svg' %}" type="image/x-icon">
-    <link rel="apple-touch-icon-precomposed" href="{% static 'images/apple-touch-icon.png' %}">
+<script>
+
+!function(f,b,e,v,n,t,s)
+
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+
+n.queue=[];t=b.createElement(e);t.async=!0;
+
+t.src=v;s=b.getElementsByTagName(e)[0];
+
+s.parentNode.insertBefore(t,s)}(window,document,'script',
+
+'https://connect.facebook.net/en_US/fbevents.js');
+
+fbq('init', '391987302429990'); 
+
+fbq('track', 'PageView');
+
+</script>
+
+<noscript>
+
+<img height="1" width="1" src="https://www.facebook.com/tr?id=391987302429990&ev=PageView &noscript=1"/>
+
+</noscript>
+
+<!-- End Facebook Pixel Code -->
+
+
+<!-- Primary Meta Tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EmployIQ</title>
+<meta name="title" content="EmployIQ is a professional recruitment tool that has come together to assist you with a simplified and cost-effective recruitment process. We connect a numerous amount of people to new opportunities every single day through our job portal by putting job seekers first and offering free resume building interface and company research.">
+<meta name="description" content="EmployIQ is a professional recruitment tool that has come together to assist you with a simplified and cost-effective recruitment process. We connect a numerous amount of people to new opportunities every single day through our job portal by putting job seekers first and offering free resume building interface and company research.">
+<meta name="keywords" content="Employiq - Job Board, job board, job listing, job portal, job postings, jobs, recruiters, recruiting, recruitment">
+<meta name="author" content="Saif AlKhateeb">
+<link rel="shortcut icon" href="{% static 'images/EIQLOGO.svg' %}" type="image/x-icon">
+<link rel="apple-touch-icon-precomposed" href="{% static 'images/apple-touch-icon.png' %}">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="http://employiq.net:8080/en/">
+<meta property="og:title" content="EmployIQ is a professional recruitment tool that has come together to assist you with a simplified and cost-effective recruitment process. We connect a numerous amount of people to new opportunities every single day through our job portal by putting job seekers first and offering free resume building interface and company research.">
+<meta property="og:description" content="Employiq - Job Board">
+<meta property="og:image" content="{% static 'images/details-2-background.jpg' %}">
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="http://employiq.net:8080/en/">
+<meta property="twitter:title" content="EmployIQ is a professional recruitment tool that has come together to assist you with a simplified and cost-effective recruitment process. We connect a numerous amount of people to new opportunities every single day through our job portal by putting job seekers first and offering free resume building interface and company research.">
+<meta property="twitter:description" content="Employiq - Job Board">
+<meta property="twitter:image" content="{% static 'images/details-2-background.jpg' %}">
 
     <!-- CSS links -->
     <script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/cstyle.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/cstyle.css' %}?v=1.3">
     {% if CURRENT_LANGUAGE == 'en' %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
     {% else %}
@@ -35,7 +82,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/owl.carousel.min.css' %}">
 
 </head>
-
+<body>
 <!-- =============== Start of Header 1 Navigation =============== -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
     <div class="container-fluid">
@@ -93,6 +140,9 @@
 
                 <li class="menu-item login-btn">
                     <a href="{% url 'logout' %}"><i class="fa fa-sign-out"></i>{% trans 'LOGOUT' %}</a>
+                                            {% if user.is_superuser %}
+                        <a href="{% url 'dashboard' %}"><i class="fa fa-sign-out"></i>{% trans 'dashboard' %}</a>
+                        {% endif %}
                 </li>
                 {% else %}
                 <li class="menu-item login-btn">
@@ -135,13 +185,13 @@
                 </a>
                 <!-- Small Description -->
                 <p class="pt40">
-                    {% trans 'EmployIQ is a professional recruiter in Iraq that have come together to assist YOU with a simplified and cost-effective recruitment process.  We connect numerous number of people to new opportunities every single day, through our job portal by putting job seekers first and offering free resume building and company research.' %}
+                    {% trans 'EmployIQ is a professional recruitment tool that has come together to assist you with a simplified and cost-effective recruitment process. We connect a numerous amount of people to new opportunities every single day through our job portal by putting job seekers first and offering free resume building interface and company research.' %}
                 </p>
 
                 <!-- Info -->
                 <ul class="nopadding">
                     <li><i class="fa fa-map-marker"></i>{% trans 'Iraq' %}</li>
-                    <li><i class="fa fa-envelope-o"></i><a href="mailto:info.employiq.net">info.employiq.net</a>
+                    <li><i class="fa fa-envelope-o"></i><a href="mailto:info@employiq.net">info@employiq.net</a>
                     </li>
                 </ul>
             </div>
@@ -225,7 +275,7 @@
 
 
 <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-<script src="{% static 'js/custom.js' %}"></script>
+<script src="{% static 'js/custom.js' %}?v=1.1"></script>
 <script src="{% static 'js/swiper.min.js' %}"></script>
 <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
 

@@ -7,7 +7,7 @@ from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import DetailView
 from accounts.models import User
 from employer.forms import EmpForm, JobForm
-from employer.models import job, employer
+from employer.models import job, employer,subscription_plan
 from django.core.exceptions import ObjectDoesNotExist
 from candidate.models import candidate
 from django.http.response import JsonResponse
@@ -25,6 +25,8 @@ from django.template.loader import render_to_string
 from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from abc import ABC
+from datetime import timedelta
+from datetime import datetime
 # Create your views here.
 
 
@@ -135,15 +137,18 @@ def JobDetails(request, jid):
     job_details = job.objects.get(id=jid)
     current_candidate_applied = False
     is_job_owner = False
-    if user.is_candidate == True:
+    if user.is_superuser:
+        True
+    elif user.is_candidate == True:
         current_candidate = candidate.objects.get(user__id=request.user.id)
         is_job_owner = False
         if job.objects.filter(id=jid, applied_candidates=current_candidate).count() >= 1:
             current_candidate_applied = True
         else:
             current_candidate_applied = False
-    jeid = job_details.employer.id
-    if user.is_employer == True:
+    
+    elif user.is_employer == True:
+        jeid = job_details.employer.id
         ceid = employer.objects.get(user__id=user.id).id
         if ceid == jeid:
             is_job_owner = True
@@ -161,9 +166,9 @@ def JobDetails(request, jid):
 
 
 def my_employer_details(request):
-
+    userid = request.user.id
     try:
-        userid = request.user.id
+
         employer_details = employer.objects.get(user__id=userid)
         eid = employer.objects.get(user__id=userid).id
         context = {
@@ -211,11 +216,14 @@ def job_list(request):
             request.session['keywords'] = keywords
         if request.GET.get('number_of_records'):
             number_of_records = request.GET.get('number_of_records')
-            request.session['number_of_records'] = int(number_of_records)
+            try:
+                request.session['number_of_records'] = int(number_of_records)
+            except:
+                request.session['number_of_records'] = 50
         if request.GET.get('clear'):
             if request.session.get('city'):
                 del request.session['city']
-            if request.session.get('search'):
+            if request.session.get('keywords'):
                 del request.session['keywords']
             if request.session.get('number_of_records'):
                 del request.session['number_of_records']
@@ -228,7 +236,7 @@ def job_list(request):
     if number_of_records:
         number_of_records = int(number_of_records)
     else:
-        number_of_records = 10
+        number_of_records = 50
     if city:
         job_list = job_list.filter(city=city)
     if keywords:
@@ -258,7 +266,8 @@ def job_list(request):
     page_obj = paginator.get_page(page_number)
     context = {
         'session': json.dumps(session),
-        'page_obj': page_obj
+        'page_obj': page_obj,
+        'jobs_count':job_list1.count(),
     }
     return render(request, 'employer/job/job_list.html', context)
 
@@ -276,3 +285,30 @@ class EmployerUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView, AB
 
     def test_func(self):
         return True
+        
+def employer_plan(request, sid):
+    if request.user.is_employer:
+        current_employer = employer.objects.get(user__id=request.user.id)
+        if current_employer.is_subscribed:
+            if current_employer.subscription_to < datetime.now().date():
+                plan = subscription_plan.objects.get(id=sid)
+                current_employer.plan = plan
+                current_employer.subscription_from = datetime.now()
+                current_employer.subscription_to = datetime.now() + timedelta(30)
+                current_employer.remaining_records = plan.suggestions
+                current_employer.remaining_jobs = plan.jobs
+                current_employer.is_subscribed = True
+                current_employer.save()
+                return JsonResponse({"data": "subscription successfully"}, status=200)
+            else:
+                return JsonResponse({"data": "You are already subscribed to us"}, status=200)
+        else:
+            plan = subscription_plan.objects.get(id=sid)
+            current_employer.plan = plan
+            current_employer.subscription_from = datetime.now()
+            current_employer.subscription_to = datetime.now() + timedelta(30)
+            current_employer.remaining_records = plan.suggestions
+            current_employer.remaining_jobs = plan.jobs
+            current_employer.is_subscribed = True
+            current_employer.save()
+            return JsonResponse({"data": "subscription successfully"}, status=200)

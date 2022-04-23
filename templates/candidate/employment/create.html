@@ -3,7 +3,7 @@
 {% load i18n %}
 {% block content %}
 {% load static %}
-<script src="{% static 'js/ckeditor.js' %}"></script>
+
 <div class="header">
     <div class="filtered">
         <div class="row justify-content-md-center">
@@ -90,6 +90,7 @@
         </div>
     </div>
 </div>
+<script src="{% static 'js/ckeditor.js' %}"></script>
 <script>
     ClassicEditor
         .create(document.querySelector('#id_job_description'))

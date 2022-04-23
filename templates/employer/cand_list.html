@@ -88,9 +88,9 @@
           <td>{{ cands.birthofdate|date:"d/m/Y" }}</td>
           <td>{{cands.get_highest_level_of_education_display}}</td>
           <td>{{cands.get_country_display}}</td>
-          <td><a class="btn {% if remcand < 1 %}btn-secondary disabled {% else %} btn-primary{% endif %}"
+          <td><a class="btn btn-primary"
               target="_blank"
-              href="{% if remcand >= 1 %}{% url 'candetials' cands.id %}{% endif %}">{% trans 'View Full Details' %}</a>
+              href="{% url 'candetials' cands.id %}">{% trans 'View Full Details' %}</a>
           </td>
         </tr>
         {% else %}

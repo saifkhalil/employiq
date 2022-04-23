@@ -4,15 +4,12 @@ from email.policy import default
 from candidate.models import candidate
 import uuid
 from ckeditor.fields import RichTextField
-from contextlib import nullcontext
 from pyexpat import model
 from django.db import models
 from django.conf import settings
 from django.forms import EmailField
 from django_countries.fields import CountryField
 from phonenumber_field.modelfields import PhoneNumberField
-import moneyed
-from djmoney.models.fields import MoneyField
 from easy_thumbnails.fields import ThumbnailerImageField
 from accounts.models import User
 from django.utils.translation import ugettext_lazy as _
@@ -70,8 +67,7 @@ class subscription_plan(models.Model):
     plan = models.CharField(max_length=200, verbose_name=_('plan'))
     suggestions = models.IntegerField(verbose_name=_('suggestions'))
     jobs = models.IntegerField(verbose_name=_('Jobs'))
-    price = MoneyField(max_digits=10, decimal_places=0,
-                       default_currency='USD', verbose_name=_('Price'))
+    price = models.IntegerField( verbose_name=_('Price'))
     days = models.IntegerField()
 
     def __str__(self):
@@ -88,7 +84,7 @@ class employer(models.Model):
         User, on_delete=models.CASCADE, verbose_name=_('User'))
     company = models.CharField(max_length=200, verbose_name=_('Company Name'))
     logo = ThumbnailerImageField(
-        upload_to='company_logos', blank=True, default='static/images/EIQLOGO.svg', verbose_name=_('Photo'))
+        upload_to='company_logos', blank=False,null=False,  verbose_name=_('Logo'))
     industry = models.CharField(max_length=200, verbose_name=_('industry'))
     phone_number = PhoneNumberField(verbose_name=_('Phone Number'))
     public_company_info = models.CharField(max_length=10, choices=BOOL_CHOICES, default='Yes',
@@ -150,8 +146,7 @@ class job(models.Model):
                             choices=GOVERNORATES, verbose_name=_('City'))
     country = CountryField(blank_label=_(
         '(select country)'), default='IQ', verbose_name=_('Country'))
-    salary = MoneyField(max_digits=10, decimal_places=3,
-                        default_currency='IQD', verbose_name=_('Salary'), blank=True, null=True)
+    salary = models.IntegerField( verbose_name=_('Salary'), blank=True, null=True)
     nationality = models.CharField(max_length=15, choices=NATIONALITY,
                                    default="both", blank=False, null=False, verbose_name=_('Nationality'))
 

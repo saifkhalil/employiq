@@ -14,7 +14,8 @@
           <h4>{% trans 'Register to Employiq system' %}</h4>
         </div>
 
-        <form class="form-signin" method="post">{% csrf_token %}
+        <form class="form-signin" method="post">
+            {% csrf_token %}
 
           <h1 class="h3 mb-3 text-center text-white">User Registration</h1>
           <div class="form-floating mb-3">

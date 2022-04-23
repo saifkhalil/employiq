@@ -18,9 +18,13 @@
 
                     <!-- Start of Row -->
                     <div class="row candidate-profile nomargin">
-
+                        {% if msg %}
+                        <div class="col-12">
+                            <p>{{ msg }}</p>
+                        </div>
+                        {% endif %}
                         <!-- Start of Profile Picture -->
-                        <div class="col-md-2 col-xs-12">
+                        <div class="col-md-2 col-sm-6">
                             <img class="img-thumbnail" src="{{object.photo.url}}" alt="{{ object.firstname }}">
                         </div>
                         <!-- End of Profile Picture -->
@@ -41,33 +45,32 @@
                                     <p>{{object.bio}}</p>
                                 </div>
 
-                                <ul class="profile-info mt20 nopadding">
-                                    <li>
+                        <div class="row profile-info mt20 nopadding">
+                                    <div class="col-lg-6 col-12">
                                         <i class="fa fa-map-marker"></i>
                                         <span>{{object.city}}, {{object.get_country_display}}</span>
-                                    </li>
+                                    </div>
 
-                                    <li>
+                                    <div class="col-lg-6 col-12">
                                         <i class="fa fa-venus-mars"></i>
                                         <span>{{object.get_gender_display}}</span>
-                                    </li>
+                                    </div>
 
-                                    <li>
+                                    <div class="col-lg-6 col-12">
                                         <i class="fa fa-birthday-cake"></i>
                                         <span>{{object.birthofdate}}</span>
-                                    </li>
+                                    </div>
 
-                                    <li>
+                                    <div class="col-lg-6 col-12">
                                         <i class="fa fa-phone"></i>
                                         <a href="tel:{{object.phone_number}}">{{object.phone_number}}</a>
-                                    </li>
+                                    </div>
 
-                                    <li>
+                                    <div class="col-lg-6 col-12">
                                         <i class="fa fa-envelope"></i>
                                         <a href="mailto:{{object.email}}">{{object.email}}</a>
-                                    </li>
-                                </ul>
-
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <!-- End of Profile Description -->

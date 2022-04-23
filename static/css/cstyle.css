@@ -9,6 +9,17 @@ a:hover {
     color: #29b2fe
 }
 
+.helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+.emlogo {
+    
+    vertical-align: middle;
+    max-height: 25px;
+    max-width: 160px;
+}
 a.disabled {
     pointer-events: none;
     color: #ccc;
@@ -3666,10 +3677,10 @@ section#version2.search-jobs .job-post-sidebar .job-categories .btn-group.bootst
 }
 
 section#version3.search-jobs .job-post-wrapper .single-job-post {
-    border: 1px solid #e3e3e3;
+       border: 1px solid #e3e3e3;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
-    border-radius: 5px
+    border-radius: 5px;
 }
 
 section#version3.search-jobs .job-post-wrapper .single-job-post:hover {
@@ -4204,7 +4215,10 @@ section#company-profile2 .company-profile .profile-photo {
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     border-radius: 50%;
-    margin: 0 auto
+    margin: 0 auto;
+        display: flex;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 section#company-profile2 .company-profile .profile-photo:after,
@@ -4291,12 +4305,14 @@ section.company-jobs .single-job-post .job-company {
     -moz-border-radius: 2px;
     border-radius: 2px;
     background: #f0f0f0;
-    padding: 20px;
     -webkit-transition: all .6s ease;
     -moz-transition: all .6s ease;
     -ms-transition: all .6s ease;
     -o-transition: all .6s ease;
-    transition: all .6s ease
+    transition: all .6s ease;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 section.company-jobs .single-job-post .job-company:hover {

@@ -1,4 +1,3 @@
-from ast import keyword
 from mimetypes import init
 from urllib import request
 from django.conf import settings
@@ -7,9 +6,8 @@ from abc import ABC
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import HttpResponse
 from django.template.loader import render_to_string
-from weasyprint import HTML
+from weasyprint import HTML, CSS
 import tempfile
-from django.db.models import Q
 from django.http.response import JsonResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from xhtml2pdf import context
@@ -35,17 +33,10 @@ from bootstrap_modal_forms.generic import BSModalCreateView
 
 
 def candlist(request):
-    keywords = ''
-    city = ''
-    education = ''
-    number_of_records = ''
     if request.method == 'GET':
         if request.GET.get('keywords'):
             keywords = request.GET.get('keywords')
-            if keywords != "":
-                request.session['keywords'] = keywords
-            else:
-                del request.session['keywords']
+            request.session['keywords'] = keywords
         if request.GET.get('city'):
             city = request.GET.get('city')
             request.session['city'] = city
@@ -54,7 +45,10 @@ def candlist(request):
             request.session['education'] = education
         if request.GET.get('number_of_records'):
             number_of_records = request.GET.get('number_of_records')
-            request.session['number_of_records'] = int(number_of_records)
+            try:
+                request.session['number_of_records'] = int(number_of_records)
+            except:
+                request.session['number_of_records'] = 10
         if request.GET.get('clear'):
             if request.session.get('keywords'):
                 del request.session['keywords']
@@ -64,28 +58,23 @@ def candlist(request):
                 del request.session['education']
             if request.session.get('number_of_records'):
                 del request.session['number_of_records']
-
+    keywords = request.session.get('keywords')
+    city = request.session.get('city')
+    education = request.session.get('education')
+    number_of_records = request.session.get('number_of_records')
     cand_list = candidate.objects.all()
     if number_of_records:
         number_of_records = int(number_of_records)
     else:
         number_of_records = 10
-    if keywords:
-        query_words = str(keywords).split(" ")  # Get the word in a list
-        query = Q()
-        for w in query_words:
-            if len(w) < 2:  # Min length
-                query_words.remove(w)
-        for word in query_words:
-            query = query | Q(firstname__icontains=word) | Q(
-                bio__icontains=word) | Q(skills__icontains=word)
-        cand_list = cand_list.filter(query)
+    # if keywords:
+    #     cand_list = cand_list.filter(city=city)
     if city:
         cand_list = cand_list.filter(city=city)
     if education:
         cand_list = cand_list.filter(
             highest_level_of_education__icontains=education)
-    session = [city, education, number_of_records, keywords]
+    session = [city, education, number_of_records]
     # Show 25 contacts per page.
     paginator = Paginator(cand_list, number_of_records)
     page_number = request.GET.get('page')
@@ -100,18 +89,38 @@ def candlist(request):
 
 
 def candetials(request, cid):
-    remcand = employer.objects.get(user=request.user)
     cm = candidate.objects.get(id=cid)
-    remcand.remaining_records = remcand.remaining_records - 1
-    remcand.save()
-    context = {
-        'object': cm,
-        'educations': education.objects.filter(candidate__id=cid),
-        'employments': employment.objects.filter(candidate__id=cid),
-        'Languages': language.objects.filter(candidate__id=cid),
-        'certificates': certificate.objects.filter(candidate__id=cid),
-        'remcand': remcand.remaining_records
-    }
+    if request.user.is_superuser:
+        context = {
+            'object': cm,
+            'educations': education.objects.filter(candidate__id=cid),
+            'employments': employment.objects.filter(candidate__id=cid),
+            'Languages': language.objects.filter(candidate__id=cid),
+            'certificates': certificate.objects.filter(candidate__id=cid),
+        }
+    else:
+        try:
+            remcand = employer.objects.get(user=request.user)
+        except ObjectDoesNotExist:
+            context = {
+            'isemployer': 'false'
+        }
+            return render(request, 'employer/employer_details.html', context)
+        if remcand.remaining_records > 1:
+            remcand.remaining_records = remcand.remaining_records - 1
+            remcand.save()
+            context = {
+                'object': cm,
+                'educations': education.objects.filter(candidate__id=cid),
+                'employments': employment.objects.filter(candidate__id=cid),
+                'Languages': language.objects.filter(candidate__id=cid),
+                'certificates': certificate.objects.filter(candidate__id=cid),
+                'remcand': remcand.remaining_records
+            }
+        else:
+            context = {
+                'msg' : "You don't have more balance"
+            }
     return render(request, 'candidate/candidate_detail.html', context)
 
 
@@ -498,7 +507,9 @@ def generate_pdf(request):
     # Rendered
     html_string = render_to_string('candidate/pdf.html', context=context)
     html = HTML(string=html_string, base_url=request.build_absolute_uri())
-    result = html.write_pdf(stylesheets=[
+    result = html.write_pdf(stylesheets=[CSS(string='@page { size: A4; margin: 2cm };'
+           '* { float: none !important; };'
+           '@media print { nav { display: none; } }'),
                             settings.BASE_DIR + '/static/css/bootstrap.min.css', ])
 
     # Creating http response
@@ -512,3 +523,21 @@ def generate_pdf(request):
     #     response.write(output.read())
 
     return HttpResponse(result, content_type='application/pdf')
+    
+
+def view_pdf(request):
+    userid = request.user.id
+    try:
+        candidate_detials = candidate.objects.get(user__id=userid)
+        cid = candidate.objects.get(user__id=userid).id
+    except ObjectDoesNotExist:
+        return reverse_lazy('my_candidate_details')
+    context = {
+        'object': candidate_detials,
+        'educations': education.objects.filter(candidate__id=cid),
+        'employments': employment.objects.filter(candidate__id=cid),
+        'Languages': language.objects.filter(candidate__id=cid),
+        'certificates': certificate.objects.filter(candidate__id=cid),
+    }
+    # Rendered
+    return render(request, 'candidate/pdf.html', context=context)

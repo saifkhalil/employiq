@@ -1,11 +1,10 @@
-﻿{% extends "base.html" %}
+{% extends "base.html" %}
 {% load i18n %}
 {% load countries %}
 {% get_current_language as CURRENT_LANGUAGE %}
 {% get_available_languages as AVAILABLE_LANGUAGES %}
 {% get_language_info_list for AVAILABLE_LANGUAGES as languages %}
 {% block content %}
-{% load djmoney %}
 {% load static %}
 <!-- ===== Start of Main Search Section ===== -->
 <section class="main overlay-black">
@@ -92,7 +91,7 @@
             <h2>{% trans 'pricing table' %}</h2>
         </div>
     </div>
-    <div class="row">
+    <div class="row justify-content-center">
         {% for price in princing %}
         <div class="col-md-3 col-xs-12 mt80 mb20">
             <div class="pricing-table shadow-hover" {% if price.plan == 'Premium' %}id="popular" {% endif %}>
@@ -101,26 +100,30 @@
                 </div>
                 <div class="pricing">
                     <div class="row">
-                        <span class="amount">{{ price.price }}</span>
+                        <span class="amount">{{ price.price }} $</span>
                     </div>
                     <span
                         class="month">{% if price.days == 30 %}{% trans 'Monthly' %}{% elif  price.days == 365 %}{% trans 'Annual' %}{% endif %}</span>
                 </div>
                 <div class="pricing-body">
                     <ul class="list">
-                        <li>{% trans 'Post in website and social media' %}</li>
-                        <li>{% trans 'Unlimit applicant through email' %}</li>
-                        <li>Post {{ price.jobs }} Job</li>
+                        <li>{% trans 'A post on website and social media' %}</li>
+                        <li>{% trans 'Unlimit applications through email' %}</li>
+                        <li>{% if price.jobs == 99999 %}{% trans 'Unlimited' %}
+                            {% else %}{{ price.jobs }}
+                            {% endif %} jobs posts</li>
                         <li>{% if price.suggestions == 99999 %}{% trans 'Unlimited' %}
                             {% else %}{{ price.suggestions }}
-                            {% endif %}{% trans 'Suggestions' %}</li>
+                            {% endif %}{% trans 'database suggestions' %}</li>
 
                     </ul>
                 </div>
 
                 <!-- Pricing Footer -->
                 <div class="pricing-footer">
-                    <a href="#" class="btn btn-blue btn-effect">get started</a>
+                    <button id='subscription'
+                        apilink="{% if user.is_employer %}{% url 'employer_plan' price.id %}{% endif %}"
+                        class="btn btn-blue btn-effect">Subscribe now for free</button>
                 </div>
 
             </div>
@@ -132,49 +135,19 @@
 <!-- ===== End of Pricing Tables Section ===== -->
 
 
-<!-- ===== Start of CountUp Section ===== -->
-<section class="ptb40" id="countup">
-    <div class="row">
 
-        <!-- 1st Count up item -->
-        <div class="col-md-3 col-sm-3 col-xs-12">
-            <span class="counter" data-from="0" data-to="743"></span>
-            <h4>{% trans 'members' %}</h4>
-        </div>
-
-        <!-- 2nd Count up item -->
-        <div class="col-md-3 col-sm-3 col-xs-12">
-            <span class="counter" data-from="0" data-to="579"></span>
-            <h4>{% trans 'jobs'  %}</h4>
-        </div>
-
-        <!-- 3rd Count up item -->
-        <div class="col-md-3 col-sm-3 col-xs-12">
-            <span class="counter" data-from="0" data-to="251"></span>
-            <h4>{% trans 'resumes' %}</h4>
-        </div>
-
-        <!-- 4th Count up item -->
-        <div class="col-md-3 col-sm-3 col-xs-12">
-            <span class="counter" data-from="0" data-to="330"></span>
-            <h4>{% trans 'companies' %}</h4>
-        </div>
-
-    </div>
-</section>
-<!-- ===== End of CountUp Section ===== -->
 <section class="ptb40" id="partners">
     <div class="container">
 
         <!-- Start of Owl Slider -->
         <div class="owl-carousel partners-slider owl-loaded owl-drag">
-            {% for employere in allemployers %}
+            {% for employer in allemployers %}
             <div class="owl-item active" style="width: 235px;">
                 <div class="item">
-                    <a href="{% url 'employer_details' employere.id %}" data-bs-toggle="tooltip" data-bs-html="true"
-                        data-bs-original-title="<em>Employer: </em> <b>{{ employere.company }}</b>"
-                        class="text-center d-flex justify-content-center"><img src="{{ employere.logo.url }}"
-                            alt="{{ employere.company }}" class="rounded"></a>
+                    <a href="{% url 'employer_details' employer.id %}" data-bs-toggle="tooltip" data-bs-html="true"
+                        data-bs-original-title="<em>Employer: </em> <b>{{ employer.company }}</b>"
+                        class="text-center d-flex justify-content-center"><img src="{{ employer.logo.url }}"
+                            alt="{{ employer.company }}" class="rounded"></a>
                 </div>
             </div>
 
@@ -182,5 +155,32 @@
 
 
         </div>
+        </div>
 </section>
+
+
+<script type="text/javascript">
+    $('button#subscription').on('click', function (e) {
+        e.preventDefault();
+        if (confirm('Are you sure you want to subscribe this?')) {
+            // Save it!
+            var $this = $(this);
+            $.ajax({
+                url: $this.attr('apilink'),
+                type: 'GET',
+                cache: false,
+                success: function (response) {
+                    alert(response.data);
+                    location.reload();
+                },
+                error: function (response) {
+                    alert("There are error please try again");
+
+                }
+            });
+        }
+
+
+    });
+</script>
 {% endblock %}

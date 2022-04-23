@@ -2,16 +2,23 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate
 from phonenumber_field.formfields import PhoneNumberField
+
 from phonenumber_field.widgets import PhoneNumberInternationalFallbackWidget, PhoneNumberPrefixWidget
 from accounts.models import User
 
 
 class RegistrationForm(UserCreationForm):
 	email = forms.EmailField(max_length=254, help_text='Required. Add a valid email address.')
-    
+	phone = PhoneNumberField(widget=PhoneNumberPrefixWidget(initial='IQ'))
+	phone.error_messages['invalid'] = 'Enter a valid phone number (e.g. +9647801000000).'
 	class Meta:
 		model = User
 		fields = ('email', 'username','firstname','lastname','phone', 'password1', 'password2', )
+# 		error_messages = {
+#             'phone' : {
+#                 'required' : _("Enter a valid phone number (e.g. +9647801000000).")
+#             }
+#         }
 
 
 class UserAuthenticationForm(forms.ModelForm):

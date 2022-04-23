@@ -93,6 +93,7 @@ GOVERNORATES = [
     ('Saladin', _('Saladin')),
     ('Sulaymaniyah', _('Sulaymaniyah')),
     ('Wasit', _('Wasit')),
+    ('None (not residing in Iraq)', _('None (not residing in Iraq)')),    
 
 ]
 
@@ -285,7 +286,7 @@ class candidate(models.Model):
     country = CountryField(
         blank_label=_('(select country)'), verbose_name=_('Current country'))
     postal_code = models.IntegerField(validators=[MaxValueValidator(
-        99999), MinValueValidator(10000)], verbose_name=_('Postal Code'))
+        99999), MinValueValidator(10000)], verbose_name=_('Postal Code'),blank=True, null=True)
     education = models.ManyToManyField(
         'education', blank=True, verbose_name=_('Candidate Education'))
     certificate = models.ManyToManyField(

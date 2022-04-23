@@ -10,6 +10,7 @@ urlpatterns = [
     path('', login_required(candlist), name='candlist'),
     #     path('pdf', login_required(pdf), name='pdf'),
     path('pdf', login_required(generate_pdf), name='generate_pdf'),
+    path('view_pdf', login_required(view_pdf), name='view_pdf'),
     path('create', login_required(
         CandidateCreateView.as_view()), name='candidate_create'),
     path('<uuid:pk>/update/',
