@@ -9,7 +9,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.urls import reverse_lazy
 import urllib
 from candidate.models import candidate
-from employer.models import employer,job
+from employer.models import employer, job
 from accounts.models import User
 from django.db.models import Count
 from django.contrib.auth.decorators import user_passes_test
@@ -17,6 +17,7 @@ from django.contrib.auth.decorators import user_passes_test
 
 def after(request):
     return render(request, 'after_register.html')
+
 
 @user_passes_test(lambda u: u.is_superuser)
 def dashboard(request):
@@ -30,7 +31,7 @@ def dashboard(request):
         'active_users_count': active_users_count,
         'candidates_count': candidates_count,
         'employers_count': employers_count,
-        'jobs_count':jobs_count,
+        'jobs_count': jobs_count,
         'users': users,
         'users_count': users_count,
     }
@@ -92,6 +93,10 @@ def home(request):
 
 def about(request):
     return render(request, 'about.html')
+
+
+def terms(request):
+    return render(request, 'terms.html')
 
 
 def jobdetails(request):

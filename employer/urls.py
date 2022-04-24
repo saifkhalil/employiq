@@ -18,6 +18,8 @@ urlpatterns = [
         JobCreateView.as_view()), name='job_create'),
     path('job/<uuid:jid>', login_required(
         JobDetails), name='job_details'),
+    path('job/<uuid:pk>/update/',
+         login_required(JobUpdateView.as_view()), name='job_update'),
     path('job', job_list, name='job_list'),
     path('job/apply/<uuid:jid>', login_required(job_apply), name='job_apply'),
     path('subscribe/<uuid:sid>', login_required(employer_plan), name='employer_plan'),

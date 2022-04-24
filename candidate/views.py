@@ -28,7 +28,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from employer.models import job
 from bootstrap_modal_forms.generic import BSModalCreateView
-
+from django.db.models import Q
 # Create your views here.
 
 
@@ -63,26 +63,40 @@ def candlist(request):
     education = request.session.get('education')
     number_of_records = request.session.get('number_of_records')
     cand_list = candidate.objects.all()
+    cand_list3 = candidate.objects.all()
+    cand_list1 = []
     if number_of_records:
         number_of_records = int(number_of_records)
     else:
         number_of_records = 10
-    # if keywords:
-    #     cand_list = cand_list.filter(city=city)
-    if city:
+    if city and city != 'All':
         cand_list = cand_list.filter(city=city)
-    if education:
+    if education and education != '0':
         cand_list = cand_list.filter(
             highest_level_of_education__icontains=education)
-    session = [city, education, number_of_records]
+    if keywords:
+        query_words = str(keywords).split(" ")  # Get the word in a list
+        query = Q()
+        for w in query_words:
+            if len(w) < 2:  # Min length
+                query_words.remove(w)
+        for word in query_words:
+            query = query | Q(certificate__organization__icontains=word) | Q(
+                Employment__job_title__icontains=word) | Q(skills__icontains=word)
+
+        cand_list1 = cand_list.filter(query)
+    else:
+        cand_list1 = cand_list3
+    session = [city, education, number_of_records, keywords]
     # Show 25 contacts per page.
-    paginator = Paginator(cand_list, number_of_records)
+    paginator = Paginator(cand_list1.distinct(), number_of_records)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     context = {
         'session': json.dumps(session),
         'page_obj': page_obj,
-        'cn': cand_list,
+        'cn': cand_list1,
+        'candidate_count': cand_list1.count(),
         'remcand': employer.objects.filter(user=request.user).order_by().values_list('remaining_records', flat=True).first()
     }
     return render(request, 'candidate/cand_list.html', context)
@@ -103,8 +117,8 @@ def candetials(request, cid):
             remcand = employer.objects.get(user=request.user)
         except ObjectDoesNotExist:
             context = {
-            'isemployer': 'false'
-        }
+                'isemployer': 'false'
+            }
             return render(request, 'employer/employer_details.html', context)
         if remcand.remaining_records > 1:
             remcand.remaining_records = remcand.remaining_records - 1
@@ -119,7 +133,7 @@ def candetials(request, cid):
             }
         else:
             context = {
-                'msg' : "You don't have more balance"
+                'msg': "You don't have more balance"
             }
     return render(request, 'candidate/candidate_detail.html', context)
 
@@ -508,8 +522,8 @@ def generate_pdf(request):
     html_string = render_to_string('candidate/pdf.html', context=context)
     html = HTML(string=html_string, base_url=request.build_absolute_uri())
     result = html.write_pdf(stylesheets=[CSS(string='@page { size: A4; margin: 2cm };'
-           '* { float: none !important; };'
-           '@media print { nav { display: none; } }'),
+                                             '* { float: none !important; };'
+                                             '@media print { nav { display: none; } }'),
                             settings.BASE_DIR + '/static/css/bootstrap.min.css', ])
 
     # Creating http response
@@ -523,7 +537,7 @@ def generate_pdf(request):
     #     response.write(output.read())
 
     return HttpResponse(result, content_type='application/pdf')
-    
+
 
 def view_pdf(request):
     userid = request.user.id

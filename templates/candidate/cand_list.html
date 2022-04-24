@@ -30,8 +30,8 @@
             </div>
             <div class="col-md">
               <div class="form-floating">
-                <select class="form-control form-control-lg" placeholder="{% trans 'select city' %}" id="city"
-                  name="city">
+                <select class="form-control" placeholder="{% trans 'select city' %}" id="city" name="city">
+                  <option value='All'>{% trans 'All' %}</option>
                   <option value='Al Anbar'>{% trans 'Al Anbar' %}</option>
                   <option value='Babylon'>{% trans 'Babylon' %}</option>
                   <option value='Baghdad'>{% trans 'Baghdad' %}</option>
@@ -58,6 +58,7 @@
             <div class="col-md">
               <div class="form-floating">
                 <select class="form-control" name="education" id="education" title="{% trans 'Education' %}">
+                  <option value='0'>{% trans 'All' %}</option>
                   <option value="1">{% trans 'Non-Degree Programme' %}</option>
                   <option value="2">{% trans 'High School diploma' %}</option>
                   <option value="3">{% trans 'Technical Diploma' %}</option>
@@ -165,8 +166,10 @@
   window.addEventListener('load', function () {
     // document.getElementById('cm').classList.add('active');
     document.getElementById('city').value = srchval[0];
-    document.getElementById('number_of_records').value = srchval[2];
     document.getElementById('education').value = srchval[1];
+    document.getElementById('number_of_records').value = srchval[2];
+    document.getElementById('keywords').value = srchval[3];
+
   })
 </script>
 {% endblock %}

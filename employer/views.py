@@ -5,9 +5,10 @@ from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import DetailView
+from requests import request
 from accounts.models import User
 from employer.forms import EmpForm, JobForm
-from employer.models import job, employer,subscription_plan
+from employer.models import job, employer, subscription_plan
 from django.core.exceptions import ObjectDoesNotExist
 from candidate.models import candidate
 from django.http.response import JsonResponse
@@ -27,7 +28,21 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from abc import ABC
 from datetime import timedelta
 from datetime import datetime
+from django.template.loader import render_to_string
 # Create your views here.
+
+
+def send_review_email(user, request):
+    current_site = get_current_site(request)
+    message = 'text version of HTML message'
+    email_subject = 'Your Empoyer account under review'
+    email_body = render_to_string('employer/review.html', {
+        'user': user,
+        'domain': current_site,
+    })
+
+    send_mail(email_subject, message, settings.DEFAULT_FROM_EMAIL, [
+              user.email], fail_silently=True, html_message=email_body)
 
 
 def send_employer_email(user, cjob, cand, request):
@@ -55,12 +70,14 @@ class EmployerCreateView(CreateView):
        # current_candidate = candidate.objects.get(user__id=self.request.user.id)
         Employer = form.save(commit=False)
         Employer.created_by = User.objects.get(email=self.request.user.email)
+        Employer.created_at = datetime.now()
+        Employer.is_verified = False
         Employer.user = self.request.user
         currentuser = self.request.user
         currentuser.is_employer = True
         currentuser.save()
-        # currentuser.save()
         Employer.save()
+        send_review_email(Employer.user, request)
         '''
         html_message = render_to_string('mail_template.html', {'cm': Edu})
         send_mail(
@@ -76,7 +93,10 @@ class EmployerCreateView(CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy('my_employer_details')
+        context = {
+            'is_verified': False
+        }
+        return reverse_lazy('my_employer_details', context)
 
 
 class JobCreateView(CreateView):
@@ -139,15 +159,15 @@ def JobDetails(request, jid):
     is_job_owner = False
     if user.is_superuser:
         True
-    elif user.is_candidate == True:
+    if user.is_candidate == True:
         current_candidate = candidate.objects.get(user__id=request.user.id)
         is_job_owner = False
         if job.objects.filter(id=jid, applied_candidates=current_candidate).count() >= 1:
             current_candidate_applied = True
         else:
             current_candidate_applied = False
-    
-    elif user.is_employer == True:
+
+    if user.is_employer == True:
         jeid = job_details.employer.id
         ceid = employer.objects.get(user__id=user.id).id
         if ceid == jeid:
@@ -267,7 +287,7 @@ def job_list(request):
     context = {
         'session': json.dumps(session),
         'page_obj': page_obj,
-        'jobs_count':job_list1.count(),
+        'jobs_count': job_list1.count(),
     }
     return render(request, 'employer/job/job_list.html', context)
 
@@ -285,7 +305,48 @@ class EmployerUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView, AB
 
     def test_func(self):
         return True
-        
+
+
+class JobUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView, ABC):
+    model = job
+    template_name = 'employer/job/update.html'
+    form_class = JobForm
+
+    def form_valid(self, form):
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('job_details', kwargs={"jid": self.object.id})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['id'] = self.object.id
+        return context
+
+    def test_func(self):
+        return True
+
+
+# class JobUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView, ABC):
+#     model = job
+#     template_name = 'employer/job/update.html'
+#     form_class = JobForm
+
+#     def form_valid(self, form):
+#         return super().form_valid(form)
+
+#     def get_success_url(self, **kwargs):
+#         return redirect(reverse('job_details', args=(self.object.id,)))
+
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['id'] = self.object.id
+#         return context
+
+#     def test_func(self):
+#         return True
+
+
 def employer_plan(request, sid):
     if request.user.is_employer:
         current_employer = employer.objects.get(user__id=request.user.id)

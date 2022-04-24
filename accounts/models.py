@@ -59,7 +59,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     lastname = models.CharField(verbose_name="last name", max_length=30)
     email = models.EmailField(verbose_name="email", max_length=60, unique=True)
     photo = models.ImageField(verbose_name="Photo",
-                              upload_to='photos', default='photos/default.jpg')
+                              upload_to='photos', default='photos/default.jpg', blank=True, null=True)
     thumbnail = models.ImageField(verbose_name="Thumbnail image",
                                   upload_to='thumbnail', editable=False, blank=True, null=True)
     username = models.CharField(max_length=30, unique=True)
@@ -73,6 +73,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_verified = models.BooleanField(default=False)
     is_candidate = models.BooleanField(default=False)
     is_employer = models.BooleanField(default=False)
+    i_agree = models.BooleanField(
+        verbose_name="Please confirm that you read and agree to our terms & conditions", default=False, blank=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(

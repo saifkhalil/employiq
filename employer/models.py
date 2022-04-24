@@ -1,3 +1,4 @@
+from datetime import datetime
 from tagify.models import TagField
 from ast import keyword
 from email.policy import default
@@ -13,6 +14,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 from easy_thumbnails.fields import ThumbnailerImageField
 from accounts.models import User
 from django.utils.translation import ugettext_lazy as _
+from django.utils import timezone
 User = settings.AUTH_USER_MODEL
 
 NATIONALITY = [
@@ -67,7 +69,7 @@ class subscription_plan(models.Model):
     plan = models.CharField(max_length=200, verbose_name=_('plan'))
     suggestions = models.IntegerField(verbose_name=_('suggestions'))
     jobs = models.IntegerField(verbose_name=_('Jobs'))
-    price = models.IntegerField( verbose_name=_('Price'))
+    price = models.IntegerField(verbose_name=_('Price'))
     days = models.IntegerField()
 
     def __str__(self):
@@ -84,7 +86,7 @@ class employer(models.Model):
         User, on_delete=models.CASCADE, verbose_name=_('User'))
     company = models.CharField(max_length=200, verbose_name=_('Company Name'))
     logo = ThumbnailerImageField(
-        upload_to='company_logos', blank=False,null=False,  verbose_name=_('Logo'))
+        upload_to='company_logos', blank=False, null=False,  verbose_name=_('Logo'))
     industry = models.CharField(max_length=200, verbose_name=_('industry'))
     phone_number = PhoneNumberField(verbose_name=_('Phone Number'))
     public_company_info = models.CharField(max_length=10, choices=BOOL_CHOICES, default='Yes',
@@ -110,6 +112,7 @@ class employer(models.Model):
                                             verbose_name=_('Remaining Records'))
     remaining_jobs = models.IntegerField(blank=True, null=True,
                                          verbose_name=_('Remaining Jobs'))
+    is_verified = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(
@@ -138,15 +141,16 @@ class job(models.Model):
                                     blank=False, null=False, verbose_name=_('Job Description'))
     job_type = models.CharField(max_length=20, choices=Employment_Type,
                                 default="Full-time", blank=False, null=False, verbose_name=_('Employment Type'))
-    date_opened = models.DateField(verbose_name=_(
-        'Date opened'), blank=True, null=True)
+    date_opened = models.DateField(
+        default=timezone.now, verbose_name=_('Date opened'))
     date_closed = models.DateField(verbose_name=_(
         'Date closed'), blank=True, null=True)
     city = models.CharField(max_length=500, default='Baghdad',
                             choices=GOVERNORATES, verbose_name=_('City'))
     country = CountryField(blank_label=_(
         '(select country)'), default='IQ', verbose_name=_('Country'))
-    salary = models.IntegerField( verbose_name=_('Salary'), blank=True, null=True)
+    salary = models.IntegerField(
+        verbose_name=_('Salary'), blank=True, null=True)
     nationality = models.CharField(max_length=15, choices=NATIONALITY,
                                    default="both", blank=False, null=False, verbose_name=_('Nationality'))
 

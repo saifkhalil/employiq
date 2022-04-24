@@ -10,15 +10,20 @@
         <!-- Start of Row -->
         <div class="row">
 
-            <div class="col-md-12 col-xs-12">
+            <div class="col-md-10 col-xs-12">
                 <h3>{{ job.job_title }}</h3>
                 <a href="#" class="btn btn-green btn-small btn-effect mt15">{% trans job.job_type %}</a>
             </div>
-            {% comment %}
-            <div class="col-md-6 col-xs-12 clearfix">
-                <a href="#" class="btn btn-blue btn-effect pull-right mt15"><i class="fa fa-star"></i>add to
-                    favorites</a>
-            </div> {% endcomment %}
+
+            <div class="col-md-2 col-xs-12 clearfix">
+                {% if is_job_owner == True %}
+                <div class="mt20">
+                    <a href="{% url 'job_update' job.id %}" class="btn btn-blue btn-effect pull-right mt15"><i
+                            class="fa fa-edit"></i>{% trans 'Edit Job' %}
+                    </a>
+                </div>
+                {% endif %}
+            </div>
 
 
         </div>
@@ -111,6 +116,7 @@
                 <div class="row">
                     <div class="job-sidebar">
                         <ul class="job-overview nopadding mt40">
+
                             <li>
                                 <h5><i class="fa fa-calendar"></i> {% trans 'Date Opened:' %}
                                     <span>{{ job.date_opened }}</span></h5>
@@ -136,7 +142,7 @@
                                 {% trans 'Apply for job' %}
                             </button>
                             {% elif applied == True %}
-                            <a href="#" class="btn btn-green btn-effect">{% trans 'Your Already applied' %}</a>
+                            <p class="alert alert-success">{% trans 'Your Already applied' %}</p>
                             {% endif %}
                         </div>
                         {% endif %}
@@ -165,7 +171,7 @@
                     </div>
                 </div>
                 {% endif %}
-                                {% if user.is_superuser %}
+                {% if user.is_superuser %}
                 <div class="row">
                     <div class="job-sidebar">
                         <p>{% trans 'Applied candidates' %}</p>
@@ -176,12 +182,12 @@
                                     alt="{{ cand.firstname }}">
                                 <div class="ms-2 me-auto">
                                     <div class="fw-bold"><a href="{% url 'candetials' cand.id %}"
-                                    class="link-primary">{{ cand.title }} {{ cand.firstname }}
-                                        {{ cand.secondname }}
-                                        {{ cand.lastname }}</a></div>
+                                            class="link-primary">{{ cand.title }} {{ cand.firstname }}
+                                            {{ cand.secondname }}
+                                            {{ cand.lastname }}</a></div>
                                     {{ cand.get_city_display }}
                                 </div>
-                                
+
                             </li>
                             {% endfor %}
                             </ul>

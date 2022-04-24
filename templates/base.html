@@ -5,69 +5,83 @@
 {% get_language_info_list for AVAILABLE_LANGUAGES as languages %}
 {% load static %}
 <html lang="{{CURRENT_LANGUAGE}}" dir="{% if CURRENT_LANGUAGE == 'en' %}ltr{% else %}rtl{% endif %}">
-    
+
 <head>
-    
+
 
     <!-- Facebook Pixel Code -->
 
-<script>
+    <script>
+        ! function (f, b, e, v, n, t, s)
 
-!function(f,b,e,v,n,t,s)
+        {
+            if (f.fbq) return;
+            n = f.fbq = function () {
+                n.callMethod ?
 
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
 
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if (!f._fbq) f._fbq = n;
+            n.push = n;
+            n.loaded = !0;
+            n.version = '2.0';
 
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue = [];
+            t = b.createElement(e);
+            t.async = !0;
 
-n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src = v;
+            s = b.getElementsByTagName(e)[0];
 
-t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
 
-s.parentNode.insertBefore(t,s)}(window,document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
 
-'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '391987302429990');
 
-fbq('init', '391987302429990'); 
+        fbq('track', 'PageView');
+    </script>
 
-fbq('track', 'PageView');
+    <noscript>
 
-</script>
+        <img height="1" width="1" src="https://www.facebook.com/tr?id=391987302429990&ev=PageView &noscript=1" />
 
-<noscript>
+    </noscript>
 
-<img height="1" width="1" src="https://www.facebook.com/tr?id=391987302429990&ev=PageView &noscript=1"/>
-
-</noscript>
-
-<!-- End Facebook Pixel Code -->
+    <!-- End Facebook Pixel Code -->
 
 
-<!-- Primary Meta Tags -->
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>EmployIQ</title>
-<meta name="title" content="EmployIQ is a professional recruitment tool that has come together to assist you with a simplified and cost-effective recruitment process. We connect a numerous amount of people to new opportunities every single day through our job portal by putting job seekers first and offering free resume building interface and company research.">
-<meta name="description" content="EmployIQ is a professional recruitment tool that has come together to assist you with a simplified and cost-effective recruitment process. We connect a numerous amount of people to new opportunities every single day through our job portal by putting job seekers first and offering free resume building interface and company research.">
-<meta name="keywords" content="Employiq - Job Board, job board, job listing, job portal, job postings, jobs, recruiters, recruiting, recruitment">
-<meta name="author" content="Saif AlKhateeb">
-<link rel="shortcut icon" href="{% static 'images/EIQLOGO.svg' %}" type="image/x-icon">
-<link rel="apple-touch-icon-precomposed" href="{% static 'images/apple-touch-icon.png' %}">
+    <!-- Primary Meta Tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>EmployIQ</title>
+    <meta name="title"
+        content="EmployIQ is a professional recruitment tool that has come together to assist you with a simplified and cost-effective recruitment process. We connect a numerous amount of people to new opportunities every single day through our job portal by putting job seekers first and offering free resume building interface and company research.">
+    <meta name="description"
+        content="EmployIQ is a professional recruitment tool that has come together to assist you with a simplified and cost-effective recruitment process. We connect a numerous amount of people to new opportunities every single day through our job portal by putting job seekers first and offering free resume building interface and company research.">
+    <meta name="keywords"
+        content="Employiq - Job Board, job board, job listing, job portal, job postings, jobs, recruiters, recruiting, recruitment">
+    <meta name="author" content="Saif AlKhateeb">
+    <link rel="shortcut icon" href="{% static 'images/EIQLOGO.svg' %}" type="image/x-icon">
+    <link rel="apple-touch-icon-precomposed" href="{% static 'images/apple-touch-icon.png' %}">
 
-<!-- Open Graph / Facebook -->
-<meta property="og:type" content="website">
-<meta property="og:url" content="http://employiq.net:8080/en/">
-<meta property="og:title" content="EmployIQ is a professional recruitment tool that has come together to assist you with a simplified and cost-effective recruitment process. We connect a numerous amount of people to new opportunities every single day through our job portal by putting job seekers first and offering free resume building interface and company research.">
-<meta property="og:description" content="Employiq - Job Board">
-<meta property="og:image" content="{% static 'images/details-2-background.jpg' %}">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://employiq.net:8080/en/">
+    <meta property="og:title"
+        content="EmployIQ is a professional recruitment tool that has come together to assist you with a simplified and cost-effective recruitment process. We connect a numerous amount of people to new opportunities every single day through our job portal by putting job seekers first and offering free resume building interface and company research.">
+    <meta property="og:description" content="Employiq - Job Board">
+    <meta property="og:image" content="{% static 'images/details-2-background.jpg' %}">
 
-<!-- Twitter -->
-<meta property="twitter:card" content="summary_large_image">
-<meta property="twitter:url" content="http://employiq.net:8080/en/">
-<meta property="twitter:title" content="EmployIQ is a professional recruitment tool that has come together to assist you with a simplified and cost-effective recruitment process. We connect a numerous amount of people to new opportunities every single day through our job portal by putting job seekers first and offering free resume building interface and company research.">
-<meta property="twitter:description" content="Employiq - Job Board">
-<meta property="twitter:image" content="{% static 'images/details-2-background.jpg' %}">
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="http://employiq.net:8080/en/">
+    <meta property="twitter:title"
+        content="EmployIQ is a professional recruitment tool that has come together to assist you with a simplified and cost-effective recruitment process. We connect a numerous amount of people to new opportunities every single day through our job portal by putting job seekers first and offering free resume building interface and company research.">
+    <meta property="twitter:description" content="Employiq - Job Board">
+    <meta property="twitter:image" content="{% static 'images/details-2-background.jpg' %}">
 
     <!-- CSS links -->
     <script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
@@ -82,212 +96,219 @@ fbq('track', 'PageView');
     <link rel="stylesheet" type="text/css" href="{% static 'css/owl.carousel.min.css' %}">
 
 </head>
+
 <body>
-<!-- =============== Start of Header 1 Navigation =============== -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
-    <div class="container-fluid">
-        <!-- Image Logo -->
-        <a class="navbar-brand" href="{% url 'home' %}"><img src="/static/images/EIQLOGO2.svg" width="150" height="100"
-                alt="alternative"></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'home' %}">{% trans 'Home' %}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'about' %}">{% trans 'About' %}</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        {% trans 'For Candidates' %}
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        {% if user.is_candidate %}
-                        <li><a class="dropdown-item" href="{% url 'my_candidate_details' %}">{% trans 'Profile' %}</a>
-                        </li>
-                        {% else %}
-                        <li><a class="dropdown-item"
-                                href="{% url 'candidate_create' %}">{% trans 'Register as Candidate' %}</a></li>
-                        {% endif %}
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        {% trans 'for employers' %}
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        {% if user.is_employer %}
-                        <li><a class="dropdown-item" href="{% url 'my_employer_details' %}">{% trans 'Profile' %}</a>
-                        <li><a class="dropdown-item" href="{% url 'job_create' %}">{% trans 'Post a job' %}</a>
-                        <li> <a class="dropdown-item" href="{% url 'candlist' %}">{% trans 'Find a candidate' %}</a>
+    <!-- =============== Start of Header 1 Navigation =============== -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+        <div class="container-fluid">
+            <!-- Image Logo -->
+            <a class="navbar-brand" href="{% url 'home' %}"><img src="/static/images/EIQLOGO2.svg" width="150"
+                    height="100" alt="alternative"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}">{% trans 'Home' %}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'about' %}">{% trans 'About' %}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'terms' %}">{% trans 'Policy for terms of use' %}</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            {% trans 'For Candidates' %}
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            {% if user.is_candidate %}
+                            <li><a class="dropdown-item"
+                                    href="{% url 'my_candidate_details' %}">{% trans 'Profile' %}</a>
+                            </li>
                             {% else %}
-                        <li> <a class="dropdown-item"
-                                href="{% url 'employer_create' %}">{% trans 'Register as employer' %}</a>
+                            <li><a class="dropdown-item"
+                                    href="{% url 'candidate_create' %}">{% trans 'Register as Candidate' %}</a></li>
                             {% endif %}
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            {% trans 'for employers' %}
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            {% if user.is_employer %}
+                            <li><a class="dropdown-item"
+                                    href="{% url 'my_employer_details' %}">{% trans 'Profile' %}</a>
+                            <li><a class="dropdown-item" href="{% url 'job_create' %}">{% trans 'Post a job' %}</a>
+                            <li> <a class="dropdown-item" href="{% url 'candlist' %}">{% trans 'Find a candidate' %}</a>
+                                {% else %}
+                            <li> <a class="dropdown-item"
+                                    href="{% url 'employer_create' %}">{% trans 'Register as employer' %}</a>
+                                {% endif %}
 
-                        </li>
-                    </ul>
-                </li>
-                <li class="menu-item"><a class="nav-link" href="{% url 'job_list' %}">{% trans 'Jobs' %}</a>
-                </li>
-                {% if user.is_authenticated %}
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="menu-item"><a class="nav-link" href="{% url 'job_list' %}">{% trans 'Jobs' %}</a>
+                    </li>
+                    {% if user.is_authenticated %}
 
-                <li class="menu-item login-btn">
-                    <a href="{% url 'logout' %}"><i class="fa fa-sign-out"></i>{% trans 'LOGOUT' %}</a>
-                                            {% if user.is_superuser %}
+                    <li class="menu-item login-btn">
+                        <a href="{% url 'logout' %}"><i class="fa fa-sign-out"></i>{% trans 'LOGOUT' %}</a>
+                        {% if user.is_superuser %}
                         <a href="{% url 'dashboard' %}"><i class="fa fa-sign-out"></i>{% trans 'dashboard' %}</a>
                         {% endif %}
-                </li>
-                {% else %}
-                <li class="menu-item login-btn">
-                    <a href="{% url 'login' %}"><i class="fa fa-sign-in"></i>{% trans 'Login' %}</a>
-                </li>
-                <li class="menu-item login-btn">
-                    <a href="{% url 'register' %}"><i class="fa fa-sign-in"></i>{% trans 'Register' %}</a>
-                </li>
-                {% endif %}
-                <li class="nav-item">
-                    <a class="nav-link page-scroll" href="/en/{{request.get_full_path|slice:"4:"}}">English</a>
-                </li>
+                    </li>
+                    {% else %}
+                    <li class="menu-item login-btn">
+                        <a href="{% url 'login' %}"><i class="fa fa-sign-in"></i>{% trans 'Login' %}</a>
+                    </li>
+                    <li class="menu-item login-btn">
+                        <a href="{% url 'register' %}"><i class="fa fa-sign-in"></i>{% trans 'Register' %}</a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link page-scroll" href="/en/{{request.get_full_path|slice:"4:"}}">English</a>
+                    </li>
 
-                <li class="nav-item">
-                    <a class="nav-link  page-scroll" href="/ar/{{request.get_full_path|slice:"4:"}}">العربيّة</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-<div class="main">
-    {% block content %}{% endblock %}
-</div>
-
-
-<!-- =============== Start of Footer 1 =============== -->
-<footer class="footer1">
-
-    <!-- ===== Start of Footer Information & Links Section ===== -->
-    <div class="footer-info ptb80">
-        <div class="row justify-content-center">
-
-            <!-- 1st Footer Column -->
-            <div class="col-md-5 col-sm-5 col-xs-5 footer-about">
-
-                <!-- Your Logo Here -->
-                <a href="index.html">
-                    <img width="400px" Height="400px" src="{% static 'images/EIQLOGO2.svg' %}" alt="">
-                </a>
-                <!-- Small Description -->
-                <p class="pt40">
-                    {% trans 'EmployIQ is a professional recruitment tool that has come together to assist you with a simplified and cost-effective recruitment process. We connect a numerous amount of people to new opportunities every single day through our job portal by putting job seekers first and offering free resume building interface and company research.' %}
-                </p>
-
-                <!-- Info -->
-                <ul class="nopadding">
-                    <li><i class="fa fa-map-marker"></i>{% trans 'Iraq' %}</li>
-                    <li><i class="fa fa-envelope-o"></i><a href="mailto:info@employiq.net">info@employiq.net</a>
+                    <li class="nav-item">
+                        <a class="nav-link  page-scroll" href="/ar/{{request.get_full_path|slice:"4:"}}">العربيّة</a>
                     </li>
                 </ul>
             </div>
-
-            <!-- 2nd Footer Column -->
-            <div class="col-md-5 col-sm-5 col-xs-5 footer-links">
-                <h3>{% trans 'Useful links' %}</h3>
-
-                <!-- Links -->
-                <ul class="nopadding">
-                    <li><a href="{% url 'home' %}"><i class="fa fa-angle-double-right"></i>{% trans 'Home' %}</a></li>
-                    <li><a href="{% url 'my_candidate_details' %}"><i
-                                class="fa fa-angle-double-right"></i>{% trans 'My Candidate Profile' %}</a></li>
-                    <li><a href="{% url 'candlist' %}"><i
-                                class="fa fa-angle-double-right"></i>{% trans 'Find a candidate' %}</a></li>
-                    <li><a href="{% url 'job_create' %}"><i
-                                class="fa fa-angle-double-right"></i>{% trans 'Post a job' %}</a></li>
-                    <li><a href="{% url 'job_list' %}"><i
-                                class="fa fa-angle-double-right"></i>{% trans 'Search for a job' %}</a></li>
-                </ul>
-            </div>
-
         </div>
+    </nav>
+
+    <div class="main">
+        {% block content %}{% endblock %}
     </div>
-    <!-- ===== End of Footer Information & Links Section ===== -->
 
 
-    <!-- ===== Start of Footer Copyright Section ===== -->
-    <div class="copyright ptb40">
-        <div class="row justify-content-center">
+    <!-- =============== Start of Footer 1 =============== -->
+    <footer class="footer1">
 
-            <div class="col-md-5 col-sm-5 col-xs-10">
-                <span>{% trans 'Copyright &copy; Employiq. All Rights Reserved' %}</span>
+        <!-- ===== Start of Footer Information & Links Section ===== -->
+        <div class="footer-info ptb80">
+            <div class="row justify-content-center">
+
+                <!-- 1st Footer Column -->
+                <div class="col-md-5 col-sm-5 col-xs-5 footer-about">
+
+                    <!-- Your Logo Here -->
+                    <a href="index.html">
+                        <img width="400px" Height="400px" src="{% static 'images/EIQLOGO2.svg' %}" alt="">
+                    </a>
+                    <!-- Small Description -->
+                    <p class="pt40">
+                        {% trans 'EmployIQ is a professional recruitment tool that has come together to assist you with a simplified and cost-effective recruitment process. We connect a numerous amount of people to new opportunities every single day through our job portal by putting job seekers first and offering free resume building interface and company research.' %}
+                    </p>
+
+                    <!-- Info -->
+                    <ul class="nopadding">
+                        <li><i class="fa fa-map-marker"></i>{% trans 'Iraq' %}</li>
+                        <li><i class="fa fa-envelope-o"></i><a href="mailto:info@employiq.net">info@employiq.net</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 2nd Footer Column -->
+                <div class="col-md-5 col-sm-5 col-xs-5 footer-links">
+                    <h3>{% trans 'Useful links' %}</h3>
+
+                    <!-- Links -->
+                    <ul class="nopadding">
+                        <li><a href="{% url 'home' %}"><i class="fa fa-angle-double-right"></i>{% trans 'Home' %}</a>
+                        </li>
+                        <li><a href="{% url 'my_candidate_details' %}"><i
+                                    class="fa fa-angle-double-right"></i>{% trans 'My Candidate Profile' %}</a></li>
+                        <li><a href="{% url 'candlist' %}"><i
+                                    class="fa fa-angle-double-right"></i>{% trans 'Find a candidate' %}</a></li>
+                        <li><a href="{% url 'job_create' %}"><i
+                                    class="fa fa-angle-double-right"></i>{% trans 'Post a job' %}</a></li>
+                        <li><a href="{% url 'job_list' %}"><i
+                                    class="fa fa-angle-double-right"></i>{% trans 'Search for a job' %}</a></li>
+                    </ul>
+                </div>
+
             </div>
-
-            <div class="col-md-5 col-sm-5 col-xs-10">
-                <!-- Start of Social Media Buttons -->
-                <ul class="social-btns list-group list-group-horizontal text-right">
-                    <!-- Social Media -->
-                    <li>
-                        <a href="https://www.facebook.com/EmployIQ" class="social-btn-roll facebook">
-                            <div class="social-btn-roll-icons">
-                                <i class="social-btn-roll-icon fa fa-facebook"></i>
-                                <i class="social-btn-roll-icon fa fa-facebook"></i>
-                            </div>
-                        </a>
-                    </li>
-                    <!-- Social Media -->
-                    <li>
-                        <a href="https://instagram.com/employiq" class="social-btn-roll instagram">
-                            <div class="social-btn-roll-icons">
-                                <i class="social-btn-roll-icon fa fa-instagram"></i>
-                                <i class="social-btn-roll-icon fa fa-instagram"></i>
-                            </div>
-                        </a>
-                    </li>
-
-                    <!-- Social Media -->
-                    <li>
-                        <a href="https://www.linkedin.com/company/employ-iraq" class="social-btn-roll linkedin">
-                            <div class="social-btn-roll-icons">
-                                <i class="social-btn-roll-icon fa fa-linkedin"></i>
-                                <i class="social-btn-roll-icon fa fa-linkedin"></i>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-                <!-- End of Social Media Buttons -->
-            </div>
-
         </div>
-    </div>
-    <!-- ===== End of Footer Copyright Section ===== -->
-
-</footer>
-<!-- =============== End of Footer 1 =============== -->
-
-<!-- ===== Start of Back to Top Button ===== -->
-<a href="#" class="back-top"><i class="fa fa-chevron-up"></i></a>
-<!-- ===== End of Back to Top Button ===== -->
+        <!-- ===== End of Footer Information & Links Section ===== -->
 
 
-<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-<script src="{% static 'js/custom.js' %}?v=1.1"></script>
-<script src="{% static 'js/swiper.min.js' %}"></script>
-<script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+        <!-- ===== Start of Footer Copyright Section ===== -->
+        <div class="copyright ptb40">
+            <div class="row justify-content-center">
 
-<script src="{% static 'js/jquery.ajaxchimp.js' %}"></script>
-<script src="{% static 'js/jquery.countTo.js' %}"></script>
-<script src="{% static 'js/jquery.inview.min.js' %}"></script>
+                <div class="col-md-5 col-sm-5 col-xs-10">
+                    <span>{% trans 'Copyright &copy; Employiq. All Rights Reserved' %}</span>
+                </div>
 
-<script src="{% static 'js/jquery.easypiechart.min.js' %}"></script>
-<script src="{% static 'js/jquery-ui.min.js' %}"></script>
-<script src="{% static 'js/owl.carousel.min.js' %}"></script>
-<script src="{% static 'js/tinymce/tinymce.min.js' %}"></script>
-<script src="{% static 'js/isotope.min.js' %}"></script>
+                <div class="col-md-5 col-sm-5 col-xs-10">
+                    <!-- Start of Social Media Buttons -->
+                    <ul class="social-btns list-group list-group-horizontal text-right">
+                        <!-- Social Media -->
+                        <li>
+                            <a href="https://www.facebook.com/EmployIQ" class="social-btn-roll facebook">
+                                <div class="social-btn-roll-icons">
+                                    <i class="social-btn-roll-icon fa fa-facebook"></i>
+                                    <i class="social-btn-roll-icon fa fa-facebook"></i>
+                                </div>
+                            </a>
+                        </li>
+                        <!-- Social Media -->
+                        <li>
+                            <a href="https://instagram.com/employiq" class="social-btn-roll instagram">
+                                <div class="social-btn-roll-icons">
+                                    <i class="social-btn-roll-icon fa fa-instagram"></i>
+                                    <i class="social-btn-roll-icon fa fa-instagram"></i>
+                                </div>
+                            </a>
+                        </li>
+
+                        <!-- Social Media -->
+                        <li>
+                            <a href="https://www.linkedin.com/company/employ-iraq" class="social-btn-roll linkedin">
+                                <div class="social-btn-roll-icons">
+                                    <i class="social-btn-roll-icon fa fa-linkedin"></i>
+                                    <i class="social-btn-roll-icon fa fa-linkedin"></i>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- End of Social Media Buttons -->
+                </div>
+
+            </div>
+        </div>
+        <!-- ===== End of Footer Copyright Section ===== -->
+
+    </footer>
+    <!-- =============== End of Footer 1 =============== -->
+
+    <!-- ===== Start of Back to Top Button ===== -->
+    <a href="#" class="back-top"><i class="fa fa-chevron-up"></i></a>
+    <!-- ===== End of Back to Top Button ===== -->
+
+
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/custom.js' %}?v=1.1"></script>
+    <script src="{% static 'js/swiper.min.js' %}"></script>
+    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+
+    <script src="{% static 'js/jquery.ajaxchimp.js' %}"></script>
+    <script src="{% static 'js/jquery.countTo.js' %}"></script>
+    <script src="{% static 'js/jquery.inview.min.js' %}"></script>
+
+    <script src="{% static 'js/jquery.easypiechart.min.js' %}"></script>
+    <script src="{% static 'js/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/tinymce/tinymce.min.js' %}"></script>
+    <script src="{% static 'js/isotope.min.js' %}"></script>
 
 
 </body>

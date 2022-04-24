@@ -41,9 +41,9 @@ def send_active_email(user, request):
 
     send_mail(email_subject, message, settings.DEFAULT_FROM_EMAIL, [
               user.email], fail_silently=True, html_message=email_body)
-              
 
-def send_active(request,userid):
+
+def send_active(request, userid):
     user = User.objects.get(id=userid)
     message = 'text version of HTML message'
     email_subject = 'Activate your account'
@@ -70,7 +70,7 @@ def registration_view(request):
             email = form.cleaned_data.get('email')
             # async_send_mail = sync_to_async(send_mail)
             # asyncio.create_task(async_send_mail('Celery Task Worked!2','This is proof the task worked!', 'saif780@gmail.com', ['saif780@gmail.com']))
-            
+
             raw_password = form.cleaned_data.get('password1')
             fullname = "%s %s" % (form.cleaned_data.get(
                 'firstname'), form.cleaned_data.get('lastname'))
@@ -90,7 +90,7 @@ def registration_view(request):
             context['form'] = form
         else:
             return render(request, 'after_register.html')
-    return render(request, 'account/register copy.html', context)
+    return render(request, 'account/register.html', context)
 
 
 def logout_view(request):

@@ -33,6 +33,7 @@ from django.utils.translation import gettext_lazy as _
 from django.conf.urls.i18n import i18n_patterns
 from django.shortcuts import render
 
+
 def handler404(request, *args, **argv):
     response = render(request, '404.html')
     response.status_code = 404
@@ -51,6 +52,7 @@ urlpatterns = i18n_patterns(
     path('accounts/', include('allauth.urls')),
     # path('after', views.after, name='after'),
     path('about', views.about, name='about'),
+    path('policy-for-terms-of-use', views.terms, name='terms'),
     path('language_setting', include('rosetta.urls')),
     path('candidates/', include('candidate.urls'), name='candidate'),
     path('employer/', include('employer.urls'), name='employer'),
@@ -59,7 +61,7 @@ urlpatterns = i18n_patterns(
     path('terms-conditions', views.termsconditions, name='terms-conditions'),
     path('grappelli/', include('grappelli.urls')),
     path('admin/', admin.site.urls),
-    path('verify/<uuid:userid>',send_active,name="send_active"),
+    path('verify/<uuid:userid>', send_active, name="send_active"),
     re_path(r'^media/(?P<path>.*)$', serve,
             {'document_root': settings.MEDIA_ROOT, }),
     path('register/', registration_view, name="register"),

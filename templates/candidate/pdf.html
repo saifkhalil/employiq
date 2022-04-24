@@ -1,137 +1,145 @@
 {% load static %}
 {% load thumbnail %}
-    <style>
-    * { float: none !important; }
-        @page {
-            size: a4;
+<style>
+    * {
+        float: none !important;
+    }
 
-            margin: 0.44in 0.44in 0.44in 0.44in;
-        }
+    @page {
+        size: a4;
 
-        p {
-            font-size: 7pt !important;
-        }
-        .pinfo {
-            font-size: 7pt !important;
-        }
+        margin: 0.44in 0.44in 0.44in 0.44in;
+    }
 
-        .sinfo {
-            font-size: 9pt !important;
-        }
+    p {
+        font-size: 7pt !important;
+    }
 
-        h6 {
-            font-size: 9pt !important;
-            font-weight: bold;
-        }
-        .pic {
-            width:150px !important;
-            heigh:150px !important;
-        }
-    </style>
+    .pinfo {
+        font-size: 7pt !important;
+    }
 
-    <div class="row">
-        <table id="print" class="print">
-            <colgroup>
-                <col width="65%">
-                <col width="35%">
-            </colgroup>
-            <tbody>
-                <tr>
-                    <td style="vertical-align: top;padding: 10px;">
-                        <div class="row">
-                            <div class="col-2">
-                                <img class="pic img-thumbnail" src="{{object.photo.url}}" alt="{{ object.firstname }}">
-                            </div>
-                            <div style="padding:10px" class="col-9">
-                                <h5 style="color: #6c757d !important;font-weight: bold;">{{object.get_title_display}}
-                                    {{ object.firstname }} {{ object.secondname }} {{ object.lastname }}</h5>
-                                <h6>{{ object.get_highest_level_of_education_display }}</h6>
-                            </div>
+    .sinfo {
+        font-size: 9pt !important;
+    }
+
+    h6 {
+        font-size: 9pt !important;
+        font-weight: bold;
+    }
+
+    .pic {
+        width: 150px !important;
+        heigh: 150px !important;
+    }
+</style>
+
+<div class="row">
+    <table id="print" class="print">
+        <colgroup>
+            <col width="65%">
+            <col width="35%">
+        </colgroup>
+        <tbody>
+            <tr>
+                <td style="vertical-align: top;padding: 10px;">
+                    <div class="row">
+                        <div class="col-2">
+                            <img class="pic img-thumbnail" src="{{object.photo.url}}" alt="{{ object.firstname }}">
                         </div>
+                        <div style="padding:10px" class="col-9">
+                            <h5 style="color: #6c757d !important;font-weight: bold;">{{object.get_title_display}}
+                                {{ object.firstname }} {{ object.secondname }} {{ object.lastname }}</h5>
+                            <h6>{{ object.get_highest_level_of_education_display }}</h6>
+                        </div>
+                    </div>
+                    <hr>
+
+                    <div class="row;vertical-align: top;">
+                        <h5 class="bold">Profile</h5>
+                        {% if object.bio %}
+                        <p class="pinfo">{{ object.bio }}</p>
+
                         <hr>
-
-                        <div class="row;vertical-align: top;">
-                            <h5 class="bold">Profile</h5>
-                            <p class="pinfo">{{ object.bio }}</p>
-                            <hr>
-                            </div>
-
-                            
-                            
-                    </td>
-                    <td style="width:20%;vertical-align: top;padding: 10px;border-left: 1px black solid;">
-                        <h6 style="color:black;" class="bold">Personal Details</h6>
-                        <br>
-                        <p class="pinfo">Gender: {{object.get_gender_display}} </p>
-                        <p class="pinfo">Birth: {{ object.birthofdate }}</p>
-                        <p class="pinfo">Marital status: {{ object.get_marital_status_display }} </p>
-                        <p class="pinfo">Nationality: {{ object.get_primary_nationality_display }}</p>
-                        <p class="pinfo">Address: {{ object.get_country_display }}, {{ object.city }}</p>
-                        <p class="pinfo">Tel: {{ object.phone_number }}</p>
-                        <p class="pinfo">Email: {{ object.email }} </p>
-                    </td>
-                </tr>
-                {% for emp in employments %}
-                 <tr>
-                    <td style="vertical-align: top;padding: 10px;">
-                            {% if forloop.first %}
-                            <h5 style="color:black" class="bold">Experiences</h5>
-                           {% endif %}
-                            <h6 style="color: #6c757d !important">{{ emp.employer }} – {{ emp.start_date|date:"M, Y" }}
-                                –
-                                {% if emp.get_current_job_display == "Yes" %} Current {% else %}
-                                {{ emp.end_date|date:"M, Y" }}
-                                {% endif%}</h6>
-                            <p style="color: #6c757d !important">{{ emp.city}}, {{ emp.get_country_display }}</p>
-                            <h6>{{ emp.job_title }}</h6>
-                            <p class="pinfo">{{ emp.job_description|safe }}</p>
-                            
-                            <hr>
-                            
-                        </td>
-                        <td style="vertical-align: top;padding: 10px;;border-left: 1px black solid;
-">
-                            {% if forloop.first %}
-                           <h6 style="color:black" class="bold">Profissional Skills</h6>
-                        <br>
-                        <p id="cvskills">#</p>
-                        <br> <h6 class="bold">Languages</h6>
-                        <br> {% for lang in Languages %}
-                        <p class="pinfo">{{ lang.get_language_display }}: {{ lang.get_level_display }} </p>
-                        {% endfor %}
                         {% endif %}
-                         </td>
-                        </tr>
-                                 <tr>
-                                     {% endfor %}
-                    <td style="padding: 10px;">
-                        <div class="row;vertical-align: top;">
-                            <h5 style="color:black" class="bold">Courses & Workshops</h5>
-                            {% for cert in certificates %}
-                            <h6 style="color: #6c757d !important">{{ cert.certificate_name }} —
-                                {{ cert.issue_date|date:"Y" }}</h6>
-                            <p style="color: #6c757d !important">{{ cert.organization }}</p>
-                            {% endfor %}
-                            <hr>
-                            </div>
-                        </td>
-                        </tr>
-                                 <tr>
-                    <td style="padding: 10px;">
-                        <div class="row;vertical-align: top;">
-                            <h5 style="color:black" class="bold">Educations</h5>
-                            {% for edu in educations %}
-                            <h6 class="bold">{{ edu.original_title_of_the_qualification }}</h6>
-                            <p style="color: #6c757d !important">{{ edu.institution }}</p>
-                            <p style="color: #6c757d !important">{{ edu.get_country_display }}, {{ edu.city }}</p>
-                            <p style="color: #6c757d !important">{{ edu.start_date|date:"Y"}} -
-                                {{ edu.graduation_date|date:"Y"}}
-                            </p>
-                            {% endfor %}
+                    </div>
+                </td>
+                <td style="width:20%;vertical-align: top;padding: 10px;border-left: 1px black solid;">
+                    <h6 style="color:black;" class="bold">Personal Details</h6>
+                    <br>
+                    <p class="pinfo">Gender: {{object.get_gender_display}} </p>
+                    <p class="pinfo">Birth: {{ object.birthofdate }}</p>
+                    <p class="pinfo">Marital status: {{ object.get_marital_status_display }} </p>
+                    <p class="pinfo">Nationality: {{ object.get_primary_nationality_display }}</p>
+                    <p class="pinfo">Address: {{ object.get_country_display }}, {{ object.city }}</p>
+                    <p class="pinfo">Tel: {{ object.phone_number }}</p>
+                    <p class="pinfo">Email: {{ object.email }} </p>
+                </td>
+            </tr>
 
-                        </div>
-                        </td>
-                        </tr>
-            </tbody>
-        </table>
-    </div>
+            {% for emp in employments %}
+            <tr>
+                <td style="vertical-align: top;padding: 10px;">
+                    {% if forloop.first %}
+                    <h5 style="color:black" class="bold">Experiences</h5>
+                    {% endif %}
+                    <h6 style="color: #6c757d !important">{{ emp.employer }} – {{ emp.start_date|date:"M, Y" }}
+                        –
+                        {% if emp.get_current_job_display == "Yes" %} Current {% else %}
+                        {{ emp.end_date|date:"M, Y" }}
+                        {% endif%}</h6>
+                    <p style="color: #6c757d !important">{{ emp.city}}, {{ emp.get_country_display }}</p>
+                    <h6>{{ emp.job_title }}</h6>
+                    <p class="pinfo">{{ emp.job_description|safe }}</p>
+                    <hr>
+                </td>
+                <td style="vertical-align: top;padding: 10px;;border-left: 1px black solid;">
+                    {% if forloop.first %}
+                    <h6 style="color:black" class="bold">Profissional Skills</h6>
+                    <br>
+                    <p id="cvskills">#</p>
+                    <br>
+                    <h6 class="bold">Languages</h6>
+                    <br> {% for lang in Languages %}
+                    <p class="pinfo">{{ lang.get_language_display }}: {{ lang.get_level_display }} </p>
+                    {% endfor %}
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+            <tr>
+                {% if certificates %}
+                <td style="padding: 10px;">
+                    <div class="row;vertical-align: top;">
+                        <h5 style="color:black" class="bold">Courses & Workshops</h5>
+                        {% for cert in certificates %}
+                        <h6 style="color: #6c757d !important">{{ cert.certificate_name }} —
+                            {{ cert.issue_date|date:"Y" }}</h6>
+                        <p style="color: #6c757d !important">{{ cert.organization }}</p>
+                        {% endfor %}
+                        <hr>
+                    </div>
+                </td>
+                {% endif %}
+            </tr>
+            {% if educations %}
+            <tr>
+                <td style="padding: 10px;">
+                    <div class="row;vertical-align: top;">
+                        <h5 style="color:black" class="bold">Educations</h5>
+                        {% for edu in educations %}
+                        <h6 class="bold">{{ edu.original_title_of_the_qualification }}</h6>
+                        <p style="color: #6c757d !important">{{ edu.institution }}</p>
+                        <p style="color: #6c757d !important">{{ edu.get_country_display }}, {{ edu.city }}</p>
+                        <p style="color: #6c757d !important">{{ edu.start_date|date:"Y"}} -
+                            {{ edu.graduation_date|date:"Y"}}
+                        </p>
+                        {% endfor %}
+
+                    </div>
+                </td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
