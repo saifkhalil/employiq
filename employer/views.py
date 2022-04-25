@@ -20,6 +20,11 @@ from django.db.models import Q
 from django.core.paginator import Paginator
 import json
 from django.utils.translation import ugettext_lazy as _
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.template.loader import render_to_string
+from django.utils.encoding import force_bytes, force_str, force_text
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
+import six
 from django.core.mail import EmailMessage, send_mail
 from django.conf import settings
 from django.template.loader import render_to_string
@@ -32,17 +37,17 @@ from django.template.loader import render_to_string
 # Create your views here.
 
 
-def send_review_email(user, request):
+def send_review_email(Employer, request):
     current_site = get_current_site(request)
     message = 'text version of HTML message'
-    email_subject = 'Your Empoyer account under review'
+    email_subject = 'Your Employer account under review'
     email_body = render_to_string('employer/review.html', {
-        'user': user,
+        'Employer': Employer,
         'domain': current_site,
     })
 
     send_mail(email_subject, message, settings.DEFAULT_FROM_EMAIL, [
-              user.email], fail_silently=True, html_message=email_body)
+              Employer.user.email], fail_silently=True, html_message=email_body)
 
 
 def send_employer_email(user, cjob, cand, request):
@@ -77,26 +82,14 @@ class EmployerCreateView(CreateView):
         currentuser.is_employer = True
         currentuser.save()
         Employer.save()
-        send_review_email(Employer.user, request)
-        '''
-        html_message = render_to_string('mail_template.html', {'cm': Edu})
-        send_mail(
-            subject='New Change Management Created Reason: ' +
-            form.cleaned_data['reason'],
-            html_message=html_message,
-            message='',
-            from_email='isms@qi.iq',
-            recipient_list=['saif.ibrahim@qi.iq', 'saif780@gmail.com'],
-            fail_silently=False,
-        )
-        '''
+        send_review_email(Employer, request)
         return super().form_valid(form)
 
     def get_success_url(self):
-        context = {
-            'is_verified': False
-        }
-        return reverse_lazy('my_employer_details', context)
+        # context = {
+        #     'is_verified': False
+        # }
+        return reverse_lazy('my_employer_details')
 
 
 class JobCreateView(CreateView):
@@ -108,8 +101,11 @@ class JobCreateView(CreateView):
        # current_candidate = candidate.objects.get(user__id=self.request.user.id)
         Job = form.save(commit=False)
         user = self.request.user
-        current_employer = employer.objects.filter(user__id=user.id).first()
+        current_employer = employer.objects.get(user__id=self.request.user.id)
         remaining_jobs = current_employer.remaining_jobs
+        if current_employer.is_verified == False:
+            messages.add_message(self.request, messages.ERROR,
+                                 _("Your employer profile under review"))
         if remaining_jobs >= 1:
             current_employer.remaining_jobs = remaining_jobs - 1
             current_employer.save()
@@ -129,7 +125,7 @@ class JobCreateView(CreateView):
     def get_context_data(self, **kwargs):
         ctx = super(JobCreateView, self).get_context_data(**kwargs)
         user = self.request.user
-        current_employer = employer.objects.filter(user__id=user.id).first()
+        current_employer = employer.objects.get(user__id=self.request.user.id)
         ctx['current_employer'] = current_employer
         return ctx
 
@@ -191,6 +187,9 @@ def my_employer_details(request):
 
         employer_details = employer.objects.get(user__id=userid)
         eid = employer.objects.get(user__id=userid).id
+        if employer_details.is_verified == False:
+            messages.add_message(request, messages.ERROR, _(
+                "Your employer profile under review"))
         context = {
             'object': employer_details,
             'jobs': job.objects.filter(employer__id=eid),
@@ -373,3 +372,19 @@ def employer_plan(request, sid):
             current_employer.is_subscribed = True
             current_employer.save()
             return JsonResponse({"data": "subscription successfully"}, status=200)
+
+
+def send_verified(request, employerid):
+    selected_employer = employer.objects.get(id=employerid)
+    selected_employer.is_verified = True
+    selected_employer.save()
+    message = 'text version of HTML message'
+    email_subject = 'Your Employer Profile Verified'
+    email_body = render_to_string('employer/verified.html', {
+        'employer': selected_employer,
+        'uid': urlsafe_base64_encode(force_bytes(selected_employer.pk)),
+    })
+
+    send_mail(email_subject, message, settings.DEFAULT_FROM_EMAIL, [
+              selected_employer.user.email], fail_silently=True, html_message=email_body)
+    return redirect('dashboard')

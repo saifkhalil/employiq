@@ -9,7 +9,17 @@
 <script src="{% static 'js/ckeditor.js' %}"></script>
 <div class="header">
     <div class="filtered">
-        {% if current_employer.remaining_jobs > 0 %}
+        {% if current_employer.is_verified == False %}
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="alert alert-danger alert-dismissible fade show">
+                    <strong> {% trans 'Your employer profile under review' %} </strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% if current_employer.remaining_jobs > 0 and current_employer.is_verified == True %}
         <div class="row justify-content-md-center">
             <h3 class="text-center pb50">{% trans 'Post a Job' %}</h3>
             <div class="col-lg-8 col-md-10 col-sm-12">

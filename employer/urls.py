@@ -23,6 +23,7 @@ urlpatterns = [
     path('job', job_list, name='job_list'),
     path('job/apply/<uuid:jid>', login_required(job_apply), name='job_apply'),
     path('subscribe/<uuid:sid>', login_required(employer_plan), name='employer_plan'),
+    path('verify/<uuid:employerid>', send_verified, name="send_verified"),
 ]
 
 

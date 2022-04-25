@@ -26,6 +26,8 @@ def dashboard(request):
     employers_count = employer.objects.all().count()
     jobs_count = job.objects.all().count()
     users = User.objects.all()
+    employers = employer.objects.all()
+    candidates = candidate.objects.all()
     users_count = User.objects.all().count()
     context = {
         'active_users_count': active_users_count,
@@ -33,6 +35,8 @@ def dashboard(request):
         'employers_count': employers_count,
         'jobs_count': jobs_count,
         'users': users,
+        'employers': employers,
+        'candidates': candidates,
         'users_count': users_count,
     }
     return render(request, 'dashboard.html', context=context)

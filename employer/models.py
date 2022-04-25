@@ -112,7 +112,7 @@ class employer(models.Model):
                                             verbose_name=_('Remaining Records'))
     remaining_jobs = models.IntegerField(blank=True, null=True,
                                          verbose_name=_('Remaining Jobs'))
-    is_verified = models.BooleanField(default=False)
+    is_verified = models.BooleanField(default=False,blank=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(

@@ -15,7 +15,7 @@ class EmployerResource(resources.ModelResource):
 
 @register(employer)
 class EmployerAdmin(ImportExportModelAdmin):
-    list_display = ('company', 'is_subscribed', 'plan', 'subscription_from',
+    list_display = ('user', 'company', 'is_verified', 'is_subscribed', 'plan', 'subscription_from',
                     'subscription_to', 'remaining_records', 'remaining_jobs', 'phone_number', 'address', 'city', 'country')
     icon_name = 'business'
 
