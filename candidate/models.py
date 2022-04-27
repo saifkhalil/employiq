@@ -93,7 +93,7 @@ GOVERNORATES = [
     ('Saladin', _('Saladin')),
     ('Sulaymaniyah', _('Sulaymaniyah')),
     ('Wasit', _('Wasit')),
-    ('None (not residing in Iraq)', _('None (not residing in Iraq)')),    
+    ('None (not residing in Iraq)', _('None (not residing in Iraq)')),
 
 ]
 
@@ -286,7 +286,7 @@ class candidate(models.Model):
     country = CountryField(
         blank_label=_('(select country)'), verbose_name=_('Current country'))
     postal_code = models.IntegerField(validators=[MaxValueValidator(
-        99999), MinValueValidator(10000)], verbose_name=_('Postal Code'),blank=True, null=True)
+        99999), MinValueValidator(10000)], verbose_name=_('Postal Code'), blank=True, null=True)
     education = models.ManyToManyField(
         'education', blank=True, verbose_name=_('Candidate Education'))
     certificate = models.ManyToManyField(
@@ -295,7 +295,8 @@ class candidate(models.Model):
         'employment', blank=True, verbose_name=_('Employment History'))
     language = models.ManyToManyField(
         'language', blank=True, verbose_name=_('Language Skills'))
-    cv = models.FileField(upload_to='media/cv', verbose_name=_('CV File'))
+    cv = models.FileField(upload_to='media/cv',
+                          verbose_name=_('CV File'), blank=True, null=True)
     bio = models.CharField(max_length=1000, blank=True,
                            null=True, verbose_name=_('bio / About you'))
     skills = TagField(verbose_name=_('Skills'), delimiters=',')

@@ -32,6 +32,7 @@ class UserManager(BaseUserManager):
             password=password,
             username=username,
         )
+        user.is_verified = True
         user.is_admin = True
         user.is_staff = True
         user.is_superuser = True
@@ -73,6 +74,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_verified = models.BooleanField(default=False)
     is_candidate = models.BooleanField(default=False)
     is_employer = models.BooleanField(default=False)
+    is_blocked = models.BooleanField(default=False)
     i_agree = models.BooleanField(
         verbose_name="Please confirm that you read and agree to our terms & conditions", default=False, blank=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)

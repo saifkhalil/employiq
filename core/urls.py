@@ -25,6 +25,8 @@ from accounts.views import (
     active_user,
     must_authenticate_view,
     send_active,
+    block_user,
+    unblock_user,
 )
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import views as auth_views
@@ -62,6 +64,8 @@ urlpatterns = i18n_patterns(
     path('grappelli/', include('grappelli.urls')),
     path('admin/', admin.site.urls),
     path('verify/<uuid:userid>', send_active, name="send_active"),
+    path('block_user/<uuid:userid>', block_user, name="block_user"),
+    path('unblock_user/<uuid:userid>', unblock_user, name="unblock_user"),
     re_path(r'^media/(?P<path>.*)$', serve,
             {'document_root': settings.MEDIA_ROOT, }),
     path('register/', registration_view, name="register"),

@@ -117,6 +117,10 @@ def login_view(request):
                 messages.add_message(request, messages.ERROR,
                                      'Email is not verified, please check your email inbox')
                 return render(request, "account/login.html", context)
+            if user.is_blocked:
+                messages.add_message(request, messages.ERROR,
+                                     'It looks like your account has been blocked Please contact info@employiq.net for more information.')
+                return render(request, "account/login.html", context)
             if user:
                 login(request, user)
                 if (not user.is_candidate) and (not user.is_employer):
@@ -180,3 +184,17 @@ def active_user(request, uidb64, token):
     messages.add_message(request, messages.ERROR,
                          'Email Verification erorr, please try agin')
     return redirect('login')
+
+
+def block_user(request, userid):
+    selected_user = User.objects.get(id=userid)
+    selected_user.is_blocked = True
+    selected_user.save()
+    return redirect('dashboard')
+
+
+def unblock_user(request, userid):
+    selected_user = User.objects.get(id=userid)
+    selected_user.is_blocked = False
+    selected_user.save()
+    return redirect('dashboard')

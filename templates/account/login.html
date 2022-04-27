@@ -23,10 +23,10 @@
         </div>
         {% for message in messages %}
         <div
-          class="alert {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %} alert-danger {% else %} alert-success {% endif %} alert-dismissible fade show"
+          class="alert {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %} alert-danger {% else %} alert-success {% endif %} fade show"
           role="alert">
-          {{ message }}
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>
+          <strong>{{ message }}</strong>
+        </div>
         {% endfor %}
         <!-- Start of Login Form -->
         <form class="form-signin" method="post" autocomplete="off">

@@ -88,7 +88,7 @@ def home(request):
             isemployer = False
         context = {
             'princing': subscription_plan.objects.all().order_by('price'),
-            'allemployers': employer.objects.filter(public_company_info='Y'),
+            'allemployers': employer.objects.filter(public_company_info='Y', is_verified=True),
             'employer_details': employer_details,
             'isemployer': isemployer
         }

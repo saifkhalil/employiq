@@ -10,6 +10,7 @@ from phonenumber_field.formfields import PhoneNumberField
 
 from phonenumber_field.widgets import PhoneNumberInternationalFallbackWidget, PhoneNumberPrefixWidget
 
+
 class DateInput(forms.DateInput):
     input_type = 'date'
 
@@ -25,7 +26,8 @@ class EduForm(ModelForm):
 
 
 class EmpForm(ModelForm):
-    job_description = forms.CharField(widget=CKEditorWidget())
+    job_description = forms.CharField(widget=CKEditorWidget(
+    ), help_text="Word limit 200, Explain more about your duties")
 
     class Meta:
         model = employment
@@ -51,10 +53,13 @@ class CerForm(ModelForm):
 
 
 class CanForm(ModelForm):
-    skills = TagField(label=_('Skills'), place_holder=_('add a skills'), delimiters=' ')
-    hobbies = TagField(label=_('Hobbies'), place_holder=_('add a hobbies'), delimiters=' ')
+    skills = TagField(label=_('Skills'), place_holder=_(
+        'add a skills'), delimiters=' ')
+    hobbies = TagField(label=_('Hobbies'), place_holder=_(
+        'add a hobbies'), delimiters=' ')
 #     phone_number = PhoneNumberField(widget=PhoneNumberPrefixWidget(initial='IQ'))
 # 	phone_number.error_messages['invalid'] = 'Enter a valid phone number (e.g. +9647801000000).'
+
     class Meta:
         model = candidate
         fields = ['title', 'firstname', 'secondname', 'lastname',

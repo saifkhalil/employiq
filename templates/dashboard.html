@@ -174,11 +174,11 @@
                                             data-bs-target="#Employers" type="button" role="tab"
                                             aria-controls="Employers" aria-selected="false">Employers</button>
                                     </li>
-                                    {% comment %} <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="contact-tab" data-bs-toggle="tab"
-                                            data-bs-target="#contact" type="button" role="tab" aria-controls="contact"
-                                            aria-selected="false">Contact</button>
-                                    </li> {% endcomment %}
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="Candidates-tab" data-bs-toggle="tab"
+                                            data-bs-target="#Candidates" type="button" role="tab"
+                                            aria-controls="Candidates" aria-selected="false">Candidates</button>
+                                    </li>
                                 </ul>
                                 <div class="tab-content" id="myTabContent">
                                     <div class="tab-pane fade show active" id="Users" role="tabpanel"
@@ -255,8 +255,9 @@
                                                     <tbody>
                                                         {% for employer in employers %}
                                                         <tr>
-                                                            <td><img src="{{ employer.logo.url }}" class="img-fluid"
-                                                                    alt="">
+                                                            <td><a href="{{ employer.logo.url }}" target="_blank">
+                                                                    <img src="{{ employer.logo.url }}" class="img-fluid"
+                                                                        alt=""></a>
                                                             </td>
                                                             <td> <a href="{% url 'employer_details' employer.id %}"
                                                                     target="_blank">
@@ -293,9 +294,68 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="tab-pane fade" id="contact" role="tabpanel"
-                                        aria-labelledby="contact-tab">
-                                        Contact
+                                    <div class="tab-pane fade" id="Candidates" role="tabpanel"
+                                        aria-labelledby="Candidates-tab">
+                                        <div class="card-block p-3">
+                                            <div class="table-responsive">
+                                                <table class="table" id="candidates_table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Photo</th>
+                                                            <th>Full Name</th>
+                                                            <th>User</th>
+                                                            <th>Phone</th>
+                                                            <th>Gender</th>
+                                                            <th>Marital status</th>
+                                                            <th>Date of birth</th>
+                                                            <th>Country of birth</th>
+                                                            <th>Place of birth</th>
+                                                            <th>Primary nationality</th>
+                                                            <th>Highest level of education</th>
+                                                            <th>Address</th>
+                                                            <th>Status</th>
+                                                            <th>Actions</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {% for candidate in candidates %}
+                                                        <tr>
+                                                            <td><a href="{{ candidate.photo.url }}" target="_blank">
+                                                                    <img src="{{ candidate.photo.url }}"
+                                                                        class="img-fluid" alt=""></a>
+                                                            </td>
+                                                            <td> <a href="{% url 'candetials' candidate.id %}"
+                                                                    target="_blank">
+                                                                    {{ candidate.firstname }} {{ candidate.secondname }}
+                                                                    {{ candidate.lastname }}</a></td>
+                                                            <td>{{ candidate.user }}</td>
+                                                            <td>{{ candidate.phone_number }}</td>
+                                                            <td>{{ candidate.gender }}</td>
+                                                            <td>{{ candidate.marital_status }}</td>
+                                                            <td>{{ candidate.birthofdate }}</td>
+                                                            <td>{{ candidate.country_of_birth }}</td>
+                                                            <td>{{ candidate.place_of_birth }}</td>
+                                                            <td>{{ candidate.primary_nationality }}</td>
+                                                            <td>{{ candidate.highest_level_of_education }}</td>
+                                                            <td>{{ candidate.address1 }}</td>
+                                                            <td>
+                                                                <span
+                                                                    class="label {% if candidate.user.is_blocked == True %} label-danger {% else %} label-success {% endif %}">{{ candidate.user.is_blocked }}</span>
+                                                            </td>
+                                                            <td>{% if not candidate.user.is_blocked %} <a
+                                                                    class="btn btn-danger btn-sm"
+                                                                    href="{% url 'block_user' candidate.user.id %}">Block</a>
+                                                                {% else %}
+                                                                <a class="btn btn-success btn-sm"
+                                                                    href="{% url 'unblock_user' candidate.user.id %}">Unblock</a>
+                                                                {% endif %}
+                                                            </td>
+                                                        </tr>
+                                                        {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -598,6 +658,21 @@
                 searching: true,
             });
             const employers_table = $('#employers_table').DataTable({
+                dom: 'lBfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print', 'colvis'
+
+                ],
+                lengthMenu: [
+                    [10, 25, 50, -1],
+                    ['10 rows', '25 rows', '50 rows', 'Show all']
+                ],
+
+                stateSave: true,
+                colReorder: true,
+                searching: true,
+            });
+            const candidates_table = $('#candidates_table').DataTable({
                 dom: 'lBfrtip',
                 buttons: [
                     'copy', 'csv', 'excel', 'pdf', 'print', 'colvis'

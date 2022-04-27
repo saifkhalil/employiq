@@ -3,6 +3,10 @@
 @import url(bootstrap-select.min.css);
 @import url(jquery-ui.min.css);
 @import url(bootstrap.min.css);
+.ck-content>ul>li {
+    list-style: disc !important;
+}
+
 a,
 a:focus,
 a:hover {

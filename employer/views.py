@@ -361,7 +361,7 @@ def employer_plan(request, sid):
                 current_employer.save()
                 return JsonResponse({"data": "subscription successfully"}, status=200)
             else:
-                return JsonResponse({"data": "You are already subscribed to us"}, status=200)
+                return JsonResponse({"data": "You already subscribed with us"}, status=200)
         else:
             plan = subscription_plan.objects.get(id=sid)
             current_employer.plan = plan
