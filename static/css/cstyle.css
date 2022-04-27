@@ -7,6 +7,10 @@
     list-style: disc !important;
 }
 
+.django-ckeditor-widget~.invalid-feedback {
+    display: block;
+}
+
 a,
 a:focus,
 a:hover {

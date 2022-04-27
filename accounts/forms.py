@@ -12,7 +12,7 @@ class RegistrationForm(UserCreationForm):
         max_length=254, help_text=_('Required. Add a valid email address.'))
     phone = PhoneNumberField(widget=PhoneNumberPrefixWidget(initial='IQ'))
     phone.error_messages['invalid'] = _(
-        'Enter a valid phone number (e.g. +9647801000000).')
+        'Enter a valid phone number (e.g. 7801000000).')
     i_agree = forms.BooleanField(label=_("Policy for terms of use"), error_messages={'required': _('You must accept to policy for terms of use')}, widget=forms.widgets.CheckboxInput(
         attrs={'class': 'form-check-input'}))
 
@@ -22,7 +22,7 @@ class RegistrationForm(UserCreationForm):
                   'phone', 'password1', 'password2', 'i_agree', )
         # error_messages = {
         #     'phone' : {
-        #         'required' : "Enter a valid phone number (e.g. +9647801000000)."
+        #         'required' : "Enter a valid phone number (e.g. 7801000000)."
         #     }
         # }
 

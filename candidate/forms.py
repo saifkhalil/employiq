@@ -26,8 +26,10 @@ class EduForm(ModelForm):
 
 
 class EmpForm(ModelForm):
-    job_description = forms.CharField(widget=CKEditorWidget(
-    ), help_text="Word limit 200, Explain more about your duties")
+    job_description = forms.CharField(widget=CKEditorWidget(attrs={'class': 'form-control'})
+                                      )
+    job_description.error_messages['invalid'] = _(
+        'Word limit 200, Explain more about your duties')
 
     class Meta:
         model = employment
@@ -54,9 +56,9 @@ class CerForm(ModelForm):
 
 class CanForm(ModelForm):
     skills = TagField(label=_('Skills'), place_holder=_(
-        'add a skills'), delimiters=' ')
+        'Add your skills'), help_text="Press Enter ( ↵ ) to add new Skill", delimiters=',')
     hobbies = TagField(label=_('Hobbies'), place_holder=_(
-        'add a hobbies'), delimiters=' ')
+        'Add your hobbies'), help_text="Press Enter ( ↵ ) to add new Skill", delimiters=',')
 #     phone_number = PhoneNumberField(widget=PhoneNumberPrefixWidget(initial='IQ'))
 # 	phone_number.error_messages['invalid'] = 'Enter a valid phone number (e.g. +9647801000000).'
 

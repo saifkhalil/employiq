@@ -225,6 +225,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # EMAIL_HOST_PASSWORD = 'llphqnbkqauylcsx'
 # DEFAULT_FROM_EMAIL = 'EmployIQ <saif780@gmail.com>'
 
+# CKEDITOR_ALLOW_NONIMAGE_FILES = False
 
 EMAIL_HOST = 'smtpout.secureserver.net'
 EMAIL_PORT = 465
