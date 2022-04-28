@@ -137,7 +137,9 @@
                                         </div>
                                         <!-- Profile Details -->
                                         <div class="profile-details mt20">
+                                            {% if object.bio %}
                                             <p>{{object.bio}}</p>
+                                            {% endif %}
                                         </div>
 
                                         <ul class="profile-info mt20 nopadding">
