@@ -1,7 +1,7 @@
 from django.contrib.admin import ModelAdmin, register
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
-
+from django.contrib import admin
 from .models import employer, job, subscription_plan
 # Register your models here.
 
@@ -13,6 +13,13 @@ class EmployerResource(resources.ModelResource):
                   'subscription_from', 'subscription_to', 'remaining_records', 'remaining_jobs', 'phone_number', 'address', 'city', 'country',)
 
 
+class JobResource(resources.ModelResource):
+    class Meta:
+        model: job
+        fields = ('job_title', 'employer', 'job_description', 'job_type',
+                  'date_opened', 'date_closed', 'city', 'country', 'salary')
+
+
 @register(employer)
 class EmployerAdmin(ImportExportModelAdmin):
     list_display = ('user', 'company', 'is_verified', 'is_subscribed', 'plan', 'subscription_from',
@@ -21,7 +28,7 @@ class EmployerAdmin(ImportExportModelAdmin):
 
 
 @register(job)
-class JobAdmin(ModelAdmin):
+class JobAdmin(ImportExportModelAdmin):
     list_display = ('job_title', 'employer', 'job_description', 'job_type',
                     'date_opened', 'date_closed', 'city', 'country', 'salary')
     icon_name = 'assignment'
