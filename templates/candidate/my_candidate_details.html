@@ -1006,47 +1006,6 @@
     </div>
 </div>
 
-
-
-
-<script type="text/javascript">
-    function exportCV() {
-        source = $('#print');
-        var pdf = new jsPDF('p', 'pt', 'a4');
-        source.show();
-        specialElementHandlers = {
-            '#bypassme': function (element, renderer) {
-                return true
-            }
-        };
-        margins = {
-            top: 80,
-            bottom: 60,
-            left: 40,
-            width: 522
-        };
-
-        pdf.fromHTML(
-            source[0],
-            margins.left,
-            margins.top, {
-                'width': margins.width,
-                'elementHandlers': specialElementHandlers
-            },
-
-            function (dispose) {
-                pdf.save('CV.pdf');
-            }, margins
-        );
-        source.hide();
-    }
-
-    function topFunction() {
-        document.body.scrollTop = 0;
-        document.documentElement.scrollTop = 0;
-    }
-</script>
-
 <script type="text/javascript">
     $('button#delete').on('click', function (e) {
         e.preventDefault();
@@ -1072,31 +1031,32 @@
 
     });
 
+    $(document).ready(function () {
+        var skills = "{{object.skills|safe}}";
+        $('input#skills').val('')
+        var newskills = skills.replaceAll("'", "").replaceAll("[", "").replaceAll("]", "");
+        newskills.split(',');
 
-    var skills = "{{object.skills|safe}}";
-    $('input#skills').val('')
-    var newskills = skills.replaceAll("'", "").replaceAll("[", "").replaceAll("]", "");
-    newskills.split(',');
+        var skills_tagify = new Tagify(document.querySelector('input#skills'), {
+            dropdown: {
+                enabled: 0
+            }
+        });
+        skills_tagify.addTags(newskills);
+        document.getElementById("cvskills").innerHTML = newskills;
 
-    var skills_tagify = new Tagify(document.querySelector('input#skills'), {
-        dropdown: {
-            enabled: 0
-        }
+        var hobbies = "{{object.hobbies|safe}}";
+        $('input#hobbies').val('')
+        var newhobbies = hobbies.replaceAll("'", "").replaceAll("[", "").replaceAll("]", "");
+        newhobbies.split(',');
+
+        var hobbies_tagify = new Tagify(document.querySelector('input#hobbies'), {
+            dropdown: {
+                enabled: 0
+            }
+        });
+        hobbies_tagify.addTags(newhobbies);
     });
-    skills_tagify.addTags(newskills);
-    document.getElementById("cvskills").innerHTML = newskills;
-
-    var hobbies = "{{object.hobbies|safe}}";
-    $('input#hobbies').val('')
-    var newhobbies = hobbies.replaceAll("'", "").replaceAll("[", "").replaceAll("]", "");
-    newhobbies.split(',');
-
-    var hobbies_tagify = new Tagify(document.querySelector('input#hobbies'), {
-        dropdown: {
-            enabled: 0
-        }
-    });
-    hobbies_tagify.addTags(newhobbies);
 </script>
 <script>
 </script>
