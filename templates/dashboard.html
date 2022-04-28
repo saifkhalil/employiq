@@ -180,7 +180,7 @@
                                             aria-controls="Candidates" aria-selected="false">Candidates</button>
                                     </li>
                                 </ul>
-                                <div class="tab-content" id="myTabContent">
+                                <div class="tab-content" id="Users">
                                     <div class="tab-pane fade show active" id="Users" role="tabpanel"
                                         aria-labelledby="Users-tab">
                                         <div class="card-block p-3">
@@ -338,9 +338,11 @@
                                                             <td>{{ candidate.primary_nationality }}</td>
                                                             <td>{{ candidate.highest_level_of_education }}</td>
                                                             <td>{{ candidate.address1 }}</td>
-                                                            <td>
-                                                                <span
-                                                                    class="label {% if candidate.user.is_blocked == True %} label-danger {% else %} label-success {% endif %}">{{ candidate.user.is_blocked }}</span>
+                                                            <td>{% if candidate.user.is_blocked %}
+                                                                <span class="label label-danger">Blocked</span>
+                                                                {% else %}
+                                                                <span class="label label-success ">Active</span>
+                                                                {% endif %}
                                                             </td>
                                                             <td>{% if not candidate.user.is_blocked %} <a
                                                                     class="btn btn-danger btn-sm"
@@ -605,12 +607,13 @@
 <![endif]-->
     <!-- Warning Section Ends -->
     <!-- Required Jquery -->
-    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/jquery-ui.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/popper.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
     <!-- jquery slimscroll js -->
-    <script type="text/javascript" src="{% static 'js/jquery-slimscroll/jquery.slimscroll.js' %}"></script>
+    {% comment %} <script type="text/javascript" src="{% static 'js/jquery-slimscroll/jquery.slimscroll.js' %}">
+    </script> {% endcomment %}
     <!-- modernizr js -->
     <script type="text/javascript" src="{% static 'js/modernizr/modernizr.js' %}"></script>
     <!-- am chart -->
@@ -626,9 +629,9 @@
     {% endcomment %}
     <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
     <script type="text/javascript " src="{% static 'js/SmoothScroll.js' %}"></script>
-    <script src="{% static 'js/pcoded.min.js' %}"></script>
+    {% comment %} <script src="{% static 'js/pcoded.min.js' %}"></script> {% endcomment %}
     <script src="{% static 'js/vartical-demo.js' %}"></script>
-    <script src="{% static 'js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+    {% comment %} <script src="{% static 'js/jquery.mCustomScrollbar.concat.min.js' %}"></script> {% endcomment %}
     <link rel="stylesheet" type="text/css"
         href="https://cdn.datatables.net/v/bs5/jq-3.6.0/jszip-2.5.0/dt-1.11.5/b-2.2.2/b-colvis-2.2.2/b-html5-2.2.2/b-print-2.2.2/cr-1.5.5/fh-3.2.2/r-2.2.9/sc-2.0.5/datatables.min.css" />
 
