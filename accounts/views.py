@@ -29,12 +29,12 @@ account_activation_token = TokenGenerator()
 
 
 def send_active_email(user, request):
-    current_site = get_current_site(request)
+    current_site = request.get_host()
     message = 'text version of HTML message'
     email_subject = 'Activate your account'
     email_body = render_to_string('account/verification.html', {
         'user': user,
-        'domain': current_site,
+        'domain': request.get_host(),
         'uid': urlsafe_base64_encode(force_bytes(user.pk)),
         'token': account_activation_token.make_token(user)
     })

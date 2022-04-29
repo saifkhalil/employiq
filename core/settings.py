@@ -218,21 +218,21 @@ DJANGO_ALLOW_ASYNC_UNSAFE = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_USE_TLS = True
-# EMAIL_PORT = 587
-# EMAIL_HOST_USER = 'saif780@gmail.com'
-# EMAIL_HOST_PASSWORD = 'llphqnbkqauylcsx'
-# DEFAULT_FROM_EMAIL = 'EmployIQ <saif780@gmail.com>'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'saif780@gmail.com'
+EMAIL_HOST_PASSWORD = 'llphqnbkqauylcsx'
+DEFAULT_FROM_EMAIL = 'EmployIQ <saif780@gmail.com>'
 
 # CKEDITOR_ALLOW_NONIMAGE_FILES = False
 
-EMAIL_HOST = 'smtpout.secureserver.net'
-EMAIL_PORT = 465
-EMAIL_USE_SSL = True
-EMAIL_HOST_USER = 'donotreply@employiq.net'
-EMAIL_HOST_PASSWORD = 'Empl@y1Q'
-DEFAULT_FROM_EMAIL = 'EmployIQ <donotreply@employiq.net>'
+# EMAIL_HOST = 'smtpout.secureserver.net'
+# EMAIL_PORT = 465
+# EMAIL_USE_SSL = True
+# EMAIL_HOST_USER = 'donotreply@employiq.net'
+# EMAIL_HOST_PASSWORD = 'Empl@y1Q'
+# DEFAULT_FROM_EMAIL = 'EmployIQ <donotreply@employiq.net>'
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
