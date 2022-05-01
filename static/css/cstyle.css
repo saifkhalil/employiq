@@ -58,7 +58,7 @@ h4,
 h5,
 h6 {
     font-family: 'Varela Round', sans-serif;
-    margin: 0!important
+    margin: 0 !important
 }
 
 h1 {
@@ -134,14 +134,14 @@ a {
 a:focus,
 a:hover,
 a:visited {
-    text-decoration: none!important;
-    outline: 0!important
+    text-decoration: none !important;
+    outline: 0 !important
 }
 
 a,
 button,
 input {
-    outline: 0!important
+    outline: 0 !important
 }
 
 .form-control {
@@ -335,7 +335,7 @@ img {
 }
 
 .transparent {
-    background: 0 0!important
+    background: 0 0 !important
 }
 
 .list li:before,
@@ -406,11 +406,11 @@ ul.list {
 }
 
 .nopadding {
-    padding: 0!important
+    padding: 0 !important
 }
 
 .nomargin {
-    margin: 0!important
+    margin: 0 !important
 }
 
 .mt5 {
@@ -434,7 +434,7 @@ ul.list {
 }
 
 .mt30 {
-    margin-top: 30px
+    margin-top: 30px !important;
 }
 
 .mt35 {
@@ -927,7 +927,7 @@ ul.list {
     line-height: 35px;
     font-size: 14px;
     font-weight: 600;
-    color: #f6f6f6!important;
+    color: #f6f6f6 !important;
     -webkit-transition: all .5s ease;
     -moz-transition: all .5s ease;
     -ms-transition: all .5s ease;
@@ -950,7 +950,7 @@ footer .footer-info .footer-posts .thumbnail-post img {
 
 .btn.active,
 .btn:active {
-    box-shadow: none!important
+    box-shadow: none !important
 }
 
 .btn-small {
@@ -1561,7 +1561,7 @@ header {
 }
 
 header.navbar-fixed-top {
-    position: fixed!important
+    position: fixed !important
 }
 
 nav.navbar {
@@ -1596,11 +1596,11 @@ div#main-nav {
 ,
 .nav>li>a:focus,
 .nav>li>a:hover {
-    background: 0 0!important
+    background: 0 0 !important
 }
 
 .nav>li>a:focus {
-    color: #29b2fe!important
+    color: #29b2fe !important
 }
 
 .navbar .navbar-nav>li>a {
@@ -1623,7 +1623,7 @@ div#main-nav {
 .navbar-default .navbar-nav>.active>a,
 .navbar-default .navbar-nav>.active>a:focus,
 .navbar-default .navbar-nav>.active>a:hover {
-    background: 0 0!important;
+    background: 0 0 !important;
     color: #29b2fe
 }
 
@@ -1638,7 +1638,7 @@ div#main-nav {
 
 .navbar .navbar-nav>li.login-btn>a {
     background: #29b2fe;
-    color: #f6f6f6!important;
+    color: #f6f6f6 !important;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px
@@ -1808,7 +1808,7 @@ header.sticky {
 }
 
 #main-nav .navbar-nav .mega-menu {
-    position: static!important
+    position: static !important
 }
 
 #main-nav .navbar-nav .mega-menu .dropdown-menu {
@@ -2374,7 +2374,7 @@ footer .footer-info .footer-newsletter .chat-details p {
 }
 
 footer .footer-info .footer-newsletter .chat-details a:hover {
-    text-decoration: underline!important
+    text-decoration: underline !important
 }
 
 footer .footer-info .footer-newsletter .chat-details a i {
@@ -2581,7 +2581,7 @@ section.main3 .job-search-form .search-categories .bootstrap-select button,
 section.main3 .job-search-form .search-keywords input,
 section.main3 .job-search-form .search-location input {
     border: 1px solid #e3e3e3;
-    box-shadow: none!important;
+    box-shadow: none !important;
     -webkit-appearance: none
 }
 
@@ -3580,7 +3580,7 @@ section#partners {
 #partners img {
     width: 130px;
     align-items: center;
-    opacity: .5;
+    opacity: .9;
     -webkit-transition: all .9s ease;
     -moz-transition: all .9s ease;
     -ms-transition: all .9s ease;
@@ -4419,7 +4419,7 @@ section#candidate-profile .profile-info li i {
 .skillbar {
     position: relative;
     display: block;
-    margin-bottom: 25px!important;
+    margin-bottom: 25px !important;
     width: 80%;
     margin: 0 auto;
     background: #e3e3e3;
@@ -4440,7 +4440,7 @@ section#candidate-profile .profile-info li i {
 }
 
 .skillbar:last-child {
-    margin-bottom: 0!important
+    margin-bottom: 0 !important
 }
 
 .skillbar-title {
@@ -5090,7 +5090,7 @@ section#register .nav-tabs>li>a:hover {
 }
 
 section#register .nav-tabs>li>a:focus {
-    color: #333!important
+    color: #333 !important
 }
 
 section#register .tab-content {
@@ -6025,7 +6025,7 @@ section.shop .pagination {
     letter-spacing: 1px;
     text-align: center;
     width: 65%;
-    box-shadow: none!important;
+    box-shadow: none !important;
     -webkit-appearance: none
 }
 
@@ -6239,7 +6239,7 @@ section.shop .pagination {
 }
 
 .product-wrapper .nav-tabs>li>a:focus {
-    color: #333!important
+    color: #333 !important
 }
 
 .product-wrapper .tab-content {
@@ -6366,7 +6366,7 @@ section.shop .pagination {
 .cart>tfoot>tr>th,
 .cart>thead>tr>td,
 .cart>thead>tr>th {
-    vertical-align: middle!important;
+    vertical-align: middle !important;
     text-align: center
 }
 
