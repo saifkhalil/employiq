@@ -437,6 +437,10 @@ ul.list {
     margin-top: 30px !important;
 }
 
+.owl-nav {
+    display: none;
+}
+
 .mt35 {
     margin-top: 35px
 }
