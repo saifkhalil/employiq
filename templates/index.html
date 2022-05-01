@@ -144,10 +144,9 @@
             {% for employer in allemployers %}
             <div class="owl-item active" style="width: 235px;">
                 <div class="item">
-                    <a href="{% url 'employer_details' employer.id %}" data-bs-toggle="tooltip" data-bs-html="true"
-                        data-bs-original-title="<em>Employer: </em> <b>{{ employer.company }}</b>"
-                        class="text-center d-flex justify-content-center"><img src="{{ employer.logo.url }}"
-                            alt="{{ employer.company }}" class="rounded"></a>
+                    <a href="{% url 'employer_details' employer.id %}" data-bs-toggle="tooltip"
+                        title="{{ employer.company }}" class="text-center d-flex justify-content-center"><img
+                            src="{{ employer.logo.url }}" alt="{{ employer.company }}" class="rounded"></a>
                 </div>
             </div>
 
