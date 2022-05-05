@@ -1,7 +1,7 @@
+{% block content %}
 {% extends "base.html" %}
 {% load countries %}
-
-{% block content %}
+{% load filename %}
 {% load static %}
 {% load i18n %}
 <script src="https://unpkg.com/@yaireo/tagify"></script>
@@ -45,7 +45,7 @@
                                     <p>{{object.bio}}</p>
                                 </div>
 
-                        <div class="row profile-info mt20 nopadding">
+                                <div class="row profile-info mt20 nopadding">
                                     <div class="col-lg-6 col-12">
                                         <i class="fa fa-map-marker"></i>
                                         <span>{{object.city}}, {{object.get_country_display}}</span>
@@ -688,7 +688,7 @@
                                                         <div class="input-group mb-3">
                                                             {% if cert.attach.url != none %}
                                                             <a class="form-control" href="{{  cert.attach.url }}"
-                                                                download>{{  cert.attach.name }}</a>{% else %}<input
+                                                                download>{{ cert.attach.name }}</a>{% else %}<input
                                                                 type="text" class="form-control" id="basic-url"
                                                                 aria-describedby="basic-addon3" value="No attched file"
                                                                 disabled>{% endif %}

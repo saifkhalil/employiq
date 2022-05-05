@@ -153,21 +153,22 @@ def JobDetails(request, jid):
     job_details = job.objects.get(id=jid)
     current_candidate_applied = False
     is_job_owner = False
-    if user.is_superuser:
-        True
-    if user.is_candidate == True:
-        current_candidate = candidate.objects.get(user__id=request.user.id)
-        is_job_owner = False
-        if job.objects.filter(id=jid, applied_candidates=current_candidate).count() >= 1:
-            current_candidate_applied = True
-        else:
-            current_candidate_applied = False
+    if request.user.is_authenticated:
+        if user.is_superuser:
+            True
+        if user.is_candidate == True:
+            current_candidate = candidate.objects.get(user__id=request.user.id)
+            is_job_owner = False
+            if job.objects.filter(id=jid, applied_candidates=current_candidate).count() >= 1:
+                current_candidate_applied = True
+            else:
+                current_candidate_applied = False
 
-    if user.is_employer == True:
-        jeid = job_details.employer.id
-        ceid = employer.objects.get(user__id=user.id).id
-        if ceid == jeid:
-            is_job_owner = True
+        if user.is_employer == True:
+            jeid = job_details.employer.id
+            ceid = employer.objects.get(user__id=user.id).id
+            if ceid == jeid:
+                is_job_owner = True
 
     employer_details = employer.objects.get(job__id=job_details.id)
     candidates_list = job_details.applied_candidates.all()
