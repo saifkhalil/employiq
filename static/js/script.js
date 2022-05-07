@@ -78,10 +78,7 @@ $(document).ready(function() {
 
     });
     // card js end
-    $(".main-menu").mCustomScrollbar({
-        setTop: "1px",
-        setHeight: "calc(100% - 90px)",
-    });
+
     /*chatbar js start*/
     $(function() {
         $('[data-toggle="tooltip"]').tooltip()
@@ -90,7 +87,7 @@ $(document).ready(function() {
 $(document).ready(function() {
     $(".theme-loader").animate({
         opacity: "0"
-    },1000);
+    }, 1000);
     setTimeout(function() {
         $(".theme-loader").remove();
     }, 800);
@@ -121,11 +118,10 @@ function toggleFullScreen() {
 }
 var $window = $(window);
 var nav = $('.fixed-button');
-    $window.scroll(function(){
-        if ($window.scrollTop() >= 200) {
-         nav.addClass('active');
-     }
-     else {
-         nav.removeClass('active');
-     }
- });
+$window.scroll(function() {
+    if ($window.scrollTop() >= 200) {
+        nav.addClass('active');
+    } else {
+        nav.removeClass('active');
+    }
+});
