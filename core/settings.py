@@ -163,7 +163,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'ar'
 
 TIME_ZONE = 'Asia/Baghdad'
 
@@ -176,8 +176,9 @@ USE_TZ = True
 SITE_ID = 1
 
 LANGUAGES = (
-    ('en', _('English')),
     ('ar', _('Arabic')),
+    ('en', _('English')),
+
 )
 
 LOCALE_PATHS = [
@@ -248,28 +249,6 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-MATERIAL_ADMIN_SITE = {
-    'HEADER':  'Recuit Admin Prtal',  # Admin site header
-    'TITLE':  'Recuit Admin Prtal',  # Admin site title
-    # Admin site favicon (path to static should be specified)
-    'FAVICON':  'path/to/favicon',
-    # 'MAIN_BG_COLOR':  'color',  # Admin site main color, css color should be specified
-    # 'MAIN_HOVER_COLOR':  'color',  # Admin site main hover color, css color should be specified
-    # 'PROFILE_PICTURE':  'path/to/image',  # Admin site profile picture (path to static should be specified)
-    # 'PROFILE_BG':  'path/to/image',  # Admin site profile background (path to static should be specified)
-    # 'LOGIN_LOGO':  'path/to/image',  # Admin site logo on login page (path to static should be specified)
-    # 'LOGOUT_BG':  'path/to/image',  # Admin site background on login/logout pages (path to static should be specified)
-    'SHOW_THEMES':  True,  # Show default admin themes button
-    'TRAY_REVERSE': True,  # Hide object-tools and additional-submit-line by default
-    'NAVBAR_REVERSE': True,  # Hide side navbar by default
-    'SHOW_COUNTS': True,  # Show instances counts for each model
-    'APP_ICONS': {  # Set icons for applications(lowercase), including 3rd party apps, {'application_name': 'material_icon_name', ...}
-        'sites': 'send',
-    },
-    'MODEL_ICONS': {  # Set icons for models(lowercase), including 3rd party models, {'model_name': 'material_icon_name', ...}
-        'site': 'contact_mail',
-    }
-}
 
 PHONENUMBER_DEFAULT_REGION = 'IQ'
 
