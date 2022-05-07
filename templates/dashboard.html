@@ -328,7 +328,8 @@
                                                                     target="_blank">
                                                                     {{ candidate.firstname }} {{ candidate.secondname }}
                                                                     {{ candidate.lastname }}</a></td>
-                                                            <td>{{ candidate.user }}</td>
+                                                            <td>{% if candidate.user %} {{ candidate.user }}{% endif %}
+                                                            </td>
                                                             <td>{{ candidate.phone_number }}</td>
                                                             <td>{{ candidate.gender }}</td>
                                                             <td>{{ candidate.marital_status }}</td>
@@ -338,7 +339,8 @@
                                                             <td>{{ candidate.primary_nationality }}</td>
                                                             <td>{{ candidate.highest_level_of_education }}</td>
                                                             <td>{{ candidate.address1 }}</td>
-                                                            <td>{% if candidate.user.is_blocked %}
+                                                            <td>{% if candidate.user %}
+                                                                {% if candidate.user.is_blocked %}
                                                                 <span class="label label-danger">Blocked</span>
                                                                 {% else %}
                                                                 <span class="label label-success ">Active</span>
@@ -350,7 +352,7 @@
                                                                 {% else %}
                                                                 <a class="btn btn-success btn-sm"
                                                                     href="{% url 'unblock_user' candidate.user.id %}">Unblock</a>
-                                                                {% endif %}
+                                                                {% endif %}{% endif %}
                                                             </td>
                                                         </tr>
                                                         {% endfor %}
