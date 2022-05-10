@@ -417,11 +417,17 @@ LOGGING = {
     'version': 1,
     'loggers': {
         'django': {
-            'handlers': ['info', 'warning', 'error', 'critical'],
+            'handlers': ['log', 'info', 'warning', 'error', 'critical'],
             'level': 'DEBUG'
         }
     },
     'handlers': {
+        'log': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': './logs/log.log',
+            'formatter': 'verbose',
+        },
         'info': {
             'level': 'INFO',
             'class': 'logging.FileHandler',
