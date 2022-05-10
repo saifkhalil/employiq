@@ -320,9 +320,14 @@
                                                     <tbody>
                                                         {% for candidate in candidates %}
                                                         <tr>
-                                                            <td><a href="{{ candidate.photo.url }}" target="_blank">
+                                                            <td>{% if candidate.photo %}
+                                                                <a href="{{ candidate.photo.url }}" target="_blank">
                                                                     <img src="{{ candidate.photo.url }}"
                                                                         class="img-fluid" alt=""></a>
+                                                                {% else %}
+                                                                <img src="{% url 'photos/default.jpg' %}"
+                                                                    class="img-fluid" alt=""></a>
+                                                                {% endif %}
                                                             </td>
                                                             <td> <a href="{% url 'candetials' candidate.id %}"
                                                                     target="_blank">
