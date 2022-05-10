@@ -50,7 +50,6 @@ def handler500(request, *args, **argv):
 
 urlpatterns = i18n_patterns(
     path('', views.home, name='home'),
-    path('test', views.test, name='home'),
     path('dashboard', views.dashboard, name='dashboard'),
     path('accounts/', include('allauth.urls')),
     # path('after', views.after, name='after'),
