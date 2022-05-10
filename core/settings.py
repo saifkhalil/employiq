@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '*1o#2%44j&&vdn)uzr2*tt*@c^@c1w1xbx!-e)_v7%yiu9d#gu'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*', ]
 
@@ -181,6 +181,7 @@ LANGUAGES = (
     ('en', _('English')),
 
 )
+
 
 LOCALE_PATHS = [
     BASE_DIR + '/locale/',
@@ -409,4 +410,49 @@ JAZZMIN_SETTINGS = {
     "changeform_format_overrides": {"candidate.candidate": "collapsible", "candidate.certificate": "vertical_tabs"},
     # Add a language dropdown into the admin
     "language_chooser": True,
+}
+
+
+LOGGING = {
+    'version': 1,
+    'loggers': {
+        'django': {
+            'handlers': ['info', 'warning', 'error', 'critical'],
+            'level': 'DEBUG'
+        }
+    },
+    'handlers': {
+        'info': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': './logs/info.log',
+            'formatter': 'verbose',
+        },
+        'warning': {
+            'level': 'WARNING',
+            'class': 'logging.FileHandler',
+            'filename': './logs/warning.log',
+            'formatter': 'verbose',
+        },
+        'error': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': './logs/error.log',
+            'formatter': 'verbose',
+        },
+        'critical': {
+            'level': 'CRITICAL',
+            'class': 'logging.FileHandler',
+            'filename': './logs/critical.log',
+            'formatter': 'verbose',
+        }
+
+    },
+    'formatters': {
+        'verbose': {
+            'format': '{name} {levelname} {asctime} {module} {process:d} {thread:d} {message}',
+            'style': '{',
+        }
+
+    }
 }
