@@ -48,7 +48,11 @@ footer .footer-info .footer-posts .footer-blog-post {
 
 *,
 body {
-    font-family: Raleway, sans-serif
+    font-family: Raleway, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* width: 100vw; */
 }
 
 h1,

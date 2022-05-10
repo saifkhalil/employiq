@@ -19,6 +19,10 @@ def after(request):
     return render(request, 'after_register.html')
 
 
+def test(request):
+    return render(request, 'base copy.html')
+
+
 @user_passes_test(lambda u: u.is_superuser)
 def dashboard(request):
     active_users_count = User.objects.filter(is_verified=True).count()
