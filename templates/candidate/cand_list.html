@@ -1,0 +1,242 @@
+{% extends "base.html" %}
+{% load countries %}
+
+{% block content %}
+{% load static %}
+{% load i18n %}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css" />
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.1.1/css/buttons.bootstrap5.min.css" />
+<link rel="stylesheet" type="text/css"
+  href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap5.min.css" />
+<!-- filter options -->
+<div class="header">
+  <div class="filtered">
+    <div class="row justify-content-center">
+
+    </div>
+    <section class="main overlay-black">
+      <div class="container wrapper">
+        {% comment %} <h3 class="{% if remcand >= 1 %} text-white {% else %} text-danger {% endif %} text-center">
+          {% trans 'Your remaining candidate suggestions ' %} "{{remcand}}"
+        </h3> {% endcomment %}
+        <form method="GET">
+          <div class="row m-3">
+            <div class="col-md">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="keywords" name="keywords"
+                  aria-describedby="search by skills" placeholder="search by skills, job title">
+                <label for="keywords">{% trans 'Search keywords' %}</label>
+              </div>
+            </div>
+            <div class="col-md">
+              <div class="form-floating">
+                <select class="form-control" placeholder="{% trans 'select city' %}" id="city" name="city">
+                  <option value='All'>{% trans 'All' %}</option>
+                  <option value='Al Anbar'>{% trans 'Al Anbar' %}</option>
+                  <option value='Babylon'>{% trans 'Babylon' %}</option>
+                  <option value='Baghdad'>{% trans 'Baghdad' %}</option>
+                  <option value='Basra'>{% trans 'Basra' %}</option>
+                  <option value='Dhi Qar'>{% trans 'Dhi Qar' %}</option>
+                  <option value='Al-Qadisiyyah'>{% trans 'Al-Qadisiyyah' %}</option>
+                  <option value='Diyala'>{% trans 'Diyala' %}</option>
+                  <option value='Duhok'>{% trans 'Duhok' %}</option>
+                  <option value='Erbil'>{% trans 'Erbil' %}</option>
+                  <option value='Halabja'>{% trans 'Halabja' %}</option>
+                  <option value='Karbala'>{% trans 'Karbala' %}</option>
+                  <option value='Kirkuk'>{% trans 'Kirkuk' %}</option>
+                  <option value='Maysan'>{% trans 'Maysan' %}</option>
+                  <option value='Muthanna'>{% trans 'Muthanna' %}</option>
+                  <option value='Najaf'>{% trans 'Najaf' %}</option>
+                  <option value='Nineveh'>{% trans 'Nineveh' %}</option>
+                  <option value='Saladin'>{% trans 'Saladin' %}</option>
+                  <option value='Sulaymaniyah'>{% trans 'Sulaymaniyah' %}</option>
+                  <option value='Wasit'>{% trans 'Wasit' %}</option>
+                </select>
+                <label for="city">{% trans 'Location' %}</label>
+              </div>
+            </div>
+            <div class="col-md">
+              <div class="form-floating">
+                <select class="form-control" name="education" id="education" title="{% trans 'Education' %}">
+                  <option value='0'>{% trans 'All' %}</option>
+                  <option value="1">{% trans 'Non-Degree Programme' %}</option>
+                  <option value="2">{% trans 'High School diploma' %}</option>
+                  <option value="3">{% trans 'Technical Diploma' %}</option>
+                  <option value="4">{% trans 'Bachelors Degree' %}</option>
+                  <option value="5">{% trans 'Master Degree' %}</option>
+                  <option value="6">{% trans 'PhD Doctorate Degree' %}</option>
+                </select>
+                <label for="education">{% trans 'Education' %}</label>
+              </div>
+            </div>
+            <div class="col-md">
+              <div class="form-floating">
+                <select class="form-control" placeholder="Number of records" id="number_of_records"
+                  name="number_of_records" aria-label="priority">
+                  <option value='10'>{% trans '10 records' %}</option>
+                  <option value='25'>{% trans '25 records' %}</option>
+                  <option value='50'>{% trans '50 records' %}</option>
+                </select>
+                <label for="id" class="form-label">{% trans 'Number of records' %}</label>
+              </div>
+            </div>
+          </div>
+          <div class="row m-3">
+            <div class="d-grid gap-2 col-2 mx-auto">
+              <button type="submit" name="search" value="search" class="btn btn-warning">{% trans 'Search' %}</button>
+            </div>
+            <div class="d-grid gap-2 col-2 mx-auto">
+              <button type="submit" name="clear" value="clear" class="btn btn-danger">{% trans 'Clear' %}</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+  </div>
+
+  <section class="find-candidate ptb80" id="version2">
+    <div class="container">
+      <!-- Start of Row -->
+      <div class="row mt60">
+
+        <!-- Start of Candidate Main -->
+        <div class="col-md-12 candidate-main">
+
+          <!-- Start of Candidates Wrapper -->
+          <div class="candidate-wrapper">
+            {% for cands in page_obj %}
+            <!-- ===== Start of Single Candidate 1 ===== -->
+            <div class="single-candidate row shadow-hover mt30">
+
+              <!-- Candidate Image -->
+              <div class="col-md-2 col-xs-3">
+                <div class="candidate-img">
+                  <img src="{% if cands.photo %} {{ cands.photo.url }}{% endif %}" class="img-responsive" alt="">
+                </div>
+              </div>
+
+              <!-- Start of Candidate Name & Info -->
+              <div class="col-md-7 col-xs-6 ptb10">
+
+                <!-- Candidate Name -->
+                <div class="candidate-name">
+                  <h5>{{ cands.get_title_display }} {{ cands.firstname }} {{ cands.secondname }} {{ cands.lastname }}
+                  </h5>
+                </div>
+
+                <!-- Candidate Info -->
+                <div class="candidate-info mt5">
+                  <ul class="list-inline">
+                    <li class="list-inline-item">
+                      <span><i class="fa fa-birthday-cake"></i>{{ cands.birthofdate|date:"d/m/Y" }}</span>
+                    </li>
+
+                    <li class="list-inline-item">
+                      <span><i class="fa fa-map-marker"></i>{{cands.city}}</span>
+                    </li>
+
+                    <li class="list-inline-item">
+                      <span><i class="fa fa-briefcase"></i>{{cands.get_highest_level_of_education_display}}</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <!-- End of Candidate Name & Info -->
+
+              <!-- CTA -->
+              <div class="col-md-3 col-xs-3">
+                <div class="candidate-cta ptb20">
+                  <a href="{% url 'candetials' cands.id %}"
+                    class="btn btn-blue btn-small btn-effect">{% trans 'View Full Details' %}</a>
+                </div>
+              </div>
+
+            </div>
+            <!-- ===== End of Single Candidate 1 ===== -->
+            {% endfor %}
+          </div>
+          <!-- End of Candidates Wrapper -->
+
+          <!-- Start of Pagination -->
+          <div class="row justify-content-center mt30 ">
+            <nav aria-label="Page navigation ">
+              <ul class="pagination justify-content-center flex-wrap mt-2 mb-4">
+                {% if page_obj.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">{% trans 'Previous' %}</a></li>
+                {% else %}
+                    <li class="disabled page-item"><span class="page-link">&laquo;</span></li>
+                {% endif %}
+                {% for i in page_range|default_if_none:page_obj.paginator.get_elided_page_range %}
+                    {% if page_obj.number == i %}
+                        <li class="active page-item"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span>
+                        </li>
+                    {% else %}
+                        {% if i == page_obj.paginator.ELLIPSIS %}
+                            <li class="page-item"><span class="page-link">{{ i }}</span></li>
+                        {% else %}
+                            <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">{% trans 'Next' %}</a></li>
+                {% else %}
+                    <li class="disabled page-item"><span class="page-link">&raquo;</span></li>
+                {% endif %}
+            </ul>
+            </nav>
+          </div>
+          <!-- End of Pagination -->
+         
+        <!-- End of Candidate Main -->
+
+      </div>
+      <!-- End of Row -->
+
+    </div>
+  </section>
+
+</div>
+
+
+
+
+<script type="text/javascript">
+  var srchval = JSON.parse('{{ session | escapejs }}');
+  window.addEventListener('load', function () {
+    // document.getElementById('cm').classList.add('active');
+    document.getElementById('city').value = srchval[0];
+    document.getElementById('education').value = srchval[1];
+    document.getElementById('number_of_records').value = srchval[2];
+    document.getElementById('keywords').value = srchval[3];
+
+  })
+</script>
+{% endblock %}
+
+{% include "footer.html" %}
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.1.1/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.1.1/js/buttons.bootstrap5.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js">
+</script>
+<script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap5.js"></script>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    const table = $('#cand_list').DataTable({
+      dom: 'Brti',
+      buttons: ['copy', 'excel', 'csv', 'print'],
+      responsive: !0,
+      fixedHeader: !0,
+      stateSave: !0,
+      colReorder: !0,
+      scrollY: 600,
+      deferRender: !0,
+      scroller: !0,
+      scrollCollapse: !0,
+      paging: false,
+    });
+  });
+</script>

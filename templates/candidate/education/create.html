@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% load i18n %}
+{% block content %}
+<div class="header">
+    <div class="filtered">
+        <div class="row justify-content-md-center">
+            <h3 class="text-center pb50">{% trans 'Add new education' %}</h3>
+            <div class="col-8">
+                <form method="post" id="cmform" action="" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+
+                    {% for hidden_field in form.hidden_fields %}
+                    {{ hidden_field }}
+                    {% endfor %}
+
+                    {% if form.non_field_errors %}
+                    <div class="alert alert-danger" role="alert">
+                        {% for error in form.non_field_errors %}
+                        {{ error }}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    {% for field in form.visible_fields %}
+                    <div class="form-floating  mb-3">
+
+                        {% if form.is_bound %}
+                        {% if field.errors %}
+                        {% render_field field class="form-control is-invalid" %}
+                        {% for error in field.errors %}
+                        <div class="invalid-feedback">
+                            {{ error }}
+                        </div>
+                        {% endfor %}
+                        {% else %}
+                        {% render_field field class="form-control is-valid" %}
+                        {% endif %}
+                        {% else %}
+                        {% render_field field class="form-control" %}
+                        {% endif %}
+                        {{ field.label_tag }}
+                        {% if field.help_text %}
+                        <small class="form-text text-muted">{{ field.help_text }}</small>
+                        {% endif %}
+
+                    </div>
+                    {% endfor %}
+
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary" name="save">{% trans 'Save' %}</button>
+                        <button type="submit" class="btn btn-primary"
+                            name="save_new">{% trans 'Save and New' %}</button>
+                        <a href="{% url 'my_candidate_details' %}" class="btn btn-secondary">{% trans 'Cancel' %}</a>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

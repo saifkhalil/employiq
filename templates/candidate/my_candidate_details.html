@@ -1,0 +1,1100 @@
+{% extends "base.html" %} {% block content %} {% load static %} {% load i18n %} {% load thumbnail %}
+<script src="https://unpkg.com/@yaireo/tagify"></script>
+<script src="https://unpkg.com/@yaireo/tagify@3.1.0/dist/tagify.polyfills.min.js"></script>
+<link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+<script src="{% static 'js/canvg.min.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.min.js"></script>
+{% comment %}
+<!-- pdfmake files: -->
+<script src='https://cdn.jsdelivr.net/npm/pdfmake@latest/build/pdfmake.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/pdfmake@latest/build/vfs_fonts.min.js'></script>
+<!-- html-to-pdfmake file: -->
+<script src="https://cdn.jsdelivr.net/npm/html-to-pdfmake/browser.js"></script> {% endcomment %}
+<style>
+    .bold {
+        font-weight: bold;
+        color: black;
+    }
+
+    .vl {
+        border-left: 1px solid black
+    }
+
+    .print {
+        padding: 50px;
+        background: white;
+        color: black;
+        width: 1200px;
+    }
+
+    .information,
+    .footer1,
+    .navbar,
+    .back-top.back-top-visible {
+        display: block
+    }
+
+    @media print {
+        @page {
+            size: A3;
+            zoom: 0.7;
+        }
+
+        .print {
+            display: block
+        }
+
+        .information,
+        .footer1,
+        .navbar,
+        .back-top.back-top-visible {
+            display: none
+        }
+    }
+</style>
+<div class="information header mt-5">
+    <div class="filtered">
+        <div class="content">
+            <br>
+            <br> {% if messages %}
+            <div class="row justify-content-center">
+                <div class="col-8">
+                    {% for message in messages %}
+                    <div class="alert {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %} alert-danger {% endif %}">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %} {% if iscandidate == 'false' %}
+
+            <!-- ===== Start of Main Wrapper Section ===== -->
+            <section class="ptb80" id="post-job">
+                <div class="row justify-content-center">
+                    <div class="col-lg-10 col-md-10 col-sm-12">
+                        <div class="row">
+                            <h3 class="uppercase text-blue">{% trans "You Don't have candidate account" %}</h3>
+                        </div>
+                        <!-- Start of Account Question -->
+                        <div class="row account-question">
+                            <div class="col-md-10 nopadding">
+                                <p class="nomargin">
+                                    {% trans "If you need to submit your resume please click on create candidate." %}
+                                </p>
+                            </div>
+
+                            <div class="col-md-2 text-right nopadding">
+                                <a href="{% url 'candidate_create' %}"
+                                    class="btn btn-primary btn-effect mt5">{% trans "Create Candidate" %}</a>
+                            </div>
+                        </div>
+
+                        <!-- End of Account Question -->
+                    </div>
+                    {% else %}
+                    <!-- ===== Start of Main Wrapper Candidate Profile Header ===== -->
+                    <section class="ptb80" id="candidate-profile">
+                        <div class="container">
+
+                            <!-- Start of Row -->
+                            <div class="row candidate-profile nomargin">
+
+                                <!-- Start of Profile Picture -->
+                                <div class="col-md-2 col-xs-12">
+                                    <img class="img-thumbnail" src="{% if object.photo %} {{object.photo.url}}{% endif %}" alt="{{ object.firstname }}">
+                                </div>
+                                <!-- End of Profile Picture -->
+
+                                <!-- Start of Profile Description -->
+                                <div class="col-md-9 col-xs-12">
+                                    <div class="profile-descr">
+                                        <div class="row">
+                                            <div class="col-8">
+                                                <!-- Profile Title -->
+                                                <div class="profile-title">
+                                                    <h2 class="capitalize">{{object.get_title_display}}
+                                                        {{ object.firstname }} {{ object.secondname }}
+                                                        {{ object.lastname }}
+                                                    </h2>
+                                                    <h5 class="pt10">{{ object.get_highest_level_of_education_display }}
+                                                    </h5>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+
+                                                <div class="row">
+                                                    <a href="{% url 'candidate_update' object.id %}"
+                                                        class="btn text-dark btn-outline-primary"><i
+                                                            class="fas fa-edit"></i>
+                                                        {% trans 'Edit Info' %}</a>
+                                                </div>
+                                                <div class="row">
+                                                    <a class="btn text-dark btn-outline-primary"
+                                                        href="{% url 'generate_pdf' %}">{% trans 'Generate CV' %}</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Profile Details -->
+                                        <div class="profile-details mt20">
+                                            {% if object.bio %}
+                                            <p>{{object.bio}}</p>
+                                            {% endif %}
+                                        </div>
+
+                                        <ul class="profile-info mt20 nopadding">
+                                            <li>
+                                                <i class="fa fa-map-marker"></i>
+                                                <span>{{object.city}}, {{object.get_country_display}}</span>
+                                            </li>
+
+                                            <li>
+                                                <i class="fa fa-venus-mars"></i>
+                                                <span>{{object.get_gender_display}}</span>
+                                            </li>
+
+                                            <li>
+                                                <i class="fa fa-birthday-cake"></i>
+                                                <span>{{object.birthofdate}}</span>
+                                            </li>
+
+                                            <li>
+                                                <i class="fa fa-phone"></i>
+                                                <a href="tel:{{object.phone_number}}">{{object.phone_number}}</a>
+                                            </li>
+
+                                            <li>
+                                                <i class="fa fa-envelope"></i>
+                                                <a href="mailto:{{object.email}}">{{object.email}}</a>
+                                            </li>
+                                        </ul>
+
+                                    </div>
+                                </div>
+                                <!-- End of Profile Description -->
+
+                            </div>
+                            <!-- End of Row -->
+
+                        </div>
+                    </section>
+                    <!-- ===== End of Candidate Profile Header ===== -->
+                    <!-- ===== Start of  Candidate Profile Details ===== -->
+                    <div class="row justify-content-md-center">
+                        <div class="col-lg-10 col-md-10 col-sm-12">
+                            <div class="card text-dark bg-light mb-3">
+                                <div class="card-header"> {% trans 'Candidate information' %}
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="accordion" id="accordionPanelsStayOpenExample">
+                                                <div class="accordion-item">
+                                                    <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                                                        <button class="accordion-button" type="button"
+                                                            data-bs-toggle="collapse"
+                                                            data-bs-target="#panelsStayOpen-collapseOne"
+                                                            aria-expanded="true"
+                                                            aria-controls="panelsStayOpen-collapseOne">
+                                                            <i
+                                                                class="fas fa-user"></i>{% trans 'Personal information' %}
+                                                        </button>
+                                                    </h2>
+                                                    <div id="panelsStayOpen-collapseOne"
+                                                        class="accordion-collapse collapse show"
+                                                        aria-labelledby="panelsStayOpen-headingOne">
+                                                        <div class="accordion-body">
+                                                            <div class="row">
+                                                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                    <label for="basic-url">{% trans 'Title' %}</label>
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                            id="basic-url"
+                                                                            aria-describedby="basic-addon3"
+                                                                            value="{{object.get_title_display}}"
+                                                                            disabled>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                    <label
+                                                                        for="basic-url">{% trans 'First Name' %}</label>
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                            id="basic-url"
+                                                                            aria-describedby="basic-addon3"
+                                                                            value="{{object.firstname}}" disabled>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                    <label
+                                                                        for="basic-url">{% trans 'Second Name' %}</label>
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                            id="basic-url"
+                                                                            aria-describedby="basic-addon3"
+                                                                            value="{{ object.secondname }}" disabled>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                    <label for="basic-url">{% trans 'Email' %}</label>
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                            id="basic-url"
+                                                                            aria-describedby="basic-addon3"
+                                                                            value="{{ object.email }}" disabled>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                    <label for="basic-url">{% trans 'Phone' %}</label>
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                            id="basic-url"
+                                                                            aria-describedby="basic-addon3"
+                                                                            value="{{ object.phone_number }}" disabled>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                    <label for="basic-url">{% trans 'Gender' %}</label>
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                            id="basic-url"
+                                                                            aria-describedby="basic-addon3"
+                                                                            value="{{ object.get_gender_display }}"
+                                                                            disabled>
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                    <label
+                                                                        for="basic-url">{% trans 'Marital Status' %}</label>
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                            id="basic-url"
+                                                                            aria-describedby="basic-addon3"
+                                                                            value="{{ object.get_marital_status_display }}"
+                                                                            disabled>
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                    <label
+                                                                        for="basic-url">{% trans 'Date of birth' %}</label>
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                            id="basic-url"
+                                                                            aria-describedby="basic-addon3"
+                                                                            value="{{  object.birthofdate|date:" d/m/Y "  }}"
+                                                                            disabled>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                    <label
+                                                                        for="basic-url">{% trans 'Country of birth' %}</label>
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                            id="basic-url"
+                                                                            aria-describedby="basic-addon3"
+                                                                            value="{{  object.get_country_of_birth_display }}"
+                                                                            disabled>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                    <label
+                                                                        for="basic-url">{% trans 'Place of birth' %}</label>
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                            id="basic-url"
+                                                                            aria-describedby="basic-addon3"
+                                                                            value="{{  object.place_of_birth }}"
+                                                                            disabled>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                    <label
+                                                                        for="basic-url">{% trans 'Primary nationality' %}</label>
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                            id="basic-url"
+                                                                            aria-describedby="basic-addon3"
+                                                                            value="{{  object.get_primary_nationality_display }}"
+                                                                            disabled>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                    <label
+                                                                        for="basic-url">{% trans 'Secondary nationality' %}</label>
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                            id="basic-url"
+                                                                            aria-describedby="basic-addon3"
+                                                                            value="{{  object.get_secondary_nationality_display }}"
+                                                                            disabled>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                    <label
+                                                                        for="basic-url">{% trans 'Highest level of education' %}</label>
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                            id="basic-url"
+                                                                            aria-describedby="basic-addon3"
+                                                                            value="{{  object.get_highest_level_of_education_display }}"
+                                                                            disabled>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <label for="skills">{% trans 'Skills' %}</label>
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                            value="{{object.skills}}" id="skills"
+                                                                            aria-describedby="basic-addon3" disabled>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <label for="hobbies">{% trans 'Hobbies' %}</label>
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                            id="hobbies" value="{{object.hobbies}}"
+                                                                            aria-describedby="basic-addon3" disabled>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="accordion-item">
+                                                <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                                                    <button class="accordion-button" type="button"
+                                                        data-bs-toggle="collapse"
+                                                        data-bs-target="#panelsStayOpen-collapseTwo"
+                                                        aria-expanded="true" aria-controls="panelsStayOpen-collapseTwo">
+                                                        <i class="fas fa-tty"></i> {% trans 'Contact information' %}
+                                                    </button>
+                                                </h2>
+                                                <div id="panelsStayOpen-collapseTwo"
+                                                    class="accordion-collapse collapse show"
+                                                    aria-labelledby="panelsStayOpen-headingTwo">
+                                                    <div class="accordion-body">
+                                                        <div class="row">
+                                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                <label
+                                                                    for="basic-url">{% trans 'Contact phone' %}</label>
+                                                                <div class="input-group mb-3">
+                                                                    <input type="text" class="form-control"
+                                                                        id="basic-url" aria-describedby="basic-addon3"
+                                                                        value="{{  object.contact_phone }}" disabled>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                <label for="basic-url">{% trans 'Type' %}</label>
+                                                                <div class="input-group mb-3">
+                                                                    <input type="text" class="form-control"
+                                                                        id="basic-url" aria-describedby="basic-addon3"
+                                                                        value="{{  object.get_phone_type_display }}"
+                                                                        disabled>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                <label
+                                                                    for="basic-url">{% trans 'Alternate email address' %}</label>
+                                                                <div class="input-group mb-3">
+                                                                    <input type="text" class="form-control"
+                                                                        id="basic-url" aria-describedby="basic-addon3"
+                                                                        value="{{  object.alternate_email_address }}"
+                                                                        disabled>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="accordion-item">
+                                                <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                                                    <button class="accordion-button" type="button"
+                                                        data-bs-toggle="collapse"
+                                                        data-bs-target="#panelsStayOpen-collapseThree"
+                                                        aria-expanded="true"
+                                                        aria-controls="panelsStayOpen-collapseThree">
+                                                        <i class="fas fa-street-view"></i>
+                                                        {% trans 'Permanent Address' %}
+                                                    </button>
+                                                </h2>
+                                                <div id="panelsStayOpen-collapseThree"
+                                                    class="accordion-collapse collapse show"
+                                                    aria-labelledby="panelsStayOpen-headingThree">
+                                                    <div class="accordion-body">
+                                                        <div class="row">
+                                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                <label
+                                                                    for="basic-url">{% trans 'Address (line 1)' %}</label>
+                                                                <div class="input-group mb-3">
+                                                                    <input type="text" class="form-control"
+                                                                        id="basic-url" aria-describedby="basic-addon3"
+                                                                        value="{{  object.address1 }}" disabled>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                <label
+                                                                    for="basic-url">{% trans 'Address (line 2)' %}</label>
+                                                                <div class="input-group mb-3">
+                                                                    <input type="text" class="form-control"
+                                                                        id="basic-url" aria-describedby="basic-addon3"
+                                                                        value="{{  object.address2 }}" disabled>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                <label for="basic-url">{% trans 'City' %}</label>
+                                                                <div class="input-group mb-3">
+                                                                    <input type="text" class="form-control"
+                                                                        id="basic-url" aria-describedby="basic-addon3"
+                                                                        value="{{  object.city }}" disabled>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                <label for="basic-url">{% trans 'Postal Code' %}</label>
+                                                                <div class="input-group mb-3">
+                                                                    <input type="text" class="form-control"
+                                                                        id="basic-url" aria-describedby="basic-addon3"
+                                                                        value="{{  object.postal_code }}" disabled>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                <label for="basic-url">{% trans 'Country' %}</label>
+                                                                <div class="input-group mb-3">
+                                                                    <input type="text" class="form-control"
+                                                                        id="basic-url" aria-describedby="basic-addon3"
+                                                                        value="{{  object.get_country_display }}"
+                                                                        disabled>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="accordion-item">
+                                                <h2 class="accordion-header" id="panelsStayOpen-headingFour">
+                                                    <button class="accordion-button" type="button"
+                                                        data-bs-toggle="collapse"
+                                                        data-bs-target="#panelsStayOpen-collapseFour"
+                                                        aria-expanded="true"
+                                                        aria-controls="panelsStayOpen-collapseFour">
+                                                        <i class="fas fa-user-graduate"></i> {% trans 'Education' %}
+                                                        <span class="badge rounded-pill bg-primary">
+                                                            {{ educations|length }}
+                                                        </span>
+
+                                                    </button>
+                                                </h2>
+                                                <div id="panelsStayOpen-collapseFour"
+                                                    class="accordion-collapse collapse show"
+                                                    aria-labelledby="panelsStayOpen-headingFour">
+                                                    <div class="accordion-body">
+                                                        {% if educations|length == 0 %}
+                                                        <p class="text-center">
+                                                            {% trans 'The candidate not added educations records' %}
+                                                        </p>
+                                                        {% else %} {% for edu in educations %}
+                                                        <div class="row">
+                                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                <label
+                                                                    for="basic-url">{% trans 'Education level' %}</label>
+                                                                <div class="input-group mb-3">
+                                                                    <input type="text" class="form-control"
+                                                                        id="basic-url" aria-describedby="basic-addon3"
+                                                                        value="{{  edu.get_education_level_display }}"
+                                                                        disabled>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                <label for="basic-url">{% trans 'Country' %}</label>
+                                                                <div class="input-group mb-3">
+                                                                    <input type="text" class="form-control"
+                                                                        id="basic-url" aria-describedby="basic-addon3"
+                                                                        value="{{  edu.get_country_display }}" disabled>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                <label for="basic-url">{% trans 'City' %}</label>
+                                                                <div class="input-group mb-3">
+                                                                    <input type="text" class="form-control"
+                                                                        id="basic-url" aria-describedby="basic-addon3"
+                                                                        value="{{  edu.city }}" disabled>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                <label for="basic-url">{% trans 'Institution' %}</label>
+                                                                <div class="input-group mb-3">
+                                                                    <input type="text" class="form-control"
+                                                                        id="basic-url" aria-describedby="basic-addon3"
+                                                                        value="{{  edu.institution }}" disabled>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                <label
+                                                                    for="basic-url">{% trans 'Original Title of the Qualification' %}</label>
+                                                                <div class="input-group mb-3">
+                                                                    <input type="text" class="form-control"
+                                                                        id="basic-url" aria-describedby="basic-addon3"
+                                                                        value="{{  edu.original_title_of_the_qualification }}"
+                                                                        disabled>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                <label
+                                                                    for="basic-url">{% trans 'Main subject' %}</label>
+                                                                <div class="input-group mb-3">
+                                                                    <input type="text" class="form-control"
+                                                                        id="basic-url" aria-describedby="basic-addon3"
+                                                                        value="{{  edu.main_subject }}" disabled>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                <label for="basic-url">{% trans 'Start Date' %}</label>
+                                                                <div class="input-group mb-3">
+                                                                    <input type="text" class="form-control"
+                                                                        id="basic-url" aria-describedby="basic-addon3"
+                                                                        value="{{  edu.start_date }}" disabled>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                <label
+                                                                    for="basic-url">{% trans 'Graduation Date' %}</label>
+                                                                <div class="input-group mb-3">
+                                                                    <input type="text" class="form-control"
+                                                                        id="basic-url" aria-describedby="basic-addon3"
+                                                                        value="{{  edu.graduation_date }}" disabled>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4 col-md-6 col-sm-12 text-right">
+                                                                <br>
+                                                                <a href="{% url 'education_update' edu.id %}"
+                                                                    class="btn text-white btn-warning"><i
+                                                                        class="fas fa-edit"></i> {% trans 'Edit' %}</a>
+                                                                <button id="delete"
+                                                                    apilink="{% url 'del_education' edu.pk %}"
+                                                                    class="btn btn-danger">
+                                                                    <i class="far fa-trash-alt"></i>
+                                                                    {% trans 'Delete' %}
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        <hr> {% endfor %} {% endif %}
+                                                        <div class="row justify-content-md-center">
+                                                            <div class="d-grid gap-2 col-lg-4 col-md-6 col-sm-12">
+                                                                <a href="{% url 'educationcreate' %}"
+                                                                    class="btn btn-primary">{% trans 'Add New Education' %}</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="accordion-item">
+                                                <h2 class="accordion-header" id="panelsStayOpen-headingFive">
+                                                    <button class="accordion-button" type="button"
+                                                        data-bs-toggle="collapse"
+                                                        data-bs-target="#panelsStayOpen-collapseFive"
+                                                        aria-expanded="true"
+                                                        aria-controls="panelsStayOpen-collapseFive">
+
+                                                        <i class="fas fa-building"></i>
+                                                        {% trans 'Employments' %} <span
+                                                            class="badge rounded-pill bg-primary">
+
+                                                            {{ employments|length }}
+                                                        </span>
+
+                                                    </button>
+                                                </h2>
+                                                <div id="panelsStayOpen-collapseFive"
+                                                    class="accordion-collapse collapse show"
+                                                    aria-labelledby="panelsStayOpen-headingFive">
+                                                    <div class="accordion-body">
+                                                        {% if employments|length == 0 %}
+                                                        <p class="text-center">
+                                                            {% trans 'The candidate not added employments records' %}
+                                                        </p>
+                                                        {% else %} {% for emp in employments %}
+                                                        <div class="row">
+                                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                <label for="basic-url">{% trans 'Employer' %}</label>
+                                                                <div class="input-group mb-3">
+                                                                    <input type="text" class="form-control"
+                                                                        id="basic-url" aria-describedby="basic-addon3"
+                                                                        value="{{  emp.employer }}" disabled>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                <label
+                                                                    for="basic-url">{% trans 'Employer Industry' %}</label>
+                                                                <div class="input-group mb-3">
+                                                                    <input type="text" class="form-control"
+                                                                        id="basic-url" aria-describedby="basic-addon3"
+                                                                        value="{{  emp.employer_industry }}" disabled>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                <label for="basic-url">{% trans 'Country' %}</label>
+                                                                <div class="input-group mb-3">
+                                                                    <input type="text" class="form-control"
+                                                                        id="basic-url" aria-describedby="basic-addon3"
+                                                                        value="{{  emp.get_country_display }}" disabled>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                <label for="basic-url">{% trans 'City' %}</label>
+                                                                <div class="input-group mb-3">
+                                                                    <input type="text" class="form-control"
+                                                                        id="basic-url" aria-describedby="basic-addon3"
+                                                                        value="{{  emp.city }}" disabled>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                <label for="basic-url">{% trans 'Current job' %}</label>
+                                                                <div class="input-group mb-3">
+                                                                    <input type="text" class="form-control"
+                                                                        id="basic-url" aria-describedby="basic-addon3"
+                                                                        value="{{  emp.get_current_job_display }}"
+                                                                        disabled>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                <label for="basic-url">{% trans 'Start date' %}</label>
+                                                                <div class="input-group mb-3">
+                                                                    <input type="text" class="form-control"
+                                                                        id="basic-url" aria-describedby="basic-addon3"
+                                                                        value="{{  emp.start_date|date:" d/m/Y " }}"
+                                                                        disabled>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                <label for="basic-url">{% trans 'End date' %}</label>
+                                                                <div class="input-group mb-3">
+                                                                    <input type="text" class="form-control"
+                                                                        id="basic-url" aria-describedby="basic-addon3"
+                                                                        value="{{  emp.end_date|date:" d/m/Y " }}"
+                                                                        disabled>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                <label for="basic-url">{% trans 'Job title' %}</label>
+                                                                <div class="input-group mb-3">
+                                                                    <input type="text" class="form-control"
+                                                                        id="basic-url" aria-describedby="basic-addon3"
+                                                                        value="{{  emp.job_title }}" disabled>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                <label
+                                                                    for="basic-url">{% trans "Supervisor's Name" %}</label>
+                                                                <div class="input-group mb-3">
+                                                                    <input type="text" class="form-control"
+                                                                        id="basic-url" aria-describedby="basic-addon3"
+                                                                        value="{{  emp.supervisor_name }}" disabled>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                <label
+                                                                    for="basic-url">{% trans "Supervisor's Title" %}</label>
+                                                                <div class="input-group mb-3">
+                                                                    <input type="text" class="form-control"
+                                                                        id="basic-url" aria-describedby="basic-addon3"
+                                                                        value="{{  emp.supervisor_title }}" disabled>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                <label
+                                                                    for="basic-url">{% trans "Supervisor's Phone" %}</label>
+                                                                <div class="input-group mb-3">
+                                                                    <input type="text" class="form-control"
+                                                                        id="basic-url" aria-describedby="basic-addon3"
+                                                                        value="{{  emp.supervisor_phone }}" disabled>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                <label
+                                                                    for="basic-url">{% trans "Supervisor's Email" %}</label>
+                                                                <div class="input-group mb-3">
+                                                                    <input type="text" class="form-control"
+                                                                        id="basic-url" aria-describedby="basic-addon3"
+                                                                        value="{{  emp.supervisor_email }}" disabled>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                <label
+                                                                    for="basic-url">{% trans 'Reason for leaving' %}</label>
+                                                                <div class="input-group mb-3">
+                                                                    <input type="text" class="form-control"
+                                                                        id="basic-url" aria-describedby="basic-addon3"
+                                                                        value="{{  emp.reason_for_leaving }}" disabled>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4 col-md-6 col-sm-12 text-right">
+                                                                <br>
+                                                                <a href="{% url 'employement_update' emp.pk %}"
+                                                                    class="btn text-white btn-warning"><i
+                                                                        class="fas fa-edit"></i> {% trans 'Edit' %}</a>
+                                                                <button id="delete"
+                                                                    apilink="{% url 'del_employement' emp.pk %}"
+                                                                    class="btn btn-danger">
+                                                                    <i class="far fa-trash-alt"></i>
+                                                                    {% trans 'Delete' %}
+                                                                </button>
+                                                            </div>
+                                                        </div>
+
+                                                        <hr> {% endfor %} {% endif %}
+                                                        <div class="row justify-content-md-center">
+                                                            <div class="d-grid gap-2 col-lg-4 col-md-6 col-sm-12">
+                                                                <a href="{% url 'employmentcreate' %}"
+                                                                    class="btn btn-primary btn-block">{% trans 'Add New Employment' %}</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="accordion-item">
+                                                <h2 class="accordion-header" id="panelsStayOpen-headingSix">
+                                                    <button class="accordion-button" type="button"
+                                                        data-bs-toggle="collapse"
+                                                        data-bs-target="#panelsStayOpen-collapseSix"
+                                                        aria-expanded="true" aria-controls="panelsStayOpen-collapseSix">
+
+                                                        <i class="fas fa-language"></i>
+                                                        {% trans 'Language Skills' %} <span
+                                                            class="badge rounded-pill bg-primary">
+
+                                                            {{ Languages|length }}
+                                                        </span>
+                                                    </button>
+                                                </h2>
+                                                <div id="panelsStayOpen-collapseSix"
+                                                    class="accordion-collapse collapse show"
+                                                    aria-labelledby="panelsStayOpen-headingSix">
+                                                    <div class="accordion-body">
+                                                        {% if Languages|length == 0 %}
+                                                        <p class="text-center">
+                                                            {% trans 'The candidate not added Languages records' %}
+                                                        </p>
+                                                        {% else %} {% for lang in Languages %}
+                                                        <div class="row">
+                                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                <label for="basic-url">{% trans 'Langauge' %}</label>
+                                                                <div class="input-group mb-3">
+                                                                    <input type="text" class="form-control"
+                                                                        id="basic-url" aria-describedby="basic-addon3"
+                                                                        value="{{  lang.get_language_display }}"
+                                                                        disabled>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                <label for="basic-url">{% trans 'Level' %}</label>
+                                                                <div class="input-group mb-3">
+                                                                    <input type="text" class="form-control"
+                                                                        id="basic-url" aria-describedby="basic-addon3"
+                                                                        value="{{  lang.get_level_display }}" disabled>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4 col-md-6 col-sm-12 text-right">
+                                                                <br>
+                                                                <a href="{% url 'language_update' lang.pk %}"
+                                                                    class="btn text-white btn-warning"><i
+                                                                        class="fas fa-edit"></i> {% trans 'Edit' %}</a>
+                                                                <button id="delete"
+                                                                    apilink="{% url 'del_language' lang.pk %}"
+                                                                    class="btn btn-danger">
+                                                                    <i class="far fa-trash-alt"></i>
+                                                                    {% trans 'Delete' %}
+                                                                </button>
+                                                            </div>
+                                                        </div>
+
+                                                        <hr> {% endfor %} {% endif %}
+                                                        <div class="row justify-content-md-center">
+                                                            <div class="d-grid gap-2 col-lg-4 col-md-6 col-sm-12">
+                                                                <a href="{% url 'languagecreate' %}"
+                                                                    class="btn btn-primary btn-block">{% trans 'Add New Langauge' %}</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="accordion-item">
+                                                <h2 class="accordion-header" id="panelsStayOpen-headingSeven">
+                                                    <button class="accordion-button" type="button"
+                                                        data-bs-toggle="collapse"
+                                                        data-bs-target="#panelsStayOpen-collapseSeven"
+                                                        aria-expanded="true"
+                                                        aria-controls="panelsStayOpen-collapseSeven">
+
+                                                        <i class="fas fa-certificate"></i>
+                                                        {% trans 'Certificate' %} <span
+                                                            class="badge rounded-pill bg-primary">
+
+                                                            {{ certificates|length }}
+                                                        </span>
+                                                    </button>
+                                                </h2>
+                                                <div id="panelsStayOpen-collapseSeven"
+                                                    class="accordion-collapse collapse show"
+                                                    aria-labelledby="panelsStayOpen-headingSeven">
+                                                    <div class="accordion-body">
+                                                        {% if certificates|length == 0 %}
+                                                        <p class="text-center">
+                                                            {% trans 'The candidate not added certificates records' %}
+                                                        </p>
+                                                        {% else %} {% for cert in certificates %}
+                                                        <div class="row">
+                                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                <label
+                                                                    for="basic-url">{% trans 'Certificate name' %}</label>
+                                                                <div class="input-group mb-3">
+                                                                    <input type="text" class="form-control"
+                                                                        id="basic-url" aria-describedby="basic-addon3"
+                                                                        value="{{  cert.certificate_name }}" disabled>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                <label
+                                                                    for="basic-url">{% trans 'Organization' %}</label>
+                                                                <div class="input-group mb-3">
+                                                                    <input type="text" class="form-control"
+                                                                        id="basic-url" aria-describedby="basic-addon3"
+                                                                        value="{{  cert.organization }}" disabled>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                <label for="basic-url">{% trans 'Issue Date' %}</label>
+                                                                <div class="input-group mb-3">
+                                                                    <input type="text" class="form-control"
+                                                                        id="basic-url" aria-describedby="basic-addon3"
+                                                                        value="{{  cert.issue_date }}" disabled>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                <label for="basic-url">{% trans 'Expire Date' %}</label>
+                                                                <div class="input-group mb-3">
+                                                                    <input type="text" class="form-control"
+                                                                        id="basic-url" aria-describedby="basic-addon3"
+                                                                        value="{{  cert.expire_date }}" disabled>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                <label class=" form-check-label"
+                                                                    for="expired_certificate">{% trans 'This credential does not expire' %}</label>
+                                                                <div class="input-group mb-3">
+                                                                    <input type="text" class="form-control"
+                                                                        id="expired_certificate"
+                                                                        aria-describedby="basic-addon3"
+                                                                        value="{{  cert.get_expired_certificate_display }}"
+                                                                        disabled>
+
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                <label for="basic-url">{% trans 'Attach File' %}</label>
+                                                                <div class="input-group mb-3">
+                                                                    {% if cert.attach.url != none %}
+                                                                    <a class="form-control"
+                                                                        href="{{  cert.attach.url }}"
+                                                                        download>{{  cert.attach.name }}</a>{% else %}<input
+                                                                        type="text" class="form-control" id="basic-url"
+                                                                        aria-describedby="basic-addon3"
+                                                                        value="No attched file" disabled>{% endif %}
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4 col-md-6 col-sm-12 text-right">
+                                                                <br>
+                                                                <a href="{% url 'certificate_update' cert.pk %}"
+                                                                    class="btn text-white btn-warning"><i
+                                                                        class="fas fa-edit"></i> {% trans 'Edit' %}</a>
+                                                                <button id="delete"
+                                                                    apilink="{% url 'del_certificate' cert.pk %}"
+                                                                    class="btn btn-danger">
+                                                                    <i class="far fa-trash-alt"></i>
+                                                                    {% trans 'Delete' %}
+                                                                </button>
+                                                            </div>
+                                                        </div>
+
+                                                        <hr> {% endfor %} {% endif %}
+                                                        <div class="row justify-content-md-center">
+                                                            <div class="d-grid gap-2 col-lg-4 col-md-6 col-sm-12">
+                                                                <a href="{% url 'certificatecreate' %}"
+                                                                    class="btn btn-primary btn-block">{% trans 'Add New Certificate' %}</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ===== End of Candidate Profile Details ===== -->
+
+
+
+                    <section class="company-jobs ptb80">
+                        <div class="container">
+
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <h3 class="pb60">{% trans 'Applied Jobs' %}</h3>
+                                </div>
+                            </div>
+                            {% for job in applied_jobs %}
+                            <div class="row ptb5">
+                                <!-- ===== Start of Single Job Post 1 ===== -->
+                                <div class="single-job-post row shadow-hover">
+                                    <!-- Job Company -->
+                                    <div class="col-md-1 col-xs-3 nopadding">
+                                        <div class="job-company">
+                                            <a href="#">
+                                                <img class="img-fluid" src="{{ object.logo.url }}" alt="">
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <!-- Job Title & Info -->
+                                    <div class="col-md-8 col-xs-6">
+                                        <div class="job-title">
+                                            <a href="{% url 'job_details' job.id %}">{{ job.job_title }}</a>
+                                            <p>{{ job.city}}, {{ job.get_country_display }}</p>
+                                        </div>
+
+                                    </div>
+
+                                    <!-- Job Category -->
+                                    <div class="col-md-2 col-xs-3 ptb30">
+                                        <div class="job-category">
+                                            <a href="javascript:void(0)"
+                                                class="btn btn-green btn-small btn-effect">{{ job.job_type }}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ===== End of Single Job Post 1 ===== -->
+                            {% endfor %} {% comment %}
+                            <div class="row mt30">
+                                <div class="col-md-12 text-center">
+                                    <a href="#" class="btn btn-blue btn-effect">show all</a>
+                                </div>
+                            </div> {% endcomment %}
+
+
+                        </div>
+                    </section>
+
+                    {% endif %}
+
+                </div>
+        </div>
+    </div>
+</div>
+<div>
+
+</div>
+<div class="modal fade" tabindex="-1" role="dialog" id="modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $('button#delete').on('click', function (e) {
+        e.preventDefault();
+        if (confirm('Are you sure you want to delete this?')) {
+            // Save it!
+            var $this = $(this);
+
+            $.ajax({
+                url: $this.attr('apilink'),
+                type: 'GET',
+                cache: false,
+                success: function (response) {
+                    alert("Deleted successfully");
+                    location.reload();
+                },
+                error: function (response) {
+                    alert("There are error please try again");
+
+                }
+            });
+        }
+
+
+    });
+
+    $(document).ready(function () {
+        var skills = "{{object.skills|safe}}";
+        $('input#skills').val('')
+        var newskills = skills.replaceAll("'", "").replaceAll("[", "").replaceAll("]", "");
+        newskills.split(',');
+
+        var skills_tagify = new Tagify(document.querySelector('input#skills'), {
+            dropdown: {
+                enabled: 0
+            }
+        });
+        skills_tagify.addTags(newskills);
+
+
+        var hobbies = "{{object.hobbies|safe}}";
+        $('input#hobbies').val('')
+        var newhobbies = hobbies.replaceAll("'", "").replaceAll("[", "").replaceAll("]", "");
+        newhobbies.split(',');
+
+        var hobbies_tagify = new Tagify(document.querySelector('input#hobbies'), {
+            dropdown: {
+                enabled: 0
+            }
+        });
+        hobbies_tagify.addTags(newhobbies);
+    });
+</script>
+<script>
+</script>
+<script src="{% static 'js/jquery.bootstrap.modal.forms.min.js' %}"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#create-Lang_BS").modalForm({
+            formURL: "{% url 'create_Lang_BS' %}"
+        });
+
+
+
+    });
+</script>
+
+
+<!--
+        <script type="text/javascript">
+            skills_tags = '{{object.skills}}'.trim().split(/\s*,\s*/);
+            hobbies_tags = '{{object.hobbies}}'.trim().split(/\s*,\s*/);
+            var skills = document.querySelector('input#skills');
+            var skills_tagify = new Tagify(skills, {
+                dropdown: {
+                    enabled: 0
+                }
+            });
+
+            skills_tagify.addTags(skills_tags);
+            var hobbies = document.querySelector('input#hobbies');
+            var hobbies_tagify = new Tagify(hobbies, {
+                dropdown: {
+                    enabled: 0
+                }
+            });
+            hobbies_tagify.addTags(hobbies_tags);
+        </script>
+        -->
+{% endblock %}

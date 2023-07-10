@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load countries %}
+{% get_current_language as CURRENT_LANGUAGE %}
+{% get_available_languages as AVAILABLE_LANGUAGES %}
+{% get_language_info_list for AVAILABLE_LANGUAGES as languages %}
+{% block content %}
+{% load static %}
+
+
+<div class="main">
+    <!-- =============== Start of Page Header 1 Section =============== -->
+    <section class="page-header ">
+        <div class="container">
+
+            <!-- Start of Page Title -->
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>{% trans 'About' %}</h2>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- =============== End of Page Header 1 Section =============== -->
+
+
+
+
+
+    <!-- ===== Start of Main Wrapper Section ===== -->
+    <section class="ptb80">
+        <div class="container">
+            <div class="col-md-12">
+                <h4 class="ptb20">{% trans 'How we can help you' %}</h4>
+                <p>{% trans 'We understand that it can be time consuming and expensive to find highly skilled staff in Iraq. Learn how we can assist you with your employment requirements.' %}
+                </p>
+                <h4 class="ptb20">{% trans 'Who we are' %}</h4>
+                <p>{% trans 'EmployIQ is a professional recruitment tool that has come together to assist you with a simplified and cost-effective recruitment process. We connect a numerous amount of people to new opportunities every single day through our job portal by putting job seekers first and offering free resume building interface and company research.' %}
+                </p>
+                <p>{% trans 'Since our early beginnings as a local start-up, our main purpose has been to give back to our community by helping bridge the unemployment gap. Through our extensive database that includes various sectors of education, talents, and backgrounds – we connect top candidates to companies seeking exceptional talent to join their team. At the same time, we offer excellent services to those looking to develop their resumes, and give them the best opportunity at securing their dream job.' %}
+                </p>
+                <h4 class="ptb20">{% trans 'What we do' %}</h4>
+                <p>{% trans 'We at EmployIQ, a fully integrated recruitment website with jobs and well-known local affiliates, recognize how difficult the job search may be. As a result, we provide job seekers with a free service to help them build exceptional CVs to make the application process seamless and easy. Once a resume building is finalized, it will immediately be sent to our database, which presents businesses with an automated pool of candidates best suited for their needs. Employers can benefit from our services because it expands their scope of experienced candidates, who might not have been discovered otherwise!' %}
+                </p>
+                <p>{% trans 'Employers can advertise the position they’re looking to fill for up to 30 days, bringing in a wide pool of candidates to choose from. Our intuitive Advanced Search option also helps you shorten the selection process, by narrowing your search to our top tier applicants in Iraq who meet your exact requirements. EmployIQ gives you access to an endless number of job opportunities, and our database serves as an outstanding resource for all Iraqi HR professionals. It is our personal mission to make finding a new job a simple, efficient experience, for both the company and the individual alike. ' %}
+                </p>
+            </div>
+        </div>
+    </section>
+    <!-- ===== End of Main Wrapper Section ===== -->
+</div>
+
+<!--
+IP: {{ip_adresse}}
+Country: {{res.country.name}}
+subdivisions_name : {{res.subdivisions.most_specific.name}}
+iso_code : {{res.subdivisions.most_specific.iso_code}}
+city.name : {{res.city.name}}
+postal.code : {{res.postal.code}}
+latitude : {{res.location.latitude}}
+longitude : {{res.location.longitude}}
+
+-->
+{% endblock %}

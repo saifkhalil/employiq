@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+{% load i18n %}
+{% load widget_tweaks %}
+
+<link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
+<!-- ===== Start of Login - Register Section ===== -->
+<section class="ptb150" id="login">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-md-offset-3 col-xs-12">
+
+            <!-- Start of Login Box -->
+            <div class="login-box">
+
+                <div class="login-title">
+                    <h4> {% if current_employer %}You already have employer account {% else %}{% trans 'Register as Employer' %}{% endif %}</h4>
+                    
+                    
+                </div>
+                {% if current_employer %}
+                <h6 class="ptb50 text-center" >Go to your employer account <a href="{% url 'my_employer_details'  %}">{{current_employer.company}}</a></h6>
+{% else %}
+                <form method="post" id="cmform" action="" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+                    {% for hidden_field in form.hidden_fields %}
+                    {{ hidden_field }}
+                    {% endfor %}
+
+                    {% if form.non_field_errors %}
+                    <div class="alert alert-danger" role="alert">
+                        {% for error in form.non_field_errors %}
+                        {{ error }}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    {% for field in form.visible_fields %}
+                    <div class="form-floating  mb-3">
+
+                        {% if form.is_bound %}
+                        {% if field.errors %}
+                        {% render_field field class="form-control is-invalid" %}
+                        {% for error in field.errors %}
+                        <div class="invalid-feedback">
+                            {{ error }}
+                        </div>
+                        {% endfor %}
+                        {% else %}
+                        {% render_field field class="form-control is-valid" %}
+                        {% endif %}
+                        {% else %}
+                        {% render_field field class="form-control" %}
+                        {% endif %}
+                        {{ field.label_tag }}
+                        {% if field.help_text %}
+                        <small class="form-text text-muted">{{ field.help_text }}</small>
+                        {% endif %}
+
+                    </div>
+                    {% endfor %}
+
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">{% trans 'Submit' %}</button>
+                        <a href="{% url 'my_candidate_details' %}" class="btn btn-secondary">{% trans 'Cancel' %}</a>
+                    </div>
+
+                </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+<script src="https://unpkg.com/@yaireo/tagify"></script>
+<script src="https://unpkg.com/@yaireo/tagify@3.1.0/dist/tagify.polyfills.min.js"></script>
+{% endblock content %}

@@ -1,0 +1,12 @@
+{% include "header.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container">
+    <form action="" method="post">
+        {% csrf_token %}
+        {% crispy form %}
+        <input type="submit" value="Save" />
+    </form>
+</div>
+{% endblock %}
+{% include "footer.html" %}
