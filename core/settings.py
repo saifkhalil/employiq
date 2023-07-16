@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
+import logging
 import os
 from django.utils.translation import gettext_lazy as _
 
@@ -24,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '*1o#2%44j&&vdn)uzr2*tt*@c^@c1w1xbx!-e)_v7%yiu9d#gu'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*', ]
 
@@ -119,13 +120,13 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'core.context_processors.dashboard_counts',
             ],
-        #             'loaders': [
-        #     ('django.template.loaders.cached.Loader', [
-        #         'django.template.loaders.filesystem.Loader',
-        #         'django.template.loaders.app_directories.Loader',
-        #         'path.to.custom.Loader',
-        #     ]),
-        # ],
+            #             'loaders': [
+            #     ('django.template.loaders.cached.Loader', [
+            #         'django.template.loaders.filesystem.Loader',
+            #         'django.template.loaders.app_directories.Loader',
+            #         'path.to.custom.Loader',
+            #     ]),
+            # ],
         },
     },
 ]
@@ -150,7 +151,7 @@ DATABASES = {
         'NAME': 'employiq',
         'USER': 'employadmin_recruitment',
         'PASSWORD': 'Z@id1978',
-        'HOST': '192.168.68.117',
+        'HOST': '172.18.223.248',
         'PORT': '3306',
     }
 }
@@ -205,7 +206,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
@@ -215,7 +216,7 @@ STATICFILES_DIRS = [
 ]
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-SESSION_COOKIE_AGE = 15 * 60 # 15 minutes
+SESSION_COOKIE_AGE = 15 * 60  # 15 minutes
 SESSION_SAVE_EVERY_REQUEST = True
 
 AUTH_USER_MODEL = 'accounts.User'
@@ -431,8 +432,6 @@ JAZZMIN_SETTINGS = {
 }
 
 
-import logging
-
 class IPAddressFilter(logging.Filter):
 
     def filter(self, record):
@@ -505,5 +504,5 @@ LOGGING = {
         #     '%(message)s %(asctime)s',
         # },
 
-    },    
+    },
 }

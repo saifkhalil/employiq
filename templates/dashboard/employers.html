@@ -1,115 +1,171 @@
-{% extends "dashboard/dashboard.html" %}{% block content %}
+{% extends "dashboard/dashboard.html" %}{% load i18n %}{% block content %}
 <div class="tab-pane fade show active" id="Employers" role="tabpanel" aria-labelledby="Employers-tab">
-    <div class="card-block p-3">
-        <div class="table-responsive">
-            <table class="table" id="employers_table">
-                <thead>
-                    <tr>
-                        <th>Logo</th>
-                        <th>Company</th>
-                        <th>User</th>
-                        <th>Industry</th>
-                        <th>Phone</th>
-                        <th>Email for CVs</th>
-                        <th>Website</th>
-                        <th>Address</th>
-                        <th>City</th>
-                        <th>Country</th>
-                        <th>Created At</th>
-                        <th>Subscribed</th>
-                        <th>Plan</th>
-                        <th>Remaining Records</th>
-                        <th>Remaining Jobs</th>
-                        <th>Verified</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for employer in page_obj %}
-                    <tr>
-                        <td>
-                            <a href="{{ employer.logo.url }}" target="_blank">
-                                <img src="{{ employer.logo.url }}" class="img-fluid" alt=""></a>
-                        </td>
-                        <td> <a href="{% url 'employer_details' employer.id %}" target="_blank">
-                {{ employer.company }}</a></td>
-                        <td>
-                            {{ employer.user }}
-                        </td>
-                        <td>
-                            {{ employer.industry }}
-                        </td>
-                        <td>
-                            {{ employer.phone_number }}
-                        </td>
-                        <td>
-                            {{ employer.communication_email }}
-                        </td>
-                        <td>
-                            {{ employer.website }}
-                        </td>
-                        <td>
-                            {{ employer.address }}
-                        </td>
-                        <td>
-                            {{ employer.city }}
-                        </td>
-                        <td>
-                            {{ employer.country }}
-                        </td>
-                        <td>
-                            {{ employer.created_at }}
-                        </td>
-                        <td>
-                            <span class="label {% if employer.is_subscribed == False %} label-danger {% else %} label-success {% endif %}">
-                {{ employer.is_subscribed }}</span>
-                        </td>
-                        <td>
-                            {{ employer.plan }}
-                        </td>
-                        <td>
-                            {{ employer.remaining_records }}
-                        </td>
-                        <td>
-                            {{ employer.remaining_jobs }}
-                        </td>
-                        <td>
-                            <span class="label {% if employer.is_verified == False %} label-danger {% else %} label-success {% endif %}">
-                {{ employer.is_verified }}</span>
-                        </td>
-                        <td>{% if employer.is_verified == False %} <a class="btn btn-primary btn-sm" href="{% url 'send_verified' employer.id %}">Verify
-                Now</a> {% endif %}
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+  <form method="GET">
+    <div class="row m-3">
+      <div class="col-md">
+        <div class="form-floating">
+          <input type="text" class="form-control" id="keywords" name="keywords" aria-describedby="search by email, employer" placeholder="search by email, employer" />
+          <label for="keywords">{% trans 'keywords' %}</label>
         </div>
-        <div class="row justify-content-center mt30 ">
-            <nav aria-label="Page navigation ">
-                <ul class="pagination justify-content-center flex-wrap mt-2 mb-4">
-                    {% if page_obj.has_previous %}
-                    <li class="page-item"><a class="btn btn-sm btn-warning" href="?page={{ page_obj.previous_page_number }}">«</a></li>
-                    {% else %}
-                    <li class="disabled page-item"><span class="btn btn-sm btn-light">&laquo;</span></li>
-                    {% endif %} {% for i in page_range|default_if_none:page_obj.paginator.get_elided_page_range %} {% if page_obj.number == i %}
-                    <li class="active page-item"><span class="btn btn-sm btn-light">
-              {{ i }}</span>
-                    </li>
-                    {% else %} {% if i == page_obj.paginator.ELLIPSIS %}
-                    <li class="page-item"><span class="btn btn-sm btn-light">
-              {{ i }}</span></li>
-                    {% else %}
-                    <li class="page-item"><a class="btn btn-sm btn-warning" href="?page={{ i }}">
-              {{ i }}</a></li>
-                    {% endif %} {% endif %} {% endfor %} {% if page_obj.has_next %}
-                    <li class="page-item"><a class="btn btn-sm btn-warning" href="?page={{ page_obj.next_page_number }}">»</a></li>
-                    {% else %}
-                    <li class="disabled page-item"><span class="btn btn-sm btn-light">&raquo;</span></li>
-                    {% endif %}
-                </ul>
-            </nav>
+      </div>
+      <div class="col-md">
+        <div class="form-floating">
+          <select class="form-control" placeholder="Number of records" id="number_of_records" name="number_of_records" aria-label="priority">
+            <option value="10">{% trans '10 records' %}</option>
+            <option value="25">{% trans '25 records' %}</option>
+            <option value="50">{% trans '50 records' %}</option>
+          </select>
+          <label for="id" class="form-label">{% trans 'Number of records' %}</label>
         </div>
+      </div>
     </div>
+    <div class="row m-3">
+      <div class="d-grid gap-2 col-2 mx-auto">
+        <button type="submit" name="search" value="search" class="btn btn-warning">
+          {% trans 'Search' %}
+        </button>
+      </div>
+      <div class="d-grid gap-2 col-2 mx-auto">
+        <button type="submit" name="clear" value="clear" class="btn btn-danger">
+          {% trans 'Clear' %}
+        </button>
+      </div>
+    </div>
+  </form>
+  <div class="card-block p-3">
+    <div class="table-responsive">
+      <table class="table" id="employers_table">
+        <thead>
+          <tr>
+            <th>Logo</th>
+            <th>Company</th>
+            <th>User</th>
+            <th>Industry</th>
+            <th>Phone</th>
+            <th>Email for CVs</th>
+            <th>Website</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>Country</th>
+            <th>Created At</th>
+            <th>Subscribed</th>
+            <th>Plan</th>
+            <th>Remaining Records</th>
+            <th>Remaining Jobs</th>
+            <th>Verified</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for employer in page_obj %}
+          <tr>
+            <td>
+              <a href="{{ employer.logo.url }}" target="_blank">
+                <img src="{{ employer.logo.url }}" class="img-fluid" alt="" /></a>
+            </td>
+            <td>
+              <a href="{% url 'employer_details' employer.id %}" target="_blank">
+                {{ employer.company }}</a>
+            </td>
+            <td>
+              {{ employer.user }}
+            </td>
+            <td>
+              {{ employer.industry }}
+            </td>
+            <td>
+              {{ employer.phone_number }}
+            </td>
+            <td>
+              {{ employer.communication_email }}
+            </td>
+            <td>
+              {{ employer.website }}
+            </td>
+            <td>
+              {{ employer.address }}
+            </td>
+            <td>
+              {{ employer.city }}
+            </td>
+            <td>
+              {{ employer.country }}
+            </td>
+            <td>
+              {{ employer.created_at }}
+            </td>
+            <td>
+              <span class="label {% if employer.is_subscribed == False %} label-danger {% else %} label-success {% endif %}">
+                {{ employer.is_subscribed }}</span>
+            </td>
+            <td>
+              {{ employer.plan }}
+            </td>
+            <td>
+              {{ employer.remaining_records }}
+            </td>
+            <td>
+              {{ employer.remaining_jobs }}
+            </td>
+            <td>
+              <span class="label {% if employer.is_verified == False %} label-danger {% else %} label-success {% endif %}">
+                {{ employer.is_verified }}</span>
+            </td>
+            <td>
+              {% if employer.is_verified == False %}
+              <a class="btn btn-primary btn-sm" href="{% url 'send_verified' employer.id %}">Verify Now</a> {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="row justify-content-center mt30">
+      <nav aria-label="Page navigation ">
+        <ul class="pagination justify-content-center flex-wrap mt-2 mb-4">
+          {% if page_obj.has_previous %}
+          <li class="page-item">
+            <a class="btn btn-sm btn-warning" href="?page={{ page_obj.previous_page_number }}">«</a>
+          </li>
+          {% else %}
+          <li class="disabled page-item">
+            <span class="btn btn-sm btn-light">&laquo;</span>
+          </li>
+          {% endif %} {% for i in page_range|default_if_none:page_obj.paginator.get_elided_page_range %} {% if page_obj.number == i %}
+          <li class="active page-item">
+            <span class="btn btn-sm btn-light">
+              {{ i }}</span>
+          </li>
+          {% else %} {% if i == page_obj.paginator.ELLIPSIS %}
+          <li class="page-item">
+            <span class="btn btn-sm btn-light">
+              {{ i }}</span>
+          </li>
+          {% else %}
+          <li class="page-item">
+            <a class="btn btn-sm btn-warning" href="?page={{ i }}">
+              {{ i }}</a>
+          </li>
+          {% endif %} {% endif %} {% endfor %} {% if page_obj.has_next %}
+          <li class="page-item">
+            <a class="btn btn-sm btn-warning" href="?page={{ page_obj.next_page_number }}">»</a>
+          </li>
+          {% else %}
+          <li class="disabled page-item">
+            <span class="btn btn-sm btn-light">&raquo;</span>
+          </li>
+          {% endif %}
+        </ul>
+      </nav>
+    </div>
+  </div>
 </div>
+<script type="text/javascript">
+  var srchval = JSON.parse('{{ session | escapejs }}');
+  window.addEventListener('load', function() {
+    // document.getElementById('cm').classList.add('active');
+    document.getElementById('number_of_records').value = srchval[1];
+    document.getElementById('keywords').value = srchval[0];
+  })
+</script>
 {% endblock %}
