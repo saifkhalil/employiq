@@ -1,5 +1,37 @@
-{% extends "dashboard/dashboard.html" %} {% block content %} {% load static %}
+{% extends "dashboard/dashboard.html" %}{% load i18n %} {% block content %} {% load static %}
 <div class="tab-pane fade show active" id="Candidates" role="tabpanel" aria-labelledby="Candidates-tab">
+    <form method="GET">
+        <div class="row m-3">
+          <div class="col-md">
+            <div class="form-floating">
+              <input type="text" class="form-control" id="keywords" name="keywords" aria-describedby="search by email, employer" placeholder="search by email, employer" />
+              <label for="keywords">{% trans 'keywords' %}</label>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="form-floating">
+              <select class="form-control" placeholder="Number of records" id="number_of_records" name="number_of_records" aria-label="priority">
+                <option value="10">{% trans '10 records' %}</option>
+                <option value="25">{% trans '25 records' %}</option>
+                <option value="50">{% trans '50 records' %}</option>
+              </select>
+              <label for="id" class="form-label">{% trans 'Number of records' %}</label>
+            </div>
+          </div>
+        </div>
+        <div class="row m-3">
+          <div class="d-grid gap-2 col-2 mx-auto">
+            <button type="submit" name="search" value="search" class="btn btn-warning">
+              {% trans 'Search' %}
+            </button>
+          </div>
+          <div class="d-grid gap-2 col-2 mx-auto">
+            <button type="submit" name="clear" value="clear" class="btn btn-danger">
+              {% trans 'Clear' %}
+            </button>
+          </div>
+        </div>
+      </form>
     <div class="card-block p-3">
         <div class="table-responsive">
             <table class="table" id="candidates_table">
@@ -103,4 +135,12 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    var srchval = JSON.parse('{{ session | escapejs }}');
+    window.addEventListener('load', function() {
+      // document.getElementById('cm').classList.add('active');
+      document.getElementById('number_of_records').value = srchval[1];
+      document.getElementById('keywords').value = srchval[0];
+    })
+  </script>
 {% endblock %}

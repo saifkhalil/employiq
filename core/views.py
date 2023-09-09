@@ -118,17 +118,68 @@ def employers_list(request):
 
 
 def candidates_list(request):
-    candidates_list = candidate.objects.all()
-    paginator = Paginator(candidates_list, 10)
+    candidates_list = {}
+    candidates = candidate.objects.all()
+    if request.method == 'GET':
+        if request.GET.get('keywords'):
+            keywords = request.GET.get('keywords')
+            request.session['keywords'] = keywords
+        else:
+            keywords = ""
+            request.session['keywords'] = keywords
+        if request.GET.get('number_of_records'):
+            number_of_records = request.GET.get('number_of_records')
+            try:
+                request.session['number_of_records'] = int(number_of_records)
+            except:
+                request.session['number_of_records'] = 10
+        else:
+            number_of_records = 10
+        if request.GET.get('clear'):
+            if request.session.get('keywords'):
+                del request.session['keywords']
+            if request.session.get('number_of_records'):
+                del request.session['number_of_records']
+    keywords = request.session.get('keywords')
+    if keywords:
+        query_words = str(keywords).split(" ")  # Get the word in a list
+        query = Q()
+        for w in query_words:
+            if len(w) < 2:  # Min length
+                query_words.remove(w)
+        for word in query_words:
+            query = query | Q(firstname__icontains=word) | Q(secondname__icontains=word) | Q(
+                lastname__icontains=word) | Q(email__icontains=word) | Q(phone_number__icontains=word)
+
+        candidates_list = candidates.filter(query).order_by('-created_at')
+    else:
+        candidates_list = candidates.order_by('-created_at')
+    session = [keywords, number_of_records]
+    paginator = Paginator(candidates_list, number_of_records)
     page_number = request.GET.get('page', 1)
     page_obj = paginator.get_page(page_number)
     page_range = paginator.get_elided_page_range(
         number=page_number, on_each_side=2, on_ends=2)
     context = {
+        'session': json.dumps(session),
         'page_obj': page_obj,
         'page_range': page_range,
     }
     return render(request, 'dashboard/candidates.html', context)
+
+
+# def candidates_list(request):
+#     candidates_list = candidate.objects.all()
+#     paginator = Paginator(candidates_list, 10)
+#     page_number = request.GET.get('page', 1)
+#     page_obj = paginator.get_page(page_number)
+#     page_range = paginator.get_elided_page_range(
+#         number=page_number, on_each_side=2, on_ends=2)
+#     context = {
+#         'page_obj': page_obj,
+#         'page_range': page_range,
+#     }
+#     return render(request, 'dashboard/candidates.html', context)
 
 
 def subscriptions_list(request):
@@ -184,14 +235,15 @@ def home(request):
         return redirect('/candidates/?' + urllib.parse.urlencode(context))
     else:
         employer_details = []
-        active_users_count = User.objects.filter(is_verified=True).count()
-        candidates_count = candidate.objects.all().count()
-        employers_count = employer.objects.all().count()
-        jobs_count = job.objects.all().count()
         users = User.objects.all()
         employers = employer.objects.all()
         candidates = candidate.objects.all()
-        users_count = User.objects.all().count()
+        active_users_count = User.objects.filter(is_verified=True).count()
+        candidates_count = candidates.count()
+        newest_employers = employers.order_by('-created_at')[:20]
+        employers_count = employers.count()
+        jobs_count = job.objects.all().count()
+        users_count = users.count()
         # plan_dict = dict()
         # plans = subscription_plan.objects.all().order_by('price')
         # for plan in plans:
@@ -206,10 +258,10 @@ def home(request):
         context = {
             'princing': subscription_plan.objects.all().order_by('price'),
             # 'plan_dict':plan_dict,
-            'allemployers': employer.objects.filter(public_company_info='Y', is_verified=True),
+            'allemployers': employers.filter(public_company_info='Y', is_verified=True)[:20],
             'employer_details': employer_details,
             'isemployer': isemployer,
-            'active_users_count': active_users_count,
+            'activeUsersCount': active_users_count,
             'candidates_count': candidates_count,
             'employers_count': employers_count,
             'jobs_count': jobs_count,

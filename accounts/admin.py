@@ -6,8 +6,9 @@ from .models import User
 
 class UserAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     list_display = ('id', 'email', 'firstname', 'lastname',
-                    'is_candidate', 'is_employer', 'is_verified', 'is_blocked','created_at')
-    list_filter = ('is_candidate', 'is_employer', 'is_verified', 'is_blocked')
+                    'is_candidate', 'is_employer', 'is_verified', 'is_blocked', 'created_at')
+    list_filter = ('is_candidate', 'is_employer',
+                   'is_verified', 'is_blocked', 'is_superuser')
     search_fields = ('email', 'firstname', 'lastname')
 
 

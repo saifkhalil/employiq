@@ -13,7 +13,7 @@ from django.shortcuts import render, redirect
 from xhtml2pdf import context
 from .models import candidate, education, employment, language, certificate
 from accounts.models import User
-from employer.models import employer
+from employer.models import employer, subscription_plan, Subscription, suggestion
 from django.core.paginator import Paginator
 import json
 from django.contrib import messages
@@ -30,6 +30,8 @@ from employer.models import job
 from bootstrap_modal_forms.generic import BSModalCreateView
 from django.db.models import Q
 # Create your views here.
+from django.utils.translation import get_language
+from core.utils import translate_text
 
 
 def candlist(request):
@@ -81,9 +83,9 @@ def candlist(request):
             if len(w) < 2:  # Min length
                 query_words.remove(w)
         for word in query_words:
-            query = query | Q(certificate__organization__icontains=word)| Q(skills__icontains=word)
+            query = query | Q(certificate__organization__icontains=word) | Q(
+                skills__icontains=word)
             #  | Q( Employment__job_title__icontains=word)
-             
 
         cand_list1 = cand_list.filter(query)
     else:
@@ -91,14 +93,15 @@ def candlist(request):
     session = [city, education, number_of_records, keywords]
     # Show 25 contacts per page.
     paginator = Paginator(cand_list1.distinct(), number_of_records)
-    page_number = request.GET.get('page',1)
+    page_number = request.GET.get('page', 1)
     page_obj = paginator.get_page(page_number)
-    page_range = paginator.get_elided_page_range(number=page_number,on_each_side=2, on_ends=2)
+    page_range = paginator.get_elided_page_range(
+        number=page_number, on_each_side=2, on_ends=2)
     context = {
         'session': json.dumps(session),
         'page_obj': page_obj,
         'cn': cand_list1,
-        'page_range':page_range,
+        'page_range': page_range,
         'candidate_count': cand_list1.count(),
         'remcand': employer.objects.filter(user=request.user).order_by().values_list('remaining_records', flat=True).first()
     }
@@ -107,7 +110,8 @@ def candlist(request):
 
 def candetials(request, cid):
     cm = candidate.objects.get(id=cid)
-    if request.user.is_superuser:
+    print('candidate', cm.id)
+    if not request.user.is_superuser:
         context = {
             'object': cm,
             'educations': education.objects.filter(candidate__id=cid),
@@ -123,11 +127,18 @@ def candetials(request, cid):
                 'isemployer': 'false'
             }
             return render(request, 'employer/employer_details.html', context)
-        if remcand.is_subscribed:
-            
-            if remcand.remaining_records > 1:
-                remcand.remaining_records = remcand.remaining_records - 1
-                remcand.save()
+        subscription = Subscription.objects.filter(
+            employer=remcand).order_by('-created_at').first()
+        if subscription.is_active:
+            print('subscription.is_active', subscription.is_active)
+            print('subscription.remaining_suggestions',
+                  subscription.remaining_suggestions())
+            if subscription.remaining_suggestions() >= 1:
+                suggestions = suggestion.objects.filter(
+                    employer=remcand, candidate=cm)
+                if not suggestions:
+                    new_suggestion = suggestion(employer=remcand, candidate=cm)
+                    new_suggestion.save()
                 context = {
                     'object': cm,
                     'educations': education.objects.filter(candidate__id=cid),
@@ -142,8 +153,8 @@ def candetials(request, cid):
                 }
         else:
             context = {
-                    'msg': "Please subscribe with us to view candidate details"
-                }
+                'msg': "Please subscribe with us to view candidate details"
+            }
     return render(request, 'candidate/candidate_detail.html', context)
 
 
@@ -169,9 +180,15 @@ def my_candidate_details(request):
     try:
         userid = request.user.id
         candidate_detials = candidate.objects.get(user__id=userid)
+        candidate_bio = candidate_detials.bio
+        user_language = get_language()
+        target_language = user_language[:2]
+        if user_language[:2] != 'en':
+            candidate_bio = translate_text(candidate_bio, target_language)
         cid = candidate.objects.get(user__id=userid).id
         context = {
             'object': candidate_detials,
+            'candidate_bio':candidate_bio,
             'educations': education.objects.filter(candidate__id=cid),
             # 'employments': employment.objects.filter(candidate__id=cid),
             'Languages': language.objects.filter(candidate__id=cid),

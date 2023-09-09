@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-06 00:43+0300\n"
+"POT-Creation-Date: 2023-07-21 23:52+0300\n"
 "PO-Revision-Date: 2022-02-26 16:16+0258\n"
 "Last-Translator: Anonymous User <saifk.usa@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,7 +28,7 @@ msgid "Enter a valid phone number (e.g. 7801000000)."
 msgstr ""
 
 #: accounts/forms.py:16 templates/account/register.html:70
-#: templates/base.html:119
+#: templates/base.html:120
 msgid "Policy for terms of use"
 msgstr ""
 
@@ -80,9 +80,9 @@ msgstr ""
 msgid "Male"
 msgstr ""
 
-#: candidate/models.py:42 templates/base copy.html:181 templates/base.html:113
-#: templates/base.html:224 templates/candidate/candidate_detail.html:36
-#: templates/dashboard/dashboard.html:58
+#: candidate/models.py:42 templates/base copy.html:181 templates/base.html:114
+#: templates/base.html:225 templates/candidate/candidate_detail.html:36
+#: templates/dashboard/dashboard.html:61
 msgid "Home"
 msgstr ""
 
@@ -123,32 +123,32 @@ msgid "Divorced"
 msgstr ""
 
 #: candidate/models.py:61 templates/candidate/cand_list.html:63
-#: templates/employer/cand_list.html:38 templates/index.html:31
+#: templates/employer/cand_list.html:38 templates/index.html:32
 msgid "Non-Degree Programme"
 msgstr ""
 
 #: candidate/models.py:62 templates/candidate/cand_list.html:64
-#: templates/employer/cand_list.html:39 templates/index.html:32
+#: templates/employer/cand_list.html:39 templates/index.html:33
 msgid "High School diploma"
 msgstr ""
 
 #: candidate/models.py:63 templates/candidate/cand_list.html:65
-#: templates/employer/cand_list.html:40 templates/index.html:33
+#: templates/employer/cand_list.html:40 templates/index.html:34
 msgid "Technical Diploma"
 msgstr ""
 
 #: candidate/models.py:64 templates/candidate/cand_list.html:66
-#: templates/employer/cand_list.html:41 templates/index.html:34
+#: templates/employer/cand_list.html:41 templates/index.html:35
 msgid "Bachelors Degree"
 msgstr ""
 
 #: candidate/models.py:65 templates/candidate/cand_list.html:67
-#: templates/employer/cand_list.html:42 templates/index.html:35
+#: templates/employer/cand_list.html:42 templates/index.html:36
 msgid "Master Degree"
 msgstr ""
 
 #: candidate/models.py:66 templates/candidate/cand_list.html:68
-#: templates/employer/cand_list.html:43 templates/index.html:36
+#: templates/employer/cand_list.html:43 templates/index.html:37
 msgid "PhD Doctorate Degree"
 msgstr ""
 
@@ -296,8 +296,8 @@ msgstr ""
 msgid "Employer Industry"
 msgstr ""
 
-#: candidate/models.py:108 candidate/models.py:190 employer/models.py:125
-#: employer/models.py:174 templates/candidate/candidate_detail.html:355
+#: candidate/models.py:108 candidate/models.py:190 employer/models.py:129
+#: employer/models.py:204 templates/candidate/candidate_detail.html:355
 #: templates/candidate/candidate_detail.html:397
 #: templates/candidate/candidate_detail.html:502
 #: templates/candidate/my_candidate_details.html:464
@@ -307,8 +307,8 @@ msgstr ""
 msgid "Country"
 msgstr ""
 
-#: candidate/models.py:110 candidate/models.py:192 employer/models.py:123
-#: employer/models.py:172 templates/candidate/candidate_detail.html:339
+#: candidate/models.py:110 candidate/models.py:192 employer/models.py:127
+#: employer/models.py:202 templates/candidate/candidate_detail.html:339
 #: templates/candidate/candidate_detail.html:405
 #: templates/candidate/candidate_detail.html:510
 #: templates/candidate/my_candidate_details.html:448
@@ -331,11 +331,11 @@ msgstr ""
 msgid "End Date"
 msgstr ""
 
-#: candidate/models.py:118 employer/models.py:160
+#: candidate/models.py:118 employer/models.py:190
 msgid "Job Title"
 msgstr ""
 
-#: candidate/models.py:120 employer/models.py:164
+#: candidate/models.py:120 employer/models.py:194
 #: templates/employer/job/details.html:101
 msgid "Job Description"
 msgstr ""
@@ -522,7 +522,7 @@ msgstr ""
 msgid "Current City"
 msgstr ""
 
-#: candidate/models.py:287 employer/models.py:125 employer/models.py:174
+#: candidate/models.py:287 employer/models.py:129 employer/models.py:204
 msgid "(select country)"
 msgstr ""
 
@@ -560,15 +560,15 @@ msgstr ""
 msgid "bio / About you"
 msgstr ""
 
-#: core/settings.py:186 core/settings_old.py:180
+#: core/settings.py:195 core/settings_old.py:180
 msgid "Arabic"
 msgstr ""
 
-#: core/settings.py:187 core/settings_old.py:181
+#: core/settings.py:196 core/settings_old.py:181
 msgid "English"
 msgstr ""
 
-#: employer/forms.py:24 employer/models.py:161
+#: employer/forms.py:24 employer/models.py:191
 msgid "Position keywords"
 msgstr "Position keywords"
 
@@ -608,143 +608,151 @@ msgstr ""
 msgid "Internship"
 msgstr ""
 
-#: employer/models.py:69
+#: employer/models.py:70
 msgid "Feature"
 msgstr ""
 
-#: employer/models.py:81
+#: employer/models.py:82
 msgid "plan"
 msgstr ""
 
-#: employer/models.py:82
+#: employer/models.py:83
 msgid "suggestions"
 msgstr ""
 
-#: employer/models.py:83 templates/base.html:156
+#: employer/models.py:84 templates/base.html:157
 #: templates/employer/job/job_list.html:83
 msgid "Jobs"
 msgstr ""
 
-#: employer/models.py:84
+#: employer/models.py:85
 msgid "Price"
 msgstr ""
 
-#: employer/models.py:86
+#: employer/models.py:88
 msgid "Features"
 msgstr ""
 
-#: employer/models.py:99 employer/models.py:102
+#: employer/models.py:90
+msgid "Is Active"
+msgstr ""
+
+#: employer/models.py:103 employer/models.py:106
 msgid ""
 "Please select logo with scale 1:1 (square) and maximum height and width is "
 "300px"
 msgstr ""
 
-#: employer/models.py:109
+#: employer/models.py:113
 msgid "User"
 msgstr ""
 
-#: employer/models.py:110
+#: employer/models.py:114
 msgid "Company Name"
 msgstr ""
 
-#: employer/models.py:112
+#: employer/models.py:116
 msgid "Logo"
 msgstr ""
 
-#: employer/models.py:113
+#: employer/models.py:117
 msgid "industry"
 msgstr ""
 
-#: employer/models.py:114
+#: employer/models.py:118
 msgid "Phone Number"
 msgstr ""
 
-#: employer/models.py:116
+#: employer/models.py:120
 msgid "Make company info public? (logo and name)"
 msgstr ""
 
-#: employer/models.py:118
+#: employer/models.py:122
 msgid "Email for receiving CVs"
 msgstr ""
 
-#: employer/models.py:120
+#: employer/models.py:124
 msgid "website"
 msgstr ""
 
-#: employer/models.py:121
+#: employer/models.py:125
 msgid "Address"
 msgstr ""
 
-#: employer/models.py:127
+#: employer/models.py:131
 msgid "Is subscribed"
 msgstr ""
 
-#: employer/models.py:129 employer/models.py:222
+#: employer/models.py:133 employer/models.py:253
 msgid "Plan"
 msgstr ""
 
-#: employer/models.py:131
+#: employer/models.py:135
 msgid "Subscription From"
 msgstr ""
 
-#: employer/models.py:133
+#: employer/models.py:137
 msgid "Subscription To"
 msgstr ""
 
-#: employer/models.py:135
+#: employer/models.py:139
 msgid "Remaining Records"
 msgstr ""
 
-#: employer/models.py:137
+#: employer/models.py:141
 msgid "Remaining Jobs"
 msgstr ""
 
-#: employer/models.py:166
+#: employer/models.py:196
 msgid "Employment Type"
 msgstr ""
 
-#: employer/models.py:168
+#: employer/models.py:198
 msgid "Date opened"
 msgstr ""
 
-#: employer/models.py:170
+#: employer/models.py:200
 msgid "Date closed"
 msgstr ""
 
-#: employer/models.py:176
+#: employer/models.py:206
 msgid "Salary"
 msgstr ""
 
-#: employer/models.py:178
+#: employer/models.py:208
 msgid "Nationality"
 msgstr ""
 
-#: employer/models.py:181
+#: employer/models.py:211
 msgid "Applied Candidates"
 msgstr ""
 
-#: employer/views.py:132 employer/views.py:219
-#: templates/employer/job/create.html:12
+#: employer/views.py:131 employer/views.py:163
+msgid "You are not subscribed to us, please subscribe to post a job"
+msgstr ""
+
+#: employer/views.py:136 employer/views.py:238
+#: templates/employer/job/create.html:17
 msgid "Your employer profile under review"
 msgstr ""
 
-#: employer/views.py:139
+#: employer/views.py:143
 msgid "Your job post is successful"
 msgstr ""
 
-#: employer/views.py:143
+#: employer/views.py:147
 msgid "job not posted, please check jobs balance"
 msgstr ""
 
-#: employer/views.py:169
+#: employer/views.py:179
 msgid "Your application is successful"
 msgstr ""
 
-#: employer/views.py:173
+#: employer/views.py:183
 msgid "Your application is error"
 msgstr ""
 
-#: templates/about.html:19 templates/base.html:116
+#: templates/about.html:19 templates/base.html:117
 msgid "About"
 msgstr ""
 
@@ -763,7 +771,7 @@ msgstr ""
 msgid "Who we are"
 msgstr ""
 
-#: templates/about.html:40 templates/base copy.html:164 templates/base.html:207
+#: templates/about.html:40 templates/base copy.html:164 templates/base.html:208
 msgid ""
 "EmployIQ is a professional recruitment tool that has come together to assist "
 "you with a simplified and cost-effective recruitment process. We connect a "
@@ -821,7 +829,7 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
-#: templates/account/login.html:59 templates/base.html:168
+#: templates/account/login.html:59 templates/base.html:169
 msgid "Login"
 msgstr ""
 
@@ -830,7 +838,7 @@ msgid "Change Password"
 msgstr ""
 
 #: templates/account/login.html:61 templates/account/register.html:92
-#: templates/base.html:171
+#: templates/base.html:172
 msgid "Register"
 msgstr ""
 
@@ -877,7 +885,7 @@ msgid ""
 msgstr ""
 
 #: templates/after_register.html:31
-#: templates/employer/my_employer_details.html:45
+#: templates/employer/my_employer_details.html:44
 msgid "Create Employer"
 msgstr ""
 
@@ -892,63 +900,63 @@ msgstr ""
 msgid "Create Candidate"
 msgstr ""
 
-#: templates/base copy.html:169 templates/base.html:212
+#: templates/base copy.html:169 templates/base.html:213
 msgid "Iraq"
 msgstr ""
 
-#: templates/base copy.html:177 templates/base.html:220
+#: templates/base copy.html:177 templates/base.html:221
 msgid "Useful links"
 msgstr ""
 
-#: templates/base copy.html:184 templates/base.html:227
+#: templates/base copy.html:184 templates/base.html:228
 msgid "My Candidate Profile"
 msgstr ""
 
-#: templates/base copy.html:186 templates/base.html:147 templates/base.html:229
+#: templates/base copy.html:186 templates/base.html:148 templates/base.html:230
 msgid "Find a candidate"
 msgstr ""
 
-#: templates/base copy.html:188 templates/base.html:146 templates/base.html:231
+#: templates/base copy.html:188 templates/base.html:147 templates/base.html:232
 msgid "Post a job"
 msgstr ""
 
-#: templates/base copy.html:190 templates/base.html:233
+#: templates/base copy.html:190 templates/base.html:234
 msgid "Search for a job"
 msgstr ""
 
-#: templates/base copy.html:204 templates/base.html:247
+#: templates/base copy.html:204 templates/base.html:248
 msgid "Copyright &copy; Employiq. All Rights Reserved"
 msgstr ""
 
-#: templates/base.html:124
+#: templates/base.html:125
 msgid "For Candidates"
 msgstr ""
 
-#: templates/base.html:129 templates/base.html:145
+#: templates/base.html:130 templates/base.html:146
 msgid "Profile"
 msgstr ""
 
-#: templates/base.html:133
+#: templates/base.html:134
 msgid "Register as Candidate"
 msgstr ""
 
-#: templates/base.html:140
+#: templates/base.html:141
 msgid "for employers"
 msgstr ""
 
-#: templates/base.html:150
+#: templates/base.html:151
 msgid "Register as employer"
 msgstr ""
 
-#: templates/base.html:161 templates/header.html:103
+#: templates/base.html:162 templates/header.html:103
 msgid "LOGOUT"
 msgstr ""
 
-#: templates/base.html:163
+#: templates/base.html:164
 msgid "dashboard"
 msgstr ""
 
-#: templates/candidate/cand_list.html:29 templates/index.html:25
+#: templates/candidate/cand_list.html:29 templates/index.html:26
 msgid "Search keywords"
 msgstr ""
 
@@ -958,12 +966,12 @@ msgid "select city"
 msgstr ""
 
 #: templates/candidate/cand_list.html:35 templates/candidate/cand_list.html:62
-#: templates/index.html:30 templates/index.html:45
+#: templates/index.html:31 templates/index.html:46
 msgid "All"
 msgstr ""
 
 #: templates/candidate/cand_list.html:56
-#: templates/employer/job/job_list.html:50 templates/index.html:66
+#: templates/employer/job/job_list.html:50 templates/index.html:67
 msgid "Location"
 msgstr ""
 
@@ -971,36 +979,42 @@ msgstr ""
 #: templates/candidate/candidate_detail.html:371
 #: templates/candidate/my_candidate_details.html:483
 #: templates/employer/cand_list.html:37 templates/employer/cand_list.html:45
-#: templates/index.html:29 templates/index.html:38
+#: templates/index.html:30 templates/index.html:39
 msgid "Education"
 msgstr ""
 
-#: templates/candidate/cand_list.html:77 templates/employer/cand_list.html:52
+#: templates/candidate/cand_list.html:77 templates/dashboard/candidates.html:14
+#: templates/dashboard/employers.html:14 templates/employer/cand_list.html:52
 #: templates/employer/job/job_list.html:57
 msgid "10 records"
 msgstr ""
 
-#: templates/candidate/cand_list.html:78 templates/employer/cand_list.html:53
+#: templates/candidate/cand_list.html:78 templates/dashboard/candidates.html:15
+#: templates/dashboard/employers.html:15 templates/employer/cand_list.html:53
 #: templates/employer/job/job_list.html:58
 msgid "25 records"
 msgstr ""
 
-#: templates/candidate/cand_list.html:79 templates/employer/cand_list.html:54
+#: templates/candidate/cand_list.html:79 templates/dashboard/candidates.html:16
+#: templates/dashboard/employers.html:16 templates/employer/cand_list.html:54
 #: templates/employer/job/job_list.html:59
 msgid "50 records"
 msgstr ""
 
-#: templates/candidate/cand_list.html:81 templates/employer/cand_list.html:56
+#: templates/candidate/cand_list.html:81 templates/dashboard/candidates.html:18
+#: templates/dashboard/employers.html:18 templates/employer/cand_list.html:56
 #: templates/employer/job/job_list.html:61
 msgid "Number of records"
 msgstr ""
 
-#: templates/candidate/cand_list.html:87 templates/employer/cand_list.html:62
-#: templates/employer/job/job_list.html:67 templates/index.html:73
+#: templates/candidate/cand_list.html:87 templates/dashboard/candidates.html:25
+#: templates/dashboard/employers.html:25 templates/employer/cand_list.html:62
+#: templates/employer/job/job_list.html:67 templates/index.html:74
 msgid "Search"
 msgstr ""
 
-#: templates/candidate/cand_list.html:90 templates/employer/cand_list.html:65
+#: templates/candidate/cand_list.html:90 templates/dashboard/candidates.html:30
+#: templates/dashboard/employers.html:30 templates/employer/cand_list.html:65
 #: templates/employer/job/job_list.html:70
 msgid "Clear"
 msgstr ""
@@ -1153,6 +1167,7 @@ msgstr ""
 #: templates/candidate/education/create.html:51
 #: templates/candidate/employment/create.html:85
 #: templates/candidate/language/create.html:51
+#: templates/employer/subscription/create.html:29
 msgid "Save"
 msgstr ""
 
@@ -1173,7 +1188,9 @@ msgstr ""
 #: templates/candidate/language/create.html:54
 #: templates/candidate/language/update.html:52
 #: templates/candidate/update.html:56 templates/employer/create.html:65
-#: templates/employer/job/create.html:57 templates/employer/job/update.html:57
+#: templates/employer/job/create.html:63 templates/employer/job/update.html:57
+#: templates/employer/subscription/create.html:31
+#: templates/employer/subscription/update.html:28
 #: templates/employer/update.html:56
 msgid "Cancel"
 msgstr ""
@@ -1187,6 +1204,7 @@ msgstr ""
 #: templates/candidate/employment/update.html:51
 #: templates/candidate/language/update.html:51
 #: templates/candidate/update.html:55 templates/employer/job/update.html:56
+#: templates/employer/subscription/update.html:27
 #: templates/employer/update.html:55
 msgid "Update"
 msgstr ""
@@ -1196,7 +1214,7 @@ msgid "Register as Candiate"
 msgstr ""
 
 #: templates/candidate/create.html:68 templates/employer/create.html:64
-#: templates/employer/job/create.html:56
+#: templates/employer/job/create.html:61
 msgid "Submit"
 msgstr ""
 
@@ -1230,7 +1248,7 @@ msgid "If you need to submit your resume please click on create candidate."
 msgstr ""
 
 #: templates/candidate/my_candidate_details.html:131
-#: templates/employer/my_employer_details.html:85
+#: templates/employer/my_employer_details.html:87
 msgid "Edit Info"
 msgstr ""
 
@@ -1276,20 +1294,29 @@ msgstr ""
 msgid "Update Candidate"
 msgstr ""
 
-#: templates/dashboard/dashboard.html:61
-msgid "Users"
+#: templates/dashboard/candidates.html:8 templates/dashboard/employers.html:8
+#: templates/employer/job/job_list.html:23
+msgid "keywords"
 msgstr ""
 
 #: templates/dashboard/dashboard.html:64
-msgid "Employers"
+msgid "Users"
 msgstr ""
 
 #: templates/dashboard/dashboard.html:67
-msgid "Candidates"
+msgid "Employers"
 msgstr ""
 
 #: templates/dashboard/dashboard.html:70
+msgid "Candidates"
+msgstr ""
+
+#: templates/dashboard/dashboard.html:73
 msgid "Subscriptions"
+msgstr ""
+
+#: templates/dashboard/subscriptions.html:2
+msgid "Add New subscription"
 msgstr ""
 
 #: templates/employer/cand_list.html:20
@@ -1312,17 +1339,17 @@ msgstr ""
 msgid "Register as Employer"
 msgstr ""
 
-#: templates/employer/job/create.html:19
+#: templates/employer/job/create.html:24
 msgid "Post a Job"
 msgstr ""
 
-#: templates/employer/job/create.html:67
+#: templates/employer/job/create.html:72
 msgid ""
 "You do not have a job balance available or your subscription has been "
 "expired, please go to the "
 msgstr ""
 
-#: templates/employer/job/create.html:67
+#: templates/employer/job/create.html:72
 msgid " page to recharge your balance"
 msgstr ""
 
@@ -1369,10 +1396,6 @@ msgstr ""
 msgid "Details"
 msgstr ""
 
-#: templates/employer/job/job_list.html:23
-msgid "keywords"
-msgstr ""
-
 #: templates/employer/job/update.html:12
 msgid "Update Job"
 msgstr ""
@@ -1383,6 +1406,14 @@ msgstr ""
 
 #: templates/employer/my_employer_details.html:39
 msgid "If you need to submit jobs please click on create employer."
+msgstr ""
+
+#: templates/employer/subscription/create.html:5
+msgid "Add new subscription"
+msgstr ""
+
+#: templates/employer/subscription/update.html:5
+msgid "Update subscription"
 msgstr ""
 
 #: templates/employer/update.html:12
@@ -1425,65 +1456,77 @@ msgstr ""
 msgid "Language"
 msgstr ""
 
-#: templates/index.html:15
+#: templates/index.html:16
 msgid "search for candidates now"
 msgstr ""
 
-#: templates/index.html:90
-msgid "pricing table"
+#: templates/index.html:91
+msgid "Employer pricing table"
 msgstr ""
 
-#: templates/index.html:102
+#: templates/index.html:92
+msgid "Unlimited applicants through email and the portal"
+msgstr ""
+
+#: templates/index.html:93
+msgid "A post on website and social media"
+msgstr ""
+
+#: templates/index.html:105
 msgid "IQD"
 msgstr ""
 
-#: templates/index.html:105
+#: templates/index.html:108
 msgid "Monthly"
 msgstr ""
 
-#: templates/index.html:105
+#: templates/index.html:108
 msgid "Annual"
 msgstr ""
 
-#: templates/index.html:113
+#: templates/index.html:116
 #, python-format
 msgid "<li>%(feature)s</li>"
 msgstr ""
 
-#: templates/index.html:115 templates/index.html:118
+#: templates/index.html:118 templates/index.html:121
 msgid "Unlimited"
 msgstr ""
 
-#: templates/index.html:117
+#: templates/index.html:120
 msgid "jobs posts"
 msgstr ""
 
-#: templates/index.html:120
+#: templates/index.html:123
 msgid "database suggestions"
 msgstr ""
 
-#: templates/index.html:129 templates/index.html:131 templates/index.html:134
+#: templates/index.html:133 templates/index.html:135 templates/index.html:138
 msgid "Subscribe now"
 msgstr ""
 
-#: templates/index.html:156
+#: templates/index.html:141
+msgid "Coming soon"
+msgstr ""
+
+#: templates/index.html:163
 msgid "members"
 msgstr ""
 
-#: templates/index.html:162
+#: templates/index.html:169
 msgid "jobs"
 msgstr ""
 
-#: templates/index.html:168
+#: templates/index.html:175
 msgid "resumes"
 msgstr ""
 
-#: templates/index.html:174
+#: templates/index.html:181
 msgid "companies"
 msgstr ""
 
-#: templates/index.html:187
-msgid "Our Employers"
+#: templates/index.html:194
+msgid "Our newest employers"
 msgstr ""
 
 #: templates/registration/password_reset_complete.html:17

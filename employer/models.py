@@ -86,6 +86,8 @@ class subscription_plan(models.Model):
     days = models.IntegerField()
     features = models.ManyToManyField(blank=True, verbose_name=_(
         'Features'), related_name='features', to=subscription_features)
+    is_active = models.BooleanField(
+        default=False, verbose_name=_('Is Active'))
 
     def __str__(self):
         return self.plan
@@ -156,6 +158,30 @@ class employer(models.Model):
         ordering = ('company',)
 
 
+class suggestion(models.Model):
+    id = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False)
+    employer = models.ForeignKey(
+        employer, on_delete=models.CASCADE, related_name='suggestions')
+    candidate = models.ForeignKey(
+        candidate, on_delete=models.CASCADE, related_name='candidates', blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+    created_by = models.ForeignKey(
+        User, related_name='%(class)s_createdby', on_delete=models.CASCADE, blank=True, null=True)
+    modified_by = models.ForeignKey(
+        User, related_name='%(class)s_modifiedby', null=True, blank=True, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.id)
+
+    def __unicode__(self):
+        return str(self.id)
+
+    class Meta:
+        ordering = ('-created_at',)
+
+
 class job(models.Model):
     id = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)
@@ -200,14 +226,22 @@ class job(models.Model):
         ordering = ('-date_opened',)
 
 
-class Transaction(models.Model):
+@property
+def is_active(self):
+    today = datetime.today()
+    return self.date_closed <= today
+
+
+class Checkout(models.Model):
     id = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)
     employer = models.ForeignKey(employer, on_delete=models.CASCADE)
-    subscription = models.ForeignKey('Subscription', on_delete=models.CASCADE)
+    # subscription = models.ForeignKey('Subscription', on_delete=models.CASCADE)
+    plan = models.ForeignKey(
+        'subscription_plan', on_delete=models.CASCADE, blank=True, null=True, verbose_name=_('Plan'))
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     payment_status = models.CharField(max_length=20)
-    transaction_id = models.CharField(max_length=100)
+    checkout_id = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(

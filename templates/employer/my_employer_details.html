@@ -8,9 +8,9 @@
 <div class="row justify-content-center">
     <div class="col-12">
         {% for message in messages %}
-        <div
-            class="alert {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %} alert-danger {% else %} alert-success {% endif %} alert-dismissible fade show">
-            <strong> {{ message }}</strong>
+        <div class="alert {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %} alert-danger {% else %} alert-success {% endif %} alert-dismissible fade show">
+            <strong>
+        {{ message }}</strong>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         {% endfor %}
@@ -41,8 +41,7 @@
                 </div>
 
                 <div class="col-md-2 text-right nopadding">
-                    <a href="{% url 'employer_create' %}"
-                        class="btn btn-primary btn-effect mt5">{% trans "Create Employer" %}</a>
+                    <a href="{% url 'employer_create' %}" class="btn btn-primary btn-effect mt5">{% trans "Create Employer" %}</a>
                 </div>
             </div>
 
@@ -78,11 +77,14 @@
                                 <!-- Profile Title -->
                                 <div class="profile-title">
 
-                                    <h2 class="capitalize">{{ object.company }}</h2>
-                                    <h5 class="pt10">{{ object.industry }}</h5>
-                                    <a href="{% url 'employer_update' object.id %}"
-                                        class="btn text-dark btn-outline-primary"><i class="fas fa-edit"></i>
-                                        {% trans 'Edit Info' %}</a>
+                                    <h2 class="capitalize">
+                                        {{ object.company }}
+                                    </h2>
+                                    <h5 class="pt10">
+                                        {{ object.industry }}
+                                    </h5>
+                                    <a href="{% url 'employer_update' object.id %}" class="btn text-dark btn-outline-primary"><i class="fas fa-edit"></i>
+                    {% trans 'Edit Info' %}</a>
                                 </div>
                                 {% comment %}
                                 <!-- Start of Social Media Buttons -->
@@ -142,16 +144,8 @@
 
                                 <!-- Profile Details -->
                                 <div class="profile-details mt40">
-                                    <p>Front end developers use HTML, CSS, and JavaScript to code the website and
-                                        web
-                                        app designs created by web designers. The code they write runs inside the
-                                        user’s
-                                        browser (as opposed to a back end developer, whose code runs on the web
-                                        server).
-                                        Being also in charge of making sure that there are no errors or bugs on the
-                                        front end, as well as making sure that the design appears as it’s supposed
-                                        to
-                                        across various platforms and browsers.</p>
+                                    <p>Front end developers use HTML, CSS, and JavaScript to code the website and web app designs created by web designers. The code they write runs inside the user’s browser (as opposed to a back end developer, whose code
+                                        runs on the web server). Being also in charge of making sure that there are no errors or bugs on the front end, as well as making sure that the design appears as it’s supposed to across various platforms and browsers.</p>
                                 </div>
                                 {% endcomment %}
                             </div>
@@ -165,22 +159,26 @@
                             <ul class="profile-info">
                                 <li>
                                     <i class="fa fa-map-marker"></i>
-                                    <span>{{object.city}}, {{ object.get_country_display }}</span>
+                                    <span>{{object.city}},
+                    {{ object.get_country_display }}</span>
                                 </li>
 
                                 <li>
                                     <i class="fa fa-globe"></i>
-                                    <a href="{{ object.website }}" target="_blank">{{ object.website }}</a>
+                                    <a href="{{ object.website }}" target="_blank">
+                    {{ object.website }}</a>
                                 </li>
 
                                 <li>
                                     <i class="fa fa-phone"></i>
-                                    <a href="tel:{{ object.communication_email}}">{{ object.phone_number }}</a>
+                                    <a href="tel:{{ object.communication_email}}">
+                    {{ object.phone_number }}</a>
                                 </li>
 
                                 <li>
                                     <i class="fa fa-envelope"></i>
-                                    <a href="mailto:{{ object.communication_email}}">{{ object.communication_email}}</a>
+                                    <a href="mailto:{{ object.communication_email}}">
+                    {{ object.communication_email}}</a>
                                 </li>
                             </ul>
                         </div>
@@ -201,86 +199,185 @@
                     </div>
                 </div>
                 <div id="subscriptions">
-                <div class="table-responsive" >
-                    <table class="table" id="Subscriptions_table">
-                        <thead>
-                            <tr>
-                                <th>Plan</th>
-                                <th>Used Jobs</th>
-                                <th>Remaining jobs</th>
-                                <th>Start date</th>
-                                <th>End date</th>
-                                <th>Is active</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for subscription in page_obj %}
-                            <tr>
-                                <td>
-                                    {{ subscription.plan }}
-                                </td>
-                                <td>
-                                    {{ subscription.used_jobs }}
-                                </td>
-                                <td>
-                                    {{ subscription.remaining_jobs }}
-                                </td>
-                                <td>
-                                    {{ subscription.start_date }}
-                                </td>
-                                <td>
-                                    {{ subscription.end_date }}
-                                </td>
-                                <td>
-                                   {% if subscription.is_active %}<i class="fa fa-check text-success"></i>{% else %}<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#ff0000}</style><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>{% endif %}
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table class="table" id="Subscriptions_table">
+                            <thead>
+                                <tr>
+                                    <th>Plan</th>
+                                    <th>Used Jobs</th>
+                                    <th>Remaining jobs</th>
+                                    <th>Start date</th>
+                                    <th>End date</th>
+                                    <th>Is active</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for subscription in page_obj %}
+                                <tr>
+                                    <td>
+                                        {{ subscription.plan }}
+                                    </td>
+                                    <td>
+                                        {{ subscription.used_jobs }}
+                                    </td>
+                                    <td>
+                                        {{ subscription.remaining_jobs }}
+                                    </td>
+                                    <td>
+                                        {{ subscription.start_date }}
+                                    </td>
+                                    <td>
+                                        {{ subscription.end_date }}
+                                    </td>
+                                    <td>
+                                        {% if subscription.is_active %}<i class="fa fa-check text-success"></i>{% else %}<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512">
+                      <!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                      <style>
+                        svg {
+                          fill: #ff0000
+                        }
+                      </style>
+                      <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" />
+                    </svg>{% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row justify-content-center mt30">
+                        <nav aria-label="Page navigation ">
+                            <ul class="pagination justify-content-center flex-wrap mt-2 mb-4">
+                                {% if page_obj.has_previous %}
+                                <li class="page-item">
+                                    <a class="btn btn-sm btn-warning" href="?page={{ page_obj.previous_page_number }}">«</a>
+                                </li>
+                                {% else %}
+                                <li class="disabled page-item">
+                                    <span class="btn btn-sm btn-light">&laquo;</span>
+                                </li>
+                                {% endif %} {% for i in page_range|default_if_none:page_obj.paginator.get_elided_page_range %} {% if page_obj.number == i %}
+                                <li class="active page-item">
+                                    <span class="btn btn-sm btn-light">
+                    {{ i }}</span>
+                                </li>
+                                {% else %} {% if i == page_obj.paginator.ELLIPSIS %}
+                                <li class="page-item">
+                                    <span class="btn btn-sm btn-light">
+                    {{ i }}</span>
+                                </li>
+                                {% else %}
+                                <li class="page-item">
+                                    <a class="btn btn-sm btn-warning" href="?page={{ i }}">
+                    {{ i }}</a>
+                                </li>
+                                {% endif %} {% endif %} {% endfor %} {% if page_obj.has_next %}
+                                <li class="page-item">
+                                    <a class="btn btn-sm btn-warning" href="?page={{ page_obj.next_page_number }}">»</a>
+                                </li>
+                                {% else %}
+                                <li class="disabled page-item">
+                                    <span class="btn btn-sm btn-light">&raquo;</span>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
                 </div>
-                <div class="row justify-content-center mt30">
-                    <nav aria-label="Page navigation ">
-                        <ul class="pagination justify-content-center flex-wrap mt-2 mb-4">
-                            {% if page_obj.has_previous %}
-                            <li class="page-item">
-                                <a class="btn btn-sm btn-warning" href="?page={{ page_obj.previous_page_number }}">«</a>
-                            </li>
-                            {% else %}
-                            <li class="disabled page-item">
-                                <span class="btn btn-sm btn-light">&laquo;</span>
-                            </li>
-                            {% endif %} {% for i in page_range|default_if_none:page_obj.paginator.get_elided_page_range %} {% if page_obj.number == i %}
-                            <li class="active page-item">
-                                <span class="btn btn-sm btn-light">
-                      {{ i }}</span>
-                            </li>
-                            {% else %} {% if i == page_obj.paginator.ELLIPSIS %}
-                            <li class="page-item">
-                                <span class="btn btn-sm btn-light">
-                      {{ i }}</span>
-                            </li>
-                            {% else %}
-                            <li class="page-item">
-                                <a class="btn btn-sm btn-warning" href="?page={{ i }}">
-                      {{ i }}</a>
-                            </li>
-                            {% endif %} {% endif %} {% endfor %} {% if page_obj.has_next %}
-                            <li class="page-item">
-                                <a class="btn btn-sm btn-warning" href="?page={{ page_obj.next_page_number }}">»</a>
-                            </li>
-                            {% else %}
-                            <li class="disabled page-item">
-                                <span class="btn btn-sm btn-light">&raquo;</span>
-                            </li>
-                            {% endif %}
-                        </ul>
-                    </nav>
-                </div>
-            </div>
             </div>
         </section>
-
+        {% if suggestions %}
+        <section class="row pt50 justify-content-md-center" id="subscriptions">
+            <div class="col-12 col-sm-12 col-md-8 col-lg-8">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <h3 class="pb60">Visited Candidates</h3>
+                    </div>
+                </div>
+                <div id="subscriptions">
+                    <div class="table-responsive">
+                        <table class="table" id="Subscriptions_table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone Number</th>
+                                    <th>Gender</th>
+                                    <th>Country</th>
+                                    <th>Visited Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for suggestion in suggestions %}
+                                <tr>
+                                    <td>
+                                        <a href="{% url 'candetials' suggestion.candidate.id %}" target="_blank">
+                      {{ suggestion.candidate }}</a>
+                                    </td>
+                                    <td>
+                                        <a href="mailto:{{ suggestion.candidate.email }}">
+                      {{ suggestion.candidate.email }}</a>
+                                    </td>
+                                    <td>
+                                        <a href="tel:{{ suggestion.candidate.phone_number }}">
+                      {{ suggestion.candidate.phone_number }}</a>
+                                    </td>
+                                    <td>
+                                        {{ suggestion.candidate.gender }}
+                                    </td>
+                                    <td>
+                                        {{ suggestion.candidate.get_country_display }} | {{ suggestion.candidate.get_city_display }}
+                                    </td>
+                                    <td>
+                                        {{ suggestion.created_at|date:"Y/m/d h:i:s" }}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- <div class="row justify-content-center mt30">
+                        <nav aria-label="Page navigation ">
+                            <ul class="pagination justify-content-center flex-wrap mt-2 mb-4">
+                                {% if page_obj.has_previous %}
+                                <li class="page-item">
+                                    <a class="btn btn-sm btn-warning" href="?page={{ page_obj.previous_page_number }}">«</a>
+                                </li>
+                                {% else %}
+                                <li class="disabled page-item">
+                                    <span class="btn btn-sm btn-light">&laquo;</span>
+                                </li>
+                                {% endif %} {% for i in page_range|default_if_none:page_obj.paginator.get_elided_page_range %} {% if page_obj.number == i %}
+                                <li class="active page-item">
+                                    <span class="btn btn-sm btn-light">
+                    {{ i }}</span>
+                                </li>
+                                {% else %} {% if i == page_obj.paginator.ELLIPSIS %}
+                                <li class="page-item">
+                                    <span class="btn btn-sm btn-light">
+                    {{ i }}</span>
+                                </li>
+                                {% else %}
+                                <li class="page-item">
+                                    <a class="btn btn-sm btn-warning" href="?page={{ i }}">
+                    {{ i }}</a>
+                                </li>
+                                {% endif %} {% endif %} {% endfor %} {% if page_obj.has_next %}
+                                <li class="page-item">
+                                    <a class="btn btn-sm btn-warning" href="?page={{ page_obj.next_page_number }}">»</a>
+                                </li>
+                                {% else %}
+                                <li class="disabled page-item">
+                                    <span class="btn btn-sm btn-light">&raquo;</span>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div> -->
+                </div>
+            </div>
+        </section>
+        {% endif %}
         <section class="company-jobs ptb80">
             <div class="container">
 
@@ -305,8 +402,11 @@
                         <!-- Job Title & Info -->
                         <div class="col-md-8 col-xs-6">
                             <div class="job-title">
-                                <a href="{% url 'job_details' job.id %}">{{ job.job_title }}</a>
-                                <p>{{ job.city}}, {{ job.get_country_display }}</p>
+                                <a href="{% url 'job_details' job.id %}">
+                  {{ job.job_title }}</a>
+                                <p>
+                                    {{ job.city}}, {{ job.get_country_display }}
+                                </p>
                             </div>
 
                         </div>
@@ -314,16 +414,15 @@
                         <!-- Job Category -->
                         <div class="col-md-2 col-xs-3 ptb30">
                             <div class="job-category">
-                                <a href="javascript:void(0)"
-                                    class="btn btn-green btn-small btn-effect">{{ job.job_type }}</a>
+                                <a href="javascript:void(0)" class="btn btn-green btn-small btn-effect">
+                  {{ job.job_type }}</a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- ===== End of Single Job Post 1 ===== -->
-                {% endfor %}
-
-                {% comment %} <div class="row mt30">
+                {% endfor %} {% comment %}
+                <div class="row mt30">
                     <div class="col-md-12 text-center">
                         <a href="#" class="btn btn-blue btn-effect">show all</a>
                     </div>
@@ -347,7 +446,7 @@
     </script>
 
     <script type="text/javascript">
-        $('button#delete').on('click', function (e) {
+        $('button#delete').on('click', function(e) {
             e.preventDefault();
             if (confirm('Are you sure you want to delete this?')) {
                 // Save it!
@@ -357,11 +456,11 @@
                     url: $this.attr('apilink'),
                     type: 'GET',
                     cache: false,
-                    success: function (response) {
+                    success: function(response) {
                         alert("Deleted successfully");
                         location.reload();
                     },
-                    error: function (response) {
+                    error: function(response) {
                         alert("There are error please try again");
 
                     }

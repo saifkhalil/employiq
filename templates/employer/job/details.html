@@ -141,10 +141,13 @@
                             </a>
                             {% elif user.is_candidate %}
                             {% if applied == False %}
+                            {{ now }} {{job.date_closed}}{{ job.is_active }}
+                            {% if job.is_active %}
                             <button type="button" class="btn btn-blue btn-effect" data-bs-toggle="modal"
                                 data-bs-target="#applyJob">
                                 {% trans 'Apply for job' %}
                             </button>
+                            {% endif %}
                             {% elif applied == True %}
                             <p class="alert alert-success">{% trans 'Your Already applied' %}</p>
                             {% endif %}

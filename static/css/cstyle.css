@@ -970,6 +970,14 @@ footer .footer-info .footer-posts .thumbnail-post img {
     background: #66c9ff !important
 }
 
+.btn-gray {
+    background: #6e6e6e !important
+}
+
+.btn-gray:hover {
+    background: #c4c4c4 !important
+}
+
 .btn-green {
     background: #2ecc71 !important
 }

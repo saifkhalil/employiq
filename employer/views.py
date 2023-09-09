@@ -8,7 +8,7 @@ from django.views.generic import DetailView
 from requests import request
 from accounts.models import User
 from employer.forms import EmpForm, JobForm, SubscriptionForm
-from employer.models import job, employer, subscription_plan, Subscription
+from employer.models import job, employer, subscription_plan, Subscription, suggestion,Checkout
 from django.core.exceptions import ObjectDoesNotExist
 from candidate.models import candidate
 from django.http.response import JsonResponse
@@ -34,7 +34,9 @@ from abc import ABC
 from datetime import timedelta
 from datetime import datetime
 from django.template.loader import render_to_string
+from core.payment_api import checkout,payment_check
 # Create your views here.
+
 
 
 def send_review_email(Employer, request):
@@ -123,16 +125,22 @@ class JobCreateView(CreateView):
        # current_candidate = candidate.objects.get(user__id=self.request.user.id)
         Job = form.save(commit=False)
         user = self.request.user
-        employer_subscription = Subscription.objects.filter(
-            employer__user=user)
+        remaining_jobs = 0
+        employer_subscription_last = Subscription.objects.filter(
+            employer__user=user).order_by('-end_date').first()
+        if employer_subscription_last:
+            employer_subscription = Subscription.objects.get(
+                id=employer_subscription_last.id)
+            remaining_jobs = employer_subscription.remaining_jobs()
+        else:
+            messages.add_message(self.request, messages.ERROR,
+                                 _("You are not subscribed to us, please subscribe to post a job"))
         current_employer = employer.objects.get(user__id=self.request.user.id)
-        remaining_jobs = current_employer.remaining_jobs
+
         if current_employer.is_verified == False:
             messages.add_message(self.request, messages.ERROR,
                                  _("Your employer profile under review"))
         if remaining_jobs >= 1:
-            current_employer.remaining_jobs = remaining_jobs - 1
-            current_employer.save()
             Job.employer = current_employer
             Job.created_by = User.objects.get(email=user.email)
             messages.add_message(self.request, messages.SUCCESS,
@@ -149,10 +157,20 @@ class JobCreateView(CreateView):
     def get_context_data(self, **kwargs):
         ctx = super(JobCreateView, self).get_context_data(**kwargs)
         user = self.request.user
+        employer_subscription = None
         current_employer = employer.objects.get(user__id=self.request.user.id)
-        employer_subscription = Subscription.objects.get(employer__user=user)
+        employer_subscription_last = Subscription.objects.filter(
+            employer__user=user).order_by('-end_date').first()
+        if employer_subscription_last:
+            employer_subscription = Subscription.objects.get(
+                id=employer_subscription_last.id)
+            remaining_jobs = employer_subscription.remaining_jobs()
+        else:
+            messages.add_message(self.request, messages.ERROR,
+                                 _("You are not subscribed to us, please subscribe to post a job"))
         ctx['current_employer'] = current_employer
         ctx['employer_subscription'] = employer_subscription
+
         return ctx
 
 
@@ -177,6 +195,7 @@ def job_apply(request, jid):
 def JobDetails(request, jid):
     user = request.user
     job_details = job.objects.get(id=jid)
+    job_closed = False
     current_candidate_applied = False
     is_job_owner = False
     if request.user.is_authenticated:
@@ -195,11 +214,14 @@ def JobDetails(request, jid):
             ceid = employer.objects.get(user__id=user.id).id
             if ceid == jeid:
                 is_job_owner = True
-
+    if job_details.date_closed is not None:
+        job_closed = False if job_details.date_closed >= datetime.today().date() else True
     employer_details = employer.objects.get(jobs__id=job_details.id)
     candidates_list = job_details.applied_candidates.all()
     context = {
         'job': job_details,
+        'job_closed': job_closed,
+        'now': datetime.now(),
         'applied': current_candidate_applied,
         'employer': employer_details,
         'candidates_list': candidates_list,
@@ -221,11 +243,14 @@ def my_employer_details(request):
         page_obj = paginator.get_page(page_number)
         page_range = paginator.get_elided_page_range(
             number=page_number, on_each_side=2, on_ends=2)
+        suggestions = suggestion.objects.filter(
+            employer_id=eid).order_by('-created_at')
         if employer_details.is_verified == False:
             messages.add_message(request, messages.ERROR, _(
                 "Your employer profile under review"))
         context = {
             'object': employer_details,
+            'suggestions': suggestions,
             'jobs': job.objects.filter(employer__id=eid),
             'page_obj': page_obj,
             'page_range': page_range,
@@ -397,21 +422,71 @@ class JobUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView, ABC):
 #         return True
 
 
+def employer_checkout(request, cid):
+    if request.user.is_employer:
+        current_employer = employer.objects.get(user__id=request.user.id)
+        checkout = Checkout.objects.get(checkout_id=cid)
+        payment = payment_check(cid)
+        print(payment)
+        if payment.get('result').get('code') == '000.200.000':
+            context = {
+                'checkout_id': cid,
+                'employer': current_employer,
+                'checkout': checkout,
+            }
+            return render(request, 'employer/subscription/checkout.html', context)
+        elif payment.get('result').get('code') == '000.100.110':
+            checkout.payment_status = 'Paid'
+            checkout.save()
+            messages.add_message(request, messages.SUCCESS,
+                                 "You are already pay this subscription")
+            return redirect(reverse('home'))
+        elif payment.get('result').get('code') == '200.300.404':
+            messages.add_message(request, messages.ERROR,
+                                 "Please please subscribe with us")
+            return redirect(reverse('home'))
+        else:
+            messages.add_message(request, messages.ERROR,
+                                 "There are error on subscription please try again")
+            return redirect(reverse('home'))
+
+
+
+
+
+
 def employer_plan(request, sid):
     if request.user.is_employer:
         try:
             current_employer = employer.objects.get(user__id=request.user.id)
-        except (employer.DoesNotExist):
-            return JsonResponse({"data": "You employer not found, please try agin later"}, status=200)
+        except employer.DoesNotExist:
+            return JsonResponse({"data": "You employer not found, please try again later"}, status=200)
         employer_subscriptions = Subscription.objects.filter(
             employer__user=request.user).order_by('-created_at')
         if employer_subscriptions.count() > 0 and employer_subscriptions.first().is_active():
             return JsonResponse({"data": f"You already subscribed with us with plan {employer_subscriptions.first().plan} end at {employer_subscriptions.first().end_date}"}, status=200)
         else:
             plan = subscription_plan.objects.get(id=sid)
-            emp_subscription = Subscription(employer=current_employer, plan=plan, start_date=datetime.now(
-            ), end_date=datetime.now() + timedelta(plan.days), created_at=datetime.now(), created_by=request.user)
-            emp_subscription.save()
+            check_result = checkout(plan.price)
+            if check_result.get('result').get('code') == '000.200.100':
+                checkout_id = check_result.get('id')
+                emp_transaction = Checkout(
+                    employer=current_employer,
+                    plan=plan,
+                    amount=plan.price,
+                    payment_status='pending',
+                    checkout_id=checkout_id
+                )
+                emp_transaction.save()
+                return redirect(
+                    reverse('employer_checkout', kwargs={"cid": checkout_id}
+                            )
+                )
+            else:
+                return JsonResponse({"data": "There are error in payment gateway, please try again later"}, status=200)
+            # emp_subscription = Subscription(employer=current_employer, plan=plan, start_date=datetime.now(
+            # ), end_date=datetime.now() + timedelta(plan.days), created_at=datetime.now(), created_by=request.user)
+            # emp_subscription.save()
             return JsonResponse({"data": "subscription successfully"}, status=200)
 
 
@@ -444,10 +519,8 @@ class SubscriptionCreateView(CreateView):
         subscription = form.save(commit=False)
         subscription.end_date = subscription.start_date + \
             timedelta(days=subscription.plan.days)
-        print(subscription.end_date)
         employer_subscriptions = Subscription.objects.filter(Q(employer=subscription.employer), Q(
             start_date__lte=subscription.end_date), Q(end_date__gte=subscription.start_date))
-        print(employer_subscriptions)
         if employer_subscriptions.count() >= 1:
             form.add_error(
                 'employer', 'The chosen employer is already subscribed in the same period.')
@@ -472,7 +545,7 @@ class SubscriptionCreateView(CreateView):
         subscription_start_date_str = subscription.get(
             'start_date') if subscription else None
         subscription_start_date = datetime.strptime(
-            subscription_start_date_str, '%m/%d/%Y').date() if subscription_start_date_str else None
+            subscription_start_date_str, '%Y-%m-%d').date() if subscription_start_date_str else None
         subscription_end_date = subscription_start_date + \
             timedelta(days=employer_plan.days) if subscription else None
         if subscription:

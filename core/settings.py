@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django.contrib.humanize',
     # 3d party packages
     'django_countries',
     'phonenumber_field',
@@ -151,7 +152,7 @@ DATABASES = {
         'NAME': 'employiq',
         'USER': 'employadmin_recruitment',
         'PASSWORD': 'Z@id1978',
-        'HOST': '172.18.223.248',
+        'HOST': '192.168.68.121',
         'PORT': '3306',
     }
 }
