@@ -17,7 +17,7 @@
 .venv 
 env/ 
 venv/
-static
+static/*
 media/*
 **/__pycache__/
 **/migrations/
