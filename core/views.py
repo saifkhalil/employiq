@@ -243,6 +243,7 @@ def home(request):
             if result.get('result').get('code') == '000.100.110':
                 checkout = Checkout.objects.get(checkout_id=id)
                 checkout.payment_status = 'Paid'
+                checkout.save()
                 end_date = timezone.now() + timezone.timedelta(days=checkout.plan.days)
                 subscription = Subscription(
                     employer=checkout.employer,
