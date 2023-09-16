@@ -20,8 +20,13 @@ urlpatterns = [
     path('job/<uuid:pk>/update/',
          login_required(JobUpdateView.as_view()), name='job_update'),
     path('job', job_list, name='job_list'),
+    path('subscription/create', login_required(SubscriptionCreateView.as_view()),
+         name='subscription_create'),
+    path('subscription/<uuid:pk>/update/',
+         login_required(SubscriptionUpdateView.as_view()), name='subscription_update'),
     path('job/apply/<uuid:jid>', login_required(job_apply), name='job_apply'),
     path('subscribe/<uuid:sid>', login_required(employer_plan), name='employer_plan'),
+    path('checkout/<str:cid>', login_required(employer_checkout), name='employer_checkout'),
     path('verify/<uuid:employerid>', send_verified, name="send_verified"),
 ]
 

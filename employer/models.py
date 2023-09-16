@@ -15,8 +15,6 @@ from easy_thumbnails.fields import ThumbnailerImageField
 from accounts.models import User
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
-
-User = settings.AUTH_USER_MODEL
 from django.core.exceptions import ValidationError
 from django.core.files.images import get_image_dimensions
 
@@ -26,10 +24,12 @@ NATIONALITY = [
     ('both', _('Both')),
 ]
 
+
 BOOL_CHOICES = [
     ('Y', _('Yes')),
     ('N', _('No')),
 ]
+
 
 Employment_Type = [
     ('Full-time', _('Full-time')),
@@ -64,6 +64,18 @@ GOVERNORATES = [
 ]
 
 
+class subscription_features(models.Model):
+    id = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False)
+    feature = models.CharField(max_length=200, verbose_name=_('Feature'))
+
+    def __str__(self):
+        return self.feature
+
+    def __unicode__(self):
+        return self.feature
+
+
 class subscription_plan(models.Model):
     id = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)
@@ -72,10 +84,10 @@ class subscription_plan(models.Model):
     jobs = models.IntegerField(verbose_name=_('Jobs'))
     price = models.IntegerField(verbose_name=_('Price'))
     days = models.IntegerField()
-    active = models.BooleanField(
-        default=True,
-        help_text=_('whether this plan list is active or not.'),
-    )
+    features = models.ManyToManyField(blank=True, verbose_name=_(
+        'Features'), related_name='features', to=subscription_features)
+    is_active = models.BooleanField(
+        default=False, verbose_name=_('Is Active'))
 
     def __str__(self):
         return self.plan
@@ -101,7 +113,7 @@ class employer(models.Model):
         User, on_delete=models.CASCADE, verbose_name=_('User'))
     company = models.CharField(max_length=200, verbose_name=_('Company Name'))
     logo = ThumbnailerImageField(
-        upload_to='company_logos', blank=False, null=False, verbose_name=_('Logo'))
+        upload_to='company_logos', blank=False, null=False,  verbose_name=_('Logo'))
     industry = models.CharField(max_length=200, verbose_name=_('industry'))
     phone_number = PhoneNumberField(verbose_name=_('Phone Number'))
     public_company_info = models.CharField(max_length=10, choices=BOOL_CHOICES, default='Yes',
@@ -143,170 +155,38 @@ class employer(models.Model):
 
     class Meta:
         unique_together = ('id', 'user',)
+        ordering = ('company',)
 
 
-#
-# class employer_subscription(models.Model):
-#     id = models.UUIDField(
-#         primary_key=True, default=uuid.uuid4, editable=False)
-#     employer = models.ForeignKey(employer, on_delete=models.CASCADE)
-#     plan = models.ForeignKey(subscription_plan, on_delete=models.CASCADE)
-#     date_billing_start = models.DateTimeField(
-#         blank=True,
-#         help_text=_('the date to start billing this subscription'),
-#         null=True,
-#         verbose_name='billing start date',
-#     )
-#     date_billing_end = models.DateTimeField(
-#         blank=True,
-#         help_text=_('the date to finish billing this subscription'),
-#         null=True,
-#         verbose_name='billing start end',
-#     )
-#     date_billing_last = models.DateTimeField(
-#         blank=True,
-#         help_text=_('the last date this plan was billed'),
-#         null=True,
-#         verbose_name='last billing date',
-#     )
-#     date_billing_next = models.DateTimeField(
-#         blank=True,
-#         help_text=_('the next date billing is due'),
-#         null=True,
-#         verbose_name='next start date',
-#     )
-#     active = models.BooleanField(
-#         default=True,
-#         help_text=_('whether this subscription is active or not'),
-#     )
-#     cancelled = models.BooleanField(
-#         default=False,
-#         help_text=_('whether this subscription is cancelled or not'),
-#     )
-#     used_suggestions = models.IntegerField(verbose_name=_('Used suggestions'),default=0)
-#     used_jobs = models.IntegerField(verbose_name=_('Used jobs'),default=0)
-#     created_at = models.DateTimeField(auto_now_add=True)
-#     modified_at = models.DateTimeField(auto_now=True)
-#     created_by = models.ForeignKey(
-#         User, related_name='%(class)s_createdby', on_delete=models.CASCADE, blank=True, null=True)
-#     modified_by = models.ForeignKey(
-#         User, related_name='%(class)s_modifiedby', null=True, blank=True, on_delete=models.CASCADE)
-#
-#     def __str__(self):
-#         return str(self.id)
-#
-#     def __unicode__(self):
-#         return str(self.id)
-#
-#     def remaining_jobs(self):
-#         return int(self.plan.jobs - self.used_jobs) if self.plan.jobs is not None and self.used_jobs is not None else 0
-#
-#     def remaining_suggestions(self):
-#         return int(self.plan.suggestions - self.used_suggestions) if self.plan.suggestions is not None and self.used_suggestions is not None else 0
-# class SubscriptionTransaction(models.Model):
-#     """Details for a subscription plan billing."""
-#     id = models.UUIDField(
-#         default=uuid.uuid4,
-#         editable=False,
-#         primary_key=True,
-#         verbose_name='ID',
-#     )
-#     employer = models.ForeignKey(
-#         employer,
-#         help_text=_('the employer that this subscription was billed for'),
-#         null=True,
-#         on_delete=models.SET_NULL,
-#         related_name='subscription_transactions'
-#     )
-#     subscription = models.ForeignKey(
-#         subscription_plan,
-#         help_text=_('the plan costs that were billed'),
-#         null=True,
-#         on_delete=models.SET_NULL,
-#         related_name='transactions'
-#     )
-#     date_transaction = models.DateTimeField(
-#         help_text=_('the datetime the transaction was billed'),
-#         verbose_name='transaction date',
-#     )
-#     amount = models.DecimalField(
-#         blank=True,
-#         decimal_places=4,
-#         help_text=_('how much was billed for the user'),
-#         max_digits=19,
-#         null=True,
-#     )
-#
-#     class Meta:
-#         ordering = ('date_transaction', 'employer',)
-
-
-class BaseModel(models.Model):
-    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True,
-                                   related_name='%(class)s_created')
+class suggestion(models.Model):
+    id = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False)
+    employer = models.ForeignKey(
+        employer, on_delete=models.CASCADE, related_name='suggestions')
+    candidate = models.ForeignKey(
+        candidate, on_delete=models.CASCADE, related_name='candidates', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    modified_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True,
-                                    related_name='%(class)s_modified')
     modified_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        abstract = True
-
-
-class emp_subscription(BaseModel):
-    id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, verbose_name='ID',)
-    employer = models.OneToOneField(employer, on_delete=models.CASCADE)
-    plan = models.ForeignKey('subscription_plan', on_delete=models.CASCADE)
-    start_date = models.DateField()
-    end_date = models.DateField()
+    created_by = models.ForeignKey(
+        User, related_name='%(class)s_createdby', on_delete=models.CASCADE, blank=True, null=True)
+    modified_by = models.ForeignKey(
+        User, related_name='%(class)s_modifiedby', null=True, blank=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.id)
 
-    def used_jobs(self):
-        return self.employer.jobs.filter(created_at__gte=self.start_date, created_at__lte=self.end_date).count()
+    def __unicode__(self):
+        return str(self.id)
 
-    def remaining_jobs(self):
-        used_jobs = self.used_jobs()
-        return self.plan.jobs - used_jobs
-
-    def used_suggestions(self):
-        return self.employer.suggestions.filter(created_at__gte=self.start_date, created_at__lte=self.end_date).count()
-
-    def remaining_suggestions(self):
-        used_suggestions = self.used_suggestions()
-        return self.plan.suggestions - used_suggestions
-
-    def is_active(self):
-        return self.end_date >= timezone.now().date()
-
-
-class emp_transaction(BaseModel):
-    id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, verbose_name='ID',)
-    employer = models.ForeignKey(employer, on_delete=models.CASCADE)
-    subscription = models.ForeignKey(emp_subscription, on_delete=models.CASCADE)
-    amount = models.DecimalField(max_digits=10, decimal_places=2)
-    payment_status = models.CharField(max_length=20)
-    transaction_id = models.CharField(max_length=100)
-
-    def __str__(self):
-        return f"Transaction #{self.id} for {self.employer.company}"
-
-# class Plan(BaseModel):
-#     name = models.CharField(max_length=100)
-#     price = models.DecimalField(max_digits=6, decimal_places=2)
-#     job_limit = models.PositiveIntegerField()
-#     suggestion_limit = models.PositiveIntegerField()
-#
-#     def __str__(self):
-#         return self.name
-
+    class Meta:
+        ordering = ('-created_at',)
 
 
 class job(models.Model):
     id = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)
-    employer = models.ForeignKey(employer, on_delete=models.CASCADE)
+    employer = models.ForeignKey(
+        employer, on_delete=models.CASCADE, related_name='jobs')
     job_title = models.CharField(max_length=200, verbose_name=_('Job Title'))
     keywords = TagField(verbose_name=_('Position keywords'),
                         delimiters=' ')
@@ -344,3 +224,76 @@ class job(models.Model):
 
     class Meta:
         ordering = ('-date_opened',)
+
+
+@property
+def is_active(self):
+    today = datetime.today()
+    return self.date_closed <= today
+
+
+class Checkout(models.Model):
+    id = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False)
+    employer = models.ForeignKey(employer, on_delete=models.CASCADE)
+    # subscription = models.ForeignKey('Subscription', on_delete=models.CASCADE)
+    plan = models.ForeignKey(
+        'subscription_plan', on_delete=models.CASCADE, blank=True, null=True, verbose_name=_('Plan'))
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    payment_status = models.CharField(max_length=20)
+    checkout_id = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+    created_by = models.ForeignKey(
+        User, related_name='%(class)s_createdby', on_delete=models.CASCADE, blank=True, null=True)
+    modified_by = models.ForeignKey(
+        User, related_name='%(class)s_modifiedby', null=True, blank=True, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Transaction #{self.id} for {self.employer.company}"
+
+
+class Subscription(models.Model):
+    id = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False)
+    employer = models.ForeignKey(employer, on_delete=models.CASCADE)
+    plan = models.ForeignKey(
+        'subscription_plan', on_delete=models.CASCADE, blank=True, null=True, verbose_name=_('Plan'))
+    start_date = models.DateField()
+    end_date = models.DateField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+    created_by = models.ForeignKey(
+        User, related_name='%(class)s_createdby', on_delete=models.CASCADE, blank=True, null=True)
+    modified_by = models.ForeignKey(
+        User, related_name='%(class)s_modifiedby', null=True, blank=True, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.employer.company
+
+    def used_jobs(self):
+        # Calculate the count of jobs created within the subscription period
+        return self.employer.jobs.filter(created_at__gte=self.start_date, created_at__lte=self.end_date).count()
+
+    def used_suggestions(self):
+        # Calculate the count of suggestions created within the subscription period
+        return self.employer.suggestions.filter(created_at__gte=self.start_date, created_at__lte=self.end_date).count()
+
+    def remaining_jobs(self):
+        return self.plan.jobs - self.used_jobs()
+
+    def remaining_suggestions(self):
+        return self.plan.suggestions - self.used_suggestions()
+
+    def is_active(self):
+        return self.end_date >= timezone.now().date()
+
+    def is_conflict(self, start_date, end_date):
+        selected_start_date = start_date
+        selected_end_date = end_date
+        current_start_date = self.start_date
+        current_end_date = self.end_date
+        if (selected_start_date >= current_start_date and selected_start_date <= current_end_date) or (selected_end_date >= current_start_date and selected_end_date <= current_end_date):
+            return True
+        else:
+            return False
