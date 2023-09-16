@@ -238,7 +238,7 @@ def home(request):
         id = request.GET.get('id')
         if id not in ('', None):
             result = payment_check(id)
-            if request.get('result').get('code') == '000.100.110':
+            if result.get('result').get('code') == '000.100.110':
                 checkout = Checkout.objects.get(checkout_id=id)
                 checkout.payment_status = 'Paid'
                 end_date = timezone.now()+timedelta(days=checkout.plan.days)
