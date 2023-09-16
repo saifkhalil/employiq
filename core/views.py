@@ -236,6 +236,7 @@ def home(request):
         return redirect('/candidates/?' + urllib.parse.urlencode(context))
     else:
         id = request.GET.get('id')
+        print('id :',id)
         if id not in ('', None):
             result = payment_check(id)
             if result.get('result').get('code') == '000.100.110':
