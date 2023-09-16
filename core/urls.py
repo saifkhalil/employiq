@@ -27,6 +27,7 @@ from accounts.views import (
     send_active,
     block_user,
     unblock_user,
+
 )
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import views as auth_views
@@ -50,7 +51,12 @@ def handler500(request, *args, **argv):
 
 urlpatterns = i18n_patterns(
     path('', views.home, name='home'),
-    path('dashboard', views.dashboard, name='dashboard'),
+    path('dashboard/users', views.users_list, name='dashboard'),
+    path('dashboard/users', views.users_list, name='users_list'),
+    path('dashboard/employers', views.employers_list, name='employers_list'),
+    path('dashboard/candidates', views.candidates_list, name='candidates_list'),
+    path('dashboard/subscriptions', views.subscriptions_list,
+         name='subscriptions_list'),
     path('accounts/', include('allauth.urls')),
     # path('after', views.after, name='after'),
     path('about', views.about, name='about'),
