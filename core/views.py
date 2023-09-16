@@ -236,9 +236,10 @@ def home(request):
         return redirect('/candidates/?' + urllib.parse.urlencode(context))
     else:
         id = request.GET.get('id')
-        print('id :',id)
+        print('id :', id)
         if id not in ('', None):
             result = payment_check(id)
+            print('result :', result.get('result').get('code'))
             if result.get('result').get('code') == '000.100.110':
                 checkout = Checkout.objects.get(checkout_id=id)
                 checkout.payment_status = 'Paid'
