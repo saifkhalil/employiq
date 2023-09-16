@@ -1,4 +1,4 @@
-from .models import employer, job
+from .models import employer, job, Subscription
 from django.forms import CheckboxInput, DateInput, ModelForm
 from django_countries.widgets import CountrySelectWidget
 from django import forms
@@ -35,3 +35,10 @@ class JobForm(ModelForm):
                   'date_opened', 'date_closed']
         widgets = {'country': CountrySelectWidget(
         ), 'date_opened': DateInput(), 'date_closed': DateInput(), 'job_description': CKEditorWidget()}
+
+
+class SubscriptionForm(ModelForm):
+    class Meta:
+        model = Subscription
+        fields = ['employer', 'plan', 'start_date']
+        widgets = {'start_date': DateInput(), }
