@@ -1,0 +1,454 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candidate PDF </title>
+    <style>
+        h1 {
+            text-align: center;
+        }
+
+        td,
+        th {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="filtered">
+            <div class="content">
+                <br>
+                <br>
+                {% if messages %} <ul class="messages">
+                    {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>
+                        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+                        {{ message }}
+                        </li>
+                        {% endfor %}
+                </ul>
+                {% endif %}
+                <h3 class="text-center text-white">{{object.get_title_display}} {{ object.firstname }}
+                    {{ object.secondname }} {{ object.lastname }} Profile</h3>
+                <div class="row justify-content-md-center">
+                    <div class="col-10">
+                        <div class="card text-dark bg-light mb-3">
+                            <div class="card-header"> Candidate information
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="accordion" id="accordionPanelsStayOpenExample">
+                                            <div class="accordion-item">
+                                                <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                                                    <button class="btn btn-primary accordion-button" type="button"
+                                                        data-bs-toggle="collapse"
+                                                        data-bs-target="#panelsStayOpen-collapseOne"
+                                                        aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                                                        <i class="fas fa-user"></i> Personal information
+                                                    </button>
+                                                </h2>
+                                                <div id="panelsStayOpen-collapseOne"
+                                                    class="accordion-collapse collapse show"
+                                                    aria-labelledby="panelsStayOpen-headingOne">
+                                                    <div class="accordion-body">
+
+                                                        <div class="row">
+
+                                                            <div class="col-12">
+                                                                <label for="basic-url">Name:
+                                                                    {{object.firstname}} {{ object.secondname }}
+                                                                    {{ object.lastname }}</label>
+
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-4">
+                                                                <label for="basic-url">Email :
+                                                                    {{ object.email }}</label>
+                                                            </div>
+                                                            <div class="col-4">
+                                                                <label for="basic-url">Phone :
+                                                                    {{ object.phone_number }}</label>
+
+                                                            </div>
+                                                            <div class="col-4">
+                                                                <label for="basic-url">Gender :
+                                                                    {{ object.get_gender_display }}</label>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-4">
+                                                                <label for="basic-url">Date of birth :
+                                                                    {{  object.birthofdate|date:"d/m/Y"  }}</label>
+
+                                                            </div>
+                                                            <div class="col-4">
+                                                                <label for="basic-url">Country of birth :
+                                                                    {{  object.get_country_of_birth_display }}</label>
+
+                                                            </div>
+                                                            <div class="col-4">
+                                                                <label for="basic-url">Place of birth :
+                                                                    {{  object.place_of_birth }}</label>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-4">
+                                                                <label for="basic-url">Primary nationality</label>
+                                                                <div class="input-group mb-3">
+                                                                    <input type="text" class="form-control"
+                                                                        id="basic-url" aria-describedby="basic-addon3"
+                                                                        value="{{  object.get_primary_nationality_display }}"
+                                                                        disabled>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-4">
+                                                                <label for="basic-url">Secondary nationality</label>
+                                                                <div class="input-group mb-3">
+                                                                    <input type="text" class="form-control"
+                                                                        id="basic-url" aria-describedby="basic-addon3"
+                                                                        value="{{  object.get_secondary_nationality_display }}"
+                                                                        disabled>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-4">
+                                                                <label for="basic-url">Highest level of
+                                                                    education</label>
+                                                                <div class="input-group mb-3">
+                                                                    <input type="text" class="form-control"
+                                                                        id="basic-url" aria-describedby="basic-addon3"
+                                                                        value="{{  object.get_highest_level_of_education_display }}"
+                                                                        disabled>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                                                <button class="btn btn-primary accordion-button" type="button"
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true"
+                                                    aria-controls="panelsStayOpen-collapseTwo">
+                                                    <i class="fas fa-tty"></i> Contact information
+                                                </button>
+                                            </h2>
+                                            <div id="panelsStayOpen-collapseTwo"
+                                                class="accordion-collapse collapse show"
+                                                aria-labelledby="panelsStayOpen-headingTwo">
+                                                <div class="accordion-body">
+                                                    <div class="row">
+                                                        <div class="col-4">
+                                                            <label for="basic-url">Contact phone</label>
+                                                            <div class="input-group mb-3">
+                                                                <input type="text" class="form-control" id="basic-url"
+                                                                    aria-describedby="basic-addon3"
+                                                                    value="{{  object.contact_phone }}" disabled>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <label for="basic-url">Type</label>
+                                                            <div class="input-group mb-3">
+                                                                <input type="text" class="form-control" id="basic-url"
+                                                                    aria-describedby="basic-addon3"
+                                                                    value="{{  object.get_phone_type_display }}"
+                                                                    disabled>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <label for="basic-url">Alternate email address</label>
+                                                            <div class="input-group mb-3">
+                                                                <input type="text" class="form-control" id="basic-url"
+                                                                    aria-describedby="basic-addon3"
+                                                                    value="{{  object.alternate_email_address }}"
+                                                                    disabled>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                                                <button class="btn btn-primary accordion-button" type="button"
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="true"
+                                                    aria-controls="panelsStayOpen-collapseThree">
+                                                    <i class="fas fa-street-view"></i> Permanent Address
+                                                </button>
+                                            </h2>
+                                            <div id="panelsStayOpen-collapseThree"
+                                                class="accordion-collapse collapse show"
+                                                aria-labelledby="panelsStayOpen-headingThree">
+                                                <div class="accordion-body">
+                                                    <div class="row">
+                                                        <div class="col-4">
+                                                            <label for="basic-url">Address (line 1)</label>
+                                                            <div class="input-group mb-3">
+                                                                <input type="text" class="form-control" id="basic-url"
+                                                                    aria-describedby="basic-addon3"
+                                                                    value="{{  object.address1 }}" disabled>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <label for="basic-url">Address (line 2)</label>
+                                                            <div class="input-group mb-3">
+                                                                <input type="text" class="form-control" id="basic-url"
+                                                                    aria-describedby="basic-addon3"
+                                                                    value="{{  object.address2 }}" disabled>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <label for="basic-url">City</label>
+                                                            <div class="input-group mb-3">
+                                                                <input type="text" class="form-control" id="basic-url"
+                                                                    aria-describedby="basic-addon3"
+                                                                    value="{{  object.city }}" disabled>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-4">
+                                                            <label for="basic-url">Postal Code</label>
+                                                            <div class="input-group mb-3">
+                                                                <input type="text" class="form-control" id="basic-url"
+                                                                    aria-describedby="basic-addon3"
+                                                                    value="{{  object.postal_code }}" disabled>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <label for="basic-url">Country</label>
+                                                            <div class="input-group mb-3">
+                                                                <input type="text" class="form-control" id="basic-url"
+                                                                    aria-describedby="basic-addon3"
+                                                                    value="{{  object.get_country_display }}" disabled>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="panelsStayOpen-headingFour">
+                                                <button class="btn btn-primary accordion-button" type="button"
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="true"
+                                                    aria-controls="panelsStayOpen-collapseFour">
+                                                    Education
+                                                    </span>
+
+                                                </button>
+                                            </h2>
+                                            <div id="panelsStayOpen-collapseFour"
+                                                class="accordion-collapse collapse show"
+                                                aria-labelledby="panelsStayOpen-headingFour">
+                                                <div class="accordion-body">
+                                                    {% if educations|length == 0 %}
+                                                    <p class="text-center"> The candidate not added educations records
+                                                    </p>
+                                                    {% else %}
+                                                    {% for edu in educations %}
+                                                    <div class="row">
+                                                        <div class="col-4">
+                                                            <label for="basic-url">Education level</label>
+                                                            <div class="input-group mb-3">
+                                                                <input type="text" class="form-control" id="basic-url"
+                                                                    aria-describedby="basic-addon3"
+                                                                    value="{{  edu.get_education_level_display }}"
+                                                                    disabled>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <label for="basic-url">Country</label>
+                                                            <div class="input-group mb-3">
+                                                                <input type="text" class="form-control" id="basic-url"
+                                                                    aria-describedby="basic-addon3"
+                                                                    value="{{  edu.get_country_display }}" disabled>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <label for="basic-url">City</label>
+                                                            <div class="input-group mb-3">
+                                                                <input type="text" class="form-control" id="basic-url"
+                                                                    aria-describedby="basic-addon3"
+                                                                    value="{{  edu.city }}" disabled>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-4">
+                                                            <label for="basic-url">Institution</label>
+                                                            <div class="input-group mb-3">
+                                                                <input type="text" class="form-control" id="basic-url"
+                                                                    aria-describedby="basic-addon3"
+                                                                    value="{{  edu.institution }}" disabled>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <label for="basic-url">Original Title of the
+                                                                Qualification</label>
+                                                            <div class="input-group mb-3">
+                                                                <input type="text" class="form-control" id="basic-url"
+                                                                    aria-describedby="basic-addon3"
+                                                                    value="{{  edu.original_title_of_the_qualification }}"
+                                                                    disabled>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <label for="basic-url">Main subject</label>
+                                                            <div class="input-group mb-3">
+                                                                <input type="text" class="form-control" id="basic-url"
+                                                                    aria-describedby="basic-addon3"
+                                                                    value="{{  edu.main_subject }}" disabled>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-4">
+                                                            <label for="basic-url">Start Date</label>
+                                                            <div class="input-group mb-3">
+                                                                <input type="text" class="form-control" id="basic-url"
+                                                                    aria-describedby="basic-addon3"
+                                                                    value="{{  edu.start_date }}" disabled>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <label for="basic-url">Graduation Date</label>
+                                                            <div class="input-group mb-3">
+                                                                <input type="text" class="form-control" id="basic-url"
+                                                                    aria-describedby="basic-addon3"
+                                                                    value="{{  edu.graduation_date }}" disabled>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                    {% endfor %}
+                                                    {% endif %}
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="panelsStayOpen-headingFive">
+                                                <button class="btn btn-primary accordion-button" type="button"
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="true"
+                                                    aria-controls="panelsStayOpen-collapseFive">
+                                                    Employments
+                                                    </span>
+
+                                                </button>
+                                            </h2>
+                                            <div id="panelsStayOpen-collapseFive"
+                                                class="accordion-collapse collapse show"
+                                                aria-labelledby="panelsStayOpen-headingFive">
+                                                <div class="accordion-body">
+                                                    {% if employments|length == 0 %}
+                                                    <p class="text-center"> The candidate not added employments records
+                                                    </p>
+                                                    {% else %}
+                                                    {% for emp in employments %}
+                                                    <div class="row">
+                                                        <div class="col-4">
+                                                            <label for="basic-url">Employer</label>
+                                                            <div class="input-group mb-3">
+                                                                <input type="text" class="form-control" id="basic-url"
+                                                                    aria-describedby="basic-addon3"
+                                                                    value="{{  emp.employer }}" disabled>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <label for="basic-url">Country</label>
+                                                            <div class="input-group mb-3">
+                                                                <input type="text" class="form-control" id="basic-url"
+                                                                    aria-describedby="basic-addon3"
+                                                                    value="{{  emp.get_country_display }}" disabled>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <label for="basic-url">City</label>
+                                                            <div class="input-group mb-3">
+                                                                <input type="text" class="form-control" id="basic-url"
+                                                                    aria-describedby="basic-addon3"
+                                                                    value="{{  emp.city }}" disabled>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-4">
+                                                            <label for="basic-url">Current job</label>
+                                                            <div class="input-group mb-3">
+                                                                <input type="text" class="form-control" id="basic-url"
+                                                                    aria-describedby="basic-addon3"
+                                                                    value="{{  emp.get_current_job_display }}" disabled>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <label for="basic-url">Start_date</label>
+                                                            <div class="input-group mb-3">
+                                                                <input type="text" class="form-control" id="basic-url"
+                                                                    aria-describedby="basic-addon3"
+                                                                    value="{{  emp.start_date|date:"d/m/Y" }}" disabled>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <label for="basic-url">End date</label>
+                                                            <div class="input-group mb-3">
+                                                                <input type="text" class="form-control" id="basic-url"
+                                                                    aria-describedby="basic-addon3"
+                                                                    value="{{  emp.end_date|date:"d/m/Y" }}" disabled>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-4">
+                                                            <label for="basic-url">Job title</label>
+                                                            <div class="input-group mb-3">
+                                                                <input type="text" class="form-control" id="basic-url"
+                                                                    aria-describedby="basic-addon3"
+                                                                    value="{{  emp.job_title }}" disabled>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <label for="basic-url">Reason for leaving</label>
+                                                            <div class="input-group mb-3">
+                                                                <input type="text" class="form-control" id="basic-url"
+                                                                    aria-describedby="basic-addon3"
+                                                                    value="{{  emp.reason_for_leaving }}" disabled>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <hr>
+                                                    {% endfor %}
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</body>
+
+</html>

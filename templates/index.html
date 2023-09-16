@@ -1,0 +1,230 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load countries %}
+{% get_current_language as CURRENT_LANGUAGE %}
+{% get_available_languages as AVAILABLE_LANGUAGES %}
+{% get_language_info_list for AVAILABLE_LANGUAGES as languages %}
+{% block content %}
+{% load static %}
+<!-- ===== Start of Main Search Section ===== -->
+<section class="main overlay-black">
+
+    <!-- Start of Wrapper -->
+    <div class="container wrapper">
+
+        <h1 class="capitalize text-center text-white ">{% trans 'search for candidates now' %}</h1>
+
+        <!-- Start of Form -->
+        <form class="job-search-form row pt40" action="#" method="post">
+            {% csrf_token %}
+
+            <div class="row justify-content-center">
+                <div class="col-md-3 col-sm-12 search-keywords">
+                    <input type="text" class="form-control form-control-lg" id="keywords" name="keywords"
+                        aria-describedby="search by name, skills and bio" placeholder="search by name, skills and bio">
+                    <label for="keywords">{% trans 'Search keywords' %}</label>
+                </div>
+                <div class="col-md-3 col-sm-12 search-categories">
+                    <select class="form-control form-control-lg" name="education" id="education"
+                        title="{% trans 'Education' %}">
+                        <option value='' selected>{% trans 'All' %}</option>
+                        <option value="1">{% trans 'Non-Degree Programme' %}</option>
+                        <option value="2">{% trans 'High School diploma' %}</option>
+                        <option value="3">{% trans 'Technical Diploma' %}</option>
+                        <option value="4">{% trans 'Bachelors Degree' %}</option>
+                        <option value="5">{% trans 'Master Degree' %}</option>
+                        <option value="6">{% trans 'PhD Doctorate Degree' %}</option>
+                    </select>
+                    <label for="education">{% trans 'Education' %}</label>
+                </div>
+
+                <!-- Start of location input -->
+                <div class="col-md-3 col-sm-12 search-location">
+
+                    <select class="form-control form-control-lg" placeholder="select city" id="city" name="city">
+                        <option value='' selected>{% trans 'All' %}</option>
+                        <option value='Al Anbar'>Al Anbar</option>
+                        <option value='Babylon'>Babylon</option>
+                        <option value='Baghdad'>Baghdad</option>
+                        <option value='Basra'>Basra</option>
+                        <option value='Dhi Qar'>Dhi Qar</option>
+                        <option value='Al-Qadisiyyah'>Al-Qadisiyyah</option>
+                        <option value='Diyala'>Diyala</option>
+                        <option value='Duhok'>Duhok</option>
+                        <option value='Erbil'>Erbil</option>
+                        <option value='Halabja'>Halabja</option>
+                        <option value='Karbala'>Karbala</option>
+                        <option value='Kirkuk'>Kirkuk</option>
+                        <option value='Maysan'>Maysan</option>
+                        <option value='Muthanna'>Muthanna</option>
+                        <option value='Najaf'>Najaf</option>
+                        <option value='Nineveh'>Nineveh</option>
+                        <option value='Saladin'>Saladin</option>
+                        <option value='Sulaymaniyah'>Sulaymaniyah</option>
+                        <option value='Wasit'>Wasit</option>
+                    </select>
+                    <label for="city">{% trans 'Location' %}</label>
+
+                </div>
+
+                <!-- Start of submit input -->
+                <div class="col-md-2 col-sm-12 search-submit">
+                    <button type="submit" class="btn btn-primary btn-effect btn-large form-control-lg"><i
+                            class="fa fa-search"></i>{% trans 'Search' %}</button>
+                </div>
+            </div>
+        </form>
+        <!-- End of Form -->
+
+
+
+    </div>
+    <!-- End of Wrapper -->
+
+</section>
+<!-- ===== End of Main Search Section ===== -->
+
+<!-- ===== Start of Pricing Tables Section ===== -->
+<section class="pricing-tables pb40 pt30">
+    <div class="section-title">
+        <h2>{% trans 'pricing table' %}</h2>
+    </div>
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        {% for price in princing %}
+        <div class="col-md-3 col-xs-12 mt80 mb20">
+            <div class="pricing-table shadow-hover" {% if price.plan == 'Premium' %}id="popular" {% endif %}>
+                <div class="pricing-header">
+                    <h2>{{ price.plan }}</h2>
+                </div>
+                <div class="pricing">
+                    <div class="row">
+                        <span class="amount">{{ price.price }} $</span>
+                    </div>
+                    <span
+                        class="month">{% if price.days == 30 %}{% trans 'Monthly' %}{% elif  price.days == 365 %}{% trans 'Annual' %}{% endif %}</span>
+                </div>
+                <div class="pricing-body">
+                    <ul class="list">
+                        <li>{% trans 'A post on website and social media' %}</li>
+                        <li>{% trans 'Unlimit applications through email' %}</li>
+                        <li>{% if price.jobs == 99999 %}{% trans 'Unlimited' %}
+                            {% else %}{{ price.jobs }}
+                            {% endif %} jobs posts</li>
+                        <li>{% if price.suggestions == 99999 %}{% trans 'Unlimited' %}
+                            {% else %}{{ price.suggestions }}
+                            {% endif %}{% trans 'database suggestions' %}</li>
+
+                    </ul>
+                </div>
+
+                <!-- Pricing Footer -->
+                <div class="pricing-footer">
+                    {% if user.is_authenticated %}
+                    {% if user.is_employer %} 
+                    <button id='subscription' apilink="{% url 'employer_plan' price.id %}" class="btn btn-blue btn-effect">Subscribe now for free</button>
+                    {% else %}
+                    <a class="btn btn-blue btn-effect" href="{% url 'employer_create' %}">Subscribe now for free</a>
+                    {% endif %}
+                    {% else %}
+                    <a class="btn btn-blue btn-effect" href="{% url 'login' %}">Subscribe now for free</a>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+</section>
+<!-- ===== End of Pricing Tables Section ===== -->
+
+
+    <!-- ===== Start of CountUp Section ===== -->
+    <section class="ptb40 bg-white" id="countup">
+
+  <div class="container-fluid">
+        <div class="row">
+
+            <!-- 1st Count up item -->
+            <div class="col-md-3 col-sm-3 col-xs-12">
+                <span class="counter" data-from="0" data-to="{{active_users_count}}"></span>
+                <h4>members</h4>
+            </div>
+
+            <!-- 2nd Count up item -->
+            <div class="col-md-3 col-sm-3 col-xs-12">
+                <span class="counter" data-from="0" data-to="{{jobs_count}}"></span>
+                <h4>jobs</h4>
+            </div>
+
+            <!-- 3rd Count up item -->
+            <div class="col-md-3 col-sm-3 col-xs-12">
+                <span class="counter" data-from="0" data-to="{{candidates_count}}"></span>
+                <h4>resumes</h4>
+            </div>
+
+            <!-- 4th Count up item -->
+            <div class="col-md-3 col-sm-3 col-xs-12">
+                <span class="counter" data-from="0" data-to="{{employers_count}}"></span>
+                <h4>companies</h4>
+            </div>
+
+        </div>
+        </div>
+    </section>
+    <!-- ===== End of CountUp Section ===== -->
+
+
+
+<section class="ptb40" id="partners">
+    <div class="container">
+        <div class="section-title">
+            <h2>{% trans 'Our Employers' %}</h2>
+        </div>
+        <!-- Start of Owl Slider -->
+        <div class="owl-carousel partners-slider owl-loaded owl-drag">
+            {% for employer in allemployers %}
+            <div class="owl-item active" style="width: 235px;">
+                <div class="item">
+                    <a href="{% url 'employer_details' employer.id %}" data-bs-toggle="tooltip"
+                        title="{{ employer.company }}" class="text-center d-flex justify-content-center"><img
+                            src="{{ employer.logo.url }}" alt="{{ employer.company }}" class="rounded img-fluid"></a>
+                </div>
+            </div>
+
+            {% endfor %}
+
+
+        </div>
+    </div>
+</section>
+
+
+<script type="text/javascript">
+    $('button#subscription').on('click', function (e) {
+        e.preventDefault();
+        if (confirm('Are you sure you want to subscribe to this ?')) {
+            // Save it!
+            var $this = $(this);
+            $.ajax({
+                url: $this.attr('apilink'),
+                type: 'GET',
+                cache: false,
+                success: function (response) {
+                    alert(response.data);
+                    location.reload();
+                },
+                error: function (response) {
+                    alert("There are error please try again");
+
+                }
+            });
+        }
+
+
+    });
+</script>
+<!-- Your IP {{ ip_adresse }} -->
+{% endblock %}
+

@@ -1,0 +1,67 @@
+﻿{% extends "base.html" %}
+{% load i18n %}
+{% load countries %}
+{% get_current_language as CURRENT_LANGUAGE %}
+{% get_available_languages as AVAILABLE_LANGUAGES %}
+{% get_language_info_list for AVAILABLE_LANGUAGES as languages %}
+{% block content %}
+{% load static %}
+
+<div class="row text-center justify-content-center pt100">
+    <h3 class="uppercase text-blue">{% trans "Welcome " %} {{user.firstname}} {{user.lastname}}
+        {% trans "to EmployIQ please choose from below to continue" %}</h3>
+</div>
+{% if user.is_employer == False %}
+
+<!-- ===== Start of Main Wrapper Section ===== -->
+<section class="ptb40" id="post-job">
+    <div class="row justify-content-center">
+        <div class="col-lg-10 col-md-10 col-sm-12">
+
+            <!-- Start of Account Question -->
+            <div class="row account-question">
+                <div class="col-md-10 nopadding">
+                    <p class="nomargin">
+                        {% trans "If you need to create company profile or submit jobs please click on create employer." %}
+                    </p>
+                </div>
+
+                <div class="col-md-2 text-right nopadding">
+                    <a href="{% url 'employer_create' %}"
+                        class="btn btn-primary btn-effect mt5">{% trans "Create Employer" %}</a>
+                </div>
+            </div>
+
+            <!-- End of Account Question -->
+        </div>
+    </div>
+</section>
+{% endif %}
+{% if user.is_candidate == False %}
+
+<!-- ===== Start of Main Wrapper Section ===== -->
+<section class="ptb40" id="post-job">
+    <div class="row justify-content-center">
+        <div class="col-lg-10 col-md-10 col-sm-12">
+            <!-- Start of Account Question -->
+            <div class="row account-question">
+                <div class="col-md-10 nopadding">
+                    <p class="nomargin">
+                        {% trans "If you need to submit your resume or apply for jobs please click on create candidate." %}
+                    </p>
+                </div>
+
+                <div class="col-md-2 text-right nopadding">
+                    <a href="{% url 'candidate_create' %}"
+                        class="btn btn-primary btn-effect mt5">{% trans "Create Candidate" %}</a>
+                </div>
+            </div>
+
+            <!-- End of Account Question -->
+        </div>
+    </div>
+</section>
+{% endif %}
+
+
+{% endblock %}

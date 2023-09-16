@@ -1,0 +1,3839 @@
+<!DOCTYPE html>
+<!-- Created by pdf2htmlEX (https://github.com/pdf2htmlEX/pdf2htmlEX) -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="generator" content="pdf2htmlEX" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <style type="text/css">
+        /*! 
+ * Base CSS for pdf2htmlEX
+ * Copyright 2012,2013 Lu Wang <coolwanglu@gmail.com> 
+ * https://github.com/pdf2htmlEX/pdf2htmlEX/blob/master/share/LICENSE
+ */
+        #sidebar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 250px;
+            padding: 0;
+            margin: 0;
+            overflow: auto
+        }
+
+        #page-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            margin: 0;
+            padding: 0;
+            border: 0
+        }
+
+        @media screen {
+            #sidebar.opened+#page-container {
+                left: 250px
+            }
+
+            #page-container {
+                bottom: 0;
+                right: 0;
+                overflow: auto
+            }
+
+            .loading-indicator {
+                display: none
+            }
+
+            .loading-indicator.active {
+                display: block;
+                position: absolute;
+                width: 64px;
+                height: 64px;
+                top: 50%;
+                left: 50%;
+                margin-top: -32px;
+                margin-left: -32px
+            }
+
+            .loading-indicator img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                right: 0
+            }
+        }
+
+        @media print {
+            @page {
+                margin: 0
+            }
+
+            html {
+                margin: 0
+            }
+
+            body {
+                margin: 0;
+                -webkit-print-color-adjust: exact
+            }
+
+            #sidebar {
+                display: none
+            }
+
+            #page-container {
+                width: auto;
+                height: auto;
+                overflow: visible;
+                background-color: transparent
+            }
+
+            .d {
+                display: none
+            }
+        }
+
+        .pf {
+            position: relative;
+            background-color: white;
+            overflow: hidden;
+            margin: 0;
+            border: 0
+        }
+
+        .pc {
+            position: absolute;
+            border: 0;
+            padding: 0;
+            margin: 0;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            display: block;
+            transform-origin: 0 0;
+            -ms-transform-origin: 0 0;
+            -webkit-transform-origin: 0 0
+        }
+
+        .pc.opened {
+            display: block
+        }
+
+        .bf {
+            position: absolute;
+            border: 0;
+            margin: 0;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            -ms-user-select: none;
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            user-select: none
+        }
+
+        .bi {
+            position: absolute;
+            border: 0;
+            margin: 0;
+            -ms-user-select: none;
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            user-select: none
+        }
+
+        @media print {
+            .pf {
+                margin: 0;
+                box-shadow: none;
+                page-break-after: always;
+                page-break-inside: avoid
+            }
+
+            @-moz-document url-prefix() {
+                .pf {
+                    overflow: visible;
+                    border: 1px solid #fff
+                }
+
+                .pc {
+                    overflow: visible
+                }
+            }
+        }
+
+        .c {
+            position: absolute;
+            border: 0;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+            display: block
+        }
+
+        .t {
+            position: absolute;
+            white-space: pre;
+            font-size: 1px;
+            transform-origin: 0 100%;
+            -ms-transform-origin: 0 100%;
+            -webkit-transform-origin: 0 100%;
+            unicode-bidi: bidi-override;
+            -moz-font-feature-settings: "liga"0
+        }
+
+        .t:after {
+            content: ''
+        }
+
+        .t:before {
+            content: '';
+            display: inline-block
+        }
+
+        .t span {
+            position: relative;
+            unicode-bidi: bidi-override
+        }
+
+        ._ {
+            display: inline-block;
+            color: transparent;
+            z-index: -1
+        }
+
+        ::selection {
+            background: rgba(127, 255, 255, 0.4)
+        }
+
+        ::-moz-selection {
+            background: rgba(127, 255, 255, 0.4)
+        }
+
+        .pi {
+            display: none
+        }
+
+        .d {
+            position: absolute;
+            transform-origin: 0 100%;
+            -ms-transform-origin: 0 100%;
+            -webkit-transform-origin: 0 100%
+        }
+
+        .it {
+            border: 0;
+            background-color: rgba(255, 255, 255, 0.0)
+        }
+
+        .ir:hover {
+            cursor: pointer
+        }
+
+
+
+
+        @media screen {
+            #sidebar {
+                background-color: #2f3236;
+                background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjNDAzYzNmIj48L3JlY3Q+CjxwYXRoIGQ9Ik0wIDBMNCA0Wk00IDBMMCA0WiIgc3Ryb2tlLXdpZHRoPSIxIiBzdHJva2U9IiMxZTI5MmQiPjwvcGF0aD4KPC9zdmc+")
+            }
+
+            #outline {
+                font-family: Georgia, Times, "Times New Roman", serif;
+                font-size: 13px;
+                margin: 2em 1em
+            }
+
+            #outline ul {
+                padding: 0
+            }
+
+            #outline li {
+                list-style-type: none;
+                margin: 1em 0
+            }
+
+            #outline li>ul {
+                margin-left: 1em
+            }
+
+            #outline a,
+            #outline a:visited,
+            #outline a:hover,
+            #outline a:active {
+                line-height: 1.2;
+                color: #e8e8e8;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                text-decoration: none;
+                display: block;
+                overflow: hidden;
+                outline: 0
+            }
+
+            #outline a:hover {
+                color: #0cf
+            }
+
+            #page-container {
+                background-color: #9e9e9e;
+                background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1IiBoZWlnaHQ9IjUiPgo8cmVjdCB3aWR0aD0iNSIgaGVpZ2h0PSI1IiBmaWxsPSIjOWU5ZTllIj48L3JlY3Q+CjxwYXRoIGQ9Ik0wIDVMNSAwWk02IDRMNCA2Wk0tMSAxTDEgLTFaIiBzdHJva2U9IiM4ODgiIHN0cm9rZS13aWR0aD0iMSI+PC9wYXRoPgo8L3N2Zz4=");
+                -webkit-transition: left 500ms;
+                transition: left 500ms
+            }
+
+            .pf {
+                margin: 13px auto;
+                box-shadow: 1px 1px 3px 1px #333;
+                border-collapse: separate
+            }
+
+            .pc.opened {
+                -webkit-animation: fadein 100ms;
+                animation: fadein 100ms
+            }
+
+            .loading-indicator.active {
+                -webkit-animation: swing 1.5s ease-in-out .01s infinite alternate none;
+                animation: swing 1.5s ease-in-out .01s infinite alternate none
+            }
+
+            .checked {
+                background: no-repeat url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3goQDSYgDiGofgAAAslJREFUOMvtlM9LFGEYx7/vvOPM6ywuuyPFihWFBUsdNnA6KLIh+QPx4KWExULdHQ/9A9EfUodYmATDYg/iRewQzklFWxcEBcGgEplDkDtI6sw4PzrIbrOuedBb9MALD7zv+3m+z4/3Bf7bZS2bzQIAcrmcMDExcTeXy10DAFVVAQDksgFUVZ1ljD3yfd+0LOuFpmnvVVW9GHhkZAQcxwkNDQ2FSCQyRMgJxnVdy7KstKZpn7nwha6urqqfTqfPBAJAuVymlNLXoigOhfd5nmeiKL5TVTV+lmIKwAOA7u5u6Lped2BsbOwjY6yf4zgQQkAIAcedaPR9H67r3uYBQFEUFItFtLe332lpaVkUBOHK3t5eRtf1DwAwODiIubk5DA8PM8bYW1EU+wEgCIJqsCAIQAiB7/u253k2BQDDMJBKpa4mEon5eDx+UxAESJL0uK2t7XosFlvSdf0QAEmlUnlRFJ9Waho2Qghc1/U9z3uWz+eX+Wr+lL6SZfleEAQIggA8z6OpqSknimIvYyybSCReMsZ6TislhCAIAti2Dc/zejVNWwCAavN8339j27YbTg0AGGM3WltbP4WhlRWq6Q/btrs1TVsYHx+vNgqKoqBUKn2NRqPFxsbGJzzP05puUlpt0ukyOI6z7zjOwNTU1OLo6CgmJyf/gA3DgKIoWF1d/cIY24/FYgOU0pp0z/Ityzo8Pj5OTk9PbwHA+vp6zWghDC+VSiuRSOQgGo32UErJ38CO42wdHR09LBQK3zKZDDY2NupmFmF4R0cHVlZWlmRZ/iVJUn9FeWWcCCE4ODjYtG27Z2Zm5juAOmgdGAB2d3cBADs7O8uSJN2SZfl+WKlpmpumaT6Yn58vn/fs6XmbhmHMNjc3tzDGFI7jYJrm5vb29sDa2trPC/9aiqJUy5pOp4f6+vqeJ5PJBAB0dnZe/t8NBajx/z37Df5OGX8d13xzAAAAAElFTkSuQmCC)
+            }
+        }
+
+        .ff0 {
+            font-family: sans-serif;
+            visibility: hidden;
+        }
+
+
+
+        .ff1 {
+            font-family: ff1;
+            line-height: 1.089000;
+            font-style: normal;
+            font-weight: normal;
+            visibility: visible;
+        }
+
+
+        .ff2 {
+            font-family: ff2;
+            line-height: 0.966797;
+            font-style: normal;
+            font-weight: normal;
+            visibility: visible;
+        }
+
+
+
+        .ff4 {
+            font-family: ff4;
+            line-height: 0.910156;
+            font-style: normal;
+            font-weight: normal;
+            visibility: visible;
+        }
+
+
+        .ff5 {
+            font-family: ff5;
+            line-height: 1.106934;
+            font-style: normal;
+            font-weight: normal;
+            visibility: visible;
+        }
+
+        .m0 {
+            transform: matrix(0.250000, 0.000000, 0.000000, 0.250000, 0, 0);
+            -ms-transform: matrix(0.250000, 0.000000, 0.000000, 0.250000, 0, 0);
+            -webkit-transform: matrix(0.250000, 0.000000, 0.000000, 0.250000, 0, 0);
+        }
+
+        .v0 {
+            vertical-align: 0.000000px;
+        }
+
+        .ls5 {
+            letter-spacing: -0.203600px;
+        }
+
+        .ls7 {
+            letter-spacing: -0.149600px;
+        }
+
+        .lsf {
+            letter-spacing: -0.072800px;
+        }
+
+        .ls9 {
+            letter-spacing: -0.071200px;
+        }
+
+        .ls8 {
+            letter-spacing: -0.035520px;
+        }
+
+        .ls6 {
+            letter-spacing: -0.012000px;
+        }
+
+        .ls4 {
+            letter-spacing: 0.000000px;
+        }
+
+        .lsd {
+            letter-spacing: 0.008960px;
+        }
+
+        .lsb {
+            letter-spacing: 0.019200px;
+        }
+
+        .ls0 {
+            letter-spacing: 0.072000px;
+        }
+
+        .lsc {
+            letter-spacing: 0.096000px;
+        }
+
+        .ls2 {
+            letter-spacing: 0.203520px;
+        }
+
+        .lse {
+            letter-spacing: 0.203600px;
+        }
+
+        .ls1 {
+            letter-spacing: 0.654720px;
+        }
+
+        .ls3 {
+            letter-spacing: 38.053760px;
+        }
+
+        .lsa {
+            letter-spacing: 38.069760px;
+        }
+
+        .sc_ {
+            text-shadow: none;
+        }
+
+        .sc0 {
+            text-shadow: -0.015em 0 transparent, 0 0.015em transparent, 0.015em 0 transparent, 0 -0.015em transparent;
+        }
+
+        @media screen and (-webkit-min-device-pixel-ratio:0) {
+            .sc_ {
+                -webkit-text-stroke: 0px transparent;
+            }
+
+            .sc0 {
+                -webkit-text-stroke: 0.015em transparent;
+                text-shadow: none;
+            }
+        }
+
+        .ws6 {
+            word-spacing: -46.080000px;
+        }
+
+        .ws4 {
+            word-spacing: -12.810240px;
+        }
+
+        .ws5 {
+            word-spacing: -12.660640px;
+        }
+
+        .wsa {
+            word-spacing: -12.480080px;
+        }
+
+        .ws0 {
+            word-spacing: -12.276480px;
+        }
+
+        .wsb {
+            word-spacing: -12.203680px;
+        }
+
+        .ws2 {
+            word-spacing: -12.072880px;
+        }
+
+        .ws7 {
+            word-spacing: -11.075520px;
+        }
+
+        .ws8 {
+            word-spacing: -11.004320px;
+        }
+
+        .ws1 {
+            word-spacing: -10.008000px;
+        }
+
+        .ws3 {
+            word-spacing: -9.996000px;
+        }
+
+        .ws9 {
+            word-spacing: 0.000000px;
+        }
+
+        ._0 {
+            margin-left: -1.236480px;
+        }
+
+        ._1 {
+            width: 1.061440px;
+        }
+
+        ._2 {
+            width: 2.102080px;
+        }
+
+        ._3 {
+            width: 37.976960px;
+        }
+
+        .fc5 {
+            color: rgb(132, 150, 176);
+        }
+
+        .fc7 {
+            color: rgb(34, 34, 34);
+        }
+
+        .fc6 {
+            color: rgb(128, 128, 128);
+        }
+
+        .fc4 {
+            color: rgb(127, 127, 127);
+        }
+
+        .fc3 {
+            color: rgb(0, 0, 0);
+        }
+
+        .fc2 {
+            color: rgb(38, 38, 38);
+        }
+
+        .fc1 {
+            color: rgb(152, 163, 163);
+        }
+
+        .fc0 {
+            color: rgb(51, 126, 165);
+        }
+
+        .fsa {
+            font-size: 1.920000px;
+        }
+
+        .fs6 {
+            font-size: 15.840000px;
+        }
+
+        .fsd {
+            font-size: 24.000000px;
+        }
+
+        .fsb {
+            font-size: 27.840000px;
+        }
+
+        .fs8 {
+            font-size: 30.240000px;
+        }
+
+        .fsc {
+            font-size: 32.160000px;
+        }
+
+        .fs2 {
+            font-size: 36.000000px;
+        }
+
+        .fs3 {
+            font-size: 39.840000px;
+        }
+
+        .fs1 {
+            font-size: 44.160000px;
+        }
+
+        .fs7 {
+            font-size: 46.080000px;
+        }
+
+        .fse {
+            font-size: 48.000000px;
+        }
+
+        .fs5 {
+            font-size: 56.160000px;
+        }
+
+        .fs4 {
+            font-size: 63.840000px;
+        }
+
+        .fs0 {
+            font-size: 80.160000px;
+        }
+
+        .fs9 {
+            font-size: 159.840000px;
+        }
+
+        .y0 {
+            bottom: -0.500000px;
+        }
+
+        .y4e {
+            bottom: 0.000000px;
+        }
+
+        .y58 {
+            bottom: 0.840000px;
+        }
+
+        .ycf {
+            bottom: 1.800000px;
+        }
+
+        .y8 {
+            bottom: 2.160000px;
+        }
+
+        .y36 {
+            bottom: 2.190000px;
+        }
+
+        .y3c {
+            bottom: 2.280000px;
+        }
+
+        .y40 {
+            bottom: 2.400000px;
+        }
+
+        .y4 {
+            bottom: 2.520000px;
+        }
+
+        .ycd {
+            bottom: 2.640000px;
+        }
+
+        .ycc {
+            bottom: 2.660000px;
+        }
+
+        .yf {
+            bottom: 2.880000px;
+        }
+
+        .y4b {
+            bottom: 3.000000px;
+        }
+
+        .y3e {
+            bottom: 3.120000px;
+        }
+
+        .yc {
+            bottom: 4.440000px;
+        }
+
+        .y4d {
+            bottom: 4.920000px;
+        }
+
+        .y51 {
+            bottom: 5.160000px;
+        }
+
+        .y54 {
+            bottom: 5.280000px;
+        }
+
+        .y1c {
+            bottom: 5.400000px;
+        }
+
+        .yd {
+            bottom: 8.520000px;
+        }
+
+        .yca {
+            bottom: 8.760000px;
+        }
+
+        .ybb {
+            bottom: 11.280000px;
+        }
+
+        .y43 {
+            bottom: 13.560000px;
+        }
+
+        .y19 {
+            bottom: 13.680000px;
+        }
+
+        .y7 {
+            bottom: 14.040000px;
+        }
+
+        .y35 {
+            bottom: 14.070000px;
+        }
+
+        .yc9 {
+            bottom: 15.120000px;
+        }
+
+        .y65 {
+            bottom: 19.470000px;
+        }
+
+        .yba {
+            bottom: 21.480000px;
+        }
+
+        .y42 {
+            bottom: 25.080000px;
+        }
+
+        .y18 {
+            bottom: 25.200000px;
+        }
+
+        .y3a {
+            bottom: 25.220000px;
+        }
+
+        .y6 {
+            bottom: 26.660000px;
+        }
+
+        .yb9 {
+            bottom: 27.360000px;
+        }
+
+        .y34 {
+            bottom: 27.990000px;
+        }
+
+        .y64 {
+            bottom: 32.070000px;
+        }
+
+        .yc6 {
+            bottom: 36.600000px;
+        }
+
+        .y39 {
+            bottom: 36.620000px;
+        }
+
+        .y17 {
+            bottom: 36.720000px;
+        }
+
+        .yb8 {
+            bottom: 38.880000px;
+        }
+
+        .y5 {
+            bottom: 39.380000px;
+        }
+
+        .y33 {
+            bottom: 42.030000px;
+        }
+
+        .ya3 {
+            bottom: 43.080000px;
+        }
+
+        .y2 {
+            bottom: 43.340000px;
+        }
+
+        .yaf {
+            bottom: 43.680000px;
+        }
+
+        .y70 {
+            bottom: 44.400000px;
+        }
+
+        .yc5 {
+            bottom: 48.120000px;
+        }
+
+        .y16 {
+            bottom: 48.240000px;
+        }
+
+        .y38 {
+            bottom: 48.620000px;
+        }
+
+        .yb7 {
+            bottom: 50.400000px;
+        }
+
+        .y63 {
+            bottom: 50.910000px;
+        }
+
+        .y32 {
+            bottom: 55.230000px;
+        }
+
+        .y6f {
+            bottom: 59.424000px;
+        }
+
+        .yc4 {
+            bottom: 59.660000px;
+        }
+
+        .y15 {
+            bottom: 59.760000px;
+        }
+
+        .yb6 {
+            bottom: 60.600000px;
+        }
+
+        .yb5 {
+            bottom: 66.600000px;
+        }
+
+        .y31 {
+            bottom: 69.270000px;
+        }
+
+        .y14 {
+            bottom: 71.160000px;
+        }
+
+        .yc3 {
+            bottom: 71.300000px;
+        }
+
+        .yb1 {
+            bottom: 72.390000px;
+        }
+
+        .y6e {
+            bottom: 73.704000px;
+        }
+
+        .yb4 {
+            bottom: 76.710000px;
+        }
+
+        .yb3 {
+            bottom: 81.390000px;
+        }
+
+        .y30 {
+            bottom: 82.470000px;
+        }
+
+        .y13 {
+            bottom: 82.680000px;
+        }
+
+        .yc2 {
+            bottom: 82.700000px;
+        }
+
+        .ya2 {
+            bottom: 83.424000px;
+        }
+
+        .yb0 {
+            bottom: 85.110000px;
+        }
+
+        .y6d {
+            bottom: 88.824000px;
+        }
+
+        .yc1 {
+            bottom: 94.100000px;
+        }
+
+        .y12 {
+            bottom: 94.200000px;
+        }
+
+        .y2f {
+            bottom: 96.510000px;
+        }
+
+        .ya1 {
+            bottom: 101.300000px;
+        }
+
+        .y6c {
+            bottom: 103.820000px;
+        }
+
+        .yc0 {
+            bottom: 105.620000px;
+        }
+
+        .y2e {
+            bottom: 110.430000px;
+        }
+
+        .ya0 {
+            bottom: 111.140000px;
+        }
+
+        .y6b {
+            bottom: 118.820000px;
+        }
+
+        .y2d {
+            bottom: 124.470000px;
+        }
+
+        .y9f {
+            bottom: 125.180000px;
+        }
+
+        .y6a {
+            bottom: 133.100000px;
+        }
+
+        .y2c {
+            bottom: 138.510000px;
+        }
+
+        .y9e {
+            bottom: 139.220000px;
+        }
+
+        .y9d {
+            bottom: 152.420000px;
+        }
+
+        .y2b {
+            bottom: 152.430000px;
+        }
+
+        .y69 {
+            bottom: 156.140000px;
+        }
+
+        .y9c {
+            bottom: 166.340000px;
+        }
+
+        .y2a {
+            bottom: 166.470000px;
+        }
+
+        .y68 {
+            bottom: 177.260000px;
+        }
+
+        .y9b {
+            bottom: 180.380000px;
+        }
+
+        .y29 {
+            bottom: 180.530000px;
+        }
+
+        .y59 {
+            bottom: 191.090000px;
+        }
+
+        .y9a {
+            bottom: 193.580000px;
+        }
+
+        .y28 {
+            bottom: 193.730000px;
+        }
+
+        .y67 {
+            bottom: 195.860000px;
+        }
+
+        .y99 {
+            bottom: 206.900000px;
+        }
+
+        .y27 {
+            bottom: 206.930000px;
+        }
+
+        .y66 {
+            bottom: 216.620000px;
+        }
+
+        .y26 {
+            bottom: 220.970000px;
+        }
+
+        .y9 {
+            bottom: 223.100000px;
+        }
+
+        .y98 {
+            bottom: 228.170000px;
+        }
+
+        .y25 {
+            bottom: 234.890000px;
+        }
+
+        .y97 {
+            bottom: 238.010000px;
+        }
+
+        .y24 {
+            bottom: 248.930000px;
+        }
+
+        .y96 {
+            bottom: 259.370000px;
+        }
+
+        .y23 {
+            bottom: 262.970000px;
+        }
+
+        .y22 {
+            bottom: 276.170000px;
+        }
+
+        .y95 {
+            bottom: 278.210000px;
+        }
+
+        .y21 {
+            bottom: 288.530000px;
+        }
+
+        .y20 {
+            bottom: 297.170000px;
+        }
+
+        .y94 {
+            bottom: 299.810000px;
+        }
+
+        .y1f {
+            bottom: 306.770000px;
+        }
+
+        .y62 {
+            bottom: 311.450000px;
+        }
+
+        .y93 {
+            bottom: 312.410000px;
+        }
+
+        .y1e {
+            bottom: 319.970000px;
+        }
+
+        .y61 {
+            bottom: 323.450000px;
+        }
+
+        .y92 {
+            bottom: 326.450000px;
+        }
+
+        .y60 {
+            bottom: 335.090000px;
+        }
+
+        .y91 {
+            bottom: 340.490000px;
+        }
+
+        .yc7 {
+            bottom: 343.850000px;
+        }
+
+        .y5f {
+            bottom: 346.610000px;
+        }
+
+        .ybf {
+            bottom: 350.330000px;
+        }
+
+        .y1a {
+            bottom: 352.730000px;
+        }
+
+        .y90 {
+            bottom: 354.410000px;
+        }
+
+        .y5e {
+            bottom: 358.250000px;
+        }
+
+        .y5d {
+            bottom: 359.090000px;
+        }
+
+        .y47 {
+            bottom: 366.920000px;
+        }
+
+        .y8f {
+            bottom: 368.450000px;
+        }
+
+        .y5c {
+            bottom: 370.610000px;
+        }
+
+        .y5b {
+            bottom: 382.250000px;
+        }
+
+        .y8e {
+            bottom: 382.490000px;
+        }
+
+        .y5a {
+            bottom: 393.890000px;
+        }
+
+        .y8d {
+            bottom: 396.530000px;
+        }
+
+        .y8c {
+            bottom: 409.750000px;
+        }
+
+        .y8b {
+            bottom: 422.110000px;
+        }
+
+        .y8a {
+            bottom: 430.750000px;
+        }
+
+        .y89 {
+            bottom: 440.350000px;
+        }
+
+        .y57 {
+            bottom: 451.630000px;
+        }
+
+        .y56 {
+            bottom: 452.470000px;
+        }
+
+        .y88 {
+            bottom: 453.550000px;
+        }
+
+        .y55 {
+            bottom: 463.990000px;
+        }
+
+        .ybe {
+            bottom: 465.310000px;
+        }
+
+        .y10 {
+            bottom: 473.480000px;
+        }
+
+        .y87 {
+            bottom: 475.750000px;
+        }
+
+        .y53 {
+            bottom: 476.230000px;
+        }
+
+        .ybd {
+            bottom: 476.830000px;
+        }
+
+        .y86 {
+            bottom: 490.750000px;
+        }
+
+        .y52 {
+            bottom: 490.870000px;
+        }
+
+        .ybc {
+            bottom: 499.630000px;
+        }
+
+        .y50 {
+            bottom: 503.230000px;
+        }
+
+        .y85 {
+            bottom: 505.750000px;
+        }
+
+        .ya {
+            bottom: 506.000000px;
+        }
+
+        .yae {
+            bottom: 508.750000px;
+        }
+
+        .y4f {
+            bottom: 517.750000px;
+        }
+
+        .y84 {
+            bottom: 520.150000px;
+        }
+
+        .y4c {
+            bottom: 530.110000px;
+        }
+
+        .y83 {
+            bottom: 543.070000px;
+        }
+
+        .y4a {
+            bottom: 544.390000px;
+        }
+
+        .y1b {
+            bottom: 553.630000px;
+        }
+
+        .y82 {
+            bottom: 556.270000px;
+        }
+
+        .y49 {
+            bottom: 556.750000px;
+        }
+
+        .y1d {
+            bottom: 563.710000px;
+        }
+
+        .y48 {
+            bottom: 569.110000px;
+        }
+
+        .y81 {
+            bottom: 570.310000px;
+        }
+
+        .y80 {
+            bottom: 584.500000px;
+        }
+
+        .y11 {
+            bottom: 590.620000px;
+        }
+
+        .yb2 {
+            bottom: 595.300000px;
+        }
+
+        .y7f {
+            bottom: 597.700000px;
+        }
+
+        .y7e {
+            bottom: 611.620000px;
+        }
+
+        .yad {
+            bottom: 614.140000px;
+        }
+
+        .y7d {
+            bottom: 624.820000px;
+        }
+
+        .y46 {
+            bottom: 627.460000px;
+        }
+
+        .yac {
+            bottom: 631.780000px;
+        }
+
+        .y7c {
+            bottom: 638.860000px;
+        }
+
+        .y45 {
+            bottom: 639.100000px;
+        }
+
+        .yab {
+            bottom: 644.140000px;
+        }
+
+        .y44 {
+            bottom: 651.820000px;
+        }
+
+        .y7b {
+            bottom: 652.060000px;
+        }
+
+        .y41 {
+            bottom: 663.460000px;
+        }
+
+        .y7a {
+            bottom: 664.420000px;
+        }
+
+        .yaa {
+            bottom: 664.540000px;
+        }
+
+        .y79 {
+            bottom: 673.060000px;
+        }
+
+        .y78 {
+            bottom: 682.660000px;
+        }
+
+        .ya9 {
+            bottom: 684.940000px;
+        }
+
+        .ya8 {
+            bottom: 697.420000px;
+        }
+
+        .y3f {
+            bottom: 697.900000px;
+        }
+
+        .y77 {
+            bottom: 703.420000px;
+        }
+
+        .yb {
+            bottom: 706.780000px;
+        }
+
+        .y3d {
+            bottom: 710.500000px;
+        }
+
+        .ya7 {
+            bottom: 716.500000px;
+        }
+
+        .ye {
+            bottom: 716.860000px;
+        }
+
+        .y76 {
+            bottom: 721.540000px;
+        }
+
+        .yd0 {
+            bottom: 722.020000px;
+        }
+
+        .y3b {
+            bottom: 722.980000px;
+        }
+
+        .y37 {
+            bottom: 734.620000px;
+        }
+
+        .yce {
+            bottom: 734.740000px;
+        }
+
+        .y75 {
+            bottom: 735.820000px;
+        }
+
+        .y1 {
+            bottom: 743.860000px;
+        }
+
+        .y74 {
+            bottom: 750.820000px;
+        }
+
+        .ycb {
+            bottom: 756.580000px;
+        }
+
+        .ya6 {
+            bottom: 764.880000px;
+        }
+
+        .y73 {
+            bottom: 765.240000px;
+        }
+
+        .ya5 {
+            bottom: 773.040000px;
+        }
+
+        .yc8 {
+            bottom: 779.160000px;
+        }
+
+        .y72 {
+            bottom: 780.240000px;
+        }
+
+        .y3 {
+            bottom: 793.320000px;
+        }
+
+        .y71 {
+            bottom: 794.520000px;
+        }
+
+        .ya4 {
+            bottom: 795.240000px;
+        }
+
+        .h1c {
+            height: 1.660800px;
+        }
+
+        .hc {
+            height: 8.520000px;
+        }
+
+        .h29 {
+            height: 8.640000px;
+        }
+
+        .h2e {
+            height: 9.120000px;
+        }
+
+        .h20 {
+            height: 11.520000px;
+        }
+
+        .h13 {
+            height: 11.640000px;
+        }
+
+        .h21 {
+            height: 11.664000px;
+        }
+
+        .h22 {
+            height: 12.000000px;
+        }
+
+        .h1f {
+            height: 12.240000px;
+        }
+
+        .h1a {
+            height: 12.360000px;
+        }
+
+        .h19 {
+            height: 12.384000px;
+        }
+
+        .h15 {
+            height: 12.480000px;
+        }
+
+        .h4 {
+            height: 12.600000px;
+        }
+
+        .h25 {
+            height: 12.624000px;
+        }
+
+        .h17 {
+            height: 12.720000px;
+        }
+
+        .hd {
+            height: 13.701600px;
+        }
+
+        .h2d {
+            height: 13.824000px;
+        }
+
+        .h1b {
+            height: 14.280000px;
+        }
+
+        .h1d {
+            height: 14.520000px;
+        }
+
+        .h1e {
+            height: 14.640000px;
+        }
+
+        .ha {
+            height: 18.600000px;
+        }
+
+        .h26 {
+            height: 20.760000px;
+        }
+
+        .h23 {
+            height: 24.081600px;
+        }
+
+        .h2c {
+            height: 25.200000px;
+        }
+
+        .h10 {
+            height: 26.157600px;
+        }
+
+        .h24 {
+            height: 27.818400px;
+        }
+
+        .h16 {
+            height: 34.440000px;
+        }
+
+        .h7 {
+            height: 34.461600px;
+        }
+
+        .h14 {
+            height: 35.715938px;
+        }
+
+        .h5 {
+            height: 38.198400px;
+        }
+
+        .hf {
+            height: 39.859200px;
+        }
+
+        .h11 {
+            height: 41.310000px;
+        }
+
+        .h27 {
+            height: 41.520000px;
+        }
+
+        .hb {
+            height: 48.578400px;
+        }
+
+        .h6 {
+            height: 49.464000px;
+        }
+
+        .h9 {
+            height: 55.221600px;
+        }
+
+        .h12 {
+            height: 58.704000px;
+        }
+
+        .h2 {
+            height: 62.064000px;
+        }
+
+        .h3 {
+            height: 69.338400px;
+        }
+
+        .h2a {
+            height: 85.104000px;
+        }
+
+        .h28 {
+            height: 95.184000px;
+        }
+
+        .he {
+            height: 103.560000px;
+        }
+
+        .h2b {
+            height: 114.980000px;
+        }
+
+        .h18 {
+            height: 138.261600px;
+        }
+
+        .h8 {
+            height: 582.820000px;
+        }
+
+        .h0 {
+            height: 841.920000px;
+        }
+
+        .h1 {
+            height: 842.500000px;
+        }
+
+        .w13 {
+            width: 11.760000px;
+        }
+
+        .w11 {
+            width: 12.000000px;
+        }
+
+        .w15 {
+            width: 31.199982px;
+        }
+
+        .w5 {
+            width: 31.224000px;
+        }
+
+        .w16 {
+            width: 31.320000px;
+        }
+
+        .w17 {
+            width: 64.344000px;
+        }
+
+        .w6 {
+            width: 90.000000px;
+        }
+
+        .w19 {
+            width: 90.024000px;
+        }
+
+        .w2 {
+            width: 94.224000px;
+        }
+
+        .w10 {
+            width: 116.180000px;
+        }
+
+        .w12 {
+            width: 116.540000px;
+        }
+
+        .we {
+            width: 117.380000px;
+        }
+
+        .wd {
+            width: 117.500000px;
+        }
+
+        .wc {
+            width: 117.860000px;
+        }
+
+        .wf {
+            width: 118.100000px;
+        }
+
+        .w9 {
+            width: 139.610000px;
+        }
+
+        .wb {
+            width: 140.090000px;
+        }
+
+        .wa {
+            width: 143.330000px;
+        }
+
+        .w7 {
+            width: 267.650000px;
+        }
+
+        .w18 {
+            width: 293.210000px;
+        }
+
+        .w3 {
+            width: 301.010000px;
+        }
+
+        .w8 {
+            width: 381.670000px;
+        }
+
+        .w4 {
+            width: 395.830000px;
+        }
+
+        .w14 {
+            width: 595.319991px;
+        }
+
+        .w0 {
+            width: 595.320000px;
+        }
+
+        .w1 {
+            width: 596.000000px;
+        }
+
+        .x0 {
+            left: 0.000000px;
+        }
+
+        .x2 {
+            left: 5.400000px;
+        }
+
+        .x13 {
+            left: 7.920000px;
+        }
+
+        .x7 {
+            left: 13.200000px;
+        }
+
+        .x4 {
+            left: 15.960000px;
+        }
+
+        .x1 {
+            left: 27.960000px;
+        }
+
+        .x17 {
+            left: 31.200000px;
+        }
+
+        .xe {
+            left: 35.999991px;
+        }
+
+        .x14 {
+            left: 39.240000px;
+        }
+
+        .x8 {
+            left: 54.504000px;
+        }
+
+        .x5 {
+            left: 59.184000px;
+        }
+
+        .x9 {
+            left: 72.500000px;
+        }
+
+        .xf {
+            left: 90.503991px;
+        }
+
+        .x15 {
+            left: 103.580000px;
+        }
+
+        .x11 {
+            left: 105.019991px;
+        }
+
+        .x16 {
+            left: 106.940000px;
+        }
+
+        .x10 {
+            left: 108.499991px;
+        }
+
+        .x3 {
+            left: 122.180000px;
+        }
+
+        .x6 {
+            left: 149.180000px;
+        }
+
+        .x12 {
+            left: 398.589991px;
+        }
+
+        .xb {
+            left: 424.270000px;
+        }
+
+        .xa {
+            left: 427.990000px;
+        }
+
+        .xc {
+            left: 432.910000px;
+        }
+
+        .xd {
+            left: 549.580000px;
+        }
+
+        @media print {
+            .v0 {
+                vertical-align: 0.000000pt;
+            }
+
+            .ls5 {
+                letter-spacing: -0.271467pt;
+            }
+
+            .ls7 {
+                letter-spacing: -0.199467pt;
+            }
+
+            .lsf {
+                letter-spacing: -0.097067pt;
+            }
+
+            .ls9 {
+                letter-spacing: -0.094933pt;
+            }
+
+            .ls8 {
+                letter-spacing: -0.047360pt;
+            }
+
+            .ls6 {
+                letter-spacing: -0.016000pt;
+            }
+
+            .ls4 {
+                letter-spacing: 0.000000pt;
+            }
+
+            .lsd {
+                letter-spacing: 0.011947pt;
+            }
+
+            .lsb {
+                letter-spacing: 0.025600pt;
+            }
+
+            .ls0 {
+                letter-spacing: 0.096000pt;
+            }
+
+            .lsc {
+                letter-spacing: 0.128000pt;
+            }
+
+            .ls2 {
+                letter-spacing: 0.271360pt;
+            }
+
+            .lse {
+                letter-spacing: 0.271467pt;
+            }
+
+            .ls1 {
+                letter-spacing: 0.872960pt;
+            }
+
+            .ls3 {
+                letter-spacing: 50.738347pt;
+            }
+
+            .lsa {
+                letter-spacing: 50.759680pt;
+            }
+
+            .ws6 {
+                word-spacing: -61.440000pt;
+            }
+
+            .ws4 {
+                word-spacing: -17.080320pt;
+            }
+
+            .ws5 {
+                word-spacing: -16.880853pt;
+            }
+
+            .wsa {
+                word-spacing: -16.640107pt;
+            }
+
+            .ws0 {
+                word-spacing: -16.368640pt;
+            }
+
+            .wsb {
+                word-spacing: -16.271573pt;
+            }
+
+            .ws2 {
+                word-spacing: -16.097173pt;
+            }
+
+            .ws7 {
+                word-spacing: -14.767360pt;
+            }
+
+            .ws8 {
+                word-spacing: -14.672427pt;
+            }
+
+            .ws1 {
+                word-spacing: -13.344000pt;
+            }
+
+            .ws3 {
+                word-spacing: -13.328000pt;
+            }
+
+            .ws9 {
+                word-spacing: 0.000000pt;
+            }
+
+            ._0 {
+                margin-left: -1.648640pt;
+            }
+
+            ._1 {
+                width: 1.415253pt;
+            }
+
+            ._2 {
+                width: 2.802773pt;
+            }
+
+            ._3 {
+                width: 50.635947pt;
+            }
+
+            .fsa {
+                font-size: 2.560000pt;
+            }
+
+            .fs6 {
+                font-size: 21.120000pt;
+            }
+
+            .fsd {
+                font-size: 32.000000pt;
+            }
+
+            .fsb {
+                font-size: 37.120000pt;
+            }
+
+            .fs8 {
+                font-size: 40.320000pt;
+            }
+
+            .fsc {
+                font-size: 42.880000pt;
+            }
+
+            .fs2 {
+                font-size: 48.000000pt;
+            }
+
+            .fs3 {
+                font-size: 53.120000pt;
+            }
+
+            .fs1 {
+                font-size: 58.880000pt;
+            }
+
+            .fs7 {
+                font-size: 61.440000pt;
+            }
+
+            .fse {
+                font-size: 64.000000pt;
+            }
+
+            .fs5 {
+                font-size: 74.880000pt;
+            }
+
+            .fs4 {
+                font-size: 85.120000pt;
+            }
+
+            .fs0 {
+                font-size: 106.880000pt;
+            }
+
+            .fs9 {
+                font-size: 213.120000pt;
+            }
+
+            .y0 {
+                bottom: -0.666667pt;
+            }
+
+            .y4e {
+                bottom: 0.000000pt;
+            }
+
+            .y58 {
+                bottom: 1.120000pt;
+            }
+
+            .ycf {
+                bottom: 2.400000pt;
+            }
+
+            .y8 {
+                bottom: 2.880000pt;
+            }
+
+            .y36 {
+                bottom: 2.920000pt;
+            }
+
+            .y3c {
+                bottom: 3.040000pt;
+            }
+
+            .y40 {
+                bottom: 3.200000pt;
+            }
+
+            .y4 {
+                bottom: 3.360000pt;
+            }
+
+            .ycd {
+                bottom: 3.520000pt;
+            }
+
+            .ycc {
+                bottom: 3.546667pt;
+            }
+
+            .yf {
+                bottom: 3.840000pt;
+            }
+
+            .y4b {
+                bottom: 4.000000pt;
+            }
+
+            .y3e {
+                bottom: 4.160000pt;
+            }
+
+            .yc {
+                bottom: 5.920000pt;
+            }
+
+            .y4d {
+                bottom: 6.560000pt;
+            }
+
+            .y51 {
+                bottom: 6.880000pt;
+            }
+
+            .y54 {
+                bottom: 7.040000pt;
+            }
+
+            .y1c {
+                bottom: 7.200000pt;
+            }
+
+            .yd {
+                bottom: 11.360000pt;
+            }
+
+            .yca {
+                bottom: 11.680000pt;
+            }
+
+            .ybb {
+                bottom: 15.040000pt;
+            }
+
+            .y43 {
+                bottom: 18.080000pt;
+            }
+
+            .y19 {
+                bottom: 18.240000pt;
+            }
+
+            .y7 {
+                bottom: 18.720000pt;
+            }
+
+            .y35 {
+                bottom: 18.760000pt;
+            }
+
+            .yc9 {
+                bottom: 20.160000pt;
+            }
+
+            .y65 {
+                bottom: 25.960000pt;
+            }
+
+            .yba {
+                bottom: 28.640000pt;
+            }
+
+            .y42 {
+                bottom: 33.440000pt;
+            }
+
+            .y18 {
+                bottom: 33.600000pt;
+            }
+
+            .y3a {
+                bottom: 33.626667pt;
+            }
+
+            .y6 {
+                bottom: 35.546667pt;
+            }
+
+            .yb9 {
+                bottom: 36.480000pt;
+            }
+
+            .y34 {
+                bottom: 37.320000pt;
+            }
+
+            .y64 {
+                bottom: 42.760000pt;
+            }
+
+            .yc6 {
+                bottom: 48.800000pt;
+            }
+
+            .y39 {
+                bottom: 48.826667pt;
+            }
+
+            .y17 {
+                bottom: 48.960000pt;
+            }
+
+            .yb8 {
+                bottom: 51.840000pt;
+            }
+
+            .y5 {
+                bottom: 52.506667pt;
+            }
+
+            .y33 {
+                bottom: 56.040000pt;
+            }
+
+            .ya3 {
+                bottom: 57.440000pt;
+            }
+
+            .y2 {
+                bottom: 57.786667pt;
+            }
+
+            .yaf {
+                bottom: 58.240000pt;
+            }
+
+            .y70 {
+                bottom: 59.200000pt;
+            }
+
+            .yc5 {
+                bottom: 64.160000pt;
+            }
+
+            .y16 {
+                bottom: 64.320000pt;
+            }
+
+            .y38 {
+                bottom: 64.826667pt;
+            }
+
+            .yb7 {
+                bottom: 67.200000pt;
+            }
+
+            .y63 {
+                bottom: 67.880000pt;
+            }
+
+            .y32 {
+                bottom: 73.640000pt;
+            }
+
+            .y6f {
+                bottom: 79.232000pt;
+            }
+
+            .yc4 {
+                bottom: 79.546667pt;
+            }
+
+            .y15 {
+                bottom: 79.680000pt;
+            }
+
+            .yb6 {
+                bottom: 80.800000pt;
+            }
+
+            .yb5 {
+                bottom: 88.800000pt;
+            }
+
+            .y31 {
+                bottom: 92.360000pt;
+            }
+
+            .y14 {
+                bottom: 94.880000pt;
+            }
+
+            .yc3 {
+                bottom: 95.066667pt;
+            }
+
+            .yb1 {
+                bottom: 96.520000pt;
+            }
+
+            .y6e {
+                bottom: 98.272000pt;
+            }
+
+            .yb4 {
+                bottom: 102.280000pt;
+            }
+
+            .yb3 {
+                bottom: 108.520000pt;
+            }
+
+            .y30 {
+                bottom: 109.960000pt;
+            }
+
+            .y13 {
+                bottom: 110.240000pt;
+            }
+
+            .yc2 {
+                bottom: 110.266667pt;
+            }
+
+            .ya2 {
+                bottom: 111.232000pt;
+            }
+
+            .yb0 {
+                bottom: 113.480000pt;
+            }
+
+            .y6d {
+                bottom: 118.432000pt;
+            }
+
+            .yc1 {
+                bottom: 125.466667pt;
+            }
+
+            .y12 {
+                bottom: 125.600000pt;
+            }
+
+            .y2f {
+                bottom: 128.680000pt;
+            }
+
+            .ya1 {
+                bottom: 135.066667pt;
+            }
+
+            .y6c {
+                bottom: 138.426667pt;
+            }
+
+            .yc0 {
+                bottom: 140.826667pt;
+            }
+
+            .y2e {
+                bottom: 147.240000pt;
+            }
+
+            .ya0 {
+                bottom: 148.186667pt;
+            }
+
+            .y6b {
+                bottom: 158.426667pt;
+            }
+
+            .y2d {
+                bottom: 165.960000pt;
+            }
+
+            .y9f {
+                bottom: 166.906667pt;
+            }
+
+            .y6a {
+                bottom: 177.466667pt;
+            }
+
+            .y2c {
+                bottom: 184.680000pt;
+            }
+
+            .y9e {
+                bottom: 185.626667pt;
+            }
+
+            .y9d {
+                bottom: 203.226667pt;
+            }
+
+            .y2b {
+                bottom: 203.240000pt;
+            }
+
+            .y69 {
+                bottom: 208.186667pt;
+            }
+
+            .y9c {
+                bottom: 221.786667pt;
+            }
+
+            .y2a {
+                bottom: 221.960000pt;
+            }
+
+            .y68 {
+                bottom: 236.346667pt;
+            }
+
+            .y9b {
+                bottom: 240.506667pt;
+            }
+
+            .y29 {
+                bottom: 240.706667pt;
+            }
+
+            .y59 {
+                bottom: 254.786667pt;
+            }
+
+            .y9a {
+                bottom: 258.106667pt;
+            }
+
+            .y28 {
+                bottom: 258.306667pt;
+            }
+
+            .y67 {
+                bottom: 261.146667pt;
+            }
+
+            .y99 {
+                bottom: 275.866667pt;
+            }
+
+            .y27 {
+                bottom: 275.906667pt;
+            }
+
+            .y66 {
+                bottom: 288.826667pt;
+            }
+
+            .y26 {
+                bottom: 294.626667pt;
+            }
+
+            .y9 {
+                bottom: 297.466667pt;
+            }
+
+            .y98 {
+                bottom: 304.226667pt;
+            }
+
+            .y25 {
+                bottom: 313.186667pt;
+            }
+
+            .y97 {
+                bottom: 317.346667pt;
+            }
+
+            .y24 {
+                bottom: 331.906667pt;
+            }
+
+            .y96 {
+                bottom: 345.826667pt;
+            }
+
+            .y23 {
+                bottom: 350.626667pt;
+            }
+
+            .y22 {
+                bottom: 368.226667pt;
+            }
+
+            .y95 {
+                bottom: 370.946667pt;
+            }
+
+            .y21 {
+                bottom: 384.706667pt;
+            }
+
+            .y20 {
+                bottom: 396.226667pt;
+            }
+
+            .y94 {
+                bottom: 399.746667pt;
+            }
+
+            .y1f {
+                bottom: 409.026667pt;
+            }
+
+            .y62 {
+                bottom: 415.266667pt;
+            }
+
+            .y93 {
+                bottom: 416.546667pt;
+            }
+
+            .y1e {
+                bottom: 426.626667pt;
+            }
+
+            .y61 {
+                bottom: 431.266667pt;
+            }
+
+            .y92 {
+                bottom: 435.266667pt;
+            }
+
+            .y60 {
+                bottom: 446.786667pt;
+            }
+
+            .y91 {
+                bottom: 453.986667pt;
+            }
+
+            .yc7 {
+                bottom: 458.466667pt;
+            }
+
+            .y5f {
+                bottom: 462.146667pt;
+            }
+
+            .ybf {
+                bottom: 467.106667pt;
+            }
+
+            .y1a {
+                bottom: 470.306667pt;
+            }
+
+            .y90 {
+                bottom: 472.546667pt;
+            }
+
+            .y5e {
+                bottom: 477.666667pt;
+            }
+
+            .y5d {
+                bottom: 478.786667pt;
+            }
+
+            .y47 {
+                bottom: 489.226667pt;
+            }
+
+            .y8f {
+                bottom: 491.266667pt;
+            }
+
+            .y5c {
+                bottom: 494.146667pt;
+            }
+
+            .y5b {
+                bottom: 509.666667pt;
+            }
+
+            .y8e {
+                bottom: 509.986667pt;
+            }
+
+            .y5a {
+                bottom: 525.186667pt;
+            }
+
+            .y8d {
+                bottom: 528.706667pt;
+            }
+
+            .y8c {
+                bottom: 546.333333pt;
+            }
+
+            .y8b {
+                bottom: 562.813333pt;
+            }
+
+            .y8a {
+                bottom: 574.333333pt;
+            }
+
+            .y89 {
+                bottom: 587.133333pt;
+            }
+
+            .y57 {
+                bottom: 602.173333pt;
+            }
+
+            .y56 {
+                bottom: 603.293333pt;
+            }
+
+            .y88 {
+                bottom: 604.733333pt;
+            }
+
+            .y55 {
+                bottom: 618.653333pt;
+            }
+
+            .ybe {
+                bottom: 620.413333pt;
+            }
+
+            .y10 {
+                bottom: 631.306667pt;
+            }
+
+            .y87 {
+                bottom: 634.333333pt;
+            }
+
+            .y53 {
+                bottom: 634.973333pt;
+            }
+
+            .ybd {
+                bottom: 635.773333pt;
+            }
+
+            .y86 {
+                bottom: 654.333333pt;
+            }
+
+            .y52 {
+                bottom: 654.493333pt;
+            }
+
+            .ybc {
+                bottom: 666.173333pt;
+            }
+
+            .y50 {
+                bottom: 670.973333pt;
+            }
+
+            .y85 {
+                bottom: 674.333333pt;
+            }
+
+            .ya {
+                bottom: 674.666667pt;
+            }
+
+            .yae {
+                bottom: 678.333333pt;
+            }
+
+            .y4f {
+                bottom: 690.333333pt;
+            }
+
+            .y84 {
+                bottom: 693.533333pt;
+            }
+
+            .y4c {
+                bottom: 706.813333pt;
+            }
+
+            .y83 {
+                bottom: 724.093333pt;
+            }
+
+            .y4a {
+                bottom: 725.853333pt;
+            }
+
+            .y1b {
+                bottom: 738.173333pt;
+            }
+
+            .y82 {
+                bottom: 741.693333pt;
+            }
+
+            .y49 {
+                bottom: 742.333333pt;
+            }
+
+            .y1d {
+                bottom: 751.613333pt;
+            }
+
+            .y48 {
+                bottom: 758.813333pt;
+            }
+
+            .y81 {
+                bottom: 760.413333pt;
+            }
+
+            .y80 {
+                bottom: 779.333333pt;
+            }
+
+            .y11 {
+                bottom: 787.493333pt;
+            }
+
+            .yb2 {
+                bottom: 793.733333pt;
+            }
+
+            .y7f {
+                bottom: 796.933333pt;
+            }
+
+            .y7e {
+                bottom: 815.493333pt;
+            }
+
+            .yad {
+                bottom: 818.853333pt;
+            }
+
+            .y7d {
+                bottom: 833.093333pt;
+            }
+
+            .y46 {
+                bottom: 836.613333pt;
+            }
+
+            .yac {
+                bottom: 842.373333pt;
+            }
+
+            .y7c {
+                bottom: 851.813333pt;
+            }
+
+            .y45 {
+                bottom: 852.133333pt;
+            }
+
+            .yab {
+                bottom: 858.853333pt;
+            }
+
+            .y44 {
+                bottom: 869.093333pt;
+            }
+
+            .y7b {
+                bottom: 869.413333pt;
+            }
+
+            .y41 {
+                bottom: 884.613333pt;
+            }
+
+            .y7a {
+                bottom: 885.893333pt;
+            }
+
+            .yaa {
+                bottom: 886.053333pt;
+            }
+
+            .y79 {
+                bottom: 897.413333pt;
+            }
+
+            .y78 {
+                bottom: 910.213333pt;
+            }
+
+            .ya9 {
+                bottom: 913.253333pt;
+            }
+
+            .ya8 {
+                bottom: 929.893333pt;
+            }
+
+            .y3f {
+                bottom: 930.533333pt;
+            }
+
+            .y77 {
+                bottom: 937.893333pt;
+            }
+
+            .yb {
+                bottom: 942.373333pt;
+            }
+
+            .y3d {
+                bottom: 947.333333pt;
+            }
+
+            .ya7 {
+                bottom: 955.333333pt;
+            }
+
+            .ye {
+                bottom: 955.813333pt;
+            }
+
+            .y76 {
+                bottom: 962.053333pt;
+            }
+
+            .yd0 {
+                bottom: 962.693333pt;
+            }
+
+            .y3b {
+                bottom: 963.973333pt;
+            }
+
+            .y37 {
+                bottom: 979.493333pt;
+            }
+
+            .yce {
+                bottom: 979.653333pt;
+            }
+
+            .y75 {
+                bottom: 981.093333pt;
+            }
+
+            .y1 {
+                bottom: 991.813333pt;
+            }
+
+            .y74 {
+                bottom: 1001.093333pt;
+            }
+
+            .ycb {
+                bottom: 1008.773333pt;
+            }
+
+            .ya6 {
+                bottom: 1019.840000pt;
+            }
+
+            .y73 {
+                bottom: 1020.320000pt;
+            }
+
+            .ya5 {
+                bottom: 1030.720000pt;
+            }
+
+            .yc8 {
+                bottom: 1038.880000pt;
+            }
+
+            .y72 {
+                bottom: 1040.320000pt;
+            }
+
+            .y3 {
+                bottom: 1057.760000pt;
+            }
+
+            .y71 {
+                bottom: 1059.360000pt;
+            }
+
+            .ya4 {
+                bottom: 1060.320000pt;
+            }
+
+            .h1c {
+                height: 2.214400pt;
+            }
+
+            .hc {
+                height: 11.360000pt;
+            }
+
+            .h29 {
+                height: 11.520000pt;
+            }
+
+            .h2e {
+                height: 12.160000pt;
+            }
+
+            .h20 {
+                height: 15.360000pt;
+            }
+
+            .h13 {
+                height: 15.520000pt;
+            }
+
+            .h21 {
+                height: 15.552000pt;
+            }
+
+            .h22 {
+                height: 16.000000pt;
+            }
+
+            .h1f {
+                height: 16.320000pt;
+            }
+
+            .h1a {
+                height: 16.480000pt;
+            }
+
+            .h19 {
+                height: 16.512000pt;
+            }
+
+            .h15 {
+                height: 16.640000pt;
+            }
+
+            .h4 {
+                height: 16.800000pt;
+            }
+
+            .h25 {
+                height: 16.832000pt;
+            }
+
+            .h17 {
+                height: 16.960000pt;
+            }
+
+            .hd {
+                height: 18.268800pt;
+            }
+
+            .h2d {
+                height: 18.432000pt;
+            }
+
+            .h1b {
+                height: 19.040000pt;
+            }
+
+            .h1d {
+                height: 19.360000pt;
+            }
+
+            .h1e {
+                height: 19.520000pt;
+            }
+
+            .ha {
+                height: 24.800000pt;
+            }
+
+            .h26 {
+                height: 27.680000pt;
+            }
+
+            .h23 {
+                height: 32.108800pt;
+            }
+
+            .h2c {
+                height: 33.600000pt;
+            }
+
+            .h10 {
+                height: 34.876800pt;
+            }
+
+            .h24 {
+                height: 37.091200pt;
+            }
+
+            .h16 {
+                height: 45.920000pt;
+            }
+
+            .h7 {
+                height: 45.948800pt;
+            }
+
+            .h14 {
+                height: 47.621250pt;
+            }
+
+            .h5 {
+                height: 50.931200pt;
+            }
+
+            .hf {
+                height: 53.145600pt;
+            }
+
+            .h11 {
+                height: 55.080000pt;
+            }
+
+            .h27 {
+                height: 55.360000pt;
+            }
+
+            .hb {
+                height: 64.771200pt;
+            }
+
+            .h6 {
+                height: 65.952000pt;
+            }
+
+            .h9 {
+                height: 73.628800pt;
+            }
+
+            .h12 {
+                height: 78.272000pt;
+            }
+
+            .h2 {
+                height: 82.752000pt;
+            }
+
+            .h3 {
+                height: 92.451200pt;
+            }
+
+            .h2a {
+                height: 113.472000pt;
+            }
+
+            .h28 {
+                height: 126.912000pt;
+            }
+
+            .he {
+                height: 138.080000pt;
+            }
+
+            .h2b {
+                height: 153.306667pt;
+            }
+
+            .h18 {
+                height: 184.348800pt;
+            }
+
+            .h8 {
+                height: 777.093333pt;
+            }
+
+            .h0 {
+                height: 1122.560000pt;
+            }
+
+            .h1 {
+                height: 1123.333333pt;
+            }
+
+            .w13 {
+                width: 15.680000pt;
+            }
+
+            .w11 {
+                width: 16.000000pt;
+            }
+
+            .w15 {
+                width: 41.599976pt;
+            }
+
+            .w5 {
+                width: 41.632000pt;
+            }
+
+            .w16 {
+                width: 41.760000pt;
+            }
+
+            .w17 {
+                width: 85.792000pt;
+            }
+
+            .w6 {
+                width: 120.000000pt;
+            }
+
+            .w19 {
+                width: 120.032000pt;
+            }
+
+            .w2 {
+                width: 125.632000pt;
+            }
+
+            .w10 {
+                width: 154.906667pt;
+            }
+
+            .w12 {
+                width: 155.386667pt;
+            }
+
+            .we {
+                width: 156.506667pt;
+            }
+
+            .wd {
+                width: 156.666667pt;
+            }
+
+            .wc {
+                width: 157.146667pt;
+            }
+
+            .wf {
+                width: 157.466667pt;
+            }
+
+            .w9 {
+                width: 186.146667pt;
+            }
+
+            .wb {
+                width: 186.786667pt;
+            }
+
+            .wa {
+                width: 191.106667pt;
+            }
+
+            .w7 {
+                width: 356.866667pt;
+            }
+
+            .w18 {
+                width: 390.946667pt;
+            }
+
+            .w3 {
+                width: 401.346667pt;
+            }
+
+            .w8 {
+                width: 508.893333pt;
+            }
+
+            .w4 {
+                width: 527.773333pt;
+            }
+
+            .w14 {
+                width: 793.759988pt;
+            }
+
+            .w0 {
+                width: 793.760000pt;
+            }
+
+            .w1 {
+                width: 794.666667pt;
+            }
+
+            .x0 {
+                left: 0.000000pt;
+            }
+
+            .x2 {
+                left: 7.200000pt;
+            }
+
+            .x13 {
+                left: 10.560000pt;
+            }
+
+            .x7 {
+                left: 17.600000pt;
+            }
+
+            .x4 {
+                left: 21.280000pt;
+            }
+
+            .x1 {
+                left: 37.280000pt;
+            }
+
+            .x17 {
+                left: 41.600000pt;
+            }
+
+            .xe {
+                left: 47.999988pt;
+            }
+
+            .x14 {
+                left: 52.320000pt;
+            }
+
+            .x8 {
+                left: 72.672000pt;
+            }
+
+            .x5 {
+                left: 78.912000pt;
+            }
+
+            .x9 {
+                left: 96.666667pt;
+            }
+
+            .xf {
+                left: 120.671988pt;
+            }
+
+            .x15 {
+                left: 138.106667pt;
+            }
+
+            .x11 {
+                left: 140.026655pt;
+            }
+
+            .x16 {
+                left: 142.586667pt;
+            }
+
+            .x10 {
+                left: 144.666655pt;
+            }
+
+            .x3 {
+                left: 162.906667pt;
+            }
+
+            .x6 {
+                left: 198.906667pt;
+            }
+
+            .x12 {
+                left: 531.453322pt;
+            }
+
+            .xb {
+                left: 565.693333pt;
+            }
+
+            .xa {
+                left: 570.653333pt;
+            }
+
+            .xc {
+                left: 577.213333pt;
+            }
+
+            .xd {
+                left: 732.773333pt;
+            }
+        }
+    </style>
+
+    <title></title>
+</head>
+
+<body>
+    <div id="sidebar">
+        <div id="outline">
+        </div>
+    </div>
+    <div id="page-container">
+        <div id="pf1" class="pf w0 h0" data-page-no="1">
+            <div class="pc pc1 w0 h0"><img class="bi x0 y0 w1 h1" alt=""
+                    src="data:image/png;base64,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AMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAA4WcEAAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAIDwAwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAACD8AAAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAAAQfgAAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAACD8AAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAIDwAwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAACD8AAAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAAAQfgAAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAQPgBAADQf8EIAADoVJalIZCNlJLwAwAAvyhDtrzVEwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAACD8AAAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAAAQfgAAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAACD8AAAAEH4AAAAIPwAAAIQfAAAAwg8A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wg8AAADhBwAAgPADAAAQfgAAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAACD8AAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAIDwMwIAAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAIQfAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAAIDwAwAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAACD8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAIQfAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAAIDwAwAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAACD8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAIQfAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAAOEHAAAwCMEIAADoNKtrQ2Cwqhhzuh0nfgAAAJkTfgAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAACD8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAIQfAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAAA7CkYAAECnKkZDgDw48QMAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAA4QcAAEDfBSMAAKDTrK4NgcGqYszpdpz4AQAAZE74AQAACD8AAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAOwoGAEAAJ2qGA0B8uDEDwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAACD8AAAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAAAQfgAAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAAUBRFEYwAAIBOnz5/NgT66OP79/+/SEpJ+AEAAOypq8XCEG7xVk8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAIQfAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAAEBRFEUwAgAAOn14984QIA9O/AAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAABA+AEAACD8AAAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAA4WcEAAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAIDwAwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAACD8AAAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAAAQfgAAAAg/AAAAhB8AAADCDwAAAOEHAACA8AP+tGfHNgzCABQFP5ZDnXWYy1uxCINkEKeII5IiAtrorsEIYyN3TwAAgPADAAAQfgAAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAACD8AAAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAIQfAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAACAI1Pv3SkAAAD8MX/8AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAACD8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAIQfAAAAwg8AAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAAOEHAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAAIDwAwAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAACD8AAADh5wgAAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAACD8AAAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAAAQfgAAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAACD8AAAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAIQfAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAACD8AAAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAACD8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAIQfAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAAIDwAwAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAACD8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAIQfAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAAOEHAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAAIDwAwAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAACD8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAIQfAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAAOEHAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAAIDwAwAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAAJXSbjsAAAKrSURBVAg/RwAAACD8AAAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAAAQfgAAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAACD8AAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAIDwAwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAACD8AAAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAAAQfgAAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAACD8AAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAACD8AAAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAAAQfgAAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAQPgBAAAg/AAAAAAAAOBYudckSf+wlO/7I+/5V987Y7udW3Odf8971Ovf1WrSapJxbTVZyj7epteaGeN13p+1sd9akieXrN7SleAofgAAAABJRU5ErkJggg==" />
+                <div class="c x1 y1 w2 h2">
+                    <div class="t m0 x2 h3 y2 ff1 fs0 fc0 sc0 ls4 ws9"> </div>
+                </div>
+                <div class="c x3 y3 w3 h4">
+                    <div class="t m0 x2 h5 y4 ff1 fs1 fc1 sc0 ls4 ws9">JANA<span class="_ _0"></span>N L. AL-OKAILY<span
+                            class="fc0"> </span></div>
+                </div>
+                <div class="c x3 y1 w3 h6">
+                    <div class="t m0 x2 h5 y5 ff1 fs1 fc2 sc0 ls4 ws9"> </div>
+                    <div class="t m0 x2 h5 y6 ff1 fs1 fc2 sc0 ls4 ws0">MBA<span class="_ _0"></span>-<span
+                            class="fs2 ls0 ws9"> </span><span class="ls1">M</span><span
+                            class="fs2 ws1">ASTER</span><span class="ff2 ls2">'</span><span class="fs2 ws9">S IN
+                            BUSINESS ADMINISTRATION<span class="fs1"> </span></span></div>
+                    <div class="t m0 x2 h5 y7 ff1 fs1 fc2 sc0 ls5 ws2">B.<span class="fs2 ls6 ws3">SC</span><span
+                            class="ls2">.<span class="fs2 ls4 ws9"> <span class="fs1 ws0">GENERA<span
+                                        class="_ _0"></span>L<span class="fs2 ls0 ws9"> </span>M<span
+                                        class="_ _1"></span>A<span class="_ _0"></span>NAGEMENT<span
+                                        class="fs2 ls0 ws9"> </span><span class="ws9"> </span></span></span></span>
+                    </div>
+                    <div class="t m0 x2 h7 y8 ff3 fs3 fc2 sc0 ls4 ws9"> </div>
+                </div>
+                <div class="c x1 y9 w4 h8">
+                    <div class="t m0 x0 h9 ya ff3 fs4 fc3 sc0 ls4 ws9"> </div>
+                </div>
+                <div class="c x1 yb w5 ha">
+                    <div class="t m0 x4 hb yc ff3 fs5 fc0 sc0 ls4 ws9"> </div>
+                </div>
+                <div class="c x5 yb w6 ha">
+                    <div class="t m0 x2 h5 yd ff1 fs1 fc2 sc0 ls4 ws9">PROFILE <span class="ff3"> </span></div>
+                </div>
+                <div class="c x6 ye w7 hc">
+                    <div class="t m0 x2 hd yf ff3 fs6 fc0 sc0 ls4 ws9"> </div>
+                </div>
+                <div class="c x6 yb w7 hc">
+                    <div class="t m0 x2 hd yf ff3 fs6 fc0 sc0 ls4 ws9"> </div>
+                </div>
+                <div class="c x1 y9 w4 h8">
+                    <div class="t m0 x0 h5 y10 ff3 fs1 fc3 sc0 ls4 ws9"> </div>
+                </div>
+                <div class="c x1 y11 w8 he">
+                    <div class="t m0 x7 h7 y12 ff3 fs3 fc2 sc0 ls4 ws9">I am an energetic, <span
+                            class="_ _1"></span>ambitious person <span class="_ _1"></span>who has develope<span
+                            class="_ _1"></span>d a mature an<span class="_ _1"></span>d </div>
+                    <div class="t m0 x7 h7 y13 ff3 fs3 fc2 sc0 ls4 ws9">responsible approach t<span
+                            class="_ _1"></span>o any task that undert<span class="_ _1"></span>ake. I am<span
+                            class="_ _1"></span> a quick<span class="_ _1"></span> learner, eas<span
+                            class="_ _1"></span>ily </div>
+                    <div class="t m0 x7 h7 y14 ff3 fs3 fc2 sc0 ls4 ws9">adapt to new ideas<span class="_ _1"></span> and
+                        concepts, de<span class="_ _1"></span>velop, innovative, and cr<span class="_ _1"></span>eative
+                        solutions to </div>
+                    <div class="t m0 x7 h7 y15 ff3 fs3 fc2 sc0 ls4 ws9">problems<span class="_ _1"></span>, high level
+                        of motivation, able to <span class="_ _1"></span>work on high<span class="_ _1"></span>
+                        pressure.<span class="_ _2"></span> </div>
+                    <div class="t m0 x7 h7 y16 ff3 fs3 fc2 sc0 ls4 ws9">I am excellent in work<span
+                            class="_ _1"></span>ing with ot<span class="_ _1"></span>hers to achieve<span
+                            class="_ _1"></span> a certain goal on tim<span class="_ _1"></span>e and with </div>
+                    <div class="t m0 x7 h7 y17 ff3 fs3 fc2 sc0 ls4 ws9">excellence. </div>
+                    <div class="t m0 x7 h7 y18 ff3 fs3 fc2 sc0 ls4 ws9">Seeking for a career pos<span
+                            class="_ _1"></span>ition to f<span class="_ _1"></span>urther develop ex<span
+                            class="_ _1"></span>pertise and experience <span class="_ _1"></span>in </div>
+                    <div class="t m0 x7 h7 y19 ff3 fs3 fc2 sc0 ls4 ws9">Managem<span class="_ _1"></span>ent, Operation,
+                        Mark<span class="_ _1"></span>eting, and an<span class="_ _1"></span>y other related fie<span
+                            class="_ _1"></span>lds to business </div>
+                    <div class="t m0 x7 h5 y8 ff3 fs3 fc2 sc0 ls4 ws9">managem<span class="_ _1"></span>ent. <span
+                            class="fs1"> </span></div>
+                </div>
+                <div class="c x1 y9 w4 h8">
+                    <div class="t m0 x0 h9 y1a ff3 fs4 fc3 sc0 ls4 ws9"> </div>
+                </div>
+                <div class="c x1 y1b w5 ha">
+                    <div class="t m0 x7 h5 y1c ff3 fs1 fc0 sc0 ls4 ws9"> </div>
+                </div>
+                <div class="c x5 y1b w6 ha">
+                    <div class="t m0 x2 h5 yd ff1 fs1 fc2 sc0 ls4 ws0">EXPERIEN<span class="_ _0"></span>CES<span
+                            class="ff3 ws9"> </span></div>
+                </div>
+                <div class="c x6 y1d w7 hc">
+                    <div class="t m0 x2 hd yf ff3 fs6 fc0 sc0 ls4 ws9"> </div>
+                </div>
+                <div class="c x6 y1b w7 hc">
+                    <div class="t m0 x2 hd yf ff3 fs6 fc0 sc0 ls4 ws9"> </div>
+                </div>
+                <div class="c x1 y9 w4 h8">
+                    <div class="t m0 x0 hf y1e ff1 fs7 fc4 sc0 ls4 ws9"> </div>
+                    <div class="t m0 x0 hf y1f ff1 fs7 fc5 sc0 ls4 ws9">Promoters <span class="ff2 ws4">-</span>
+                        October, 20<span class="_ _0"></span>18 <span class="ff2 ws4">-</span> Current </div>
+                    <div class="t m0 x0 h10 y20 ff3 fs8 fc5 sc0 ls4 ws9">Erbil/Kurdista<span class="_ _0"></span>n-Iraq
+                    </div>
+                    <div class="t m0 x0 h10 y21 ff3 fs8 fc2 sc0 ls4 ws9"> </div>
+                    <div class="t m0 x0 hf y22 ff3 fs7 fc2 sc0 ls7 ws5">HR<span class="ls4 ws9"> assistant </span></div>
+                    <div class="t m0 x0 hf y23 ff3 fs7 fc2 sc0 ls4 ws9"> </div>
+                    <div class="t m0 x8 hf y24 ff4 fs7 fc2 sc0 ls4 ws4">*</spa class="ff3 ws9"> <span class="_ _3">
+                        </span>Making employe<span class="_ _0"></span>e f<span class="_ _1"></span>iles of
+                        administratin<span class="_ _0"></span>g and scoring<span class="_ _0"></span> tests.<span
+                            class="_ _1"></span> </span></div>
+                    <div class="t m0 x8 hf y25 ff4 fs7 fc2 sc0 ls4 ws4">*</spa class="ff3 ws9"> <span class="_ _3">
+                        </span>Conducting orien<span class="_ _0"></span>tations and explain pro<span
+                            class="_ _0"></span>cedures.<span class="_ _1"></span> </span></div>
+                    <div class="t m0 x8 h11 y26 ff4 fs7 fc2 sc0 ls4 ws4">*</spa class="ff3 ls3 ws9"> <span
+                            class="ff5 ls4">Track, create and up<span class="_ _0"></span>date employe<span
+                                class="_ _0"></span>e's leaves and absences.<span class="ff3"> </span></span></span>
+                    </div>
+                    <div class="t m0 x8 hf y27 ff4 fs7 fc2 sc0 ls4 ws4">*</spa class="ff3 ws9"> <span class="_ _3">
+                        </span>Assist in the hiring p<span class="_ _0"></span>rocesses like submitting jobs o<span
+                            class="_ _0"></span>nline and </span></div>
+                    <div class="t m0 x9 hf y28 ff3 fs7 fc2 sc0 ls4 ws9">scheduling ca<span class="_ _0"></span>ndidates
+                        for interviews and<span class="_ _0"></span> have people </div>
+                    <div class="t m0 x9 hf y29 ff3 fs7 fc2 sc0 ls4 ws9">interviewed. </div>
+                    <div class="t m0 x8 h11 y2a ff4 fs7 fc2 sc0 ls4 ws4">*</spa class="ff3 ls3 ws9"> <span
+                            class="ff5 ls4">Coordinate for new<span class="_ _0"></span> hiring's and employee<span
+                                class="_ _0"></span> training sessions.<span class="_ _1"></span><span class="ff3">
+                            </span></span></span></div>
+                    <div class="t m0 x8 hf y2b ff4 fs7 fc2 sc0 ls4 ws4">*</spa class="ff3 ws9"> <span class="_ _3">
+                        </span>Assemble, analyz<span class="_ _0"></span>e and prepare data for data entry<span
+                            class="_ _0"></span>.<span class="_ _1"></span> </span></div>
+                    <div class="t m0 x8 hf y2c ff4 fs7 fc2 sc0 ls4 ws4">*</spa class="ff3 ws9"> <span class="_ _3">
+                        </span>Follow up o<span class="_ _0"></span>n daily attendance and make reports. </span>
+                    </div>
+                    <div class="t m0 x8 hf y2d ff4 fs7 fc2 sc0 ls4 ws4">*</spa class="ff3 ws9"> <span class="_ _3">
+                        </span>Report w<span class="_ _0"></span>riting to management and record ke<span
+                            class="_ _0"></span>eping. </span></div>
+                    <div class="t m0 x8 hf y2e ff4 fs7 fc2 sc0 ls4 ws4">*</spa class="ff3 ws9"> <span class="_ _3">
+                        </span>Provide secre<span class="_ _0"></span>tarial support. </span></div>
+                    <div class="t m0 x8 hf y2f ff4 fs7 fc2 sc0 ls4 ws4">*</spa class="ff3 ws9"> <span class="_ _3">
+                        </span>Create monthly<span class="_ _0"></span> payroll and pay sli<span
+                            class="_ _0"></span>ps.<span class="_ _1"></span> </span></div>
+                    <div class="t m0 x8 hf y30 ff4 fs7 fc2 sc0 ls4 ws4">*</spa class="ff3 ws9"> <span class="_ _3">
+                        </span>Share and<span class="_ _0"></span> gather information by answering emails and
+                        pho<span class="_ _0"></span>ne </span></div>
+                    <div class="t m0 x9 hf y31 ff3 fs7 fc2 sc0 ls4 ws9">calls. </div>
+                    <div class="t m0 x8 hf y32 ff4 fs7 fc2 sc0 ls4 ws4">*</spa class="ff3 ws9"> <span class="_ _3">
+                        </span>Quick with n<span class="_ _0"></span>ote taking and then co<span
+                            class="_ _0"></span>m<span class="_ _1"></span>pare to the <span
+                            class="_ _0"></span>eligibility </span></div>
+                    <div class="t m0 x9 hf y33 ff3 fs7 fc2 sc0 ls4 ws9">criteria. </div>
+                    <div class="t m0 x8 hf y34 ff4 fs7 fc2 sc0 ls4 ws4">*</spa class="ff3 ws9"> <span class="_ _3">
+                        </span>Make data en<span class="_ _0"></span>try. </span></div>
+                    <div class="t m0 x8 h11 y35 ff4 fs7 fc2 sc0 ls4 ws4">*</spa class="ff3 ls3 ws9"> <span
+                            class="ff5 ls4">Make employ<span class="_ _0"></span>ee's contracts. <span class="ff3">
+                            </span></span></span></div>
+                    <div class="t m0 x0 h7 y36 ff3 fs3 fc3 sc0 ls4 ws9"> </div>
+                </div>
+                <div class="c xa y3 w9 h4">
+                    <div class="t m0 x2 h5 y4 ff1 fs1 fc2 sc0 ls4 ws9">PERSONA<span class="_ _0"></span>L DETAILS </div>
+                </div>
+                <div class="c xa y37 w9 h12">
+                    <div class="t m0 x2 h5 y38 ff1 fs1 fc2 sc0 ls4 ws9"> </div>
+                    <div class="t m0 x2 h7 y39 ff3 fs3 fc2 sc0 ls4 ws9">Gender: Fem<span class="_ _1"></span>ale </div>
+                    <div class="t m0 x2 h7 y3a ff3 fs3 fc2 sc0 ls4 ws9">Birth: 19/04/1995<span class="_ _1"></span>
+                    </div>
+                    <div class="t m0 x2 h7 y19 ff3 fs3 fc2 sc0 ls4 ws9">Marital status: Single <span
+                            class="_ _1"></span> </div>
+                    <div class="t m0 x2 h7 y8 ff3 fs3 fc2 sc0 ls4 ws9">Nationality: Iraqi<span class="_ _1"></span>
+                    </div>
+                </div>
+                <div class="c xa y3b w9 h13">
+                    <div class="t m0 x2 h14 y3c ff3 fs3 fc2 sc0 ls4 ws9">Address <span class="ff5 ws7">-</span> Iraq,
+                        <span class="_ _1"></span>Erbil </div>
+                </div>
+                <div class="c xa y3d w9 h15">
+                    <div class="t m0 x2 h7 y3e ff3 fs3 fc2 sc0 ls4 ws9">American village <span class="_ _1"></span>villa
+                        35/36<span class="_ _1"></span> </div>
+                </div>
+                <div class="c xa y3f w9 h4">
+                    <div class="t m0 x2 h5 y40 ff3 fs1 fc2 sc0 ls4 ws9"> </div>
+                </div>
+                <div class="c xa y41 w9 h16">
+                    <div class="t m0 x2 h7 y42 ff3 fs3 fc2 sc0 ls4 ws9">Tel: <span class="ls8"> </span>+964 <span
+                            class="ls9 ws8">750<span class="_ _1"></span></span> 026 0060<span class="_ _1"></span>
+                    </div>
+                    <div class="t m0 x2 h7 y43 ff3 fs3 fc2 sc0 ls4 ws9"> </div>
+                    <div class="t m0 x2 h7 y8 ff3 fs3 fc2 sc0 ls4 ws9"> </div>
+                </div>
+                <div class="c xa y44 w9 h13">
+                    <div class="t m0 x2 h7 y3c ff3 fs3 fc2 sc0 ls4 ws9"> </div>
+                </div>
+                <div class="c xa y45 w9 h17">
+                    <div class="t m0 x2 h5 y4 ff3 fs1 fc2 sc0 ls4 ws9"> </div>
+                </div>
+                <div class="c xa y46 w9 h13">
+                    <div class="t m0 x2 h7 y3c ff3 fs3 fc3 sc0 ls4 ws9">Email: janan@<span
+                            class="_ _1"></span>alokaily.com<span class="_ _1"></span> <span class="fc0"> </span></div>
+                </div>
+                <div class="c xb y9 wa h8">
+                    <div class="t m0 x0 h18 y47 ff3 fs9 fc3 sc0 ls4 ws9"> </div>
+                </div>
+                <div class="c xa y48 wb h19">
+                    <div class="t m0 x2 h7 y3e ff1 fs3 fc2 sc0 ls4 ws9">PROFESSION<span class="_ _1"></span>AL SKILLS
+                    </div>
+                </div>
+                <div class="c xa y49 wb h1a">
+                    <div class="t m0 x2 h7 y3e ff1 fs3 fc2 sc0 ls4 ws9"> </div>
+                </div>
+                <div class="c xa y4a wb h1a">
+                    <div class="t m0 x2 h7 y4b ff3 fs3 fc2 sc0 ls4 ws9">Leadership:<span class="_ _1"></span> </div>
+                </div>
+                <div class="c xc y4c wc h1b">
+                    <div class="t m0 x2 h7 y4d ff3 fs3 fc2 sc0 ls4 ws9"> </div>
+                </div>
+                <div class="c xa y4c wb h1b">
+                    <div class="t m0 x2 h1c y4e ff3 fsa fc2 sc0 ls4 ws9"> </div>
+                </div>
+                <div class="c xa y4f wb h1a">
+                    <div class="t m0 x2 h7 y4b ff3 fs3 fc2 sc0 ls4 ws9">Teamwork<span class="_ _1"></span>: </div>
+                </div>
+                <div class="c xc y50 wd h1d">
+                    <div class="t m0 x2 h7 y51 ff3 fs3 fc2 sc0 ls4 ws9"> </div>
+                </div>
+                <div class="c xa y50 wb h1d">
+                    <div class="t m0 x2 h1c y4e ff3 fsa fc2 sc0 ls4 ws9"> </div>
+                </div>
+                <div class="c xa y52 wb h1a">
+                    <div class="t m0 x2 h7 y4b ff3 fs3 fc2 sc0 ls4 ws9">Innovative: </div>
+                </div>
+                <div class="c xc y53 we h1e">
+                    <div class="t m0 x2 h7 y54 ff3 fs3 fc2 sc0 ls4 ws9"> </div>
+                </div>
+                <div class="c xa y53 wb h1e">
+                    <div class="t m0 x2 h1c y4e ff3 fsa fc2 sc0 ls4 ws9"> </div>
+                </div>
+                <div class="c xa y55 wb h1f">
+                    <div class="t m0 x2 h7 y4b ff3 fs3 fc2 sc0 ls4 ws9">Problem solving:<span class="_ _1"></span>
+                    </div>
+                </div>
+                <div class="c xc y56 wf h20">
+                    <div class="t m0 x2 h7 y8 ff3 fs3 fc0 sc0 ls4 ws9"> </div>
+                </div>
+                <div class="c xa y57 wb h1a">
+                    <div class="t m0 x2 h1c y58 ff3 fsa fc0 sc0 ls4 ws9"> </div>
+                </div>
+                <div class="c xb y9 wa h8">
+                    <div class="t m0 x0 h18 y59 ff3 fs9 fc3 sc0 ls4 ws9"> </div>
+                </div>
+                <div class="c xa y5a w9 h21">
+                    <div class="t m0 x2 h7 y40 ff1 fs3 fc2 sc0 ls4 ws9">LANGUAGES </div>
+                </div>
+                <div class="c xa y5b w9 h13">
+                    <div class="t m0 x2 h7 y40 ff1 fs3 fc2 sc0 ls4 ws9"> </div>
+                </div>
+                <div class="c xa y5c w9 h13">
+                    <div class="t m0 x2 h7 y3c ff3 fs3 fc2 sc0 ls4 ws9">ARABIC </div>
+                </div>
+                <div class="c xc y5d w10 h20">
+                    <div class="t m0 x2 h7 y8 ff3 fs3 fc2 sc0 ls4 ws9"> </div>
+                </div>
+                <div class="c xd y5d w11 h20">
+                    <div class="t m0 x2 h7 y8 ff3 fs3 fc2 sc0 ls4 ws9"> </div>
+                </div>
+                <div class="c xa y5e w9 h1a">
+                    <div class="t m0 x2 h1c y58 ff3 fsa fc2 sc0 ls4 ws9"> </div>
+                </div>
+                <div class="c xa y5f w9 h13">
+                    <div class="t m0 x2 h7 y3c ff3 fs3 fc2 sc0 ls4 ws9">ENGLISH </div>
+                </div>
+                <div class="c xc y60 w10 h20">
+                    <div class="t m0 x2 h7 y8 ff3 fs3 fc2 sc0 ls4 ws9"> </div>
+                </div>
+                <div class="c xd y60 w11 h20">
+                    <div class="t m0 x2 h7 y8 ff3 fs3 fc2 sc0 ls4 ws9"> </div>
+                </div>
+                <div class="c xa y60 w9 h20">
+                    <div class="t m0 x2 h1c y4e ff3 fsa fc2 sc0 ls4 ws9"> </div>
+                </div>
+                <div class="c xa y61 w9 h13">
+                    <div class="t m0 x2 h7 y3c ff3 fs3 fc2 sc0 ls4 ws9">KURDISH </div>
+                </div>
+                <div class="c xc y62 w12 h20">
+                    <div class="t m0 x2 h7 y8 ff3 fs3 fc2 sc0 ls4 ws9"> </div>
+                </div>
+                <div class="c xd y62 w13 h20">
+                    <div class="t m0 x2 h7 y8 ff3 fs3 fc2 sc0 ls4 ws9"> </div>
+                </div>
+                <div class="c xa y62 w9 h22">
+                    <div class="t m0 x2 h1c y4e ff3 fsa fc2 sc0 ls4 ws9"> </div>
+                </div>
+                <div class="c xb y9 wa h8">
+                    <div class="t m0 x0 h18 y63 ff3 fs9 fc3 sc0 ls4 ws9"> </div>
+                    <div class="t m0 x0 h5 y64 ff3 fs1 fc3 sc0 ls4 ws9"> </div>
+                    <div class="t m0 x0 h5 y65 ff3 fs1 fc3 sc0 ls4 ws9"> </div>
+                </div>
+                <div class="c x0 y4e w14 h0">
+                    <div class="t m0 xe h23 y66 ff3 fsb fc3 sc0 ls4 ws9"> </div>
+                    <div class="t m0 xe hf y67 ff1 fs7 fc5 sc0 ls4 ws9">COSV /NGO (Serv<span class="_ _0"></span>ice
+                        Contract) <span class="ff2 ws4">-</span> June 2017- September 201<span class="_ _0"></span>8
+                    </div>
+                    <div class="t m0 xe h10 y68 ff3 fs8 fc5 sc0 ls4 ws9">Erbil/Kurdista<span class="_ _0"></span>n-Iraq
+                    </div>
+                    <div class="t m0 xe hf y69 ff3 fs7 fc2 sc0 ls4 ws9">Monitoring<span class="_ _0"></span> and
+                        Evaluation assistant / </div>
+                    <div class="t m0 xf hf y6a ff4 fs7 fc2 sc0 ls4 ws4">*</spa class="ff3 ws9"> <span class="_ _3">
+                        </span>Responsible<span class="_ _0"></span> for the communication with the<span
+                            class="_ _0"></span> interviews (calling the in<span class="_ _0"></span>terviews and
+                        </span></div>
+                    <div class="t m0 x10 hf y6b ff3 fs7 fc2 sc0 ls4 ws9">making the appo<span
+                            class="_ _0"></span>intment). </div>
+                    <div class="t m0 xf hf y6c ff4 fs7 fc2 sc0 ls4 ws4">*</spa class="ff3 ws9"> <span class="_ _3">
+                        </span>Responsible<span class="_ _0"></span> for preparing the venue be<span
+                            class="_ _0"></span>fore each <span class="_ _1"></span>session. </span></div>
+                    <div class="t m0 xf hf y6d ff4 fs7 fc2 sc0 ls4 ws4">*</spa class="ff3 ws9"> <span class="_ _3">
+                        </span>Assist the Mon<span class="_ _0"></span>itoring and Evaluation<span class="_ _0"></span>
+                        Officer with filling the surv<span class="_ _0"></span>ey
+                        forms.<span class="_ _1"></span> </span></div>
+                    <div class="t m0 xf hf y6e ff4 fs7 fc2 sc0 ls4 ws4">*</spa class="ff3 ws9"> <span class="_ _3">
+                        </span>Develop and<span class="_ _0"></span> m<span class="_ _1"></span>anage the <span
+                            class="_ _0"></span>monitoring and evaluation i<span class="_ _0"></span>nformation
+                        syste<span class="_ _0"></span>m<span class="_ _1"></span> and rel<span class="_ _0"></span>ay
+                        the </span></div>
+                    <div class="t m0 x10 hf y6f ff3 fs7 fc2 sc0 ls4 ws9">information to the proje<span
+                            class="_ _0"></span>ct stakeholde<span class="_ _0"></span>r.<span class="_ _1"></span>
+                    </div>
+                    <div class="t m0 xf hf y70 ff4 fs7 fc2 sc0 ls4 ws4">*</spa class="ff3 ws9"> <span class="_ _3">
+                        </span>Collect data<span class="_ _0"></span> needed for the M&amp;E reports from th<span
+                            class="_ _0"></span>e <span class="_ _1"></span>partner and<span class="_ _0"></span>
+                        volunteers on the ground<span class="_ _0"></span>.<span class="_ _1"></span> </span></div>
+                </div>
+            </div>
+            <div class="pi" data-data='{"ctm":[1.000000,0.000000,0.000000,1.000000,0.000000,0.000000]}'></div>
+        </div>
+        <div id="pf2" class="pf w0 h0" data-page-no="2">
+            <div class="pc pc2 w0 h0"><img class="bi x0 y0 w1 h1" alt=""
+                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABKgAAAaVCAIAAACQxGAoAAAACXBIWXMAABYlAAAWJQFJUiTwAAAgAElEQVR42uzXQREAAAjDMMC/580Hl0jor5tkAAAA+OskAAAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAABg/AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAADjBwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAIwfAACA8QMAAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAADGDwAAwPgBAABg/AAAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAIDxAwAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAABg/AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAADjBwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAIwfAACA8QMAAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAABg/AAAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAIDxAwAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAABg/AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAAAwfgAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAADjBwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAIwfAACA8QMAAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAABg/AAAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAIDxAwAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAAAwfgAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAADjBwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAIwfAAAAxg8AAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAABg/AAAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAIDxAwAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAAAwfgAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAACMHwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAIwfAAAAxg8AAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAABg/AAAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAAAwfgAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAACMHwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAIwfAAAAxg8AAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAABg/CQAAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAGD8AAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAOMHAACA8QMAAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAACMHwAAAMYPAADA+AEAAGD8AAAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAGD8AAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAOMHAACA8QMAAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAGD8AAAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAGD8AAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAOMHAACA8QMAAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAGD8AAAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAOMHAACA8QMAAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAADGDwAAwPgBAABg/AAAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAGD8AAAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAIwfAACA8QMAAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAADGDwAAwPgBAABg/AAAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAGD8AAAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAABg/AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAIwfAACA8QMAAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAADGDwAAwPgBAABg/AAAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAGD8JAAAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAAAwfgAAABg/AAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAACMHwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAIwfAAAAxg8AAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAACA8QMAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAAAwfgAAABg/AAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAACMHwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAYPwAAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAACA8QMAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAMH4AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAAAwfgAAABg/AAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAACMHwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAYPwAAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAACA8QMAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAMH4AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAAAwfgAAABg/AAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAACMHwAAAMYPAADA+AEAAGD8AAAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAYPwAAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAACA8QMAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAMH4AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAACMHwAAAMYPAADA+AEAAGD8AAAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAYPwAAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAGD8AAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAMH4AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAACMHwAAAMYPAADA+AEAAGD8AAAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAYPwkAAAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAABg/AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAADjBwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAIwfAACA8QMAAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAADGDwAAwPgBAABg/AAAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAIDxAwAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAABg/AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAADjBwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAIwfAACA8QMAAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAABg/AAAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAIDxAwAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAABg/AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAAAwfgAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAADjBwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAIwfAACA8QMAAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAABg/AAAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAIDxAwAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAAAwfgAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAADjBwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAIwfAAAAxg8AAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAABg/AAAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAIDxAwAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAAAwfgAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAACMHwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAIwfAAAAxg8AAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAABg/AAAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAAAwfgAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAACMHwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAIwfAAAAxg8AAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAABg/CQAAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAGD8AAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAOMHAACA8QMAAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAACMHwAAAMYPAADA+AEAAGD8AAAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAGD8AAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAOMHAACA8QMAAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAGD8AAAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAGD8AAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAOMHAACA8QMAAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAGD8AAAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAxg9oe3aQmyAQBWD4QaauvY53cd8DcJrGdCeJ4SIepNcgnS7ESI1YqSEl9Ps2IuKTzLj5FQAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAACD8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAIQfAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAAIDwAwAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAACD8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAIQfAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAAOEHAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAAIDwAwAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAACD8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAIQfAACA8LMEAAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAIDwAwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAACD8AAAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAAAQfgAAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAACD8AAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAIDwAwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAACD8AAAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAAAQfgAAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAACD8AAAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAAAQfgAAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAIQfAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAACD8AAAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAIQfAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAAIDwAwAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAACD8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAIQfAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAAIDwAwAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAACEnyUAAAAQfgAAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAACD8AAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAIDwAwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAABA+AEAACD8AAAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAAAQfgAAAAg/AAAAhB8AAADCDwAAgOkkS8DyvO33p4PX7fbmmc+cd3XdP9O27fvh0D/ziyF3xg4NGXVv8xnyzCrNZ4j9sl/2y34NDQFYHv/48S+/90Vx/RNISs8PmWisIfbLEKtkv/52CIDwAwAAYO6KnLNVAAAAWDD/+AEAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAIQfAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAACD8AAAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/Of2acIAAAC9SURBVAAAABB+AAAAws8SAAAACD8AAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAAAAAACTK9cpIiJyz6b8/vwn5+vHvu8Rx5fHZjar4es+0vj7qlJElSKie6xSxKa8HB+L08zojpvV5bWq+7ymjPgCK9/FOS7TgDUAAAAASUVORK5CYII=" />
+                <div class="c x0 y4e w14 h0">
+                    <div class="t m0 xf hf y71 ff4 fs7 fc2 sc0 ls4 ws4">*</spa class="ff3 ws9"> <span class="_ _3">
+                        </span>Produce eva<span class="_ _0"></span>luations and analyses related to the<span
+                            class="_ _0"></span> implementation of the d<span class="_ _0"></span>ifferent phases
+                        </span></div>
+                    <div class="t m0 x10 hf y72 ff3 fs7 fc2 sc0 ls4 ws9">of the project. </div>
+                    <div class="t m0 xf hf y73 ff4 fs7 fc2 sc0 ls4 ws4">*</spa class="ff3 ws9"> <span class="_ _3">
+                        </span>Carry ou<span class="_ _0"></span>t quantitative and qualitative d<span
+                            class="_ _0"></span>ata collection activities at <span class="_ _0"></span>field level
+                        through </span></div>
+                    <div class="t m0 x10 hf y74 ff3 fs7 fc2 sc0 ls4 ws9">surveys, inte<span class="_ _0"></span>rviews
+                        or focus groups. </div>
+                    <div class="t m0 xf hf y75 ff4 fs7 fc2 sc0 ls4 ws4">*</spa class="ff3 ws9"> <span class="_ _3">
+                        </span>Support live<span class="_ _0"></span>lihoods, education and social<span
+                            class="_ _0"></span> stability for the Syrian refugee<span class="_ _0"></span>s and the
+                        host </span></div>
+                    <div class="t m0 x10 hf y76 ff3 fs7 fc2 sc0 ls4 ws9">population<span class="_ _0"></span>. <span
+                            class="_ _1"></span> </div>
+                    <div class="t m0 xe h23 y77 ff3 fsb fc3 sc0 ls4 ws9"> </div>
+                    <div class="t m0 xe hf y78 ff1 fs7 fc5 sc0 ls4 ws9">FAKHIR M<span class="_ _0"></span>ERGASORI
+                        INTERNAT<span class="_ _0"></span>IONAL SCHOOL<span class="_ _1"></span>- SABIS<span
+                            class="ff2 ws4">-</span> October<span class="_ _0"></span> 2016 <span
+                            class="ff2 ws4">-</span> June 2017 </div>
+                    <div class="t m0 xe h10 y79 ff3 fs8 fc5 sc0 ls4 ws9">Erbil/Kurdista<span class="_ _0"></span>n-Iraq
+                    </div>
+                    <div class="t m0 xe h10 y7a ff3 fs8 fc2 sc0 ls4 ws9"> </div>
+                    <div class="t m0 xe hf y7b ff3 fs7 fc2 sc0 ls4 ws9">Activities coo<span class="_ _0"></span>rdinator
+                    </div>
+                    <div class="t m0 xe hf y7c ff3 fs7 fc2 sc0 ls4 ws9"> </div>
+                    <div class="t m0 xf hf y7d ff4 fs7 fc2 sc0 ls4 ws4">*</spa class="ff3 ws9"> <span class="_ _3">
+                        </span>Create and<span class="_ _0"></span> m<span class="_ _1"></span>anage <span
+                            class="_ _0"></span>fun activities, events and school clubs for the kids to <span
+                            class="_ _0"></span>make </span></div>
+                    <div class="t m0 xe hf y7e ff3 fs7 fc2 sc0 ls4 ws9"> <span class="_ _0"></span> school a more fun
+                        place for the stud<span class="_ _0"></span>ents to learn. </div>
+                    <div class="t m0 xf hf y7f ff4 fs7 fc2 sc0 ls4 ws4">*</spa class="ff3 ws9"> <span class="_ _3">
+                        </span>Speaking with a v<span class="_ _0"></span>ariety of different group<span
+                            class="_ _0"></span>s and ages and listen to them </span></div>
+                    <div class="t m0 xe hf y80 ff3 fs7 fc2 sc0 ls4 ws9"> <span class="_ _0"></span> needs and try to
+                        deliver it as soon as possi<span class="_ _0"></span>ble. </div>
+                    <div class="t m0 xf hf y81 ff4 fs7 fc2 sc0 ls4 ws4">*</spa class="ff3 ls3 ws9"> </span><span
+                            class="fc3">*</span><span class="ff3 ws9">Having to <span class="_ _0"></span>motivate the
+                            students and<span class="_ _0"></span> be instant at problem solv<span
+                                class="_ _0"></span>ing.<span class="_ _1"></span> </span></div>
+                    <div class="t m0 xf hf y82 ff4 fs7 fc2 sc0 ls4 ws4">*</spa class="ff3 ws9"> <span class="_ _3">
+                        </span>Organize the<span class="_ _0"></span> whole concert for the school<span
+                            class="_ _0"></span>, write the year bo<span class="_ _0"></span>ok and all<span
+                            class="_ _1"></span> </span></div>
+                    <div class="t m0 xe hf y83 ff3 fs7 fc2 sc0 ls4 ws9"> <span class="_ _0"></span> t<span
+                            class="_ _1"></span>he other <span class="_ _0"></span>important even<span
+                            class="_ _0"></span>ts in the school. </div>
+                    <div class="t m0 xf hf y84 ff4 fs7 fc2 sc0 ls4 ws4">*</spa class="ff3 ws9"> <span class="_ _3">
+                        </span>Teaching the<span class="_ _0"></span> students how to implement project manage<span
+                            class="_ _0"></span>ment skills and develop<span class="_ _0"></span> their </span>
+                    </div>
+                    <div class="t m0 x10 hf y85 ff3 fs7 fc2 sc0 ls4 ws9">leadership skills. </div>
+                    <div class="t m0 xf hf y86 ff4 fs7 fc2 sc0 ls4 ws4">*</spa class="ff3 ws9"> <span class="_ _3">
+                        </span>Daily repo<span class="_ _0"></span>rt writing to higher management and a<span
+                            class="_ _0"></span>nalysis making. </span></div>
+                    <div class="t m0 xf hf y87 ff4 fs7 fc2 sc0 ls4 ws4">*</spa class="ff3 ws9"> <span class="_ _3">
+                        </span>Plan and<span class="_ _0"></span> create Projects for the school <span
+                            class="_ _0"></span>from start to finish. </span></div>
+                    <div class="t m0 xe hf y88 ff1 fs7 fc4 sc0 ls4 ws9"> </div>
+                    <div class="t m0 xe hf y89 ff1 fs7 fc5 sc0 ls4 ws9">Part time job (work fro<span
+                            class="_ _0"></span>m home) at Iraq dev<span class="_ _0"></span>elopment organization <span
+                            class="ff2 ws4">-</span> January<span class="_ _0"></span> 2016-July 2016 </div>
+                    <div class="t m0 xe h10 y8a ff3 fs8 fc5 sc0 ls4 ws9">Erbil/Kurdista<span class="_ _0"></span>n-Iraq
+                    </div>
+                    <div class="t m0 xe h10 y8b ff3 fs8 fc2 sc0 ls4 ws9"> </div>
+                    <div class="t m0 xe hf y8c ff3 fs7 fc2 sc0 ls4 ws9">Proposal writing<span class="_ _0"></span>
+                    </div>
+                    <div class="t m0 xe hf y8d ff3 fs7 fc2 sc0 ls4 ws9"> </div>
+                    <div class="t m0 x11 hf y8e ff4 fs7 fc3 sc0 ls4 ws4">*</spa class="ff3 lsa ws9"> <span
+                            class="fc2 ls4">Looking for proposal<span class="_ _0"></span>s on the daily a<span
+                                class="_ _0"></span>nd constantly.<span class="ff1 fc4"> </span></span></span></div>
+                    <div class="t m0 x11 hf y8f ff4 fs7 fc3 sc0 ls4 ws4">*</spa class="ff3 lsa ws9"> <span
+                            class="fc2 ls4"> Worked on GBV propo<span class="_ _0"></span>sal.<span class="ff1 fc4">
+                            </span></span></span></div>
+                    <div class="t m0 x11 hf y90 ff4 fs7 fc3 sc0 ls4 ws4">*</spa class="ff3 lsa ws9"> <span
+                            class="fc2 ls4"> Women vio<span class="_ _0"></span>lence proposal.<span class="ff1 fc4">
+                            </span></span></span></div>
+                    <div class="t m0 x11 hf y91 ff4 fs7 fc3 sc0 ls4 ws4">*</spa class="ff3 lsa ws9"> <span
+                            class="fc2 ls4">Iraq underage<span class="_ _0"></span> marriages proposal and
+                            planni<span class="_ _0"></span>ng a<span class="_ _1"></span>w<span
+                                class="_ _0"></span>areness talk groups to <span class="_ _1"></span>victi<span
+                                class="_ _0"></span>ms.<span class="ff1 fc4"> </span></span></span></div>
+                    <div class="t m0 x11 hf y92 ff4 fs7 fc3 sc0 ls4 ws4">*</spa class="ff3 lsa ws9"> <span
+                            class="fc2 ls4">Executive su<span class="_ _0"></span>mmaries for project finance
+                            prop<span class="_ _0"></span>osals.<span class="ff1 fc4"> </span></span></span></div>
+                    <div class="t m0 x11 hf y93 ff4 fs7 fc3 sc0 ls4 ws4">*</spa class="ff3 lsa ws9"> <span
+                            class="fc2 ls4">Communicating<span class="_ _0"></span> with others and making calls to
+                            collect da<span class="_ _0"></span>ta.<span class="ff1 fc4"> </span></span></span>
+                    </div>
+                    <div class="t m0 xe h5 y94 ff1 fs1 fc6 sc0 ls4 ws9"> </div>
+                    <div class="t m0 xe h5 y95 ff1 fs1 fc5 sc0 ls4 ws9">Genista Company<span class="_ _0"></span>
+                        -Trade- May<span class="_ _0"></span> 2015- June 2018 </div>
+                    <div class="t m0 xe h24 y96 ff3 fsc fc5 sc0 ls4 ws9">Amman, Jordan- Iraq<span class="_ _0"></span>
+                    </div>
+                    <div class="t m0 xe hf y97 ff3 fs7 fc2 sc0 ls4 ws9">Exclusive Deale<span class="_ _0"></span>rship
+                        /Self-<span class="_ _1"></span>employed<span class="_ _0"></span> </div>
+                    <div class="t m0 xe h24 y98 ff3 fsc fc2 sc0 ls4 ws9"> </div>
+                    <div class="t m0 xe hf y99 ff3 fs7 fc2 sc0 ls4 ws9">Started trade w<span class="_ _0"></span>ith
+                        Genista where they supply me wi<span class="_ _0"></span>th Sukar Banat wax and shea </div>
+                    <div class="t m0 xe hf y9a ff3 fs7 fc2 sc0 ls4 ws9">butter products an<span class="_ _0"></span>d
+                        then I would distrib<span class="_ _0"></span>ute them (as wholesal<span class="_ _0"></span>er)
+                        all over Iraq<span class="_ _1"></span> </div>
+                    <div class="t m0 xe hf y9b ff3 fs7 fc2 sc0 ls4 ws9">through my smaller distribu<span
+                            class="_ _0"></span>tors. </div>
+                    <div class="t m0 x8 hf y9c ff4 fs7 fc2 sc0 lsb">*<span class="ff3 ls4 ws9"> <span class="_ _3">
+                            </span>Daily basis co<span class="_ _0"></span>mm<span class="_ _1"></span>unication<span
+                                class="_ _0"></span> was a very important pilla<span class="_ _0"></span>r. <span
+                                class="_ _1"></span> </span></div>
+                    <div class="t m0 x8 hf y9d ff4 fs7 fc2 sc0 lsb">*<span class="ff3 ls4 ws9"> <span class="_ _3">
+                            </span>Keeping track of the prod<span class="_ _0"></span>ucts and stay in<span
+                                class="_ _0"></span> constant feedback from the custo<span class="_ _0"></span>mers and
+                            the </span></div>
+                    <div class="t m0 x9 hf y9e ff3 fs7 fc2 sc0 ls4 ws9">distributors. </div>
+                    <div class="t m0 x8 hf y9f ff4 fs7 fc2 sc0 lsb">*<span class="ff3 ls4 ws9"> <span class="_ _3">
+                            </span>Making my own feasibi<span class="_ _0"></span>lity studies and<span
+                                class="_ _0"></span> keeping record of my finances. </span></div>
+                    <div class="t m0 x8 hf ya0 ff4 fs7 fc2 sc0 lsb">*<span class="ff3 ls4 ws9"> <span class="_ _3">
+                            </span>Made my own <span class="_ _0"></span>m<span class="_ _1"></span>arket ca<span
+                                class="_ _0"></span>mpaigns. </span></div>
+                    <div class="t m0 xe h24 ya1 ff3 fsc fc2 sc0 ls4 ws9"> </div>
+                    <div class="t m0 xe h24 ya2 ff3 fsc fc2 sc0 ls4 ws9"> </div>
+                </div>
+                <div class="c x0 ya3 w15 h25">
+                    <div class="t m0 x2 h5 y40 ff3 fs1 fc0 sc0 ls4 ws9"> </div>
+                </div>
+                <div class="c x3 ya3 w7 h25">
+                    <div class="t m0 x2 h5 y40 ff3 fs1 fc0 sc0 ls4 ws9"> </div>
+                </div>
+            </div>
+            <div class="pi" data-data='{"ctm":[1.000000,0.000000,0.000000,1.000000,0.000000,0.000000]}'></div>
+        </div>
+        <div id="pf3" class="pf w0 h0" data-page-no="3">
+            <div class="pc pc3 w0 h0"><img class="bi x0 y0 w1 h1" alt=""
+                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABKgAAAaVCAIAAACQxGAoAAAACXBIWXMAABYlAAAWJQFJUiTwAAAgAElEQVR42uzZsarCQBBA0azsZ6b3myTYJZCPXBwLmxCMoGKyrOdUEniDzNjclxQRHQAAAO06WQEAAIDwAwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAABA+AEAACD8AAAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAACD8AAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAIDwAwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAABA+AEAACD8AAAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAACD8AAACEHwAAAMIPAAAA4QcAAMBvZSugPZdxfHw49/3TJ7eIYZqWT0op13lePvlgyIuxW0Pe+m71DPlmS/UMcS/3ci/32hoC0B5v/PjL331K63+B5Pz9kB+NNcS9DLEl9zp2CIDwAwAAoHYpImwBAACgYd74AQAACD8AAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAIDwAwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAABA+AEAACD8AAAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAACD8AAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAADCzwoAAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAACD8AAAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAAAQfgAAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAACD8AAAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAIQfAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAACD8AAAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAACD8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAIQfAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAAIDwAwAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAACD8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAIQfAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAAOEHAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAAIDwAwAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAACD8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAIQfAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAAOEHAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAAIDwAwAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAAAg/KwAAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAIQfAAAAwg8AAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAIPwAAAIQfAAAAwg8AAADhBwAAwM6yFbCbyzg+Ppz7vuu6W8QwTcsnpZTrPC+frP5ktyEvxm4Neeu71TPk8FW7l3u5l3s1cC+A+nnjx3E/vpTW/4fIuZIhNX83Q9zLvQxxr9qGAAg/AAAADpYiwhYAAAAa5o0fAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAACD8AAAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAIQfAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAACD8rAAAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAAOEHAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAAIDwAwAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAACD8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAIQfAAAAwg8AAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAAOEHAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAAIDwAwAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAIQfAAAAwg8AAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAAOEHAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAIQfAAAAwg8AAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAIQfAAAAwg8AAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAgPCzAgAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAIDwAwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAABA+AEAACD8AAAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAAAQfgAAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAACD8AAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAIDwAwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAABA+AEAACD8AAAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAAAQfgAAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAACD8AAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAIDwAwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAACD8AAAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAAAQfgAAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAACD8AAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAACD8AAAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAAAQfgAAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAACD8AAAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAIQfAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAACD8AAAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAAws8KAAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAACD8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAIQfAAAAwg8AAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAAOEHAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAAIDwAwAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAACD8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAIQfAAAAwg8AAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAAOEHAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAACD8AAACEH/f269iIQRAAw+gfjlhnHediKxZxkAySFMEzKTy1SvNeIx6IHN0HAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAIQfAAAAwg8AAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAIQfAAAAwg8AAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAgPBzBQAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAACD8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAIQfAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAAOEHAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAAIDwAwAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAACD8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAIQfAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAAOEHAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAAIDwAwAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAACD8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAIQfAAAAwg8AAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAAOEHAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAAIDwAwAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAIQfAAAAwg8AAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAAOEHAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAIQfAAAAwg8AAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAIQfAAAAwg8AAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAACD8AAAAhJ8rAAAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAAAg/AAAAhB8AAADCDwAAAOEHAACA8AMAAED4AQAAIPwAAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAACD8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAIQfAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAQPgBAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAAIDwAwAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAAAg/AAAAhB8AALUv1nkAAAEKSURBVADCDwAAAOEHAACA8AMAAED4AQAAIPwAAACEHwAAAMIPAAAA4QcAAIDwAwAAQPgBAAAg/AAAABB+AAAACD8AAADhBwAAgPADAABA+AEAACD8AAAAEH4AAAAIPwAAAIQfAACA8AMAAED4AQAAIPwAAAAQfgAAAAg/AAAAhB8AAADCDwAAAOEHAAAg/AAAABB+AAAACD8AAACEHwAAAMIPAAAA4QcAAIDwAwAAEH4AAAAIPwAAAIQfAAAAwg8AAADhBwAAgPADAABA+AEAAAAAAPA/5VGTJK8vc/l9P7Kuv/rdGcv93J592l/3rNfP1WrSapLxbDWZyzZebp89M8Z92uba+F8vyRspUprpNWhAPAAAAABJRU5ErkJggg==" />
+                <div class="c x0 y4e w14 h0">
+                    <div class="t m0 x12 hf ya4 ff3 fs7 fc2 sc0 ls4 ws9"> </div>
+                    <div class="t m0 x12 hf ya5 ff1 fs7 fc4 sc0 ls4 ws9"> </div>
+                    <div class="t m0 xe h26 ya6 ff3 fsd fc3 sc0 ls4 ws9"> </div>
+                    <div class="t m0 xe h26 ya7 ff3 fsd fc3 sc0 ls4 ws9"> </div>
+                    <div class="t m0 xe h27 ya8 ff3 fse fc3 sc0 lsc ws9"> <span class="fs3 ls4">Participated in
+                            leadership m<span class="_ _1"></span>ini camp at the<span class="_ _1"></span> choueifat
+                            school 2010, <span class="_ _1"></span>Certified from<span class="_ _1"></span> the
+                            student<span class="_ _1"></span> <span class="_ _1"></span>life organisation<span
+                                class="_ _1"></span> of </span></div>
+                    <div class="t m0 xe h7 ya9 ff3 fs3 fc3 sc0 ls4 ws9">choueifat. </div>
+                    <div class="t m0 xe h7 yaa ff3 fs3 fc3 sc0 ls8 ws9"> <span class="ls4">Organised a clean<span
+                                class="_ _1"></span>ing cam<span class="_ _1"></span>paign as head <span
+                                class="_ _1"></span>of social responsib<span class="_ _1"></span>ilty for the c<span
+                                class="_ _1"></span>houeifat school 201<span class="_ _1"></span>1. <span
+                                class="_ _1"></span> </span></div>
+                    <div class="t m0 xe h7 yab ff3 fs3 fc3 sc0 ls4 ws9"> Certifícate of apprec<span
+                            class="_ _1"></span>iation for being an <span class="_ _1"></span>active student <span
+                            class="_ _1"></span>at social acitivties at the stu<span class="_ _1"></span>dent life
+                        organisat<span class="_ _1"></span>ion of choueif<span class="_ _1"></span>at </div>
+                    <div class="t m0 xe h7 yac ff3 fs3 fc3 sc0 ls4 ws9">2012. </div>
+                    <div class="t m0 xe h23 yad ff3 fsb fc3 sc0 ls4 ws9"> </div>
+                </div>
+                <div class="c x13 yae w16 h28">
+                    <div class="t m0 x2 h5 yaf ff3 fs1 fc0 sc0 ls4 ws9"> </div>
+                </div>
+                <div class="c x14 yae w17 h28">
+                    <div class="t m0 x2 h5 yb0 ff1 fs1 fc2 sc0 ls4 ws0">EDUCA<span class="_ _0"></span>TI</div>
+                    <div class="t m0 x2 h5 yb1 ff1 fs1 fc2 sc0 lse wsa">ON<span class="ff3 ls4 ws9"> </span></div>
+                </div>
+                <div class="c x15 yb2 w18 h29">
+                    <div class="t m0 x2 hd yf ff3 fs6 fc0 sc0 ls4 ws9"> </div>
+                </div>
+                <div class="c x15 yae w18 h2a">
+                    <div class="t m0 x2 hd yb3 ff3 fs6 fc0 sc0 ls4 ws9"> </div>
+                    <div class="t m0 x2 hd yb4 ff3 fs6 fc0 sc0 ls4 ws9"> </div>
+                    <div class="t m0 x2 h7 yb5 ff1 fs3 fc2 sc0 ls4 ws9"> MB<span class="_ _1"></span>A<span
+                            class="_ _0"></span>-<span class="ff2">M<span class="_ _1"></span>ASTER'S IN
+                            BUS</span>I<span class="_ _1"></span>NESS ADMINST<span class="_ _1"></span>RATION <span
+                            class="ff3 fs6 fc0"> </span></div>
+                    <div class="t m0 x2 hd yb6 ff3 fs6 fc0 sc0 ls4 ws9"> </div>
+                    <div class="t m0 x2 h7 yb7 ff3 fs3 fc3 sc0 ls4 ws9"> UNIVERSIT<span class="_ _1"></span>Y OF THE
+                        PEOPLE <span class="_ _1"></span> </div>
+                    <div class="t m0 x2 h7 yb8 ff3 fs3 fc7 sc0 ls4 ws9">595 E Colorado Blvd<span class="_ _1"></span>
+                        Suite 623, Pasa<span class="_ _1"></span>dena, CA 91101,<span class="_ _1"></span> United </div>
+                    <div class="t m0 x2 h7 yb9 ff3 fs3 fc7 sc0 ls4 ws7">States<span class="fc0 ws9"> </span></div>
+                    <div class="t m0 x2 hd yba ff3 fs6 fc0 sc0 ls4 ws9"> </div>
+                    <div class="t m0 x2 h7 ybb ff3 fs3 fc2 sc0 ls4 ws9">in progress 2020-<span class="_ _1"></span>2021
+                    </div>
+                    <div class="t m0 x2 hd y1c ff3 fs6 fc0 sc0 ls4 ws9"> </div>
+                    <div class="t m0 x2 hd y58 ff3 fs6 fc0 sc0 ls4 ws9"> </div>
+                </div>
+                <div class="c x0 y4e w14 h0">
+                    <div class="t m0 xe h5 ybc ff3 fs1 fc3 sc0 ls4 ws9"> <span class="_ _0"></span> <span
+                            class="ff1 fs3 fc2">B<span class="_ _1"></span>A<span class="_ _0"></span>CHELO<span
+                                class="_ _1"></span>R DEGREE </span></div>
+                </div>
+                <div class="c x16 ybd w8 h20">
+                    <div class="t m0 x2 h14 y8 ff3 fs3 fc3 sc0 ls4 ws9">INTERNATIO<span class="_ _1"></span>NAL
+                        UNIVERSIT<span class="_ _1"></span>Y OF ERBIL <span class="_ _1"></span><span
+                            class="ff5 lsd">-</span> </div>
+                </div>
+                <div class="c x16 ybe w8 h20">
+                    <div class="t m0 x2 h7 y8 ff3 fs3 fc2 sc0 ls4 ws9">Erbil, Iraq </div>
+                </div>
+                <div class="c x16 ybf w8 h2b">
+                    <div class="t m0 x2 h7 yc0 ff3 fs3 fc2 sc0 ls4 ws9">MAJOR: GENERAL <span
+                            class="_ _1"></span>MANAGEMENT<span class="_ _1"></span> 2.79 GPA.<span class="_ _1"></span>
+                    </div>
+                    <div class="t m0 x2 h7 yc1 ff3 fs3 fc2 sc0 ls4 ws9"> </div>
+                    <div class="t m0 x2 h7 yc2 ff1 fs3 fc2 sc0 ls4 ws9">High School Degree<span class="_ _1"></span>
+                        <span class="_ _1"></span>And Certification </div>
+                    <div class="t m0 x2 h7 yc3 ff1 fs3 fc2 sc0 ls4 ws9"> </div>
+                    <div class="t m0 x2 h7 yc4 ff3 fs3 fc2 sc0 ls4 ws9">INTERNATIO<span class="_ _1"></span>NAL
+                        SCHOOL<span class="_ _1"></span> OF CHOUEIFAT<span class="_ _1"></span> </div>
+                    <div class="t m0 x2 h7 yc5 ff3 fs3 fc2 sc0 ls4 ws9">GPA 3.1 </div>
+                    <div class="t m0 x2 h7 yc6 ff3 fs3 fc2 sc0 ls4 ws9">SAT, O-LEVEL (BU<span class="_ _1"></span>SINESS
+                        ST<span class="_ _1"></span>UDIES, ECONOMI<span class="_ _1"></span>CS &amp; ENGLIS<span
+                            class="_ _1"></span>H) CAMBRID<span class="_ _1"></span>GE </div>
+                    <div class="t m0 x2 h7 y42 ff3 fs3 fc2 sc0 ls4 ws9">CERTIFIED, &amp; T<span
+                            class="_ _1"></span>OFEL. </div>
+                    <div class="t m0 x2 h7 y43 ff3 fs3 fc2 sc0 ls4 ws9"> </div>
+                    <div class="t m0 x2 h7 y8 ff3 fs3 fc2 sc0 ls4 ws9"> </div>
+                </div>
+                <div class="c x0 y4e w14 h0">
+                    <div class="t m0 xe h23 yc7 ff3 fsb fc3 sc0 ls4 ws9"> </div>
+                </div>
+                <div class="c x17 yc8 w19 h2c">
+                    <div class="t m0 x2 h5 yc9 ff1 fs1 fc2 sc0 ls4 ws9">COURSES<span class="_ _0"></span> &amp; </div>
+                    <div class="t m0 x2 h5 y4 ff1 fs1 fc2 sc0 ls4 ws0">WORKSHOPS<span class="_ _0"></span><span
+                            class="ff3 ws9"> </span></div>
+                </div>
+                <div class="c x3 yc8 w7 h2c">
+                    <div class="t m0 x2 h5 yca ff3 fs1 fc0 sc0 ls4 ws9"> </div>
+                </div>
+                <div class="c x16 ycb w8 h2d">
+                    <div class="t m0 x2 h27 ycc ff1 fse fc2 sc0 ls4 ws9"> </div>
+                </div>
+                <div class="c x16 y1 w8 h17">
+                    <div class="t m0 x2 h5 ycd ff1 fs1 fc6 sc0 ls4 ws9">BRITISH<span class="_ _0"></span> COUNCEL <span
+                            class="ff2 ws0">-</span> <span class="lsf wsb">2006</span> </div>
+                </div>
+                <div class="c x16 yce w8 h2e">
+                    <div class="t m0 x2 h24 ycf ff3 fsc fc2 sc0 ls4 ws9">Amman, Jordan </div>
+                </div>
+                <div class="c x16 yd0 w8 h17">
+                    <div class="t m0 x2 h5 y4 ff3 fs1 fc2 sc0 ls4 ws9">Principles o<span class="_ _0"></span>f English
+                        certified fro<span class="_ _0"></span>m B.C. </div>
+                </div>
+            </div>
+            <div class="pi" data-data='{"ctm":[1.000000,0.000000,0.000000,1.000000,0.000000,0.000000]}'></div>
+        </div>
+    </div>
+    <div class="loading-indicator">
+        <img alt=""
+            src="data:image/png;base64,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" />
+    </div>
+</body>
+
+</html>

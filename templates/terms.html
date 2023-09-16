@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load countries %}
+{% get_current_language as CURRENT_LANGUAGE %}
+{% get_available_languages as AVAILABLE_LANGUAGES %}
+{% get_language_info_list for AVAILABLE_LANGUAGES as languages %}
+{% block content %}
+{% load static %}
+<div class="main">
+    <!-- =============== Start of Page Header 1 Section =============== -->
+    <section class="page-header ">
+        <div class="container">
+            <!-- Start of Page Title -->
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>{% trans 'Policy for terms of use for both employees and employers.' %}</h2>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- =============== End of Page Header 1 Section =============== -->
+    <!-- ===== Start of Main Wrapper Section ===== -->
+    <section class="ptb80">
+        <div class="container">
+            <div class="col-md-12">
+                <ul style="list-style:decimal">
+
+                    <p>{% trans 'This document explains the terms and circumstances under which employiq.net. (the portal) permits you to access and use the (employiq.net) website. You (User) accept and agree to be bound by the terms of these Terms and Conditions by using the Web Site. Please take your time reading this page. Do not use the Web Site or service if you do not agree to the Terms & Conditions indicated below. All individuals and/or entities accessing the Web Site for any reason are referred to as you or User in this document.' %}
+                    </p>
+                    <li>
+                        <h4 class="ptb20">{% trans 'Material and Web Site Use' %}</h4>
+                        <p>{% trans "The portal grants you permission to view and download a single copy of the material on the Web Site for personal, noncommercial use only. This license to use the Web Site and the Material does not imply that the owner's rights are being sold. You may only use the Web Site, and you may not rent, lease, lend, sub-license, or transfer the Web Site, any data stored on it, or any of your rights under this agreement to anyone else. Any data in machine-readable or other form that integrates or utilizes any substantial element of the Web Site may not be developed or derived for commercial sale. You are not permitted to transfer or store any data that is stored or exchanged via the Internet." %}
+                        </p>
+                    </li>
+                    <li>
+                        <h4 class="ptb20">{% trans 'Security Guidelines for Websites' %}</h4>
+                        <p>{% trans "Users are prohibited from violating or attempting to violate the Web Site's security, including but not limited to: (a) accessing data not intended for such user or logging into a server or account that the user is not authorized to access; (b) attempting to probe, scan, or test the vulnerability of a system or network or to breach security or authentication measures without proper authorization; and (c) attempting to disrupt service to any user, host, or network." %}
+                        </p>
+                        <p>{% trans "System or network security violations may result in legal or criminal responsibility. The platform will look into any incidents that may include such violations, and it may involve and assist with law enforcement agencies in prosecuting users who are involved in such violations." %}
+                        </p>
+                    </li>
+                    <li>
+                        <h4 class="ptb20">{% trans 'Uses That Are Prohibited' %}</h4>
+                        <p>{% trans "Individuals seeking employment and career information, as well as employers seeking employees, may only use the Web Site for legitimate purposes. You agree that you will not use the Web Site for any purpose or in any manner that is forbidden by these terms, restrictions, and notices (or plan, encourage, or assist others in doing so)." %}
+                        </p>
+                        <p>{% trans "Employ Iraq expressly forbids any use of the Web Site for any of the following purposes, and all users agree not to use the Web Site for any of the following purposes: (a) Posting any biographical information that is incomplete, incorrect, or inaccurate, or anything that is not your own accurate résumé (living individual seeking employment on a full-time or part-time basis on his or her own behalf). (b) Falsely asserting or otherwise misrepresenting your relationship with a person or entity, including but not limited to a Company official, forum leader, guide, or host. (c) Posting or transmitting any content to which you do not have a legal, contractual, or fiduciary right to reproduce, display, or transmit (such as nondisclosure agreements). (e) Posting or distributing any unsolicited advertising, promotional materials, junk mail, spam, chain letters, pyramid schemes, or any other type of solicitation, as well as any non-resume information, such as opinions or notices, whether commercial or otherwise. (g) Interfering or attempting to interfere with the proper functioning of the Web Site or any activity conducted on this site by using any device, program, or routine. (l) Transmitting, posting, distributing, or storing any, information, data, text, software, or images, or other materials (Content) that is unlawful, harmful, threatening, abusive, harassing, tortuous, defamatory, vulgar, obscene, sexually-explicit, libelous, hateful, racially offensive, or otherwise, O) If you have a password allowing access to a non-public area of the Web Site, (m) Posting or distributing any Content containing viruses or corrupted data, Trojan horses, worms, time bombs, cancelbots, or other computer programming routines or engines designed to harm, detrimentally interfere with, secretly intercept, or expropriate any system, data, or information. (q) Responding to any job posting on the Website for any reason other than to apply for the position. Communications from our competitors soliciting the employer's business are banned. (r) Printing, copying, or using personally identifiable information about employees or business information about employers in any form. Unsolicited e-mail, phone calls, mailings, or other forms of communication with individuals or businesses listed on this site are forbidden. (s) Attempting to resell or assign your rights or responsibilities under these Terms and Conditions of Use. (t) Using the Web Site in an unauthorized manner. u) Breaking any municipal, state, national, or international law or regulation." %}
+                        </p>
+                    </li>
+                    <li>
+                        <h4 class="ptb20">{% trans 'Information about the user' %}</h4>
+                        <p>{% trans "You will be required to provide the portal with certain information about yourself as part of your registration for the Web Site, including, without limitation, a valid e-mail address (your Information). You acknowledge and agree that the portal may release to third parties, on an anonymous basis, any aggregate information contained in your registration application, in addition to the rules of any privacy policy stated on the Web Site. Except as required by relevant laws or in legal procedures, the portal will not reveal your name, address, e-mail address, or telephone number to any third party without your explicit agreement. The platform reserves the right to provide you with third-party services." %}
+                        </p>
+                    </li>
+                    <li>
+                        <h4 class="ptb20">{% trans 'Monitoring' %}</h4>
+                        <p>{% trans "The portal is only a gateway for the distribution and publication of user-submitted content, with no need to check or monitor it. If EmployIQ is notified by a user of material that purportedly violates these Terms and Conditions, the portal may examine the allegation and decide whether to remove or request the removal of the communication in good faith and at its sole discretion. For the performance or nonperformance of such activities, the website bears no duty or responsibility to users. The portal reserves the right to (a) expel users and prevent further access to the Web Site for violating these Terms and Conditions or the law, (b) remove profiles that are abusive, illegal, or disruptive, or (c) take any action with respect to user-submitted material that it deems necessary or appropriate in its sole discretion if it believes it may cause the portal to suffer liability or lose (in whole or in part) the services of its licensors." %}
+                        </p>
+                    </li>
+                    <li>
+                        <h4 class="ptb20">{% trans 'Links to Other Sites' %}</h4>
+                        <p>{% trans "There are links or other connections to third-party websites on the Web Site. The platform provides these links to you as a courtesy and does not support or accept responsibility for the contents of any connected sites. Furthermore, the portal is not liable for any viruses that may be accessed via third-party. You do so at your own risk if you decide to visit any of the linked third-party Web sites." %}
+                        </p>
+                    </li>
+                    <li>
+                        <h4 class="ptb20">{% trans 'Registration and Password' %}</h4>
+                        <p>{% trans "You are solely responsible for the security of your information and password. You are responsible for any and all uses and activities that occur under your password, whether or not you authorized them. You undertake to alert the platform promptly if your registration or password is used without your permission. The platform will not be liable for any loss or damages caused by someone else using your registration or password without your permission." %}
+                        </p>
+                    </li>
+                    <li>
+                        <h4 class="ptb20">{% trans "The Portal's Liability" %}</h4>
+                        <p>{% trans "The Web Site provides a platform for employers to post job openings and candidates to publish profiles, but it does not screen or censor the listings. The portal is not a party to the actual transaction between employers and job applicants. As a result, the portal has no control over the quality, safety, or legality of the jobs, profiles, or other material posted, the accuracy of the postings, employers' capacity to offer candidates job opportunities, or candidates' ability to fill job openings. You understand and agree that you are solely responsible for the form, content, and accuracy of any profile or other material you submit to the Web Site. Employers are solely responsible for their Web Site postings. The portal disclaims all liability for any content on the Web Site that is objectionable, harmful, or inaccurate. Furthermore, the portal is unable to verify that each user is who they claim to be." %}
+                        </p>
+                        <p>{% trans "With respect to your use of the Web Site, the portal is not an employer, and the portal is not liable for any employment decisions made by any business posting jobs on the Web Site. We offer no guarantees that you will find work through the Web Site, and we also make no guarantees concerning (and accept no responsibility for) any job you may find. If you have a disagreement with another user, you agree to release the portal, its agents, and employees from any and all claims, demands, and damages (actual and consequential, direct and indirect), known and unknown, arising out of or in any way related with such disputes." %}
+                        </p>
+                        <p>{% trans "THE PLATFORM DOES NOT WARRANT THAT THE WEB SITE WILL BE ERROR-FREE OR THAT THE WEB SITE AND ITS SERVER (OR ANY SOFTWARES AND MATERIALS AVAILABLE THROUGH THE WEB SITE) ARE FREE OF COMPUTER VIRUSES OR OTHER HARMFUL MECHANISMS. THE PORTAL IS NOT RESPONSIBLE FOR ANY COSTS INCURRED AS A RESULT OF YOUR USE OF THE WEB SITE OR THE MATERIAL, INCLUDING SERVICING OR REPLACING EQUIPMENT OR DATA." %}
+                        </p>
+                    </li>
+                    <li>
+                        <h4 class="ptb20">{% trans "Termination and Equitable Relief" %}</h4>
+                        <p>{% trans "If you violate these Terms and Conditions, or if the platform is unable to verify or authenticate any information you submit, the portal may pursue all remedies available to it, including, but not limited to, removing your postings from the Web Site and/or terminating your registration or ability to access the Web Site or any other service provided to you. The platform has the right to stop or terminate your access to the Web Site at any time without notice, as well as to discontinue or modify any of the Web Site's information or the Web Site itself. You accept and agree that, due to the nature of these Terms and Conditions, the platform will be entitled to reparation in an equitable manner." %}
+                        </p>
+                    </li>
+                    <li>
+                        <h4 class="ptb20">{% trans "Protection" %}</h4>
+                        <p>{% trans "You agree to defend, indemnify, and hold the portal, its officers, directors, employees, and agents harmless from and against any claims, actions, or demands, including without limitation reasonable legal and accounting fees, alleging or resulting from your use of the Material, your breach of these Terms and Conditions, your representations and warranties, or your violation of any third-party rights, including without limitation any proprietary or intellectual property rights." %}
+                        </p>
+                    </li>
+                    <li>
+                        <h4 class="ptb20">{% trans "Payment and Cancellation" %}</h4>
+                        <p>
+                            <ul style="list-style:disc">
+                                <li>{% trans "Services: EmployIQ offers a variety of services, all prices are in US dollars." %}
+                                </li>
+                                <li>{% trans "Payment: Prior to the start of the Service, Customer must pay in full for the chosen subscription. The payments made here are non-refundable." %}
+                                </li>
+                                <li>{% trans "Customer payment personal Information: The information gathered does not include customer payment information. None of your electronic payment method information will be saved, sold, shared, rented, or leased to anyone else." %}
+                                </li>
+                            </ul>
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <!-- ===== End of Main Wrapper Section ===== -->
+</div>
+{% endblock %}

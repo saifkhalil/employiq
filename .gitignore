@@ -1,0 +1,10 @@
+.idea
+.vscode
+logs/
+media/
+photos/
+venv/
+settings.py
+accounts/migrations
+candidate/migrations
+employer/migrations
