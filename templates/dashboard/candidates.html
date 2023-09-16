@@ -1,0 +1,146 @@
+{% extends "dashboard/dashboard.html" %}{% load i18n %} {% block content %} {% load static %}
+<div class="tab-pane fade show active" id="Candidates" role="tabpanel" aria-labelledby="Candidates-tab">
+    <form method="GET">
+        <div class="row m-3">
+          <div class="col-md">
+            <div class="form-floating">
+              <input type="text" class="form-control" id="keywords" name="keywords" aria-describedby="search by email, employer" placeholder="search by email, employer" />
+              <label for="keywords">{% trans 'keywords' %}</label>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="form-floating">
+              <select class="form-control" placeholder="Number of records" id="number_of_records" name="number_of_records" aria-label="priority">
+                <option value="10">{% trans '10 records' %}</option>
+                <option value="25">{% trans '25 records' %}</option>
+                <option value="50">{% trans '50 records' %}</option>
+              </select>
+              <label for="id" class="form-label">{% trans 'Number of records' %}</label>
+            </div>
+          </div>
+        </div>
+        <div class="row m-3">
+          <div class="d-grid gap-2 col-2 mx-auto">
+            <button type="submit" name="search" value="search" class="btn btn-warning">
+              {% trans 'Search' %}
+            </button>
+          </div>
+          <div class="d-grid gap-2 col-2 mx-auto">
+            <button type="submit" name="clear" value="clear" class="btn btn-danger">
+              {% trans 'Clear' %}
+            </button>
+          </div>
+        </div>
+      </form>
+    <div class="card-block p-3">
+        <div class="table-responsive">
+            <table class="table" id="candidates_table">
+                <thead>
+                    <tr>
+                        <th>Photo</th>
+                        <th>Full Name</th>
+                        <th>User</th>
+                        <th>Phone</th>
+                        <th>Gender</th>
+                        <th>Marital status</th>
+                        <th>Date of birth</th>
+                        <th>Country of birth</th>
+                        <th>Place of birth</th>
+                        <th>Primary nationality</th>
+                        <th>Highest level of education</th>
+                        <th>Address</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for candidate in page_obj %}
+                    <tr>
+                        <td>{% if candidate.photo %}
+                            <a href="{{ candidate.photo.url }}" target="_blank">
+                                <img src="{{ candidate.photo.url }}" alt="" height="50px"></a>
+                            {% else %}
+                            <img src="{% static 'images/photos/default.jpg' %}" alt="" height="50px"></a>
+                            {% endif %}
+                        </td>
+                        <td> <a href="{% url 'candetials' candidate.id %}" target="_blank">
+                {{ candidate.firstname }}
+                {{ candidate.secondname }}
+                {{ candidate.lastname }}</a></td>
+                        <td>{% if candidate.user %} {{ candidate.user }}{% endif %}
+                        </td>
+                        <td>
+                            {{ candidate.phone_number }}
+                        </td>
+                        <td>
+                            {{ candidate.get_gender_display }}
+                        </td>
+                        <td>
+                            {{ candidate.marital_status }}
+                        </td>
+                        <td>
+                            {{ candidate.birthofdate }}
+                        </td>
+                        <td>
+                            {{ candidate.get_country_of_birth_display }}
+                        </td>
+                        <td>
+                            {{ candidate.place_of_birth }}
+                        </td>
+                        <td>
+                            {{ candidate.get_primary_nationality_display }}
+                        </td>
+                        <td>
+                            {{ candidate.get_highest_level_of_education_display }}
+                        </td>
+                        <td>
+                            {{ candidate.address1 }}
+                        </td>
+                        <td>{% if candidate.user %} {% if candidate.user.is_blocked %}
+                            <span class="label label-danger">Blocked</span> {% else %}
+                            <span class="label label-success ">Active</span> {% endif %}
+                        </td>
+                        <td>{% if not candidate.user.is_blocked %} <a class="btn btn-danger btn-sm" href="{% url 'block_user' candidate.user.id %}">Block</a> {% else %}
+                            <a class="btn btn-success btn-sm" href="{% url 'unblock_user' candidate.user.id %}">Unblock</a> {% endif %}{% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="row justify-content-center mt30 ">
+            <nav aria-label="Page navigation ">
+                <ul class="pagination justify-content-center flex-wrap mt-2 mb-4">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item"><a class="btn btn-sm btn-warning" href="?page={{ page_obj.previous_page_number }}">«</a></li>
+                    {% else %}
+                    <li class="disabled page-item"><span class="btn btn-sm btn-light">&laquo;</span></li>
+                    {% endif %} {% for i in page_range|default_if_none:page_obj.paginator.get_elided_page_range %} {% if page_obj.number == i %}
+                    <li class="active page-item"><span class="btn btn-sm btn-light">
+              {{ i }}</span>
+                    </li>
+                    {% else %} {% if i == page_obj.paginator.ELLIPSIS %}
+                    <li class="page-item"><span class="btn btn-sm btn-light">
+              {{ i }}</span></li>
+                    {% else %}
+                    <li class="page-item"><a class="btn btn-sm btn-warning" href="?page={{ i }}">
+              {{ i }}</a></li>
+                    {% endif %} {% endif %} {% endfor %} {% if page_obj.has_next %}
+                    <li class="page-item"><a class="btn btn-sm btn-warning" href="?page={{ page_obj.next_page_number }}">»</a></li>
+                    {% else %}
+                    <li class="disabled page-item"><span class="btn btn-sm btn-light">&raquo;</span></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var srchval = JSON.parse('{{ session | escapejs }}');
+    window.addEventListener('load', function() {
+      // document.getElementById('cm').classList.add('active');
+      document.getElementById('number_of_records').value = srchval[1];
+      document.getElementById('keywords').value = srchval[0];
+    })
+  </script>
+{% endblock %}

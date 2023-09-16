@@ -5,10 +5,24 @@
 {% get_available_languages as AVAILABLE_LANGUAGES %}
 {% get_language_info_list for AVAILABLE_LANGUAGES as languages %}
 {% block content %}
+{% load humanize %}
 {% load static %}
+
 <!-- ===== Start of Main Search Section ===== -->
 <section class="main overlay-black">
-
+        {% if messages %}
+        <div class="row justify-content-center">
+            <div class="col-8">
+                {% for message in messages %}
+                <div
+                    class="alert {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %} alert-danger {% else %} alert-success {% endif %} alert-dismissible fade show">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
     <!-- Start of Wrapper -->
     <div class="container wrapper">
 
@@ -87,7 +101,8 @@
 <!-- ===== Start of Pricing Tables Section ===== -->
 <section class="pricing-tables pb40 pt30">
     <div class="section-title">
-        <h2>{% trans 'pricing table' %}</h2>
+        <h2>{% trans 'Employer pricing table' %}</h2>
+        
     </div>
 <div class="container-fluid">
     <div class="row justify-content-center">
@@ -95,22 +110,23 @@
         <div class="col-md-3 col-xs-12 mt80 mb20">
             <div class="pricing-table shadow-hover" {% if price.plan == 'Premium' %}id="popular" {% endif %}>
                 <div class="pricing-header">
-                    <h2>{{ price.plan }}</h2>
+                    <h2>{% blocktrans %}{{ price.plan }}{% endblocktrans %}</h2>
                 </div>
                 <div class="pricing">
                     <div class="row">
-                        <span class="amount">{{ price.price }} $</span>
+                        <span class="amount">{% if price.prirce|add:"0" == 0 %}Free{% else %}{{ price.price|intcomma }} {% trans 'IQD' %}{% endif %}</span>
                     </div>
                     <span
-                        class="month">{% if price.days == 30 %}{% trans 'Monthly' %}{% elif  price.days == 365 %}{% trans 'Annual' %}{% endif %}</span>
+                        class="month">{% if price.days == 30 %}{% trans 'Monthly' %}{% elif  price.days == 365 %}{% trans 'Annual' %}{% else %}{% blocktrans %}Unlimited{% endblocktrans %}{% endif %}</span>
                 </div>
                 <div class="pricing-body">
                     <ul class="list">
-                        <li>{% trans 'A post on website and social media' %}</li>
-                        <li>{% trans 'Unlimit applications through email' %}</li>
+                        {% for feature in price.features.all %}
+                        <li>{% trans feature.feature %}</li>
+                        {% endfor %}
                         <li>{% if price.jobs == 99999 %}{% trans 'Unlimited' %}
                             {% else %}{{ price.jobs }}
-                            {% endif %} jobs posts</li>
+                            {% endif %} {% trans 'jobs posts' %}</li>
                         <li>{% if price.suggestions == 99999 %}{% trans 'Unlimited' %}
                             {% else %}{{ price.suggestions }}
                             {% endif %}{% trans 'database suggestions' %}</li>
@@ -120,14 +136,18 @@
 
                 <!-- Pricing Footer -->
                 <div class="pricing-footer">
+                    {% if price.is_active %}
                     {% if user.is_authenticated %}
                     {% if user.is_employer %} 
-                    <button id='subscription' apilink="{% url 'employer_plan' price.id %}" class="btn btn-blue btn-effect">Subscribe now for free</button>
+                    <a id='subscription' href="{% url 'employer_plan' price.id %}" class="btn btn-blue btn-effect">{% trans 'Subscribe now' %}</a>
                     {% else %}
-                    <a class="btn btn-blue btn-effect" href="{% url 'employer_create' %}">Subscribe now for free</a>
+                    <a class="btn btn-blue btn-effect" href="{% url 'employer_create' %}">{% trans 'Subscribe now' %}</a>
                     {% endif %}
                     {% else %}
-                    <a class="btn btn-blue btn-effect" href="{% url 'login' %}">Subscribe now for free</a>
+                    <a class="btn btn-blue btn-effect" href="{% url 'login' %}">{% trans 'Subscribe now' %}</a>
+                    {% endif %}
+                    {% else %}
+                    <a class="btn btn-gray btn-effect" href="#">{% trans 'Coming soon' %}</a>
                     {% endif %}
                 </div>
 
@@ -148,26 +168,26 @@
 
             <!-- 1st Count up item -->
             <div class="col-md-3 col-sm-3 col-xs-12">
-                <span class="counter" data-from="0" data-to="{{active_users_count}}"></span>
-                <h4>members</h4>
+                <span class="counter" data-from="0" data-to="{{ activeUsersCount }}"></span>
+                <h4>{% trans 'members' %}</h4>
             </div>
 
             <!-- 2nd Count up item -->
             <div class="col-md-3 col-sm-3 col-xs-12">
-                <span class="counter" data-from="0" data-to="{{jobs_count}}"></span>
-                <h4>jobs</h4>
+                <span class="counter" data-from="0" data-to="{{ jobs_count }}"></span>
+                <h4>{% trans 'jobs' %}</h4>
             </div>
 
             <!-- 3rd Count up item -->
             <div class="col-md-3 col-sm-3 col-xs-12">
-                <span class="counter" data-from="0" data-to="{{candidates_count}}"></span>
-                <h4>resumes</h4>
+                <span class="counter" data-from="0" data-to="{{ candidates_count }}"></span>
+                <h4>{% trans 'resumes' %}</h4>
             </div>
 
             <!-- 4th Count up item -->
             <div class="col-md-3 col-sm-3 col-xs-12">
-                <span class="counter" data-from="0" data-to="{{employers_count}}"></span>
-                <h4>companies</h4>
+                <span class="counter" data-from="0" data-to="{{ employers_count }}"></span>
+                <h4>{% trans 'companies' %}</h4>
             </div>
 
         </div>
@@ -180,7 +200,7 @@
 <section class="ptb40" id="partners">
     <div class="container">
         <div class="section-title">
-            <h2>{% trans 'Our Employers' %}</h2>
+            <h2>{% trans 'Our newest employers' %}</h2>
         </div>
         <!-- Start of Owl Slider -->
         <div class="owl-carousel partners-slider owl-loaded owl-drag">
