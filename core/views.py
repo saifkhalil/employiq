@@ -15,7 +15,7 @@ from django.contrib.auth.decorators import user_passes_test
 import geoip2.database
 from django.db.models import Q
 from django.utils import timezone
-
+from core.payment_api import payment_check
 
 def get_client_ip(request):
     """  Getting client Ip  """
