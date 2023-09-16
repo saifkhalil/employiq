@@ -4,7 +4,7 @@ from django.template import loader
 from django.core.paginator import Paginator
 import json
 from candidate.models import candidate
-from employer.models import Subscription, employer, subscription_plan
+from employer.models import Subscription, employer, subscription_plan, Checkout
 from django.core.exceptions import ObjectDoesNotExist
 from django.urls import reverse_lazy
 import urllib
@@ -14,6 +14,7 @@ from django.db.models import Count
 from django.contrib.auth.decorators import user_passes_test
 import geoip2.database
 from django.db.models import Q
+from django.utils import timezone
 
 
 def get_client_ip(request):
@@ -234,6 +235,20 @@ def home(request):
         }
         return redirect('/candidates/?' + urllib.parse.urlencode(context))
     else:
+        id = request.GET.get('id')
+        if id not in ('', None):
+            result = payment_check(id)
+            if request.get('result').get('code') == '000.100.110':
+                checkout = Checkout.objects.get(checkout_id=id)
+                checkout.payment_status = 'Paid'
+                end_date = timezone.now()+timedelta(days=checkout.plan.days)
+                subscription = Subscription(
+                    employer=checkout.employer,
+                    plan=checkout.plan,
+                    start_date=timezone.now(),
+                    end_date=end_date
+                )
+                subscription.save()
         employer_details = []
         users = User.objects.all()
         employers = employer.objects.all()
