@@ -449,7 +449,7 @@ LOGGING = {
     # },
     'loggers': {
         'django': {
-            'handlers': ['log', 'info', 'warning', 'error', 'critical'],
+            'handlers': ['log', 'info', 'warning', 'error',],
             'level': 'DEBUG',
             # 'filters': ['request'],
         }
@@ -477,12 +477,6 @@ LOGGING = {
             'level': 'ERROR',
             'class': 'logging.FileHandler',
             'filename': './logs/error.log',
-            'formatter': 'verbose',
-        },
-        'critical': {
-            'level': 'CRITICAL',
-            'class': 'logging.FileHandler',
-            'filename': './logs/critical.log',
             'formatter': 'verbose',
         }
 
