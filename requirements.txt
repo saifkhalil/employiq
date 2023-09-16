@@ -32,3 +32,4 @@ typing_extensions==4.1.1
 WeasyPrint==52.5
 xhtml2pdf==0.2.5
 django-environ
+geoip2

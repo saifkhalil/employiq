@@ -10,7 +10,6 @@ from weasyprint import HTML, CSS
 import tempfile
 from django.http.response import JsonResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
-from xhtml2pdf import context
 from .models import candidate, education, employment, language, certificate
 from accounts.models import User
 from employer.models import employer
