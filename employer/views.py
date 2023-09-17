@@ -432,7 +432,7 @@ def employer_checkout(request, cid):
         print(payment)
         if payment.get('result').get('code') == '000.200.000':
             context = {
-                'domain':current_site.domain,
+                'domain': current_site.domain,
                 'checkout_id': cid,
                 'employer': current_employer,
                 'checkout': checkout,
