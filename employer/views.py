@@ -35,6 +35,7 @@ from datetime import timedelta
 from datetime import datetime
 from django.template.loader import render_to_string
 from core.payment_api import checkout,payment_check
+from django.contrib.sites.models import Site
 # Create your views here.
 
 
@@ -427,9 +428,11 @@ def employer_checkout(request, cid):
         current_employer = employer.objects.get(user__id=request.user.id)
         checkout = Checkout.objects.get(checkout_id=cid)
         payment = payment_check(cid)
+        current_site = Site.objects.get_current()
         print(payment)
         if payment.get('result').get('code') == '000.200.000':
             context = {
+                'domain':current_site.domain,
                 'checkout_id': cid,
                 'employer': current_employer,
                 'checkout': checkout,
