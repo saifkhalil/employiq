@@ -589,13 +589,6 @@ class SubscriptionPlanCreateView(CreateView):
 class SubscriptionPlanUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView, ABC):
     model = subscription_plan
     template_name = 'employer/subscription/update_plan.html'
-    fields = ['plan', 'suggestions', 'jobs', 'price', 'days', 'features', 'is_active']
+    form_class = SubscriptionPlanForm
+    success_url = reverse_lazy('subscriptions_plan_list')
 
-    def form_valid(self, form):
-        return super().form_valid(form)
-
-    def get_success_url(self):
-        return reverse_lazy('subscriptions_plan_list')
-
-    def test_func(self):
-        return True
