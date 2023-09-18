@@ -467,7 +467,11 @@ def employer_plan(request, sid):
         employer_subscriptions = Subscription.objects.filter(
             employer__user=request.user).order_by('-created_at')
         if employer_subscriptions.count() > 0 and employer_subscriptions.first().is_active():
-            return JsonResponse({"data": f"You already subscribed with us with plan {employer_subscriptions.first().plan} end at {employer_subscriptions.first().end_date}"}, status=200)
+            messages.add_message(request, messages.INFO, f"You already subscribed with us with plan {employer_subscriptions.first().plan} end at {employer_subscriptions.first().end_date}")
+            return redirect(
+                reverse('home')
+            )
+            #return JsonResponse({"data": f"You already subscribed with us with plan {employer_subscriptions.first().plan} end at {employer_subscriptions.first().end_date}"}, status=200)
         else:
             plan = subscription_plan.objects.get(id=sid)
             check_result = checkout(plan.price)
