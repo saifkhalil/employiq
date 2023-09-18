@@ -195,7 +195,7 @@ def subscriptions_list(request):
         'page_obj': page_obj,
         'page_range': page_range,
     }
-    return render(request, 'dashboard/subscriptions.html', context)
+    return render(request, 'dashboard/employers_subscriptions.html', context)
 
 
 def home(request):
