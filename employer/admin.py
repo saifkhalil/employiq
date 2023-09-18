@@ -65,7 +65,7 @@ class CheckoutAdmin(ModelAdmin):
 
 @register(Subscription)
 class SubscriptionAdmin(ModelAdmin):
-    list_display = ('id', 'employer', 'plan', 'used_jobs',
+    list_display = ('id', 'checkout', 'employer', 'plan', 'used_jobs',
                     'remaining_jobs', 'used_suggestions', 'remaining_suggestions', 'start_date', 'end_date', 'is_active')
     icon_name = 'assignment'
     list_filter = ('plan', 'employer')
