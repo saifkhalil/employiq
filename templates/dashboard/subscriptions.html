@@ -26,7 +26,7 @@
                 {{ subscription.employer }}</a>
             </td>
               <td>
-                {{ subscription.checkout }}
+                {{ subscription.checkout|default:'' }}
             </td>
           <td>
               {{ subscription.checkout.amount|floatformat:0 }}
