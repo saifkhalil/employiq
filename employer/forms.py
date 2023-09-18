@@ -48,3 +48,6 @@ class SubscriptionPlanForm(ModelForm):
     class Meta:
         model = subscription_plan
         fields = ['plan', 'suggestions', 'jobs', 'price', 'days', 'features', 'is_active']
+        widgets = {
+            'is_active': CheckboxInput(attrs={'class': 'form-check-input'}),
+        }
