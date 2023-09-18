@@ -467,7 +467,7 @@ def employer_plan(request, sid):
         employer_subscriptions = Subscription.objects.filter(
             employer__user=request.user).order_by('-created_at')
         if employer_subscriptions.count() > 0 and employer_subscriptions.first().is_active():
-            messages.add_message(request, messages.INFO, f"You already subscribed with us with plan <strong>{employer_subscriptions.first().plan}</strong> end at {employer_subscriptions.first().end_date}")
+            messages.add_message(request, messages.INFO, f"You already subscribed with us with plan {employer_subscriptions.first().plan} end at {employer_subscriptions.first().end_date}")
             return redirect(
                 reverse('home')
             )
