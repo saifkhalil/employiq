@@ -30,7 +30,7 @@
                 {{ subscription.checkout|default:'' }}
             </td>
               <td>
-                {{ subscription.checkout_id|default:'' }}
+                {{ subscription.checkout.checkout_id|default:'' }}
             </td>
           <td>
               {{ subscription.checkout.amount|floatformat:0 }}
