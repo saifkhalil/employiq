@@ -19,7 +19,7 @@
           {% for subscription_plan in page_obj %}
           <tr>
             <td>
-              <a href="{% url 'subscription_update' subscription.id %}">
+              <a href="{% url 'subscription_plan_update' subscription_plan.id %}">
                 {{ subscription_plan.plan }}</a>
             </td>
               <td>
