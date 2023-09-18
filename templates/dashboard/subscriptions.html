@@ -8,6 +8,7 @@
           <tr>
             <th>Employer</th>
             <th>Checkout</th>
+            <th>Checkout ID</th>
             <th>Amount</th>
             <th>Payment status</th>
             <th>Plan</th>
@@ -27,6 +28,9 @@
             </td>
               <td>
                 {{ subscription.checkout|default:'' }}
+            </td>
+              <td>
+                {{ subscription.checkout_id|default:'' }}
             </td>
           <td>
               {{ subscription.checkout.amount|floatformat:0 }}
