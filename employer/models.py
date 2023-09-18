@@ -250,7 +250,7 @@ class Checkout(models.Model):
         User, related_name='%(class)s_modifiedby', null=True, blank=True, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"Transaction #{self.id} for {self.employer.company}"
+        return str(self.id)
 
 
 class Subscription(models.Model):
