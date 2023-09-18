@@ -8,7 +8,6 @@
           <tr>
             <th>Employer</th>
             <th>Checkout</th>
-            <th>Checkout ID</th>
             <th>Amount</th>
             <th>Payment status</th>
             <th>Plan</th>
@@ -25,9 +24,6 @@
             <td>
               <a href="{% url 'subscription_update' subscription.id %}">
                 {{ subscription.employer }}</a>
-            </td>
-              <td>
-                {{ subscription.checkout|default:'' }}
             </td>
               <td>
                 {{ subscription.checkout.checkout_id|default:'' }}
