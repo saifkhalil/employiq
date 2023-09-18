@@ -279,7 +279,10 @@ def home(request):
             isemployer = True
             try:
                 subscriptions = Subscription.objects.filter(employer=eid).order_by('-created_at').first()
-                active_subscription = subscriptions.is_active()
+                if subscriptions:
+                    active_subscription = subscriptions.is_active()
+                else:
+                    active_subscription = False
             except ObjectDoesNotExist:
                 active_subscription = False
         except ObjectDoesNotExist:
