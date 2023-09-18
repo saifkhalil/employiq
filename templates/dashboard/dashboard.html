@@ -69,8 +69,21 @@
                     <li class="menu-item">
                         <a class="nav-link" href="{% url 'candidates_list' %}">{% trans 'Candidates' %}</a>
                     </li>
-                    <li class="menu-item">
-                        <a class="nav-link" href="{% url 'subscriptions_list' %}">{% trans 'Subscriptions' %}</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle show" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="true">
+                            Subscription
+                        </a>
+                        <ul class="dropdown-menu show" aria-labelledby="navbarDropdown" data-bs-popper="none">
+                            <li>
+                                <a class="nav-link" href="{% url 'subscriptions_list' %}">{% trans 'Employers Subscriptions' %}</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/en/employer/job/create">Post a job</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/en/candidates/">Find a candidate</a>
+                            </li>
+                        </ul>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link page-scroll" href="/en/{{request.get_full_path|slice:"4:"}}">English</a>
