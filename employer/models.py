@@ -259,6 +259,8 @@ class Subscription(models.Model):
     employer = models.ForeignKey(employer, on_delete=models.CASCADE)
     plan = models.ForeignKey(
         'subscription_plan', on_delete=models.CASCADE, blank=True, null=True, verbose_name=_('Plan'))
+    checkout = models.ForeignKey(
+        'Checkout', on_delete=models.CASCADE, blank=True, null=True, verbose_name=_('Checkout'))
     start_date = models.DateField()
     end_date = models.DateField()
     created_at = models.DateTimeField(auto_now_add=True)
