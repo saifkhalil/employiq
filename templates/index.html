@@ -136,10 +136,12 @@
                 <div class="pricing-footer">
                     {% if price.is_active %}
                     {% if user.is_authenticated %}
-                    {% if user.is_employer %} 
+                    {% if user.is_employer and not active_subscription %}
                     <a id='subscription' href="{% url 'employer_plan' price.id %}" class="btn btn-blue btn-effect">{% trans 'Subscribe now' %}</a>
-                    {% else %}
+                    {% elif not user.is_employer and not active_subscription %}
                     <a class="btn btn-blue btn-effect" href="{% url 'employer_create' %}">{% trans 'Subscribe now' %}</a>
+                    {% else %}
+                        <a class="btn btn-gray btn-effect" href="#">{% trans 'Subscribe now' %}</a>
                     {% endif %}
                     {% else %}
                     <a class="btn btn-blue btn-effect" href="{% url 'login' %}">{% trans 'Subscribe now' %}</a>

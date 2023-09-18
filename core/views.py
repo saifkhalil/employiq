@@ -264,6 +264,7 @@ def home(request):
         active_users_count = User.objects.filter(is_verified=True).count()
         candidates_count = candidates.count()
         newest_employers = employers.order_by('-created_at')[:20]
+        active_subscription = False
         employers_count = employers.count()
         jobs_count = job.objects.all().count()
         users_count = users.count()
@@ -276,12 +277,15 @@ def home(request):
             employer_details = employer.objects.get(user__id=userid)
             eid = employer.objects.get(user__id=userid).id
             isemployer = True
+            active_subscription = True if Subscription.objects.filter(employer=eid,is_active=True).order_by('-created_at').count() >= 1 else False
+
         except ObjectDoesNotExist:
             isemployer = False
         context = {
             'princing': subscription_plan.objects.all().order_by('price'),
             # 'plan_dict':plan_dict,
             'allemployers': employers.filter(public_company_info='Y', is_verified=True)[:20],
+            'active_subscription': active_subscription,
             'employer_details': employer_details,
             'isemployer': isemployer,
             'activeUsersCount': active_users_count,
