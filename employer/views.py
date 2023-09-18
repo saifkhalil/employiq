@@ -586,7 +586,7 @@ class SubscriptionPlanCreateView(CreateView):
     success_url = reverse_lazy('subscriptions_plan_list')
 
 
-class SubscriptionPlanUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView, ABC):
+class SubscriptionPlanUpdateView(UpdateView):
     model = subscription_plan
     template_name = 'employer/subscription/update_plan.html'
     form_class = SubscriptionPlanForm
