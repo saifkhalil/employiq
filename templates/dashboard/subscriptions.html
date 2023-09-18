@@ -25,7 +25,7 @@
             </td>
               <td>
               <a href="{% url 'subscription_update' subscription.id %}">
-                {{ subscription.checkout.amount }}</a>
+                {{ subscription.checkout.amount|floatformat:0 }}</a>
             </td>
             <td>
               {{ subscription.plan }}
