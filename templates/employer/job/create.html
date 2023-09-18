@@ -1,124 +1,89 @@
-{% extends "base.html" %}
-{% load widget_tweaks %}
-{% load i18n %}
-{% load static %}
-{% block content %}
+{% extends "base.html" %} {% load widget_tweaks %} {% load i18n %} {% load static %} {% block content %}
 <script src="https://unpkg.com/@yaireo/tagify"></script>
 <script src="https://unpkg.com/@yaireo/tagify@3.1.0/dist/tagify.polyfills.min.js"></script>
 <link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
 <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
 <div class="header">
-    <div class="filtered">
-        {% if current_employer.is_verified == False %}
-        <div class="row justify-content-center">
-            <div class="col-12">
-                <div class="alert alert-danger alert-dismissible fade show">
-                    <strong> {% trans 'Your employer profile under review' %} </strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
+  <div class="filtered">
+    {% for message in messages %}
+    <div class="alert {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %} alert-danger {% else %} alert-success {% endif %} fade show" role="alert">
+      <strong>
+        {{ message }}</strong>
+    </div>
+    {% endfor %} {% if current_employer.is_verified == False %}
+    <div class="row justify-content-center">
+      <div class="col-12">
+        <div class="alert alert-danger alert-dismissible fade show">
+          <strong> {% trans 'Your employer profile under review' %} </strong>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      </div>
+    </div>
+    {% endif %} {% if employer_subscription.remaining_jobs > 0 and employer_subscription.is_active %}
+    <div class="row justify-content-md-center">
+      <h3 class="text-center pb50">{% trans 'Post a Job' %}</h3>
+      <div class="col-lg-8 col-md-10 col-sm-12">
+        <form method="post" id="cmform" action="" enctype="multipart/form-data" novalidate>
+          {% csrf_token %} {% for hidden_field in form.hidden_fields %}
+          {{ hidden_field }} {% endfor %} {% if form.non_field_errors %}
+          <div class="alert alert-danger" role="alert">
+            {% for error in form.non_field_errors %}
+            {{ error }} {% endfor %}
+          </div>
+          {% endif %} {% for field in form.visible_fields %} {% if field.auto_id == 'id_job_description' %}
+
+          <div class="form-control mb-3">
+            {{ field.label_tag }} {% if form.is_bound %} {% if field.errors %} {% render_field field class="form-control is-invalid" %} {% for error in field.errors %}
+            <div class="invalid-feedback">
+              {{ error }}
             </div>
-        </div>
-        {% endif %}
-        {% if current_employer.remaining_jobs > 0 and current_employer.is_verified == True %}
-        <div class="row justify-content-md-center">
-            <h3 class="text-center pb50">{% trans 'Post a Job' %}</h3>
-            <div class="col-lg-8 col-md-10 col-sm-12">
-                <form method="post" id="cmform" action="" enctype="multipart/form-data" novalidate>
+            {% endfor %} {% else %} {% render_field field class="form-control is-valid" %} {% endif %} {% else %} {% render_field field class="form-control" %} {% endif %} {% if field.help_text %}
+            <small class="form-text text-muted">
+              {{ field.help_text }}</small> {% endif %}
+          </div>
 
-                    {% csrf_token %}
+          {% else %}
 
-                    {% for hidden_field in form.hidden_fields %}
-                    {{ hidden_field }}
-                    {% endfor %}
-
-                    {% if form.non_field_errors %}
-                    <div class="alert alert-danger" role="alert">
-                        {% for error in form.non_field_errors %}
-                        {{ error }}
-                        {% endfor %}
-                    </div>
-                    {% endif %}
-
-                    {% for field in form.visible_fields %}
-                    {% if field.auto_id == 'id_job_description' %}
-
-                    <div class="form-control mb-3">
-                        {{ field.label_tag }}
-                        {% if form.is_bound %}
-                        {% if field.errors %}
-                        {% render_field field class="form-control is-invalid" %}
-                        {% for error in field.errors %}
-                        <div class="invalid-feedback">
-                            {{ error }}
-                        </div>
-                        {% endfor %}
-                        {% else %}
-                        {% render_field field class="form-control is-valid" %}
-                        {% endif %}
-                        {% else %}
-                        {% render_field field class="form-control" %}
-                        {% endif %}
-
-                        {% if field.help_text %}
-                        <small class="form-text text-muted">{{ field.help_text }}</small>
-                        {% endif %}
-
-                    </div>
-
-                    {% else %}
-
-                    <div class="form-floating mb-3">
-
-                        {% if form.is_bound %}
-                        {% if field.errors %}
-                        {% render_field field class="form-control is-invalid" %}
-                        {% for error in field.errors %}
-                        <div class="invalid-feedback">
-                            {{ error }}
-                        </div>
-                        {% endfor %}
-                        {% else %}
-                        {% render_field field class="form-control is-valid" %}
-                        {% endif %}
-                        {% else %}
-                        {% render_field field class="form-control" %}
-                        {% endif %}
-                        {{ field.label_tag }}
-                        {% if field.help_text %}
-                        <small class="form-text text-muted">{{ field.help_text }}</small>
-                        {% endif %}
-
-                    </div>
-                    {% endif %}
-                    {% endfor %}
-
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-primary">{% trans 'Submit' %}</button>
-                        <a href="{% url 'my_employer_details' %}" class="btn btn-secondary">{% trans 'Cancel' %}</a>
-                    </div>
-
-                </form>
+          <div class="form-floating mb-3">
+            {% if form.is_bound %} {% if field.errors %} {% render_field field class="form-control is-invalid" %} {% for error in field.errors %}
+            <div class="invalid-feedback">
+              {{ error }}
             </div>
-        </div>
+            {% endfor %} {% else %} {% render_field field class="form-control is-valid" %} {% endif %} {% else %} {% render_field field class="form-control" %} {% endif %}
+            {{ field.label_tag }} {% if field.help_text %}
+            <small class="form-text text-muted">
+              {{ field.help_text }}</small> {% endif %}
+          </div>
+          {% endif %} {% endfor %}
 
-        {% else %}
-        <div class="row justify-content-md-center">
-            <h3 class="text-center pb50 pt100">
-                {% trans "You do not have a job balance available, please go to the " %}<a
-                    href="{% url 'home' %}">Home</a>{% trans " page to recharge your balance" %}</h3>
-            {% endif %}
-        </div>
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary">
+              {% trans 'Submit' %}
+            </button>
+            <a href="{% url 'my_employer_details' %}" class="btn btn-secondary">{% trans 'Cancel' %}</a>
+          </div>
+        </form>
+      </div>
     </div>
 
-    <script>
-        var jobdesc = document.querySelector('#id_job_description');
-        ClassicEditor
-            .create(jobdesc)
-            .then(editor => {
-                console.log(editor);
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    </script>
-    {% endblock content %}
+    {% else %}
+    <div class="row justify-content-md-center">
+      <h3 class="text-center pb50 pt100">
+        {% trans "You do not have a job balance available or your subscription has been expired, please go to the " %}<a href="{% url 'home' %}">Home</a>{% trans " page to recharge your balance" %}
+      </h3>
+      {% endif %}
+    </div>
+  </div>
+
+  <script>
+    var jobdesc = document.querySelector("#id_job_description");
+    ClassicEditor.create(jobdesc)
+      .then((editor) => {
+        console.log(editor);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  </script>
+  {% endblock content %}
+</div>
