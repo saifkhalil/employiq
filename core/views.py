@@ -16,6 +16,7 @@ import geoip2.database
 from django.db.models import Q
 from django.utils import timezone
 from core.payment_api import payment_check
+from django.contrib import messages
 
 def get_client_ip(request):
     """  Getting client Ip  """
@@ -252,6 +253,9 @@ def home(request):
                     end_date=end_date
                 )
                 subscription.save()
+                messages.add_message(request, messages.SUCCESS, "You have successfully subscribed with us.")
+            else:
+                messages.add_message(request, messages.ERROR, "There was a problem with your subscription, please try again later.")
         employer_details = []
         users = User.objects.all()
         employers = employer.objects.all()
