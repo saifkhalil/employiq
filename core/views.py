@@ -185,8 +185,8 @@ def candidates_list(request):
 
 
 def subscriptions_list(request):
-    subscriptions_list = Subscription.objects.all()
-    paginator = Paginator(subscriptions_list, 10)
+    list = Subscription.objects.all()
+    paginator = Paginator(list, 10)
     page_number = request.GET.get('page', 1)
     page_obj = paginator.get_page(page_number)
     page_range = paginator.get_elided_page_range(
@@ -196,6 +196,20 @@ def subscriptions_list(request):
         'page_range': page_range,
     }
     return render(request, 'dashboard/employers_subscriptions.html', context)
+
+
+def subscriptions_plan_list(request):
+    list = subscription_plan.objects.all()
+    paginator = Paginator(list, 10)
+    page_number = request.GET.get('page', 1)
+    page_obj = paginator.get_page(page_number)
+    page_range = paginator.get_elided_page_range(
+        number=page_number, on_each_side=2, on_ends=2)
+    context = {
+        'page_obj': page_obj,
+        'page_range': page_range,
+    }
+    return render(request, 'dashboard/subscriptions_plan.html', context)
 
 
 def home(request):

@@ -57,6 +57,8 @@ urlpatterns = i18n_patterns(
     path('dashboard/candidates', views.candidates_list, name='candidates_list'),
     path('dashboard/subscriptions', views.subscriptions_list,
          name='subscriptions_list'),
+    path('dashboard/subscriptions_plan', views.subscriptions_plan_list,
+         name='subscriptions_plan_list'),
     path('accounts/', include('allauth.urls')),
     # path('after', views.after, name='after'),
     path('about', views.about, name='about'),
