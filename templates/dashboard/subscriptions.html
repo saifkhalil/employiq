@@ -7,6 +7,7 @@
         <thead>
           <tr>
             <th>Employer</th>
+            <th>Checkout</th>
             <th>Plan</th>
             <th>Used Jobs</th>
             <th>Remaining jobs</th>
@@ -21,6 +22,10 @@
             <td>
               <a href="{% url 'subscription_update' subscription.id %}">
                 {{ subscription.employer }}</a>
+            </td>
+              <td>
+              <a href="{% url 'subscription_update' subscription.id %}">
+                {{ subscription.checkout.amount }}</a>
             </td>
             <td>
               {{ subscription.plan }}
