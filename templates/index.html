@@ -104,8 +104,15 @@
     </div>
 <div class="container-fluid">
     <div class="row justify-content-center">
+    {% if price.length <= 4 %}
+    {% with plan_width = 3 %}
+        {% endwith %}
+    {% else %}
+    {% with plan_width = 2 %}
+        {% endwith %}
+    {% endif %}
         {% for price in princing %}
-        <div class="col-md-3 col-xs-12 mt80 mb20">
+        <div class="col-md-{{ plan_width }} col-xs-12 mt80 mb20">
             <div class="pricing-table shadow-hover" {% if price.plan == 'Premium' %}id="popular" {% endif %}>
                 <div class="pricing-header">
                     <h2>{{ price.plan }}</h2>
