@@ -34,7 +34,7 @@
               {{ subscription_plan.days }}
             </td>
             <td>
-              {{ subscription_plan.status }}
+              {{ subscription_plan.get_status_display }}
             </td>
           </tr>
           {% endfor %}
