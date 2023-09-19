@@ -91,7 +91,7 @@ class subscription_plan(models.Model):
     days = models.IntegerField()
     features = models.ManyToManyField(blank=True, verbose_name=_(
         'Features'), related_name='features', to=subscription_features)
-    status = models.CharField(choices=PLAN_STATUS, default='Disabled', verbose_name='Status')
+    status = models.CharField(choices=PLAN_STATUS, default='Disabled', max_length=20, verbose_name='Status')
     is_active = models.BooleanField(
         default=False, verbose_name=_('Is Active'))
 
