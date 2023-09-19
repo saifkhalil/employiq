@@ -47,7 +47,7 @@ class FeaturesAdmin(ModelAdmin):
 @register(subscription_plan)
 class PlanAdmin(ModelAdmin):
     list_display = ('id', 'plan', 'suggestions', 'jobs',
-                    'price', 'days', 'features_list', 'is_active')
+                    'price', 'days', 'features_list', 'status')
     icon_name = 'assignment'
     list_filter = ('plan',)
 

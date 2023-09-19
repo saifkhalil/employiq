@@ -45,12 +45,12 @@ class SubscriptionForm(ModelForm):
 
 
 class SubscriptionPlanForm(ModelForm):
-    is_active = forms.BooleanField(label=_("Is Active"), widget=forms.widgets.CheckboxInput(
-        attrs={'class': 'form-check-input'}), required=False)
+    # is_active = forms.BooleanField(label=_("Is Active"), widget=forms.widgets.CheckboxInput(
+    #     attrs={'class': 'form-check-input'}), required=False)
 
     class Meta:
         model = subscription_plan
-        fields = ['plan', 'suggestions', 'jobs', 'price', 'days', 'features', 'is_active']
+        fields = ['plan', 'suggestions', 'jobs', 'price', 'days', 'features', 'status']
         # widgets = {
         #     'is_active': CheckboxInput(attrs={'class': 'form-check-input'}),
         # }
