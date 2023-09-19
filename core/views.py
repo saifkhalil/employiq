@@ -303,6 +303,7 @@ def home(request):
             isemployer = False
         context = {
             'princing': subscription_plan.objects.all().order_by('price'),
+            'active_plans_count': subscription_plan.objects.filter(status__in=['Active', 'ComingSoon']).count(),
             # 'plan_dict':plan_dict,
             'allemployers': employers.filter(public_company_info='Y', is_verified=True)[:20],
             'active_subscription': active_subscription,
