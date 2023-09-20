@@ -86,7 +86,7 @@ def users_list(request):
                 query_words.remove(w)
         for word in query_words:
             query = query | Q(firstname__icontains=word) | Q(lastname__icontains=word) | Q(
-                email__icontains=word)
+                email__icontains=word) | Q(phone__icontains=word)
         users_list = users.filter(query).order_by('-created_at')
     else:
         users_list = users.order_by('-created_at')
