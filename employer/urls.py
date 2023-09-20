@@ -16,7 +16,8 @@ urlpatterns = [
          login_required(EmployerUpdateView.as_view()), name='employer_update'),
     path('<uuid:eid>', login_required(
         employer_details), name='employer_details'),
-    path('job/create', login_required(
+    path('job/create/', login_required(JobCreateView.as_view()), name='job-create'),
+    path('job/pre_create', login_required(
         pre_job_create), name='job_create'),
     path('job/<uuid:jid>', JobDetails, name='job_details'),
     path('job/<uuid:pk>/update/',
