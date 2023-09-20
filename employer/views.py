@@ -134,7 +134,7 @@ def pre_job_create(request):
                                  _(f"You don't have remaining Jobs balance for your current subscription {employer_subscription.plan}"))
             return redirect(reverse('home'))
         else:
-            return redirect(reverse_lazy('JobCreateView'))
+            return redirect(reverse_lazy('job_create'))
     else:
         messages.add_message(request, messages.ERROR,
                              _("You are not subscribed to us, please subscribe to post a job"))
