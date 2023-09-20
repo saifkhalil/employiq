@@ -85,7 +85,7 @@ def users_list(request):
             if len(w) < 2:  # Min length
                 query_words.remove(w)
         for word in query_words:
-            query = query | Q(company__icontains=word) | Q(
+            query = query | Q(firstname__icontains=word) | Q(lastname__icontains=word) | Q(
                 user__email__icontains=word)
         users_list = users.filter(query).order_by('-created_at')
     else:
