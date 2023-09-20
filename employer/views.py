@@ -133,7 +133,7 @@ def pre_job_create(request):
     if employer_subscription and is_active:
         if remaining_jobs <= 0:
             messages.add_message(request, messages.ERROR,
-                                 _(f"You don't have remaining Jobs balance for your current subscription {employer_subscription.plan}"))
+                                 _(f"You don't have remaining Jobs balance for your current subscription {employer_subscription.plan} job {remaining_jobs}"))
             return redirect(reverse('home'))
         else:
             return redirect(reverse('job-create'))
