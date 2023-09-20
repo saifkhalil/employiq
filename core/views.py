@@ -56,13 +56,48 @@ def dashboard(request):
 
 
 def users_list(request):
-    users_list = User.objects.all()
-    paginator = Paginator(users_list, 10)
+    users = User.objects.all()
+    if request.method == 'GET':
+        if request.GET.get('keywords'):
+            keywords = request.GET.get('keywords')
+            request.session['keywords'] = keywords
+        else:
+            keywords = ""
+            request.session['keywords'] = keywords
+        if request.GET.get('number_of_records'):
+            number_of_records = request.GET.get('number_of_records')
+            try:
+                request.session['number_of_records'] = int(number_of_records)
+            except:
+                request.session['number_of_records'] = 10
+        else:
+            number_of_records = 10
+        if request.GET.get('clear'):
+            if request.session.get('keywords'):
+                del request.session['keywords']
+            if request.session.get('number_of_records'):
+                del request.session['number_of_records']
+    keywords = request.session.get('keywords')
+    if keywords:
+        query_words = str(keywords).split(" ")  # Get the word in a list
+        query = Q()
+        for w in query_words:
+            if len(w) < 2:  # Min length
+                query_words.remove(w)
+        for word in query_words:
+            query = query | Q(company__icontains=word) | Q(
+                user__email__icontains=word)
+        users_list = users.filter(query).order_by('-created_at')
+    else:
+        users_list = users.order_by('-created_at')
+    session = [keywords, number_of_records]
+    paginator = Paginator(users_list, number_of_records)
     page_number = request.GET.get('page', 1)
     page_obj = paginator.get_page(page_number)
     page_range = paginator.get_elided_page_range(
         number=page_number, on_each_side=2, on_ends=2)
     context = {
+        'session': json.dumps(session),
         'page_obj': page_obj,
         'page_range': page_range,
     }
