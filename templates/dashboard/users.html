@@ -104,4 +104,12 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+  var srchval = JSON.parse("{{ session | escapejs }}");
+  window.addEventListener("load", function() {
+    // document.getElementById('cm').classList.add('active');
+    document.getElementById("number_of_records").value = srchval[1];
+    document.getElementById("keywords").value = srchval[0];
+  });
+</script>
 {% endblock %}
