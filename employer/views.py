@@ -159,6 +159,7 @@ class JobCreateView(CreateView):
     def get_context_data(self, **kwargs):
         ctx = super(JobCreateView, self).get_context_data(**kwargs)
         user = self.request.user
+        remaining_jobs = 0
         employer_subscription = None
         current_employer = employer.objects.get(user__id=self.request.user.id)
         employer_subscription_last = Subscription.objects.filter(
@@ -170,6 +171,10 @@ class JobCreateView(CreateView):
         else:
             messages.add_message(self.request, messages.ERROR,
                                  _("You are not subscribed to us, please subscribe to post a job"))
+        if employer_subscription and remaining_jobs <= 0:
+            messages.add_message(self.request, messages.ERROR,
+                                 _(f"You don't have remaining Jobs balance for your current subscription {employer_subscription.plan}"))
+            return redirect(reverse('home'))
         ctx['current_employer'] = current_employer
         ctx['employer_subscription'] = employer_subscription
 
