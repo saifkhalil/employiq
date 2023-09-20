@@ -121,6 +121,7 @@ class EmployerCreateView(CreateView):
 def pre_job_create(request):
     user = request.user
     remaining_jobs = 0
+    is_active = False
     employer_subscription = None
     employer_subscription_last = Subscription.objects.filter(
         employer__user=user).order_by('-end_date').first()
@@ -128,7 +129,8 @@ def pre_job_create(request):
         employer_subscription = Subscription.objects.get(
             id=employer_subscription_last.id)
         remaining_jobs = employer_subscription.remaining_jobs()
-    if employer_subscription:
+        is_active = employer_subscription.is_active()
+    if employer_subscription and is_active:
         if remaining_jobs <= 0:
             messages.add_message(request, messages.ERROR,
                                  _(f"You don't have remaining Jobs balance for your current subscription {employer_subscription.plan}"))
@@ -137,7 +139,7 @@ def pre_job_create(request):
             return redirect(reverse('job-create'))
     else:
         messages.add_message(request, messages.ERROR,
-                             _("You are not subscribed to us, please subscribe to post a job"))
+                             _("You are not subscribed to us or your subscription was expired, please subscribe to post a job"))
         return redirect(reverse('home'))
 
 
