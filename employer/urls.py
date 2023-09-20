@@ -6,6 +6,8 @@ from django.contrib.auth.decorators import login_required
 from django.utils.translation import gettext_lazy as _
 from django.conf.urls.i18n import i18n_patterns
 
+app_name = 'employer'
+
 urlpatterns = [
     path('', login_required(my_employer_details), name='my_employer_details'),
     path('create', login_required(
