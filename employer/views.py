@@ -139,7 +139,7 @@ def pre_job_create(request):
             return redirect(reverse('job-create'))
     else:
         messages.add_message(request, messages.ERROR,
-                             _("You are not subscribed to us or your subscription was expired, please subscribe to post a job"))
+                             _("You are not subscribed to us or your subscription has expired, please subscribe to post a job"))
         return redirect(reverse('home'))
 
 
