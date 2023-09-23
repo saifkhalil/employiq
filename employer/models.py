@@ -225,13 +225,18 @@ class employer(models.Model):
 
         total_jobs = 0
         used_jobs = 0
-
+        start_active_subscriptions = date(year=9999, month=12, day=31)
+        end_active_subscriptions = date(year=1900, month=1, day=1)
         for subscription in active_subscriptions:
             total_jobs += subscription.plan.jobs
-            used_jobs += job.objects.filter(
-                created_at__gte=subscription.start_date,
-                created_at__lte=subscription.end_date
-            ).count()
+            if subscription.start_date < start_active_subscriptions:
+                start_active_subscriptions = subscription.start_date
+            if subscription.end_date > end_active_subscriptions:
+                end_active_subscriptions = subscription.end_date
+        used_jobs = job.objects.filter(
+            created_at__gte=start_active_subscriptions,
+            created_at__lte=end_active_subscriptions
+        ).count()
 
         remaining_jobs = total_jobs - used_jobs
 
@@ -239,6 +244,8 @@ class employer(models.Model):
             'total_jobs': total_jobs,
             'remaining_jobs': remaining_jobs,
             'active_subscriptions': active_subscriptions,
+            'start_active_subscriptions': start_active_subscriptions,
+            'end_active_subscriptions': end_active_subscriptions,
             'active_subscriptions_count': active_subscriptions.count()
         }
 class suggestion(models.Model):
