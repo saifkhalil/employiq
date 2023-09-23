@@ -102,7 +102,7 @@
             </td>
           {% with subscription_info=employer.get_current_subscription_info %}
             <td>Total Jobs: {{ subscription_info.total_jobs }}</td>
-            <td>Used Jobs: {{ subscription_info.used_jobs }}</td>
+            <td>Remaining Jobs: {{ subscription_info.remaining_jobs }}</td>
             <td>Active Subscription Count: {{ subscription_info.active_subscriptions_count }}</td>
           {% endwith %}
             <td>
