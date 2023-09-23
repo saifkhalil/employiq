@@ -220,7 +220,7 @@ class employer(models.Model):
         today = date.today()
         active_subscriptions = Subscription.objects.filter(
             employer=self,
-            end_date__lte=today
+            end_date__gte=today
         )
 
         total_jobs = 0
