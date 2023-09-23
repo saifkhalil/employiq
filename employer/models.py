@@ -17,6 +17,9 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from django.core.exceptions import ValidationError
 from django.core.files.images import get_image_dimensions
+from datetime import date, timedelta
+from django.db.models import F
+
 
 NATIONALITY = [
     ('international', _('International')),
@@ -112,6 +115,56 @@ def validate_image(image):
             _("Please select logo with scale 1:1 (square) and maximum height and width is 300px"))
 
 
+
+class job(models.Model):
+    id = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False)
+    employer = models.ForeignKey(
+        employer, on_delete=models.CASCADE, related_name='jobs')
+    job_title = models.CharField(max_length=200, verbose_name=_('Job Title'))
+    keywords = TagField(verbose_name=_('Position keywords'),
+                        delimiters=' ')
+    job_description = RichTextField(default='',
+                                    blank=False, null=False, verbose_name=_('Job Description'))
+    job_type = models.CharField(max_length=20, choices=Employment_Type,
+                                default="Full-time", blank=False, null=False, verbose_name=_('Employment Type'))
+    date_opened = models.DateField(
+        default=timezone.now, verbose_name=_('Date opened'))
+    date_closed = models.DateField(verbose_name=_(
+        'Date closed'), blank=True, null=True)
+    city = models.CharField(max_length=500, default='Baghdad',
+                            choices=GOVERNORATES, verbose_name=_('City'))
+    country = CountryField(blank_label=_(
+        '(select country)'), default='IQ', verbose_name=_('Country'))
+    salary = models.IntegerField(
+        verbose_name=_('Salary'), blank=True, null=True)
+    nationality = models.CharField(max_length=15, choices=NATIONALITY,
+                                   default="both", blank=False, null=False, verbose_name=_('Nationality'))
+
+    applied_candidates = models.ManyToManyField(
+        candidate, blank=True, verbose_name=_('Applied Candidates'))
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+    created_by = models.ForeignKey(
+        User, related_name='%(class)s_createdby', on_delete=models.CASCADE, blank=True, null=True)
+    modified_by = models.ForeignKey(
+        User, related_name='%(class)s_modifiedby', null=True, blank=True, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.job_title
+
+    def __unicode__(self):
+        return self.job_title
+
+    class Meta:
+        ordering = ('-date_opened',)
+
+
+    @property
+    def is_active(self):
+        today = datetime.today()
+        return self.date_closed <= today
+
 class employer(models.Model):
     id = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)
@@ -163,7 +216,30 @@ class employer(models.Model):
         unique_together = ('id', 'user',)
         ordering = ('company',)
 
+    def get_current_subscription_info(self):
+        today = date.today()
+        active_subscriptions = Subscription.objects.filter(
+            employer=self,
+            end_date__lte=today
+        )
 
+        total_jobs = 0
+        used_jobs = 0
+
+        for subscription in active_subscriptions:
+            total_jobs += subscription.plan.jobs
+            used_jobs += job.filter(
+                created_at__gte=subscription.start_date,
+                created_at__lte=subscription.end_date
+            ).count()
+
+        remaining_jobs = total_jobs - used_jobs
+
+        return {
+            'total_jobs': total_jobs,
+            'remaining_jobs': remaining_jobs,
+            'active_subscriptions': active_subscriptions
+        }
 class suggestion(models.Model):
     id = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)
@@ -188,54 +264,6 @@ class suggestion(models.Model):
         ordering = ('-created_at',)
 
 
-class job(models.Model):
-    id = models.UUIDField(
-        primary_key=True, default=uuid.uuid4, editable=False)
-    employer = models.ForeignKey(
-        employer, on_delete=models.CASCADE, related_name='jobs')
-    job_title = models.CharField(max_length=200, verbose_name=_('Job Title'))
-    keywords = TagField(verbose_name=_('Position keywords'),
-                        delimiters=' ')
-    job_description = RichTextField(default='',
-                                    blank=False, null=False, verbose_name=_('Job Description'))
-    job_type = models.CharField(max_length=20, choices=Employment_Type,
-                                default="Full-time", blank=False, null=False, verbose_name=_('Employment Type'))
-    date_opened = models.DateField(
-        default=timezone.now, verbose_name=_('Date opened'))
-    date_closed = models.DateField(verbose_name=_(
-        'Date closed'), blank=True, null=True)
-    city = models.CharField(max_length=500, default='Baghdad',
-                            choices=GOVERNORATES, verbose_name=_('City'))
-    country = CountryField(blank_label=_(
-        '(select country)'), default='IQ', verbose_name=_('Country'))
-    salary = models.IntegerField(
-        verbose_name=_('Salary'), blank=True, null=True)
-    nationality = models.CharField(max_length=15, choices=NATIONALITY,
-                                   default="both", blank=False, null=False, verbose_name=_('Nationality'))
-
-    applied_candidates = models.ManyToManyField(
-        candidate, blank=True, verbose_name=_('Applied Candidates'))
-    created_at = models.DateTimeField(auto_now_add=True)
-    modified_at = models.DateTimeField(auto_now=True)
-    created_by = models.ForeignKey(
-        User, related_name='%(class)s_createdby', on_delete=models.CASCADE, blank=True, null=True)
-    modified_by = models.ForeignKey(
-        User, related_name='%(class)s_modifiedby', null=True, blank=True, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.job_title
-
-    def __unicode__(self):
-        return self.job_title
-
-    class Meta:
-        ordering = ('-date_opened',)
-
-
-@property
-def is_active(self):
-    today = datetime.today()
-    return self.date_closed <= today
 
 
 class Checkout(models.Model):
