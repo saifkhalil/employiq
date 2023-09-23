@@ -100,9 +100,11 @@
             <td>
               {{ employer.created_at }}
             </td>
-                      <td>
-              {{ employer.get_current_subscription_info.total_jobs }}
-            </td>
+          {% with subscription_info=employer.get_current_subscription_info %}
+            <td>Total Jobs: {{ subscription_info.total_jobs }}</td>
+            <td>Used Jobs: {{ subscription_info.used_jobs }}</td>
+            <td>Active Subscription Count: {{ subscription_info.active_subscriptions_count }}</td>
+          {% endwith %}
             <td>
               <span class="label {% if employer.is_subscribed == False %} label-danger {% else %} label-success {% endif %}">
                 {{ employer.is_subscribed }}</span>

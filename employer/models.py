@@ -238,7 +238,8 @@ class employer(models.Model):
         return {
             'total_jobs': total_jobs,
             'remaining_jobs': remaining_jobs,
-            'active_subscriptions': active_subscriptions
+            'active_subscriptions': active_subscriptions,
+            'active_subscriptions_count': active_subscriptions.count()
         }
 class suggestion(models.Model):
     id = models.UUIDField(
