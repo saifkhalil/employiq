@@ -553,12 +553,12 @@ class SubscriptionCreateView(CreateView):
         subscription = form.save(commit=False)
         subscription.end_date = subscription.start_date + \
                                 timedelta(days=subscription.plan.days)
-        employer_subscriptions = Subscription.objects.filter(Q(employer=subscription.employer), Q(
-            start_date__lte=subscription.end_date), Q(end_date__gte=subscription.start_date))
-        if employer_subscriptions.count() >= 1:
-            form.add_error(
-                'employer', 'The chosen employer is already subscribed in the same period.')
-            return super().form_invalid(form)
+        # employer_subscriptions = Subscription.objects.filter(Q(employer=subscription.employer), Q(
+        #     start_date__lte=subscription.end_date), Q(end_date__gte=subscription.start_date))
+        # if employer_subscriptions.count() >= 1:
+        #     form.add_error(
+        #         'employer', 'The chosen employer is already subscribed in the same period.')
+        #     return super().form_invalid(form)
         subscription.created_by = User.objects.get(
             email=self.request.user.email)
         subscription.created_at = datetime.now()
