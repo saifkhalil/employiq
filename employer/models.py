@@ -228,7 +228,7 @@ class employer(models.Model):
 
         for subscription in active_subscriptions:
             total_jobs += subscription.plan.jobs
-            used_jobs += job.filter(
+            used_jobs += job.objects.filter(
                 created_at__gte=subscription.start_date,
                 created_at__lte=subscription.end_date
             ).count()
