@@ -52,7 +52,6 @@
             <th>
               <a href="?{% url_replace request 'order_by' 'created_at' '-' %}">Created At</a>
             </th>
-            <th>Remaining Records</th>
                <th>Active Jobs</th>
             <th>Used Jobs</th>
             <th>Remaining Jobs</th>
@@ -105,19 +104,6 @@
             <td>{{ subscription_info.remaining_jobs }}</td>
             <td>{{ subscription_info.active_subscriptions_count }}</td>
           {% endwith %}
-            <td>
-              <span class="label {% if employer.is_subscribed == False %} label-danger {% else %} label-success {% endif %}">
-                {{ employer.is_subscribed }}</span>
-            </td>
-            <td>
-              {{ employer.plan }}
-            </td>
-            <td>
-              {{ employer.remaining_records }}
-            </td>
-            <td>
-              {{ employer.remaining_jobs }}
-            </td>
             <td>
               <span class="label {% if employer.is_verified == False %} label-danger {% else %} label-success {% endif %}">
                 {{ employer.is_verified }}</span>
