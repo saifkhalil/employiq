@@ -57,7 +57,10 @@
             </th>
             <th>Plan</th>
             <th>Remaining Records</th>
+               <th>Active Jobs</th>
+            <th>Used Jobs</th>
             <th>Remaining Jobs</th>
+            <th>Active Subscriptions</th>
             <th><a href="?{% url_replace request 'order_by' 'is_verified' '-' %}">Verified</a></th>
             <th>Actions</th>
           </tr>
@@ -101,9 +104,10 @@
               {{ employer.created_at }}
             </td>
           {% with subscription_info=employer.get_current_subscription_info %}
-            <td>Total Jobs: {{ subscription_info.total_jobs }}</td>
-            <td>Remaining Jobs: {{ subscription_info.remaining_jobs }}</td>
-            <td>Active Subscription Count: {{ subscription_info.active_subscriptions_count }}</td>
+            <td>{{ subscription_info.active_jobs }}</td>
+            <td>{{ subscription_info.used_jobs }}</td>
+            <td>{{ subscription_info.remaining_jobs }}</td>
+            <td>{{ subscription_info.active_subscriptions_count }}</td>
           {% endwith %}
             <td>
               <span class="label {% if employer.is_subscribed == False %} label-danger {% else %} label-success {% endif %}">

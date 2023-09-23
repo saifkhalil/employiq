@@ -223,12 +223,12 @@ class employer(models.Model):
             end_date__gte=today
         )
 
-        total_jobs = 0
+        active_jobs = 0
         used_jobs = 0
         start_active_subscriptions = date(year=9999, month=12, day=31)
         end_active_subscriptions = date(year=1900, month=1, day=1)
         for subscription in active_subscriptions:
-            total_jobs += subscription.plan.jobs
+            active_jobs += subscription.plan.jobs
             if subscription.start_date < start_active_subscriptions:
                 start_active_subscriptions = subscription.start_date
             if subscription.end_date > end_active_subscriptions:
@@ -238,11 +238,12 @@ class employer(models.Model):
             created_at__lte=end_active_subscriptions
         ).count()
 
-        remaining_jobs = total_jobs - used_jobs
+        remaining_jobs = active_jobs - used_jobs
 
         return {
-            'total_jobs': total_jobs,
+            'active_jobs': active_jobs,
             'remaining_jobs': remaining_jobs,
+            'used_jobs': used_jobs,
             'active_subscriptions': active_subscriptions,
             'start_active_subscriptions': start_active_subscriptions,
             'end_active_subscriptions': end_active_subscriptions,
