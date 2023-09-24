@@ -51,6 +51,7 @@ def handler500(request, *args, **argv):
 
 urlpatterns = i18n_patterns(
     path('', views.home, name='home'),
+    path("cookies/", include("cookie_consent.urls")),
     path('dashboard/users', views.users_list, name='dashboard'),
     path('dashboard/users', views.users_list, name='users_list'),
     path('dashboard/employers', views.employers_list, name='employers_list'),

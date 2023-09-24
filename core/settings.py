@@ -90,6 +90,7 @@ INSTALLED_APPS = [
     'candidate',
     'employer',
     'admin_honeypot',
+    'cookie_consent'
 ]
 
 MIDDLEWARE = [
@@ -445,59 +446,3 @@ class IPAddressFilter(logging.Filter):
         return True
 
 
-LOGGING = {
-
-    'version': 1,
-    # 'filters': {
-    #     # Add an unbound RequestFilter.
-    #     'request': {
-    #         '()': 'django_requestlogging.logging_filters.RequestFilter',
-    #     },
-    # },
-    'loggers': {
-        'django': {
-            'handlers': ['log', 'info', 'warning', 'error',],
-            'level': 'DEBUG',
-            # 'filters': ['request'],
-        }
-    },
-    'handlers': {
-        'log': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': './logs/log.log',
-            'formatter': 'verbose',
-        },
-        'info': {
-            'level': 'INFO',
-            'class': 'logging.FileHandler',
-            'filename': './logs/info.log',
-            'formatter': 'verbose',
-        },
-        'warning': {
-            'level': 'WARNING',
-            'class': 'logging.FileHandler',
-            'filename': './logs/warning.log',
-            'formatter': 'verbose',
-        },
-        'error': {
-            'level': 'ERROR',
-            'class': 'logging.FileHandler',
-            'filename': './logs/error.log',
-            'formatter': 'verbose',
-        }
-
-    },
-    'formatters': {
-        'verbose': {
-            'format': '{name} {levelname} {asctime} {module} {process:d} {thread:d} {message}',
-            'style': '{',
-        },
-        # 'request_format': {
-        #     'format': '%(remote_addr)s %(username)s "%(request_method)s '
-        #     '%(path_info)s %(server_protocol)s" %(http_user_agent)s '
-        #     '%(message)s %(asctime)s',
-        # },
-
-    },    
-}
