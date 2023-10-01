@@ -48,9 +48,12 @@ def handler500(request, *args, **argv):
     response.status_code = 500
     return response
 
+def trigger_error(request):
+    division_by_zero = 1 / 0
 
 urlpatterns = i18n_patterns(
     path('', views.home, name='home'),
+    path('sentry-debug/', trigger_error),
     path('dashboard/users', views.users_list, name='dashboard'),
     path('dashboard/users', views.users_list, name='users_list'),
     path('dashboard/employers', views.employers_list, name='employers_list'),
