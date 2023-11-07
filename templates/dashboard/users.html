@@ -1,0 +1,74 @@
+{% extends "dashboard/dashboard.html" %} {% block content %}
+<div class="tab-pane fade show active" id="Users" role="tabpanel" aria-labelledby="Users-tab">
+    <div class="card-block p-3">
+        <div class="table-responsive">
+            <table class="table" id="users_table">
+                <thead>
+                    <tr>
+                        <th>Full Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Verified</th>
+                        <th>Candidate</th>
+                        <th>Employer</th>
+                        <th>action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for luser in page_obj %}
+                    <tr>
+                        <td>
+                            {{ luser.firstname }} {{ luser.lastname }}
+                        </td>
+                        <td><a href="mailto:{{ luser.email }}">
+                {{ luser.email }}</a></td>
+                        <td><a href="tel:{{ luser.phone }}">
+                {{ luser.phone }}</a></td>
+                        <td>
+                            <span class="label {% if luser.is_verified == False %} label-danger {% else %} label-success {% endif %}">
+                {{ luser.is_verified }}</span>
+                        </td>
+                        <td>
+                            <span class="label {% if luser.is_candidate == False %} label-danger {% else %} label-success {% endif %}">
+                {{ luser.is_candidate }}</span>
+                        </td>
+                        <td>
+                            <span class="label {% if luser.is_employer == False %} label-danger {% else %} label-success {% endif %}">
+                {{ luser.is_employer }}</span>
+                        </td>
+                        <td>
+                            <a class="btn btn-primary btn-sm" href="{% url 'send_active' luser.id %}">Send Verify Email</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="row justify-content-center mt30 ">
+            <nav aria-label="Page navigation ">
+                <ul class="pagination justify-content-center flex-wrap mt-2 mb-4">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item"><a class="btn btn-sm btn-warning" href="?page={{ page_obj.previous_page_number }}">«</a></li>
+                    {% else %}
+                    <li class="disabled page-item"><span class="btn btn-sm btn-light">&laquo;</span></li>
+                    {% endif %} {% for i in page_range|default_if_none:page_obj.paginator.get_elided_page_range %} {% if page_obj.number == i %}
+                    <li class="active page-item"><span class="btn btn-sm btn-light">
+              {{ i }}</span>
+                    </li>
+                    {% else %} {% if i == page_obj.paginator.ELLIPSIS %}
+                    <li class="page-item"><span class="btn btn-sm btn-light">
+              {{ i }}</span></li>
+                    {% else %}
+                    <li class="page-item"><a class="btn btn-sm btn-warning" href="?page={{ i }}">
+              {{ i }}</a></li>
+                    {% endif %} {% endif %} {% endfor %} {% if page_obj.has_next %}
+                    <li class="page-item"><a class="btn btn-sm btn-warning" href="?page={{ page_obj.next_page_number }}">»</a></li>
+                    {% else %}
+                    <li class="disabled page-item"><span class="btn btn-sm btn-light">&raquo;</span></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+{% endblock %}

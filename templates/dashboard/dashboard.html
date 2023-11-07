@@ -1,0 +1,195 @@
+{% load static %}
+{% load i18n %}
+{% get_current_language as CURRENT_LANGUAGE %}
+{% get_available_languages as AVAILABLE_LANGUAGES %}
+{% get_language_info_list for AVAILABLE_LANGUAGES as languages %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>EmployIQ Dashbaord </title>
+    <!-- HTML5 Shim and Respond.js IE9 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js' %}"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js' %}"></script>
+      <![endif]-->
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="dashboard" />
+    <meta name="keywords" content="dashboard" />
+    <meta name="author" content="codedthemes">
+    <!-- Favicon icon -->
+    <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+    <!-- Google font-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+    <!-- Required Fremwork -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    <!-- themify-icons line icon -->
+    <link rel="stylesheet" type="text/css" href="{% static 'icon/themify-icons/themify-icons.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'icon/font-awesome/css/font-awesome.min.css' %}">
+    <!-- ico font -->
+    <link rel="stylesheet" type="text/css" href="{% static 'icon/icofont/css/icofont.css' %}">
+    <!-- Style.css -->
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/jquery.mCustomScrollbar.css' %}">
+    <script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/cstyle.css' %}?v=1.4.5">
+    {% if CURRENT_LANGUAGE == 'en' %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    {% else %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.rtl.min.css' %}">
+    {% endif %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/dstyle.css' %}">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+        <div class="container-fluid">
+            <!-- Image Logo -->
+            <a class="navbar-brand" href="{% url 'home' %}"><img src="/static/images/EIQLOGO2.svg" width="150"
+                    height="100" alt="alternative"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}">{% trans 'Home' %}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'users_list' %}">{% trans 'Users' %}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'employers_list' %}">{% trans 'Employers' %}</a>
+                    </li>
+                    <li class="menu-item">
+                        <a class="nav-link" href="{% url 'candidates_list' %}">{% trans 'Candidates' %}</a>
+                    </li>
+                    <li class="menu-item">
+                        <a class="nav-link" href="{% url 'subscriptions_list' %}">{% trans 'Subscriptions' %}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link page-scroll" href="/en/{{request.get_full_path|slice:"4:"}}">English</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link  page-scroll" href="/ar/{{request.get_full_path|slice:"4:"}}">العربيّة</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Pre-loader start -->
+    <div class="theme-loader">
+        <div class="loader-track">
+            <div class="loader-bar"></div>
+        </div>
+    </div>
+    <div class="pcoded-inner-content">
+        <div class="main-body">
+            <div class="page-wrapper">
+
+                <div class="page-body">
+                    <div class="row justify-content-center">
+
+                        <!-- order-card start -->
+                        <div class="col-md-6 col-xl-2">
+                            <div class="card bg-primary order-card">
+                                <div class="card-block">
+                                    <h6 class="m-b-20">Verified Users</h6>
+                                    <h2 class="text-right"><i
+                                            class="ti-user f-left"></i><span>{{active_users_count}}</span>
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-2">
+                            <div class="card bg-success order-card">
+                                <div class="card-block">
+                                    <h6 class="m-b-20">Candidates</h6>
+                                    <h2 class="text-right"><i
+                                            class="ti-id-badge f-left"></i><span>{{candidates_count}}</span>
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-2">
+                            <div class="card bg-danger order-card">
+                                <div class="card-block">
+                                    <h6 class="m-b-20">Employers</h6>
+                                    <h2 class="text-right"><i class="ti-bag f-left"></i><span>{{employers_count}}</span>
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-2">
+                            <div class="card bg-info order-card">
+                                <div class="card-block">
+                                    <h6 class="m-b-20">Jobs</h6>
+                                    <h2 class="text-right"><i class="ti-bag f-left"></i><span>{{jobs_count}}</span>
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-2">
+                            <div class="card bg-warning order-card">
+                                <div class="card-block">
+                                    <h6 class="m-b-20">Total Users</h6>
+                                    <h2 class="text-right"><i class="ti-wallet f-left"></i><span>{{users_count}}</span>
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                                    {% block content %}{% endblock %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Warning Section Ends -->
+    <!-- Required Jquery -->
+    <script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery-ui.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/popper.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+    <!-- jquery slimscroll js -->
+    {% comment %} <script type="text/javascript" src="{% static 'js/jquery-slimscroll/jquery.slimscroll.js' %}">
+    </script> {% endcomment %}
+    <!-- modernizr js -->
+    <script type="text/javascript" src="{% static 'js/modernizr/modernizr.js' %}"></script>
+    <!-- am chart -->
+    <script src="{% static 'pages/widget/amchart/amcharts.min.js' %}"></script>
+    <script src="{% static 'pages/widget/amchart/serial.min.js' %}"></script>
+    <!-- Chart js -->
+    <script type="text/javascript" src="{% static 'js/chart.js/Chart.js' %}"></script>
+    <!-- Todo js -->
+    <script type="text/javascript " src="{% static 'pages/todo/todo.js' %}"></script>
+    <!-- Custom js -->
+    {% comment %} <script type="text/javascript" src="{% static 'pages/dashboard/custom-dashboard.min.js' %}">
+    </script>
+    {% endcomment %}
+    <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+    <script type="text/javascript " src="{% static 'js/SmoothScroll.js' %}"></script>
+    {% comment %} <script src="{% static 'js/pcoded.min.js' %}"></script> {% endcomment %}
+    {% comment %} <script src="{% static 'js/vartical-demo.js' %}"></script> {% endcomment %}
+    {% comment %} <script src="{% static 'js/jquery.mCustomScrollbar.concat.min.js' %}"></script> {% endcomment %}
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.datatables.net/v/bs5/jq-3.6.0/jszip-2.5.0/dt-1.11.5/b-2.2.2/b-colvis-2.2.2/b-html5-2.2.2/b-print-2.2.2/cr-1.5.5/fh-3.2.2/r-2.2.9/sc-2.0.5/datatables.min.css" />
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js">
+    </script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js">
+    </script>
+    <script type="text/javascript"
+        src="https://cdn.datatables.net/v/bs5/jq-3.6.0/jszip-2.5.0/dt-1.11.5/b-2.2.2/b-colvis-2.2.2/b-html5-2.2.2/b-print-2.2.2/cr-1.5.5/fh-3.2.2/r-2.2.9/sc-2.0.5/datatables.min.js">
+    </script>
+</body>
+
+</html>
