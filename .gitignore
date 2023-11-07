@@ -10,3 +10,6 @@ employer/migrations
 
 /.idea/
 /.vscode/
+/nohup.out
+/recruitment_11102023.sql
+/employer/views_old.py
