@@ -15,7 +15,8 @@ from easy_thumbnails.fields import ThumbnailerImageField
 from accounts.models import User
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
-User = settings.AUTH_USER_MODEL
+from django.core.exceptions import ValidationError
+from django.core.files.images import get_image_dimensions
 
 NATIONALITY = [
     ('international', _('International')),
@@ -63,6 +64,18 @@ GOVERNORATES = [
 ]
 
 
+class subscription_features(models.Model):
+    id = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False)
+    feature = models.CharField(max_length=200, verbose_name=_('Feature'))
+
+    def __str__(self):
+        return self.feature
+
+    def __unicode__(self):
+        return self.feature
+
+
 class subscription_plan(models.Model):
     id = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)
@@ -71,12 +84,26 @@ class subscription_plan(models.Model):
     jobs = models.IntegerField(verbose_name=_('Jobs'))
     price = models.IntegerField(verbose_name=_('Price'))
     days = models.IntegerField()
+    features = models.ManyToManyField(blank=True, verbose_name=_(
+        'Features'), related_name='features', to=subscription_features)
+    is_active = models.BooleanField(
+        default=False, verbose_name=_('Is Active'))
 
     def __str__(self):
         return self.plan
 
     def __unicode__(self):
         return self.plan
+
+
+def validate_image(image):
+    width, height = get_image_dimensions(image)
+    if height != width:
+        raise ValidationError(
+            _("Please select logo with scale 1:1 (square) and maximum height and width is 300px"))
+    if height >= 301:
+        raise ValidationError(
+            _("Please select logo with scale 1:1 (square) and maximum height and width is 300px"))
 
 
 class employer(models.Model):
@@ -109,10 +136,10 @@ class employer(models.Model):
     subscription_to = models.DateField(
         blank=True, null=True, verbose_name=_('Subscription To'))
     remaining_records = models.IntegerField(blank=True, null=True,
-                                            verbose_name=_('Remaining Records'))
+                                            verbose_name=_('Remaining Records'), default=0)
     remaining_jobs = models.IntegerField(blank=True, null=True,
                                          verbose_name=_('Remaining Jobs'))
-    is_verified = models.BooleanField(default=False,blank=False, null=False)
+    is_verified = models.BooleanField(default=False, blank=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(
@@ -128,12 +155,38 @@ class employer(models.Model):
 
     class Meta:
         unique_together = ('id', 'user',)
+        ordering = ('company',)
+
+
+class suggestion(models.Model):
+    id = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False)
+    employer = models.ForeignKey(
+        employer, on_delete=models.CASCADE, related_name='suggestions')
+    candidate = models.ForeignKey(
+        candidate, on_delete=models.CASCADE, related_name='candidates', blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+    created_by = models.ForeignKey(
+        User, related_name='%(class)s_createdby', on_delete=models.CASCADE, blank=True, null=True)
+    modified_by = models.ForeignKey(
+        User, related_name='%(class)s_modifiedby', null=True, blank=True, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.id)
+
+    def __unicode__(self):
+        return str(self.id)
+
+    class Meta:
+        ordering = ('-created_at',)
 
 
 class job(models.Model):
     id = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)
-    employer = models.ForeignKey(employer, on_delete=models.CASCADE)
+    employer = models.ForeignKey(
+        employer, on_delete=models.CASCADE, related_name='jobs')
     job_title = models.CharField(max_length=200, verbose_name=_('Job Title'))
     keywords = TagField(verbose_name=_('Position keywords'),
                         delimiters=' ')
@@ -171,3 +224,68 @@ class job(models.Model):
 
     class Meta:
         ordering = ('-date_opened',)
+
+
+class Transaction(models.Model):
+    id = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False)
+    employer = models.ForeignKey(employer, on_delete=models.CASCADE)
+    subscription = models.ForeignKey('Subscription', on_delete=models.CASCADE)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    payment_status = models.CharField(max_length=20)
+    transaction_id = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+    created_by = models.ForeignKey(
+        User, related_name='%(class)s_createdby', on_delete=models.CASCADE, blank=True, null=True)
+    modified_by = models.ForeignKey(
+        User, related_name='%(class)s_modifiedby', null=True, blank=True, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Transaction #{self.id} for {self.employer.company}"
+
+
+class Subscription(models.Model):
+    id = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False)
+    employer = models.ForeignKey(employer, on_delete=models.CASCADE)
+    plan = models.ForeignKey(
+        'subscription_plan', on_delete=models.CASCADE, blank=True, null=True, verbose_name=_('Plan'))
+    start_date = models.DateField()
+    end_date = models.DateField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+    created_by = models.ForeignKey(
+        User, related_name='%(class)s_createdby', on_delete=models.CASCADE, blank=True, null=True)
+    modified_by = models.ForeignKey(
+        User, related_name='%(class)s_modifiedby', null=True, blank=True, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.employer.company
+
+    def used_jobs(self):
+        # Calculate the count of jobs created within the subscription period
+        return self.employer.jobs.filter(created_at__gte=self.start_date, created_at__lte=self.end_date).count()
+
+    def used_suggestions(self):
+        # Calculate the count of suggestions created within the subscription period
+        return self.employer.suggestions.filter(created_at__gte=self.start_date, created_at__lte=self.end_date).count()
+
+    def remaining_jobs(self):
+        return self.plan.jobs - self.used_jobs()
+
+    def remaining_suggestions(self):
+        return self.plan.suggestions - self.used_suggestions()
+
+    def is_active(self):
+        return self.end_date >= timezone.now().date()
+
+    def is_conflict(self, start_date, end_date):
+        selected_start_date = start_date
+        selected_end_date = end_date
+        current_start_date = self.start_date
+        current_end_date = self.end_date
+        if (selected_start_date >= current_start_date and selected_start_date <= current_end_date) or (selected_end_date >= current_start_date and selected_end_date <= current_end_date):
+            return True
+        else:
+            return False

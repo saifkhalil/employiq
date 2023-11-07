@@ -244,6 +244,7 @@
                                                             <th>Address</th>
                                                             <th>City</th>
                                                             <th>Country</th>
+                                                            <th>Created At</th>
                                                             <th>Subscribed</th>
                                                             <th>Plan</th>
                                                             <th>Remaining Records</th>
@@ -270,6 +271,7 @@
                                                             <td>{{ employer.address }}</td>
                                                             <td>{{ employer.city }}</td>
                                                             <td>{{ employer.country }}</td>
+                                                            <td>{{ employer.created_at }}</td>
                                                             <td>
                                                                 <span
                                                                     class="label {% if employer.is_subscribed == False %} label-danger {% else %} label-success {% endif %}">{{ employer.is_subscribed }}</span>

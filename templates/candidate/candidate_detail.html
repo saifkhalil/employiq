@@ -18,13 +18,37 @@
                     <!-- Start of Row -->
                     <div class="row candidate-profile nomargin">
                         {% if msg %}
-                        <div class="col-12">
-                            <p>{{ msg }}</p>
-                        </div>
-                        {% endif %}
+                        <!-- ===== Start of Main Wrapper Section ===== -->
+<section class="ptb40" id="post-job">
+    <div class="row justify-content-center">
+        <div class="col-lg-10 col-md-10 col-sm-12">
+
+            <!-- Start of Account Question -->
+            <div class="row account-question">
+                <div class="col-md-10 nopadding">
+                    <p class="nomargin">
+                       {{ msg }}
+                    </p>
+                </div>
+
+                <div class="col-md-2 text-right nopadding">
+                    <a href="{% url 'home' %}"
+                        class="btn btn-primary btn-effect mt5">{% trans "Home" %}</a>
+                </div>
+            </div>
+
+            <!-- End of Account Question -->
+        </div>
+    </div>
+</section>
+                        
+                        
+                        
+                        
+                        {% else %}
                         <!-- Start of Profile Picture -->
                         <div class="col-md-2 col-sm-6">
-                            <img class="img-thumbnail" src="{{object.photo.url}}" alt="{{ object.firstname }}">
+                            <img class="img-thumbnail" src="{% if object.photo %} {{object.photo.url}}{% endif %}" alt="{{ object.firstname }}">
                         </div>
                         <!-- End of Profile Picture -->
 
@@ -73,7 +97,7 @@
                             </div>
                         </div>
                         <!-- End of Profile Description -->
-
+                        {% endif %}
                     </div>
                     <!-- End of Row -->
 
@@ -81,6 +105,7 @@
             </section>
             <!-- ===== End of Candidate Profile Header ===== -->
             <!-- ===== Start of  Candidate Profile Details ===== -->
+            {% if not msg %}
             <div class="row justify-content-md-center">
                 <div class="col-lg-10 col-md-10 col-sm-12">
                     <div class="card text-dark bg-light mb-3">
@@ -710,7 +735,7 @@
                 </div>
             </div>
             <!-- ===== End of Candidate Profile Details ===== -->
-
+{% endif %}
         </div>
     </div>
     <script type="text/javascript">

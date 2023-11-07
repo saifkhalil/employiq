@@ -14,9 +14,13 @@
             <div class="login-box">
 
                 <div class="login-title">
-                    <h4>{% trans 'Register as Employer' %}</h4>
+                    <h4> {% if current_employer %}You already have employer account {% else %}{% trans 'Register as Employer' %}{% endif %}</h4>
+                    
+                    
                 </div>
-
+                {% if current_employer %}
+                <h6 class="ptb50 text-center" >Go to your employer account <a href="{% url 'my_employer_details'  %}">{{current_employer.company}}</a></h6>
+{% else %}
                 <form method="post" id="cmform" action="" enctype="multipart/form-data" novalidate>
                     {% csrf_token %}
                     {% for hidden_field in form.hidden_fields %}
@@ -62,6 +66,7 @@
                     </div>
 
                 </form>
+                {% endif %}
             </div>
         </div>
     </div>

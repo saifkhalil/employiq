@@ -241,7 +241,7 @@ class candidate(models.Model):
     id = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)
     user = models.OneToOneField(
-        User, blank=True, null=True, on_delete=models.CASCADE)
+        User, blank=False, null=False, on_delete=models.CASCADE)
     title = models.CharField(max_length=3, choices=TITLE_CHOICES,
                              default="Mr.", blank=False, null=False, verbose_name=_('Title'))
     firstname = models.CharField(
@@ -315,5 +315,5 @@ class candidate(models.Model):
         return self.firstname + " " + self.secondname + " " + self.lastname
 
     class Meta:
-        unique_together = ('id', 'user',)
+        unique_together = ('id', 'user','email',)
         ordering = ('-created_at',)

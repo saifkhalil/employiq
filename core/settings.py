@@ -39,6 +39,8 @@ ALLOWED_HOSTS = ['*', ]
 # SECURE_BROWSER_XSS_FILTER = True
 # SESSION_COOKIE_HTTPONLY = True
 
+ADMINS = [("Saif Khlil", "saif780@gmail.com"), ]
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -53,6 +55,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     'django.contrib.sites',
     # 3d party packages
     'django_countries',
@@ -75,6 +78,7 @@ INSTALLED_APPS = [
     'bootstrap_modal_forms',
     'django_currentuser',
     'weasyprint',
+    # 'django_requestlogging',
     # 'djangosecure',
     # 'sslserver',
     # Buitin apps
@@ -95,9 +99,13 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django_currentuser.middleware.ThreadLocalUserMiddleware',
+    # 'django_requestlogging.middleware.LogSetupMiddleware',
 
 
 ]
+# MIDDLEWARE_CLASSES = [
+#     'django_requestlogging.middleware.LogSetupMiddleware',
+#     ]
 
 ROOT_URLCONF = 'core.urls'
 
@@ -112,6 +120,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'core.context_processors.dashboard_counts',
             ],
         },
     },
@@ -134,7 +143,7 @@ DATABASES = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'employadmin_recruitment',
+        'NAME': 'employadmin_recruitment_05072023',
         'USER': 'employadmin_recruitment',
         'PASSWORD': 'Z@id1978',
         'HOST': 'localhost',
@@ -172,7 +181,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 SITE_ID = 1
 
@@ -201,6 +210,9 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_COOKIE_AGE = 15 * 60 # 15 minutes
+SESSION_SAVE_EVERY_REQUEST = True
 
 AUTH_USER_MODEL = 'accounts.User'
 
@@ -220,14 +232,16 @@ ACCOUNT_USERNAME_REQUIRED = False
 DJANGO_ALLOW_ASYNC_UNSAFE = True
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
+USE_THOUSAND_SEPARATOR = False
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'saif780@gmail.com'
-EMAIL_HOST_PASSWORD = 'llphqnbkqauylcsx'
-DEFAULT_FROM_EMAIL = 'EmployIQ <saif780@gmail.com>'
+# EMAIL_HOST_USER = 'saif780@gmail.com'
+# EMAIL_HOST_PASSWORD = 'llphqnbkqauylcsx'
+EMAIL_HOST_USER = 'employhr7@gmail.com'
+EMAIL_HOST_PASSWORD = 'mzykhhycblacsawj'
+DEFAULT_FROM_EMAIL = 'EmployIQ <employhr7@gmail.com>'
 
 # CKEDITOR_ALLOW_NONIMAGE_FILES = False
 
@@ -413,12 +427,34 @@ JAZZMIN_SETTINGS = {
 }
 
 
+import logging
+
+class IPAddressFilter(logging.Filter):
+
+    def filter(self, record):
+        if hasattr(record, 'request'):
+            x_forwarded_for = record.request.META.get('HTTP_X_FORWARDED_FOR')
+            if x_forwarded_for:
+                record.ip = x_forwarded_for.split(',')[0]
+            else:
+                record.ip = record.request.META.get('REMOTE_ADDR')
+        return True
+
+
 LOGGING = {
+
     'version': 1,
+    # 'filters': {
+    #     # Add an unbound RequestFilter.
+    #     'request': {
+    #         '()': 'django_requestlogging.logging_filters.RequestFilter',
+    #     },
+    # },
     'loggers': {
         'django': {
             'handlers': ['log', 'info', 'warning', 'error', 'critical'],
-            'level': 'DEBUG'
+            'level': 'DEBUG',
+            # 'filters': ['request'],
         }
     },
     'handlers': {
@@ -458,7 +494,31 @@ LOGGING = {
         'verbose': {
             'format': '{name} {levelname} {asctime} {module} {process:d} {thread:d} {message}',
             'style': '{',
-        }
+        },
+        # 'request_format': {
+        #     'format': '%(remote_addr)s %(username)s "%(request_method)s '
+        #     '%(path_info)s %(server_protocol)s" %(http_user_agent)s '
+        #     '%(message)s %(asctime)s',
+        # },
 
-    }
+    },    
 }
+
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
+
+sentry_sdk.init(
+    dsn="https://30edc03819aa3b8fb6af4caee6d630ff@o4505905746608128.ingest.sentry.io/4506184661663744",
+    integrations=[DjangoIntegration()],
+    # If you wish to associate users to errors (assuming you are using
+    # django.contrib.auth) you may enable sending PII data.
+    send_default_pii=True,
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for performance monitoring.
+    # We recommend adjusting this value in production.
+    traces_sample_rate=1.0,
+    # Set profiles_sample_rate to 1.0 to profile 100%
+    # of sampled transactions.
+    # We recommend adjusting this value in production.
+    profiles_sample_rate=1.0,
+)

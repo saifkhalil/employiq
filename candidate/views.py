@@ -81,8 +81,9 @@ def candlist(request):
             if len(w) < 2:  # Min length
                 query_words.remove(w)
         for word in query_words:
-            query = query | Q(certificate__organization__icontains=word) | Q(
-                Employment__job_title__icontains=word) | Q(skills__icontains=word)
+            query = query | Q(certificate__organization__icontains=word)| Q(skills__icontains=word)
+            #  | Q( Employment__job_title__icontains=word)
+             
 
         cand_list1 = cand_list.filter(query)
     else:
@@ -90,12 +91,14 @@ def candlist(request):
     session = [city, education, number_of_records, keywords]
     # Show 25 contacts per page.
     paginator = Paginator(cand_list1.distinct(), number_of_records)
-    page_number = request.GET.get('page')
+    page_number = request.GET.get('page',1)
     page_obj = paginator.get_page(page_number)
+    page_range = paginator.get_elided_page_range(number=page_number,on_each_side=2, on_ends=2)
     context = {
         'session': json.dumps(session),
         'page_obj': page_obj,
         'cn': cand_list1,
+        'page_range':page_range,
         'candidate_count': cand_list1.count(),
         'remcand': employer.objects.filter(user=request.user).order_by().values_list('remaining_records', flat=True).first()
     }
@@ -108,7 +111,7 @@ def candetials(request, cid):
         context = {
             'object': cm,
             'educations': education.objects.filter(candidate__id=cid),
-            'employments': employment.objects.filter(candidate__id=cid),
+            # 'employments': employment.objects.filter(candidate__id=cid),
             'Languages': language.objects.filter(candidate__id=cid),
             'certificates': certificate.objects.filter(candidate__id=cid),
         }
@@ -120,21 +123,27 @@ def candetials(request, cid):
                 'isemployer': 'false'
             }
             return render(request, 'employer/employer_details.html', context)
-        if remcand.remaining_records > 1:
-            remcand.remaining_records = remcand.remaining_records - 1
-            remcand.save()
-            context = {
-                'object': cm,
-                'educations': education.objects.filter(candidate__id=cid),
-                'employments': employment.objects.filter(candidate__id=cid),
-                'Languages': language.objects.filter(candidate__id=cid),
-                'certificates': certificate.objects.filter(candidate__id=cid),
-                'remcand': remcand.remaining_records
-            }
+        if remcand.is_subscribed:
+            
+            if remcand.remaining_records > 1:
+                remcand.remaining_records = remcand.remaining_records - 1
+                remcand.save()
+                context = {
+                    'object': cm,
+                    'educations': education.objects.filter(candidate__id=cid),
+                    # 'employments': employment.objects.filter(candidate__id=cid),
+                    'Languages': language.objects.filter(candidate__id=cid),
+                    'certificates': certificate.objects.filter(candidate__id=cid),
+                    'remcand': remcand.remaining_records
+                }
+            else:
+                context = {
+                    'msg': "You don't have more balance"
+                }
         else:
             context = {
-                'msg': "You don't have more balance"
-            }
+                    'msg': "Please subscribe with us to view candidate details"
+                }
     return render(request, 'candidate/candidate_detail.html', context)
 
 
@@ -149,7 +158,7 @@ class CandidateDetail(DetailView):
         cid = candidate.objects.get(user__id=userid).id
         context['object'] = candidate_detials
         context['educations'] = education.objects.filter(candidate__id=cid)
-        context['employments'] = employment.objects.filter(candidate__id=cid)
+        # context['employments'] = employment.objects.filter(candidate__id=cid)
         context['Languages'] = language.objects.filter(candidate__id=cid)
         context['certificates'] = certificate.objects.filter(candidate__id=cid)
         return context
@@ -164,7 +173,7 @@ def my_candidate_details(request):
         context = {
             'object': candidate_detials,
             'educations': education.objects.filter(candidate__id=cid),
-            'employments': employment.objects.filter(candidate__id=cid),
+            # 'employments': employment.objects.filter(candidate__id=cid),
             'Languages': language.objects.filter(candidate__id=cid),
             'certificates': certificate.objects.filter(candidate__id=cid),
             'applied_jobs': job.objects.filter(applied_candidates=candidate_detials)
@@ -495,7 +504,7 @@ class GeneratePdf(View):
         context = {
             'object': candidate_detials,
             'educations': education.objects.filter(candidate__id=cid),
-            'employments': employment.objects.filter(candidate__id=cid)
+            # 'employments': employment.objects.filter(candidate__id=cid)
         }
         # getting the template
         pdf = html_to_pdf('candidate/resume.html', context)
@@ -514,7 +523,7 @@ def generate_pdf(request):
     context = {
         'object': candidate_detials,
         'educations': education.objects.filter(candidate__id=cid),
-        'employments': employment.objects.filter(candidate__id=cid),
+        # 'employments': employment.objects.filter(candidate__id=cid),
         'Languages': language.objects.filter(candidate__id=cid),
         'certificates': certificate.objects.filter(candidate__id=cid),
     }
@@ -549,7 +558,7 @@ def view_pdf(request):
     context = {
         'object': candidate_detials,
         'educations': education.objects.filter(candidate__id=cid),
-        'employments': employment.objects.filter(candidate__id=cid),
+        # 'employments': employment.objects.filter(candidate__id=cid),
         'Languages': language.objects.filter(candidate__id=cid),
         'certificates': certificate.objects.filter(candidate__id=cid),
     }

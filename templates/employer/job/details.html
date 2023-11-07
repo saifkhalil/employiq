@@ -122,6 +122,10 @@
                                     <span>{{ job.date_opened }}</span></h5>
                             </li>
                             <li>
+                                <h5><i class="fa fa-calendar"></i> {% trans 'Date Closed:' %}
+                                    <span>{{ job.date_closed|default:'No expiry date' }}</span></h5>
+                            </li>
+                            <li>
                                 <h5><i class="fa fa-map-marker"></i> {% trans 'Location:' %} <span>{{ job.city }},
                                         {{ job.get_country_display }}</span></h5>
                             </li>
@@ -141,10 +145,14 @@
                             </a>
                             {% elif user.is_candidate %}
                             {% if applied == False %}
+                            {% if not job_closed %}
                             <button type="button" class="btn btn-blue btn-effect" data-bs-toggle="modal"
                                 data-bs-target="#applyJob">
                                 {% trans 'Apply for job' %}
                             </button>
+                            {% else %}
+                            <p class="alert alert-danger">{% trans 'Job Expired' %}</p>
+                            {% endif %}
                             {% elif applied == True %}
                             <p class="alert alert-success">{% trans 'Your Already applied' %}</p>
                             {% endif %}
@@ -164,7 +172,7 @@
                         <ol class="list-group list-group-numbered">
                             {% for cand in candidates_list %}
                             <li class="list-group-item d-flex justify-content-between align-items-start">
-                                <img class="img-thumbnail" width="50px" src="{{cand.photo.url}}"
+                                <img class="img-thumbnail" width="50px" src="{% if cand.photo %} {{cand.photo.url}}{% endif %}"
                                     alt="{{ cand.firstname }}">
                                 <div class="ms-2 me-auto">
                                     <div class="fw-bold"> {{ cand.title }} {{ cand.firstname }}
@@ -187,7 +195,7 @@
                         <ol class="list-group list-group-numbered">
                             {% for cand in candidates_list %}
                             <li class="list-group-item d-flex justify-content-between align-items-start">
-                                <img class="img-thumbnail" width="50px" src="{{cand.photo.url}}"
+                                <img class="img-thumbnail" width="50px" src="{% if cand.photo %} {{cand.photo.url}}{% endif %}"
                                     alt="{{ cand.firstname }}">
                                 <div class="ms-2 me-auto">
                                     <div class="fw-bold"><a href="{% url 'candetials' cand.id %}"
