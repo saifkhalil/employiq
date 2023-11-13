@@ -7,9 +7,20 @@
 {% block content %}
 {% load humanize %}
 {% load static %}
+
 <!-- ===== Start of Main Search Section ===== -->
 <section class="main overlay-black">
-
+        {% if messages %}
+        <div class="row justify-content-center">
+                {% for message in messages %}
+                <div
+                    class="alert {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %} alert-danger {% else %} alert-success {% endif %} alert-dismissible fade show">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endfor %}
+        </div>
+        {% endif %}
     <!-- Start of Wrapper -->
     <div class="container wrapper">
 
@@ -94,10 +105,10 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
         {% for price in princing %}
-        <div class="col-md-3 col-xs-12 mt80 mb20">
+        <div class="{% if active_plans_count <= 4 %}col-lg-3 col-md-4 col-sm-4{% else %}col-lg-3 col-md-4 col-sm-6{% endif %} col-xs-12 mt80 mb20">
             <div class="pricing-table shadow-hover" {% if price.plan == 'Premium' %}id="popular" {% endif %}>
                 <div class="pricing-header">
-                    <h2>{% blocktrans %}{{ price.plan }}{% endblocktrans %}</h2>
+                    <h2>{{ price.plan }}</h2>
                 </div>
                 <div class="pricing">
                     <div class="row">
@@ -123,18 +134,18 @@
 
                 <!-- Pricing Footer -->
                 <div class="pricing-footer">
-                    {% if price.is_active %}
+                    {% if price.status == 'Active' %}
                     {% if user.is_authenticated %}
-                    {% if user.is_employer %} 
-                    <button id='subscription' apilink="{% url 'employer_plan' price.id %}" class="btn btn-blue btn-effect">{% trans 'Subscribe now' %}</button>
-                    {% else %}
+                    {% if user.is_employer %}
+                    <a id='subscription' href="{% url 'employer_plan' price.id %}" class="btn btn-blue btn-effect">{% trans 'Subscribe now' %}</a>
+                    {% elif not user.is_employer and not active_subscription %}
                     <a class="btn btn-blue btn-effect" href="{% url 'employer_create' %}">{% trans 'Subscribe now' %}</a>
                     {% endif %}
                     {% else %}
                     <a class="btn btn-blue btn-effect" href="{% url 'login' %}">{% trans 'Subscribe now' %}</a>
                     {% endif %}
-                    {% else %}
-                    <a class="btn btn-gray btn-effect" href="#">{% trans 'Coming soon' %}</a>
+                    {% elif price.status == 'ComingSoon' %}
+                        <a class="btn btn-gray btn-effect" href="#">{% trans 'Coming soon' %}</a>
                     {% endif %}
                 </div>
 

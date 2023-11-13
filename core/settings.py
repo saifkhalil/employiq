@@ -9,24 +9,36 @@ https://docs.djangoproject.com/en/2.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
-
+import environ
 import os
+
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
 from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '*1o#2%44j&&vdn)uzr2*tt*@c^@c1w1xbx!-e)_v7%yiu9d#gu'
+SECRET_KEY = env('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*', ]
+
+# INTERNAL_IPS = [
+#     # ...
+#     "127.0.0.1",
+#     # ...
+# ]
 
 # SECURE_SSL_REDIRECT = True
 # SESSION_COOKIE_SECURE = True
@@ -39,7 +51,7 @@ ALLOWED_HOSTS = ['*', ]
 # SECURE_BROWSER_XSS_FILTER = True
 # SESSION_COOKIE_HTTPONLY = True
 
-ADMINS = [("Saif Khlil", "saif780@gmail.com"), ]
+ADMINS = [("Saif Khalil", "saif780@gmail.com"), ]
 
 # Application definition
 
@@ -78,6 +90,7 @@ INSTALLED_APPS = [
     'bootstrap_modal_forms',
     'django_currentuser',
     'weasyprint',
+    # 'debug_toolbar',
     # 'django_requestlogging',
     # 'djangosecure',
     # 'sslserver',
@@ -99,6 +112,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django_currentuser.middleware.ThreadLocalUserMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
+    # "debug_toolbar.middleware.DebugToolbarMiddleware",
     # 'django_requestlogging.middleware.LogSetupMiddleware',
 
 
@@ -122,6 +137,10 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'core.context_processors.dashboard_counts',
             ],
+            'libraries': {
+                'url_replace': 'core.templatetags.url_replace',
+
+            }
         },
     },
 ]
@@ -143,11 +162,11 @@ DATABASES = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'employadmin_recruitment_05072023',
-        'USER': 'employadmin_recruitment',
-        'PASSWORD': 'Z@id1978',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'NAME':  env('DATABASE_NAME'),
+        'USER': env('DATABASE_USER'),
+        'PASSWORD': env('DATABASE_PASSWORD'),
+        'HOST':  env('DATABASE_HOST'),
+        'PORT':  env('DATABASE_PORT'),
     }
 }
 
@@ -232,16 +251,12 @@ ACCOUNT_USERNAME_REQUIRED = False
 DJANGO_ALLOW_ASYNC_UNSAFE = True
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-USE_THOUSAND_SEPARATOR = False
-
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_USE_TLS = True
-EMAIL_PORT = 587
-# EMAIL_HOST_USER = 'saif780@gmail.com'
-# EMAIL_HOST_PASSWORD = 'llphqnbkqauylcsx'
-EMAIL_HOST_USER = 'employhr7@gmail.com'
-EMAIL_HOST_PASSWORD = 'mzykhhycblacsawj'
-DEFAULT_FROM_EMAIL = 'EmployIQ <employhr7@gmail.com>'
+EMAIL_HOST = env('EMAIL_HOST')
+EMAIL_USE_TLS = env('EMAIL_USE_TLS')
+EMAIL_PORT = env('EMAIL_PORT')
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
 
 # CKEDITOR_ALLOW_NONIMAGE_FILES = False
 

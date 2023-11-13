@@ -7,8 +7,8 @@ from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import DetailView
 from requests import request
 from accounts.models import User
-from employer.forms import EmpForm, JobForm, SubscriptionForm
-from employer.models import job, employer, subscription_plan, Subscription, suggestion
+from employer.forms import EmpForm, JobForm, SubscriptionForm, SubscriptionPlanForm
+from employer.models import job, employer, subscription_plan, Subscription, suggestion, Checkout
 from django.core.exceptions import ObjectDoesNotExist
 from candidate.models import candidate
 from django.http.response import JsonResponse
@@ -34,6 +34,10 @@ from abc import ABC
 from datetime import timedelta
 from datetime import datetime
 from django.template.loader import render_to_string
+from core.payment_api import checkout, payment_check
+from django.contrib.sites.models import Site
+
+
 # Create your views here.
 
 
@@ -47,7 +51,7 @@ def send_review_email(Employer, request):
     })
 
     send_mail(email_subject, message, settings.DEFAULT_FROM_EMAIL, [
-              Employer.user.email], fail_silently=True, html_message=email_body)
+        Employer.user.email], fail_silently=True, html_message=email_body)
 
 
 def send_employer_email(user, cjob, cand, request):
@@ -63,7 +67,7 @@ def send_employer_email(user, cjob, cand, request):
     })
 
     send_mail(email_subject, message, settings.DEFAULT_FROM_EMAIL, [
-              cjob.employer.communication_email], fail_silently=True, html_message=email_body)
+        cjob.employer.communication_email], fail_silently=True, html_message=email_body)
 
 
 class EmployerCreateView(CreateView):
@@ -114,6 +118,31 @@ class EmployerCreateView(CreateView):
         return ctx
 
 
+def pre_job_create(request):
+    user = request.user
+    remaining_jobs = 0
+    is_active = False
+    employer_subscription = None
+    employer_subscription_last = Subscription.objects.filter(
+        employer__user=user).order_by('-end_date').first()
+    if employer_subscription_last:
+        employer_subscription = Subscription.objects.get(
+            id=employer_subscription_last.id)
+        remaining_jobs = employer_subscription.remaining_jobs()
+        is_active = employer_subscription.is_active()
+    if employer_subscription and is_active:
+        if remaining_jobs <= 0:
+            messages.add_message(request, messages.ERROR,
+                                 _(f"You don't have remaining Jobs balance for your current subscription {employer_subscription.plan}"))
+            return redirect(reverse('home'))
+        else:
+            return redirect(reverse('job-create'))
+    else:
+        messages.add_message(request, messages.ERROR,
+                             _("You are not subscribed to us or your subscription has expired, please subscribe to post a job"))
+        return redirect(reverse('home'))
+
+
 class JobCreateView(CreateView):
     model = job
     template_name = 'employer/job/create.html'
@@ -155,6 +184,7 @@ class JobCreateView(CreateView):
     def get_context_data(self, **kwargs):
         ctx = super(JobCreateView, self).get_context_data(**kwargs)
         user = self.request.user
+        remaining_jobs = 0
         employer_subscription = None
         current_employer = employer.objects.get(user__id=self.request.user.id)
         employer_subscription_last = Subscription.objects.filter(
@@ -420,22 +450,75 @@ class JobUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView, ABC):
 #         return True
 
 
+def employer_checkout(request, cid):
+    if request.user.is_employer:
+        current_employer = employer.objects.get(user__id=request.user.id)
+        checkout = Checkout.objects.get(checkout_id=cid)
+        payment = payment_check(cid)
+        current_site = Site.objects.get_current()
+        print(payment)
+        if payment.get('result').get('code') == '000.200.000':
+            context = {
+                'domain': current_site.domain,
+                'checkout_id': cid,
+                'employer': current_employer,
+                'checkout': checkout,
+            }
+            return render(request, 'employer/subscription/checkout.html', context)
+        elif payment.get('result').get('code') == '000.100.110':
+            checkout.payment_status = 'Paid'
+            checkout.save()
+            messages.add_message(request, messages.SUCCESS,
+                                 "You are already pay this subscription")
+            return redirect(reverse('home'))
+        elif payment.get('result').get('code') == '200.300.404':
+            messages.add_message(request, messages.ERROR,
+                                 "Please please subscribe with us")
+            return redirect(reverse('home'))
+        else:
+            messages.add_message(request, messages.ERROR,
+                                 "There are error on subscription please try again")
+            return redirect(reverse('home'))
+
+
 def employer_plan(request, sid):
     if request.user.is_employer:
         try:
             current_employer = employer.objects.get(user__id=request.user.id)
-        except (employer.DoesNotExist):
-            return JsonResponse({"data": "You employer not found, please try agin later"}, status=200)
+        except employer.DoesNotExist:
+            return JsonResponse({"data": "You employer not found, please try again later"}, status=200)
         employer_subscriptions = Subscription.objects.filter(
             employer__user=request.user).order_by('-created_at')
-        if employer_subscriptions.count() > 0 and employer_subscriptions.first().is_active():
-            return JsonResponse({"data": f"You already subscribed with us with plan {employer_subscriptions.first().plan} end at {employer_subscriptions.first().end_date}"}, status=200)
+        # if employer_subscriptions.count() > 0 and employer_subscriptions.first().is_active():
+        #     messages.add_message(request, messages.INFO,
+        #                          f"You already subscribed with us with plan {employer_subscriptions.first().plan} end at {employer_subscriptions.first().end_date}")
+        #     return redirect(
+        #         reverse('home')
+        #     )
+        #     # return JsonResponse({"data": f"You already subscribed with us with plan {employer_subscriptions.first().plan} end at {employer_subscriptions.first().end_date}"}, status=200)
+        # else:
+        plan = subscription_plan.objects.get(id=sid)
+        check_result = checkout(plan.price)
+        if check_result.get('result').get('code') == '000.200.100':
+            checkout_id = check_result.get('id')
+            emp_transaction = Checkout(
+                employer=current_employer,
+                plan=plan,
+                amount=plan.price,
+                payment_status='pending',
+                checkout_id=checkout_id
+            )
+            emp_transaction.save()
+            return redirect(
+                reverse('employer_checkout', kwargs={"cid": checkout_id}
+                        )
+            )
         else:
-            plan = subscription_plan.objects.get(id=sid)
-            emp_subscription = Subscription(employer=current_employer, plan=plan, start_date=datetime.now(
-            ), end_date=datetime.now() + timedelta(plan.days), created_at=datetime.now(), created_by=request.user)
-            emp_subscription.save()
-            return JsonResponse({"data": "subscription successfully"}, status=200)
+            return JsonResponse({"data": "There are error in payment gateway, please try again later"}, status=200)
+        # emp_subscription = Subscription(employer=current_employer, plan=plan, start_date=datetime.now(
+        # ), end_date=datetime.now() + timedelta(plan.days), created_at=datetime.now(), created_by=request.user)
+        # emp_subscription.save()
+        return JsonResponse({"data": "subscription successfully"}, status=200)
 
 
 def send_verified(request, employerid):
@@ -450,7 +533,7 @@ def send_verified(request, employerid):
     })
 
     send_mail(email_subject, message, settings.DEFAULT_FROM_EMAIL, [
-              selected_employer.user.email], fail_silently=True, html_message=email_body)
+        selected_employer.user.email], fail_silently=True, html_message=email_body)
     return redirect('dashboard')
 
 
@@ -466,13 +549,13 @@ class SubscriptionCreateView(CreateView):
         #     user__id=self.request.user.id)
         subscription = form.save(commit=False)
         subscription.end_date = subscription.start_date + \
-            timedelta(days=subscription.plan.days)
-        employer_subscriptions = Subscription.objects.filter(Q(employer=subscription.employer), Q(
-            start_date__lte=subscription.end_date), Q(end_date__gte=subscription.start_date))
-        if employer_subscriptions.count() >= 1:
-            form.add_error(
-                'employer', 'The chosen employer is already subscribed in the same period.')
-            return super().form_invalid(form)
+                                timedelta(days=subscription.plan.days)
+        # employer_subscriptions = Subscription.objects.filter(Q(employer=subscription.employer), Q(
+        #     start_date__lte=subscription.end_date), Q(end_date__gte=subscription.start_date))
+        # if employer_subscriptions.count() >= 1:
+        #     form.add_error(
+        #         'employer', 'The chosen employer is already subscribed in the same period.')
+        #     return super().form_invalid(form)
         subscription.created_by = User.objects.get(
             email=self.request.user.email)
         subscription.created_at = datetime.now()
@@ -520,3 +603,19 @@ class SubscriptionUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView
 
     def test_func(self):
         return True
+
+
+class SubscriptionPlanCreateView(CreateView):
+    model = subscription_plan
+    template_name = 'employer/subscription/create_plan.html'
+    form_class = SubscriptionPlanForm
+    success_message = 'Success: Subscription plan was created.'
+    success_url = reverse_lazy('subscriptions_plan_list')
+
+
+class SubscriptionPlanUpdateView(UpdateView):
+    model = subscription_plan
+    template_name = 'employer/subscription/update_plan.html'
+    form_class = SubscriptionPlanForm
+    success_url = reverse_lazy('subscriptions_plan_list')
+

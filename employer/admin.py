@@ -2,7 +2,7 @@ from django.contrib.admin import ModelAdmin, register
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
 from django.contrib import admin
-from .models import employer, job, subscription_features, subscription_plan, Transaction, Subscription, suggestion
+from .models import employer, job, subscription_features, subscription_plan, Checkout, Subscription, suggestion
 # Register your models here.
 
 
@@ -47,7 +47,7 @@ class FeaturesAdmin(ModelAdmin):
 @register(subscription_plan)
 class PlanAdmin(ModelAdmin):
     list_display = ('id', 'plan', 'suggestions', 'jobs',
-                    'price', 'days', 'features_list', 'is_active')
+                    'price', 'days', 'features_list', )
     icon_name = 'assignment'
     list_filter = ('plan',)
 
@@ -55,17 +55,17 @@ class PlanAdmin(ModelAdmin):
         return [feature.feature for feature in obj.features.all()]
 
 
-@register(Transaction)
-class TransactionAdmin(ModelAdmin):
-    list_display = ('id', 'employer', 'subscription', 'amount',
-                    'payment_status', 'transaction_id')
+@register(Checkout)
+class CheckoutAdmin(ModelAdmin):
+    list_display = ('id', 'employer', 'plan', 'amount',
+                    'payment_status', 'checkout_id')
     icon_name = 'assignment'
     list_filter = ('employer',)
 
 
 @register(Subscription)
 class SubscriptionAdmin(ModelAdmin):
-    list_display = ('id', 'employer', 'plan', 'used_jobs',
+    list_display = ('id', 'checkout', 'employer', 'plan', 'used_jobs',
                     'remaining_jobs', 'used_suggestions', 'remaining_suggestions', 'start_date', 'end_date', 'is_active')
     icon_name = 'assignment'
     list_filter = ('plan', 'employer')

@@ -1,0 +1,119 @@
+{% extends "dashboard/dashboard.html" %} {% block content %} {% load static %}{% load i18n %}
+<a href="{% url 'subscription_create' %}" class="btn btn-primary">{% trans 'Add New subscription' %}</a>
+<div class="tab-pane fade show active" id="Subscriptions" role="tabpanel" aria-labelledby="Subscriptions-tab">
+        <form method="GET">
+    <div class="row m-3">
+      <div class="col-md">
+        <div class="form-floating">
+          <input type="text" class="form-control" id="keywords" name="keywords" aria-describedby="search by email, employer" placeholder="search by email, employer" />
+          <label for="keywords">{% trans 'keywords' %}</label>
+        </div>
+      </div>
+      <div class="col-md">
+        <div class="form-floating">
+          <select class="form-control" placeholder="Number of records" id="number_of_records" name="number_of_records" aria-label="priority">
+            <option value="10">{% trans '10 records' %}</option>
+            <option value="25">{% trans '25 records' %}</option>
+            <option value="50">{% trans '50 records' %}</option>
+          </select>
+          <label for="id" class="form-label">{% trans 'Number of records' %}</label>
+        </div>
+      </div>
+    </div>
+    <div class="row m-3">
+      <div class="d-grid gap-2 col-2 mx-auto">
+        <button type="submit" name="search" value="search" class="btn btn-warning">
+          {% trans 'Search' %}
+        </button>
+      </div>
+      <div class="d-grid gap-2 col-2 mx-auto">
+        <button type="submit" name="clear" value="clear" class="btn btn-danger">
+          {% trans 'Clear' %}
+        </button>
+      </div>
+    </div>
+  </form>
+  <div class="card-block p-3">
+    <div class="table-responsive">
+           <table class="table" id="Subscriptions_table">
+       <thead>
+          <tr>
+            <th>Employer</th>
+            <th>Total Jobs</th>
+            <th>Used Jobs</th>
+            <th>Remaining Jobs</th>
+            <th>Total Suggestions</th>
+            <th>Used Suggestions</th>
+            <th>Remaining Suggestions</th>
+          </tr>
+       </thead>
+       <tbody>
+          {% for employer in page_obj %}
+          <tr>
+            <td>
+               <a href="{% url 'employer_details' employer.id %}" target="_blank">
+                {{ employer.company }}
+               </a>
+            </td>
+            <td>{{ employer.total_jobs|default:"0" }}</td>
+            <td>{{ employer.used_jobs|default:"0" }}</td>
+            <td>{{ employer.remaining_jobs|default:"0" }}</td>
+            <td>{{ employer.total_suggestions|default:"0" }}</td>
+            <td>{{ employer.used_suggestions|default:"0" }}</td>
+            <td>{{ employer.remaining_suggestions|default:"0" }}</td>
+          </tr>
+       {% endfor %}
+       </tbody>
+     </table>
+    </div>
+
+    <div class="row justify-content-center mt30">
+      <nav aria-label="Page navigation ">
+        <ul class="pagination justify-content-center flex-wrap mt-2 mb-4">
+          {% if page_obj.has_previous %}
+          <li class="page-item">
+            <a class="btn btn-sm btn-warning" href="?page={{ page_obj.previous_page_number }}">«</a>
+          </li>
+          {% else %}
+          <li class="disabled page-item">
+            <span class="btn btn-sm btn-light">&laquo;</span>
+          </li>
+          {% endif %} {% for i in page_range|default_if_none:page_obj.paginator.get_elided_page_range %} {% if page_obj.number == i %}
+          <li class="active page-item">
+            <span class="btn btn-sm btn-light">
+              {{ i }}</span>
+          </li>
+          {% else %} {% if i == page_obj.paginator.ELLIPSIS %}
+          <li class="page-item">
+            <span class="btn btn-sm btn-light">
+              {{ i }}</span>
+          </li>
+          {% else %}
+          <li class="page-item">
+            <a class="btn btn-sm btn-warning" href="?page={{ i }}">
+              {{ i }}</a>
+          </li>
+          {% endif %} {% endif %} {% endfor %} {% if page_obj.has_next %}
+          <li class="page-item">
+            <a class="btn btn-sm btn-warning" href="?page={{ page_obj.next_page_number }}">»</a>
+          </li>
+          {% else %}
+          <li class="disabled page-item">
+            <span class="btn btn-sm btn-light">&raquo;</span>
+          </li>
+          {% endif %}
+        </ul>
+      </nav>
+    </div>
+
+</div>
+</div>
+<script type="text/javascript">
+  var srchval = JSON.parse("{{ session | escapejs }}");
+  window.addEventListener("load", function() {
+    // document.getElementById('cm').classList.add('active');
+    document.getElementById("number_of_records").value = srchval[1];
+    document.getElementById("keywords").value = srchval[0];
+  });
+</script>
+{% endblock %}

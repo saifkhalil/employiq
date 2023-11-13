@@ -1,0 +1,19 @@
+{% extends "dashboard/dashboard.html" %}  {% load widget_tweaks %} {% load i18n %}{% load crispy_forms_tags %} {% block content %}
+<div class="header">
+  <div class="filtered">
+    <div class="row justify-content-md-center">
+      <h3 class="text-center pb50">{% trans 'Add new subscription plan' %}</h3>
+      <div class="col-8">
+          <form method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+                <div class="text-center">
+                    <button type="submit" class="btn btn-warning">{% trans 'Save' %}</button>
+                    <a href="{% url 'subscriptions_plan_list' %}" class="btn btn-secondary">{% trans 'Cancel' %}</a>
+                </div>
+          </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

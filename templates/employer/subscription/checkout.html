@@ -1,0 +1,160 @@
+{% extends "base.html" %} {% load widget_tweaks %} {% load i18n %} {% block content %}
+<style>
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  box-sizing: border-box;
+}
+
+body {
+  width:100%;
+  height: 100vh;
+  background-size: cover;
+background-color: black;
+
+}
+
+.bg-image {
+  /* The image used */
+  background: url(https://employiq.net/static/images/details-1-background.jpg);
+  opacity: 0.65;
+  /* Add the blur effect */
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+th {
+text-align: left;
+}
+
+thead {
+    border-bottom: 1px solid #d0d0d0;
+}
+.main-section {
+height: 700px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  position: absolute !important;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  -webkit-transform: translate(-50%, 0%);
+  -ms-transform: translate(-50%, 0%);
+  transition: 1s all ease-in-out;
+  -webkit-transition: 1s all ease-in-out;
+  -moz-transition: 1s all ease-in-out;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+}
+.center-align {
+text-align: center;
+}
+
+#crickets {
+  width: 100px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+table td:nth-child(1) {
+  width: 75%;
+}
+
+table td:nth-child(2) {
+  width: 25%;
+}
+
+h5 {
+    font-size: 1.34rem;
+    line-height: 110%;
+    margin: 0.82rem 0 0.656rem 0;
+}
+.bold {
+  font-weight: bold;
+  font-size: 20px;
+}
+.logo img {
+  position: relative;
+  top: 0px;
+  left: 290px;
+  width: 60px;
+  filter: invert(1);
+  -moz-filter: invert(1);
+  -webkit-filter: invert(1);
+}
+
+.checkout {
+  margin: 0px;
+}
+.card-panel {
+  padding-bottom: 0px;
+    transition: box-shadow .25s;
+    padding: 20px;
+    margin: 0.5rem 0 1rem 0;
+    border-radius: 20px;
+    background-color: #fff;
+    box-shadow: black 0px 0px 20px 0px;
+}
+</style>
+<section class="main-section overlay-black">
+<div class="bg-image"></div>
+<!--Begin Checkout-->
+<div class="container">
+  <p class="help" style="color:#ffffff;">
+    Please review your bill and pay </p>
+  <div class="box card-panel z-depth-3">
+    <div class="merchant">
+
+      <img id="crickets" src="{{ employer.logo.url }}" />
+      <h5 class="center-align">{{ employer.company }}</h5>
+      <p>{{ checkout.plan.created_at }}</p>
+    </div>
+    <div class="invoice">
+      <table class="highlight">
+        <thead>
+          <tr>
+            <th>Plan</th>
+            <th class="right-align">Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="item">{{ checkout.plan }}</td>
+            <td class="right-align">{{ checkout.plan.price }}</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td class="right-align bold">Total</td>
+            <td class="right-align bold">{{ checkout.plan.price }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="payment">
+      <h5>Payment Information</h5>
+      <div class="">
+        <form action="http://127.0.0.1:8000/" class="paymentWidgets" data-brands="VISA MASTER"></form>
+<script src="https://test.oppwa.com/v1/paymentWidgets.js?checkoutId={{ checkout_id }}"></script>
+      </div>
+    </div>
+    </div>
+  </div>
+</section>
+{% endblock content %}

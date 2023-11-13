@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.translation import gettext_lazy as _
 from django.conf.urls.i18n import i18n_patterns
 
+
 urlpatterns = [
     path('', login_required(my_employer_details), name='my_employer_details'),
     path('create', login_required(
@@ -14,8 +15,9 @@ urlpatterns = [
          login_required(EmployerUpdateView.as_view()), name='employer_update'),
     path('<uuid:eid>', login_required(
         employer_details), name='employer_details'),
-    path('job/create', login_required(
-        JobCreateView.as_view()), name='job_create'),
+    path('job/create/', login_required(JobCreateView.as_view()), name='job-create'),
+    path('job/pre_create', login_required(
+        pre_job_create), name='job_create'),
     path('job/<uuid:jid>', JobDetails, name='job_details'),
     path('job/<uuid:pk>/update/',
          login_required(JobUpdateView.as_view()), name='job_update'),
@@ -24,8 +26,13 @@ urlpatterns = [
          name='subscription_create'),
     path('subscription/<uuid:pk>/update/',
          login_required(SubscriptionUpdateView.as_view()), name='subscription_update'),
+    path('subscription_plan/create', login_required(SubscriptionPlanCreateView.as_view()),
+         name='subscription_plan_create'),
+    path('subscription_plan/<uuid:pk>/update/',
+         login_required(SubscriptionPlanUpdateView.as_view()), name='subscription_plan_update'),
     path('job/apply/<uuid:jid>', login_required(job_apply), name='job_apply'),
     path('subscribe/<uuid:sid>', login_required(employer_plan), name='employer_plan'),
+    path('checkout/<str:cid>', login_required(employer_checkout), name='employer_checkout'),
     path('verify/<uuid:employerid>', send_verified, name="send_verified"),
 ]
 

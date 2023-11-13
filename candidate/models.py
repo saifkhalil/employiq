@@ -143,7 +143,7 @@ class language(models.Model):
     id = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)
     language = LanguageField(max_length=10, blank=False,
-                             null=False)
+                             null=False,)
     level = models.CharField(
         max_length=10, choices=LANGUAGE_LEVELS, blank=False, null=False, verbose_name=_('Level'))
     test = models.CharField(max_length=200, null=True, blank=True,)
