@@ -73,7 +73,7 @@ oauthlib==3.2.0
 odfpy==1.4.1
 openpyxl==3.0.9
 phonenumbers==8.12.36
-Pillow==8.4.0
+Pillow==10.0.1
 polib==1.1.1
 prompt-toolkit==3.0.28
 py-moneyed==1.2
