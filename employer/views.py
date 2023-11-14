@@ -121,17 +121,13 @@ class EmployerCreateView(CreateView):
 
 def pre_job_create(request):
     user = request.user
-    remaining_jobs = 0
+    current_employer = employer.objects.get(user=user)
+    remaining_jobs = current_employer.remaining_jobs()
     is_active = False
     employer_subscription = None
-    employer_subscription_last = Subscription.objects.filter(
-        employer__user=user).order_by('-end_date').first()
-    if employer_subscription_last:
-        employer_subscription = Subscription.objects.get(
-            id=employer_subscription_last.id)
-        remaining_jobs = employer_subscription.remaining_jobs()
-        is_active = employer_subscription.is_active()
-    if employer_subscription and is_active:
+    employer_subscriptions = Subscription.objects.filter(
+        employer__user=user).count()
+    if employer_subscriptions > 0:
         if remaining_jobs <= 0:
             messages.add_message(request, messages.ERROR,
                                  _(f"You don't have remaining Jobs balance for your current subscription {employer_subscription.plan}"))
