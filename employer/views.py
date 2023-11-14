@@ -150,17 +150,13 @@ class JobCreateView(CreateView):
         Job = form.save(commit=False)
         user = self.request.user
         remaining_jobs = 0
-        employer_subscription_last = Subscription.objects.filter(
-            employer__user=user).order_by('-end_date').first()
-        if employer_subscription_last:
-            employer_subscription = Subscription.objects.get(
-                id=employer_subscription_last.id)
-            remaining_jobs = employer_subscription.remaining_jobs()
-        else:
+        employer_subscriptions = Subscription.objects.filter(
+            employer__user=user).count()
+        if employer_subscriptions <= 0:
             messages.add_message(self.request, messages.ERROR,
                                  _("You are not subscribed to us, please subscribe to post a job"))
         current_employer = employer.objects.get(user__id=self.request.user.id)
-
+        remaining_jobs = current_employer.remaining_jobs()
         if current_employer.is_verified == False:
             messages.add_message(self.request, messages.ERROR,
                                  _("Your employer profile under review"))
