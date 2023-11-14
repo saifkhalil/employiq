@@ -27,7 +27,7 @@ cryptography==36.0.2
 cssselect2==0.4.1
 defusedxml==0.7.1
 diff-match-patch==20200713
-Django==3.2.15
+Django==3.2.23
 django-admin-honeypot==1.1.0
 django-allauth==0.50.0
 django-bootstrap-modal-forms==2.2.0
