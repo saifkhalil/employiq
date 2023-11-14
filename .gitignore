@@ -4,9 +4,6 @@ photos/
 venv/
 static/
 settings.py
-accounts/migrations
-candidate/migrations
-employer/migrations
 
 /.idea/
 /.vscode/
