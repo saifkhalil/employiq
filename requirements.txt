@@ -23,7 +23,7 @@ click-didyoumean==0.3.0
 click-plugins==1.1.1
 click-repl==0.2.0
 crispy-bootstrap5==0.6
-cryptography==36.0.2
+cryptography==41.0.4
 cssselect2==0.4.1
 defusedxml==0.7.1
 diff-match-patch==20200713
