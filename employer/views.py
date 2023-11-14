@@ -36,7 +36,8 @@ from datetime import datetime
 from django.template.loader import render_to_string
 from core.payment_api import checkout, payment_check
 from django.contrib.sites.models import Site
-
+import environ
+env = environ.Env()
 
 # Create your views here.
 
@@ -460,6 +461,7 @@ def employer_checkout(request, cid):
         if payment.get('result').get('code') == '000.200.000':
             context = {
                 'domain': current_site.domain,
+                'host': env('APP_HOST'),
                 'checkout_id': cid,
                 'employer': current_employer,
                 'checkout': checkout,
