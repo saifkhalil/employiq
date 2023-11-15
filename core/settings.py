@@ -14,7 +14,8 @@ import os
 
 env = environ.Env(
     # set casting, default value
-    DEBUG=(bool, False)
+    DEBUG=(bool, False),
+    SECRET_KEY=(str, 'your_secret_key')
 )
 from django.utils.translation import gettext_lazy as _
 
