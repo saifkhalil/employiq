@@ -2,9 +2,10 @@ name: Django CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, payment_gatway_v2, latest ]
   pull_request:
-    branches: [ master ]
+    branches: [ master, payment_gatway_v2, latest ]
+
 
 jobs:
   build:
