@@ -16,7 +16,7 @@ def checkout(amount):
     data = {
         'entityId': env('ENTITY_ID'),
         'amount': f"{amount}",
-        'currency': 'USD',
+        'currency': 'IQD',
         'paymentType': 'DB'
     }
     try:
