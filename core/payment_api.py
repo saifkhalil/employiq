@@ -12,11 +12,11 @@ import json
 
 
 def checkout(amount):
-    url = env('PAYMENT_URL')
+    url = f"{env('PAYMENT_URL')}/v1/checkouts"
     data = {
         'entityId': env('ENTITY_ID'),
         'amount': f"{amount}",
-        'currency': 'IQD',
+        'currency': 'USD',
         'paymentType': 'DB'
     }
     try:
