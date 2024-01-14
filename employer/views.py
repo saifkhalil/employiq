@@ -454,6 +454,7 @@ def employer_checkout(request, cid):
             context = {
                 'domain': current_site.domain,
                 'host': env('APP_HOST'),
+                'payment_url':env('PAYMENT_URL'),
                 'checkout_id': cid,
                 'employer': current_employer,
                 'checkout': checkout,
