@@ -33,8 +33,7 @@ def checkout(amount):
 
 
 def payment_check(checkout_id):
-    url = f"{env('PAYMENT_URL')}/v1/checkouts/{checkout_id}/payment"
-    url += f"?entityId={env('ENTITY_ID')}"
+    url = f"{env('PAYMENT_URL')}/v1/checkouts/{checkout_id}/payment?entityId={env('ENTITY_ID')}"
     try:
         opener = build_opener(HTTPHandler)
         request = Request(url, data=b'')

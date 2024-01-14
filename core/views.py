@@ -378,7 +378,8 @@ def home(request):
         if id not in ('', None):
             result = payment_check(id)
             print('result :', result.get('result').get('code'))
-            if result.get('result').get('code') == '000.100.110':
+            status = result.get('result').get('code')
+            if status == '000.100.110' or status == '000.000.000':
                 checkout = Checkout.objects.get(checkout_id=id)
                 checkout.payment_status = 'Paid'
                 checkout.save()
