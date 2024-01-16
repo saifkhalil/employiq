@@ -182,15 +182,33 @@
                                     <i class="fa fa-envelope"></i>
                                     <a href="mailto:{{ object.communication_email}}">{{ object.communication_email}}</a>
                                 </li>
-                                <li>
-                                    <i class="fa fa-briefcase"></i>
-                                    <span>Job balance {{ object.remaining_jobs}}</span>
-                                </li>
-                                <li>
+                                            <li>
+                                                <i class="fa fa-briefcase"></i>
+                                                <span>Total jobs: {{ object.total_jobs|default:"0" }}</span>
+                                            </li>
+            <li>
+                 <i class="fa fa-briefcase"></i>
+                <span>Used jobs: {{ object.used_jobs|default:"0" }}</span>
+            </li>
+            <li>
+                 <i class="fa fa-briefcase"></i>
+                <span>Remaining jobs: {{ object.remaining_jobs|default:"0" }}</span>
+            </li>
+            <li>
                                     <i class="fa fa-search"></i>
-                                    <span>Suggestions balance {{ object.remaining_records}}</span>
-                                </li>
+                <span>Total balance {{ object.total_suggestions|default:"0" }}</span></li>
+            <li>
+                                    <i class="fa fa-search"></i>
+                <span>Used balance {{ object.used_suggestions|default:"0" }}</span></li>
+            <li>
+                                    <i class="fa fa-search"></i>
+                <span>Remaining balance {{ object.remaining_suggestions|default:"0" }}</span></li>
                             </ul>
+                            <table>
+                                <thead>
+                                <td></td>
+                                </thead>
+                            </table>
                         </div>
                         <!-- End of Profile Info -->
                     </div>
