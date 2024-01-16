@@ -26,5 +26,8 @@ django-admin-honeypot
 mysqlclient
 geoip2
 django-grappelli
-Pillow==9.5.0
+Pillow==10.0.1
 Django==3.2.23
+aiohttp>=3.9.0 # not directly required, pinned by Snyk to avoid a vulnerability
+fonttools>=4.43.0 # not directly required, pinned by Snyk to avoid a vulnerability
+setuptools>=65.5.1 # not directly required, pinned by Snyk to avoid a vulnerability
