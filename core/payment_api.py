@@ -12,17 +12,18 @@ import json
 
 
 def checkout(amount):
-    url = f"{env('PAYMENT_URL')}/v1/checkouts"
+    env_url = env('APP_ENV')
+    url = f"{env(f'{env_url}_PAYMENT_URL')}/v1/checkouts"
     data = {
-        'entityId': env('ENTITY_ID'),
+        'entityId': env(f'{env_url}_ENTITY_ID'),
         'amount': f"{amount}",
-        'currency': 'IQD',
+        'currency': env(f'{env_url}_CURRENCY'),
         'paymentType': 'DB'
     }
     try:
         opener = build_opener(HTTPHandler)
         request = Request(url, data=urlencode(data).encode('utf-8'))
-        request.add_header('Authorization', f"Bearer {env('CHECKOUT_TOKEN')}")
+        request.add_header('Authorization', f"Bearer {env(f'{env_url}_CHECKOUT_TOKEN')}")
         request.get_method = lambda: 'POST'
         response = opener.open(request)
         return json.loads(response.read())
@@ -33,11 +34,12 @@ def checkout(amount):
 
 
 def payment_check(checkout_id):
-    url = f"{env('PAYMENT_URL')}/v1/checkouts/{checkout_id}/payment?entityId={env('ENTITY_ID')}"
+    env_url = env('APP_ENV')
+    url = f"{env(f'{env_url}_PAYMENT_URL')}/v1/checkouts/{checkout_id}/payment?entityId={env(f'{env_url}_ENTITY_ID')}"
     try:
         opener = build_opener(HTTPHandler)
         request = Request(url, data=b'')
-        request.add_header('Authorization', f"Bearer {env('CHECKOUT_TOKEN')}")
+        request.add_header('Authorization', f"Bearer {env(f'{env_url}_CHECKOUT_TOKEN')}")
         request.get_method = lambda: 'GET'
         response = opener.open(request)
         return json.loads(response.read())

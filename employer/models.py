@@ -327,6 +327,18 @@ class Checkout(models.Model):
         return str(self.id)
 
 
+class Payment_status(models.Model):
+    id = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False)
+    employer = models.ForeignKey(employer, on_delete=models.CASCADE)
+    status = models.JSONField(verbose_name='status')
+    created_at = models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(
+        User, related_name='%(class)s_createdby', on_delete=models.CASCADE, blank=True, null=True)
+
+    def __str__(self):
+        return str(self.id)
+
 class Subscription(models.Model):
     id = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)

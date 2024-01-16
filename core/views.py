@@ -377,6 +377,7 @@ def home(request):
         print('id :', id)
         if id not in ('', None):
             result = payment_check(id)
+            print('paymet_status: ',result)
             print('result :', result.get('result').get('code'))
             status = result.get('result').get('code')
             if status == '000.100.110' or status == '000.000.000':
@@ -394,7 +395,8 @@ def home(request):
                 subscription.save()
                 messages.add_message(request, messages.SUCCESS, "You have successfully subscribed with us.")
             else:
-                messages.add_message(request, messages.ERROR, "There was a problem with your subscription, please try again later.")
+                msg = result.get('result').get('description')
+                messages.add_message(request, messages.ERROR, f"There was a problem with your payment, ({msg}).")
         employer_details = []
         users = User.objects.all()
         employers = employer.objects.all()

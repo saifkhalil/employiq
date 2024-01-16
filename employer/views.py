@@ -450,11 +450,12 @@ def employer_checkout(request, cid):
         payment = payment_check(cid)
         current_site = Site.objects.get_current()
         print(payment)
+        env_url = env('APP_ENV')
         if payment.get('result').get('code') == '000.200.000':
             context = {
                 'domain': current_site.domain,
-                'host': env('APP_HOST'),
-                'payment_url':env('PAYMENT_URL'),
+                'host': env(f'{env_url}_APP_HOST'),
+                'payment_url': env(f'{env_url}_PAYMENT_URL'),
                 'checkout_id': cid,
                 'employer': current_employer,
                 'checkout': checkout,
