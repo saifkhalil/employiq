@@ -383,6 +383,7 @@ def home(request):
             if status == '000.100.110' or status == '000.000.000':
                 checkout = Checkout.objects.get(checkout_id=id)
                 checkout.payment_status = 'Paid'
+                checkout.paymentgetway_status = result
                 checkout.save()
                 end_date = timezone.now() + timezone.timedelta(days=checkout.plan.days)
                 subscription = Subscription(
@@ -396,6 +397,9 @@ def home(request):
                 messages.add_message(request, messages.SUCCESS, "You have successfully subscribed with us.")
             else:
                 msg = result.get('result').get('description')
+                checkout = Checkout.objects.get(checkout_id=id)
+                checkout.paymentgetway_status = result
+                checkout.save()
                 messages.add_message(request, messages.ERROR, f"There was a problem with your payment, ({msg}).")
         employer_details = []
         users = User.objects.all()

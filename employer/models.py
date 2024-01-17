@@ -315,6 +315,7 @@ class Checkout(models.Model):
         'subscription_plan', on_delete=models.CASCADE, blank=True, null=True, verbose_name=_('Plan'))
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     payment_status = models.CharField(max_length=20)
+    paymentgetway_status = models.JSONField(blank=True, null=True, verbose_name='Paymentgate response')
     checkout_id = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
