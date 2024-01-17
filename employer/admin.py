@@ -58,7 +58,7 @@ class PlanAdmin(ModelAdmin):
 @register(Checkout)
 class CheckoutAdmin(ModelAdmin):
     list_display = ('id', 'employer', 'plan', 'amount',
-                    'payment_status', 'checkout_id')
+                    'payment_status', 'checkout_id', 'created_at')
     icon_name = 'assignment'
     list_filter = ('employer',)
 
