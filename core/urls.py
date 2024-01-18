@@ -58,7 +58,7 @@ urlpatterns = i18n_patterns(
     path('dashboard/employers', views.employers_list, name='employers_list'),
     path('dashboard/candidates', views.candidates_list, name='candidates_list'),
     path('dashboard/suggestions', views.suggestions_list, name='suggestions_list'),
-    path('dashboard/checkouts', views.suggestions_list, name='checkouts_list'),
+    path('dashboard/checkouts', views.checkouts_list, name='checkouts_list'),
     path('dashboard/subscriptions', views.subscriptions_list,
          name='subscriptions_list'),
     path('dashboard/subscriptions_plan', views.subscriptions_plan_list,
