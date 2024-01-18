@@ -37,6 +37,7 @@
       <table class="table" id="Subscriptions_table">
         <thead>
           <tr>
+            <th>Checkout ID</th>
             <th>Employer</th>
             <th>Plan</th>
             <th>Amount</th>
@@ -47,6 +48,9 @@
         <tbody>
           {% for suggestion in page_obj %}
           <tr>
+                          <td>
+                {{ suggestion.id }}
+            </td>
             <td>
               <a href="{% url 'employer_details' suggestion.employer.id %}" target="_blank">
                 {{ suggestion.employer.company }}</a>
