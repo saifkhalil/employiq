@@ -49,7 +49,7 @@
           {% for suggestion in page_obj %}
           <tr>
                           <td>
-                {{ suggestion.id }}
+                {{ suggestion.checkout_id }}
             </td>
             <td>
               <a href="{% url 'employer_details' suggestion.employer.id %}" target="_blank">
