@@ -38,7 +38,6 @@
         <thead>
           <tr>
             <th>Employer</th>
-            <th>Checkout ID</th>
             <th>Plan</th>
             <th>Amount</th>
             <th>Payment Status</th>
@@ -46,26 +45,23 @@
           </tr>
         </thead>
         <tbody>
-          {% for checkout in page_obj %}
+          {% for suggestion in page_obj %}
           <tr>
-              <td>
-                {{ checkout.checkout_id }}
-          </td>
             <td>
               <a href="{% url 'employer_details' suggestion.employer.id %}" target="_blank">
-                {{ checkout.employer.company }}</a>
+                {{ suggestion.employer.company }}</a>
             </td>
               <td>
-                {{ checkout.plan }}
+                {{ suggestion.plan }}
             </td>
           <td>
-              {{ checkout.amount }}
+              {{ suggestion.amount }}
           </td>
             <td>
-              {{ checkout.payment_status }}
+              {{ suggestion.payment_status }}
           </td>
           <td>
-              {{ checkout.created_at }}
+              {{ suggestion.created_at }}
           </td>
           </tr>
           {% endfor %}
