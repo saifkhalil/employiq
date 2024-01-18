@@ -339,7 +339,7 @@ def suggestions_list(request):
 @user_passes_test(lambda u: u.is_superuser)
 def checkouts_list(request):
     checkouts_list = {}
-    suggestions = Checkout.objects.all()
+    checkouts = Checkout.objects.all()
     if request.method == 'GET':
         if request.GET.get('keywords'):
             keywords = request.GET.get('keywords')
@@ -373,7 +373,7 @@ def checkouts_list(request):
         employers = employer.objects.filter(query).values_list('id', flat=True)
         checkouts_list = Checkout.objects.filter(employer__in=employers).order_by('-created_at')
     else:
-        checkouts_list = Checkout.order_by('-created_at')
+        checkouts_list = checkouts.order_by('-created_at')
     session = [keywords, number_of_records]
     paginator = Paginator(checkouts_list, number_of_records)
     page_number = request.GET.get('page', 1)
