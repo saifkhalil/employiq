@@ -248,13 +248,13 @@ class employer(models.Model):
         }
 
     def total_jobs(self):
-        total_jobs: int = self.subscription_set.aggregate(sum_jobs=models.Sum('plan__jobs'))['sum_jobs']
+        total_jobs: int = self.subscription_set.exclude(plan='f271cbfb-cb96-4be3-aef0-6e2ecdc24a3b').aggregate(sum_jobs=models.Sum('plan__jobs'))['sum_jobs']
         total_jobs = total_jobs if total_jobs else 0
-        return self.subscription_set.aggregate(sum_jobs=models.Sum('plan__jobs'))['sum_jobs']
+        return self.subscription_set.exclude(plan='f271cbfb-cb96-4be3-aef0-6e2ecdc24a3b').aggregate(sum_jobs=models.Sum('plan__jobs'))['sum_jobs']
 
     def used_jobs(self):
         # Calculate the count of jobs created within the subscription period
-        return self.jobs.count()
+        return self.jobs.filter(created_at__gte='2024-1-1 00:00').count()
 
     def remaining_jobs(self):
         total_jobs: int = self.total_jobs() if self.total_jobs() else 0
@@ -262,13 +262,13 @@ class employer(models.Model):
         return total_jobs - used_jobs
 
     def total_suggestions(self):
-        total_suggestions: int = self.subscription_set.aggregate(sum_suggestions=models.Sum('plan__suggestions'))['sum_suggestions']
+        total_suggestions: int = self.subscription_set.exclude(plan='f271cbfb-cb96-4be3-aef0-6e2ecdc24a3b').aggregate(sum_suggestions=models.Sum('plan__suggestions'))['sum_suggestions']
         total_suggestions = total_suggestions if total_suggestions else 0
         return total_suggestions
 
     def used_suggestions(self):
         # Calculate the count of suggestions created within the subscription period
-        return self.suggestions.count()
+        return self.suggestions.filter(created_at__gte='2024-1-1 00:00').count()
 
     def remaining_suggestions(self):
         total_suggestions: int = self.total_suggestions() if self.total_suggestions() else 0
