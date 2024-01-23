@@ -26,5 +26,5 @@ django-admin-honeypot
 mysqlclient
 geoip2
 django-grappelli
-Pillow==9.5.0
+Pillow==10.2.0
 Django==3.2.23
